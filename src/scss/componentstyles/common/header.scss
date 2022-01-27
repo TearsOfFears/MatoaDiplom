@@ -1,0 +1,137 @@
+
+nav {
+  .btn-cart {
+    width: 46px;
+    height: 46px;
+    border-radius: 100%;
+    background-color: $grey;
+    border: none;
+    outline: 0;
+    margin-left: 40px;
+    position: relative;
+
+    span {
+      position: absolute;
+      top: -2px;
+      right: -5px;
+      width: 20px;
+      height: 20px;
+      padding: 3px;
+      color: $secondAccent;
+      border-radius: 100%;
+      background-color: $accent;
+      z-index: 2;
+    }
+    &:hover{
+      background-color: $secondAccent;
+      transition: .3s;
+    }
+  }
+
+  .btn-login {
+    font-family: Taviraj;
+    font-size: 18px;
+    letter-spacing: 0.36px;
+    color: $black;
+    background: transparent;
+    border: none;
+    outline: 0;
+    &:hover{
+      color:$accent;
+      transition: .3s;
+    }
+  }
+
+  .navbar-nav {
+    .nav-item {
+      margin: 0px 40px 0px 0px;
+      font-family: Taviraj;
+      font-size: 20px;
+      letter-spacing: 0.4px;
+      text-align: left;
+      color: $black;
+
+      .nav-link {
+        color: $black;
+        position: relative;
+        overflow: hidden;
+        transition: color .5s cubic-bezier(0.11, 0.7, 0, 1);
+
+        &:hover {
+          color: $accent;
+        }
+      }
+    }
+  }
+}
+
+.nav-link {
+  color: $black;
+  position: relative;
+  overflow: hidden;
+  transition: color .5s cubic-bezier(0.11, 0.7, 0, 1);
+
+  &:hover {
+    color: $accent;
+  }
+}
+
+.nav-link:after {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  display: block;
+  width: 100%;
+  height: 2px;
+  content: "";
+  background-color: $accent;
+  transform: scale(0);
+  transition: transform .5s cubic-bezier(0.11, 0.7, 0, 1);
+}
+
+.nav-link:hover::after {
+  
+  transform: scale(1);
+  color: $accent;
+}
+
+.active{
+  color: $accent !important;
+  position: relative;
+  overflow: hidden;
+
+  &::after{
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    display: block;
+    width: 100%;
+    height: 2px;
+    content: "";
+    background-color: $accent;
+    transform: scale(1);
+    color: $accent;
+  }
+}
+
+.navbar-toggler{
+  &:hover{
+    border: 1px solid $accent;
+    outline: none ;
+  }
+  &:active{
+    border: 1px solid $accent ;
+    outline: none ;
+  }
+  &:focus{
+    border: 1px solid $accent ;
+    outline: none ;
+    box-shadow: none !important;
+  }
+    svg{
+      path{
+        fill: $accent;
+      }
+      
+    }
+}

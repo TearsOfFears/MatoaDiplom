@@ -1,0 +1,56 @@
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  background: $grey !important;
+}
+
+body {
+  margin: 0;
+  background: $grey !important;
+
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: 'Taviraj', 'Nunito';
+}
+
+.btn-discover {
+  font-family: "Taviraj";
+  font-size: 22px;
+  font-weight: 600;
+  color: $black;
+  padding: 0px;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+
+  &:hover {
+    cursor: pointer;
+    color: $accent;
+    transition: .4s;
+    border-bottom: 1px solid $accent;
+  }
+}
+
+.nopadding {
+  padding: 0 !important;
+  @media screen and (max-width: 480px) {
+    padding-left: 15px !important ;
+    padding-right: 15px !important;
+  }
+}

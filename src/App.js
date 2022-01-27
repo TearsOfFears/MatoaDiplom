@@ -1,7 +1,7 @@
 
 import React from 'react';
 import {Swiper1} from "./components"
-
+import 'animate';
 
 function App() {
   return (
