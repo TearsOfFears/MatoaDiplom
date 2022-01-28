@@ -9,14 +9,14 @@ nav {
     outline: 0;
     margin-left: 40px;
     position: relative;
-
+    transition: .5s;
     span {
       position: absolute;
       top: -2px;
       right: -5px;
       width: 20px;
       height: 20px;
-      padding: 3px;
+      vertical-align: middle;
       color: $secondAccent;
       border-radius: 100%;
       background-color: $accent;
@@ -24,7 +24,7 @@ nav {
     }
     &:hover{
       background-color: $secondAccent;
-      transition: .3s;
+      transition: .5s;
     }
   }
 
@@ -36,9 +36,24 @@ nav {
     background: transparent;
     border: none;
     outline: 0;
+    transition: .3s;
+    svg{
+      transition: .3s;
+      path{
+        transition: .3s;
+      }
+    }
     &:hover{
       color:$accent;
       transition: .3s;
+      svg{
+        transition: .3s;
+        fill:$accent;
+        path{
+          transition: .3s;
+          fill:$accent;
+        }
+      }
     }
   }
 
