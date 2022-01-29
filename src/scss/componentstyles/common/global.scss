@@ -37,8 +37,11 @@ body {
   margin-bottom: 10px;
   line-height: 1.2;
   text-decoration: none;
-  border-bottom: 1px solid #000;
-
+background:transparent;
+outline: 0;
+border:none;
+border-bottom: 1px solid #000;
+transition: .4s;
   &:hover {
     cursor: pointer;
     color: $accent;

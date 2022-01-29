@@ -3,7 +3,7 @@ import { Navigation, Pagination, Scrollbar, A11y, Parallax } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import caraousel1 from "../assets/img/home/caraousel1.png";
 import caraousel2 from "../assets/img/home/maple-1.png";
-
+import { Buttons } from "./index";
 import {
 	faInfoCircle,
 	faChevronLeft,
@@ -42,8 +42,8 @@ function Swiper1() {
 			image: caraousel1,
 		},
 	];
-	const navigationPrevRef = React.useRef(null)
-	const navigationNextRef = React.useRef(null)
+	const navigationPrevRef = React.useRef(null);
+	const navigationNextRef = React.useRef(null);
 
 	return (
 		<section className="caraousel">
@@ -57,6 +57,7 @@ function Swiper1() {
 							prevEl: ".swiper-button-prev",
 							nextEl: ".swiper-button-next",
 						}}
+						parallax={true}
 						loop={true}
 					>
 						{content.map((data) => {
@@ -67,44 +68,38 @@ function Swiper1() {
 											<img
 												src={data.image}
 												alt=""
-												data-swiper-parallax="-1400"
-												data-swiper-parallax-duration="700"
+												data-swiper-parallax={-1400}
+												data-swiper-parallax-duration={700}
 											/>
 										</div>
 										<div className="swiper-slide-wrapper__content">
 											<h1
-												data-swiper-parallax="-900"
-												data-swiper-parallax-duration="500"
+												data-swiper-parallax={-900}
+												data-swiper-parallax-duration={500}
 											>
 												{data.title}
 											</h1>
 											<hr
-												data-swiper-parallax="-900"
-												data-swiper-parallax-duration="600"
+												data-swiper-parallax={-900}
+												data-swiper-parallax-duration={600}
 											/>
 											<p
-												data-swiper-parallax="-900"
-												data-swiper-parallax-duration="700"
+												data-swiper-parallax={-900}
+												data-swiper-parallax-duration={700}
 											>
 												{data.content}
 											</p>
-											<a
-												href="#"
-												className="btn-discover "
-												data-swiper-parallax="-1100"
-												data-swiper-parallax-duration="700"
+											<div
+												className="links"
+												data-swiper-parallax={-1200}
+												data-swiper-parallax-duration={800}
 											>
-												Discover
-											</a>
-											<a
-												href="#"
-												className="btn-read"
-												data-swiper-parallax="-1200"
-												data-swiper-parallax-duration="700"
-											>
-												<FontAwesomeIcon icon={faInfoCircle} />
-												Read details
-											</a>
+												<Buttons style="btn-discover">Discover</Buttons>
+												<Buttons style="btn-read">
+													<FontAwesomeIcon icon={faInfoCircle} />
+													Read details
+												</Buttons>
+											</div>
 										</div>
 									</div>
 								</SwiperSlide>
