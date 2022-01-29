@@ -32,7 +32,7 @@ const Header = (props) => {
 				>
 					<span className="fa fa-bars"></span>
 				</button>
-
+				
 				<div
 					className="collapse navbar-collapse animate__animated"
 					id="ftco-nav"
