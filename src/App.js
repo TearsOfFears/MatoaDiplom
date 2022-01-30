@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Swiper1,Header} from "./components"
+import {Swiper1,Header,OurProducts} from "./components"
 import 'animate';
 
 function App() {
@@ -8,6 +8,7 @@ function App() {
     <div className="App">
       <Header/>
       <Swiper1/>
+      <OurProducts/>
     </div>
   );
 }
