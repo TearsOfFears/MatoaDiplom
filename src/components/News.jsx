@@ -5,11 +5,11 @@ import newsImage from "../assets/img/home/newsImage.png";
 
 function News() {
 	return (
-		<div class="container nopadding">
+		<div className="container nopadding">
 			<h1>Recent News</h1>
 			<hr />
-			<div class="row">
-				<div class="wrapper-news">
+			<div className="row">
+				<div className="wrapper-news">
 					<div>
 						<h3>Where To Travel</h3>
 						<h1>Matoa Where To Travel? Yogyakarta</h1>

@@ -129,9 +129,12 @@
 }
 
 .seemore {
-  padding: 16px 90px;
+ width: 250px;
   @media screen and (max-width: 720px) {
     padding: 10px 55px;
+  }
+  @media screen and (max-width: 576px) {
+    width: 190px;
   }
   &::before {
     content: '';

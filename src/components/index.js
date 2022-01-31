@@ -3,7 +3,7 @@ export {default as Header} from "./Header";
 export {default as OurProducts} from "./OurProducts";
 export {default as MonthyDeals} from "./MonthyDeals";
 export {default as News} from "./News";
-
+export {default as Series} from "./Series";
 
 export {default as Buttons} from "./Buttons";
 export {default as IconLogin} from "./IconLogin";
