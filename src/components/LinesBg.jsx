@@ -4,19 +4,19 @@ import Vector1 from "../assets/img/home/Vector1.png";
 
 function LinesBG() {
 	return (
-		<div class="wrapper-lines-bg">
-			<div class="lines">
-				<div class="block-top-lines">
+		<div className="wrapper-lines-bg">
+			<div className="lines">
+				<div className="block-top-lines">
 					<img src={Vector1} alt="" />
 				</div>
-				<div class="block-middle-lines">
+				<div className="block-middle-lines">
 					<img src={Vector1} alt="" />
 				</div>
-				<div class="block-bottom-lines">
+				<div className="block-bottom-lines">
 					<img src={Vector1} alt="" />
 				</div>
 			</div>
-			<div class="block-news-bg"></div>
+			<div className="block-news-bg"></div>
 		</div>
 	);
 }

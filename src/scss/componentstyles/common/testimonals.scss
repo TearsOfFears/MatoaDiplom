@@ -197,6 +197,7 @@
   .button-swiper {
     position: absolute;
     bottom: 20px;
+    z-index: 10;
 
     .swiper-button-prev {
       bottom: 00px;

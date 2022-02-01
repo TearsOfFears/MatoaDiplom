@@ -6,7 +6,7 @@ import ebony1 from "../assets/img/home/ebony-1.png";
 import ebony2 from "../assets/img/home/ebony-2.png";
 import ebony3 from "../assets/img/home/ebony-3.png";
 
-const series = [
+const seriesArray = [
 	{
 		titleFirst: "Maple Series",
 		Array1: [
@@ -37,13 +37,13 @@ const series = [
 	},
 ];
 
-function Series() {
+function Series1() {
 	return (
 		<section className="series">
 			<div className="container text-center position-relative">
 				<div className="row ">
 					<div className="wrapper-series">
-						{series.map((data, index) => {
+						{seriesArray.map((data, index) => {
 							return (
 								<div className="block" key={index}>
 									<h1 className="wrapper-series-title">{data.titleFirst}</h1>
@@ -67,11 +67,11 @@ function Series() {
 					</div>
 				</div>
 				<div className="col-12 position-relative mb-5">
-                    <Buttons style="btn-withoutBg seemore">	See more </Buttons>
+					<Buttons style="btn-withoutBg seemore"> See more </Buttons>
 				</div>
 			</div>
 		</section>
 	);
 }
 
-export default Series;
+export default Series1;

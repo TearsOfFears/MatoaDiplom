@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Swiper1,Header,OurProducts,MonthyDeals,News,LinesBg,LinesBottom, Series} from "./components"
+import {Swiper1,Header,OurProducts,MonthyDeals,News,LinesBg,LinesBottom, Series1, Testimonals, TestimonalsLines, InstagramPosts} from "./components"
 import 'animate';
 
 function App() {
@@ -11,12 +11,17 @@ function App() {
       <OurProducts/>
       <MonthyDeals/>
      
-      <section class="news">
+      <section className="news">
       <LinesBg/>
       <News/>
       <LinesBottom/>
       </section>
-      <Series/>
+      <Series1/>
+      <section className="testimonals">
+        <TestimonalsLines/>
+      <Testimonals/>
+      </section>
+      <InstagramPosts/>
     </div>
   );
 }
