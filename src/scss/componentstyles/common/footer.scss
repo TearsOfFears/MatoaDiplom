@@ -12,7 +12,9 @@
     color: $white;
   }
 
-
+  hr{
+    margin-top: 0;
+  }
 
   @media screen and (max-width: 960px) {}
 
@@ -23,7 +25,7 @@
     opacity: 1;
     border-top: 1px solid $white;
     width: 65px;
-    margin-bottom: 15px;
+   
   }
 
   .wrapper-footer {
@@ -117,7 +119,7 @@
         align-items: center;
         justify-content: center;
 
-        a {
+        Button {
           color: $accent;
         }
 
@@ -135,7 +137,6 @@
       padding: 0;
       margin: 0;
       width: auto;
-      margin-top: 10px;
 
       li {
         padding-bottom: 10px;
@@ -153,13 +154,16 @@
 }
 
 .nav-link-footer {
-  color: $black;
+  color: $white;
   position: relative;
   overflow: hidden;
   transition: color .5s cubic-bezier(0.11, 0.7, 0, 1);
-
+  border: none;
+  outline: 0;
+  background: transparent;
+  padding: 0;
   &:hover {
-    color: $black;
+    color: $white;
   }
 }
 
@@ -180,3 +184,11 @@
   transform: scale(1);
   color: $white;
 }
+
+
+.none{
+  border:none;
+  background-color:transparent;
+  outline: 0;
+}
+

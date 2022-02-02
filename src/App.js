@@ -1,6 +1,6 @@
 
 import React from 'react';
-import {Swiper1,Header,OurProducts,MonthyDeals,News,LinesBg,LinesBottom, Series1, Testimonals, TestimonalsLines, InstagramPosts, Bils } from "./components"
+import {Swiper1,Header,OurProducts,MonthyDeals,News,LinesBg,LinesBottom, Series1, Testimonals, TestimonalsLines, InstagramPosts, Bils,Footer } from "./components"
 import 'animate';
 
 function App() {
@@ -22,6 +22,7 @@ function App() {
       </section>
       <InstagramPosts/>
       <Bils/>
+      <Footer/>
     </div>
   );
 }
