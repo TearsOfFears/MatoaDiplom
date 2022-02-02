@@ -6,6 +6,8 @@ export {default as News} from "./News";
 export {default as Series1} from "./Series1";
 export {default as Testimonals} from "./Testimonals";
 export {default as InstagramPosts} from "./InstagramPosts";
+export {default as Bils} from "./Bils";
+
 
 export {default as Buttons} from "./Buttons";
 export {default as IconLogin} from "./IconLogin";
