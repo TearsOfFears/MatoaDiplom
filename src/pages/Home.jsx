@@ -1,29 +1,46 @@
-import React from 'react';
-import {Swiper1,Header,OurProducts,MonthyDeals,News,LinesBg,LinesBottom, Series1, Testimonals, TestimonalsLines, InstagramPosts, Bils,Footer } from "../components";
-
+import React from "react";
+import {
+	Swiper1,
+	Header,
+	OurProducts,
+	MonthyDeals,
+	News,
+	LinesBg,
+	LinesBottom,
+	Series1,
+	Testimonals,
+	TestimonalsLines,
+	InstagramPosts,
+	Bils,
+	Footer,
+} from "../components";
+import MainLayout from "../Layouts/MainLayout";
 
 function Home() {
-  return (
-    <div className="Home">
-    <Header/>
-    <Swiper1/>
-    <OurProducts/>
-    <MonthyDeals/>
-    <section className="news">
-    <LinesBg/>
-    <News/>
-    <LinesBottom/>
-    </section>
-    <Series1/>
-    <section className="testimonals">
-    <TestimonalsLines/>
-    <Testimonals/>
-    </section>
-    <InstagramPosts/>
-    <Bils/>
-    <Footer/>
-    </div>
-  );
+	return (
+		<div className="app">
+			<MainLayout>
+			<div className="main">
+				<Swiper1 />
+				<OurProducts />
+				<MonthyDeals />
+				<section className="news">
+					<LinesBg />
+					<News />
+					<LinesBottom />
+				</section>
+				<Series1 />
+				<section className="testimonals">
+					<TestimonalsLines />
+					<Testimonals />
+				</section>
+				<InstagramPosts />
+				<Bils />
+			</div>
+			</MainLayout>
+	
+		</div>
+	);
 }
 
 export default Home;

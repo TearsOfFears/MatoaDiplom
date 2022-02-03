@@ -4,14 +4,17 @@ import { Link } from "react-router-dom";
 import { Header } from "../components";
 import MainLayout from "../Layouts/MainLayout";
 
-function Cart() {
+function Registration() {
 	return (
-		<div className="Cart">
+		<div className="Registration">
 			<MainLayout>
-				<Link to="/"> Back</Link>
+				<div className="container">
+					<h1>regsitr</h1>
+					<Link to="/"> BACK</Link>
+				</div>
 			</MainLayout>
 		</div>
 	);
 }
 
-export default Cart;
+export default Registration;
