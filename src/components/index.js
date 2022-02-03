@@ -9,6 +9,8 @@ export {default as InstagramPosts} from "./InstagramPosts";
 export {default as Bils} from "./Bils";
 export {default as Footer} from "./Footer";
 
+
+
 export {default as Buttons} from "./Buttons";
 export {default as IconLogin} from "./IconLogin";
 export {default as IconCart} from "./IconCart";
@@ -17,3 +19,4 @@ export {default as LinesBg} from "./LinesBg";
 export {default as LinesBottom} from "./LinesBottom";
 export {default as TestimonalsLines} from "./TestimonalsLines";
 
+export {default as SignIn} from "./SignIn";

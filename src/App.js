@@ -1,6 +1,6 @@
 
 import React from 'react';
-import { Home,Cart,Details,Registr } from './pages';
+import { Home,Cart,Details,Registration,Login } from './pages';
 import 'animate';
 import { Route,Routes } from 'react-router';
 
@@ -12,7 +12,8 @@ function App() {
         <Route path="/"  element={<Home />}  />
         <Route path="/details"  element={<Details />}  />
         <Route path="/cart" element={<Cart />} />
-        <Route path="/login" element={<Registr />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/registration" element={<Registration />} />
       </Routes>
     </div>
   );

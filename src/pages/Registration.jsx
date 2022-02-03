@@ -1,10 +1,9 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { Header } from "../components";
 import MainLayout from "../Layouts/MainLayout";
 
-function Registration() {
+const Registration = (props) => {
 	return (
 		<div className="Registration">
 			<MainLayout>

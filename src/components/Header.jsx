@@ -10,14 +10,16 @@ const Header = (props) => {
 			id="ftco-navbar"
 		>
 			<div className="container align-items-center pt-3">
-				<Link to="/">
-					<a className="navbar-brand">
+				<Link to="/" className="navbar-brand">
 						<img src={logo} alt="" />
-					</a>
 				</Link>
 				<div className="d-flex ml-auto order-sm-start order-lg-last">
 					<Link to="/login">
-					<Buttons style="btn-login" text="Log in" icon={<IconLogin />} />
+						<Buttons style="btn-login" text="Log in" icon={<IconLogin />} />
+					</Link>
+					|
+					<Link to="/registration">
+						<Buttons style="btn-login" text="Register" />
 					</Link>
 					<Link to="/cart">
 						<Buttons style="btn-cart" icon={<IconCart />}>
