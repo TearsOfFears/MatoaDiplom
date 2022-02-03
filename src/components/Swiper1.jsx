@@ -11,6 +11,9 @@ import {
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
+import { Link } from "react-router-dom";
+
+
 function Swiper1() {
 	const content = [
 		{
@@ -19,6 +22,7 @@ function Swiper1() {
 			content:
 				"MATOA Way Kambas - This wood is chosen to represent the Sumatran Rhino's skin which is designed with an overlap effect on its strap to represent Rhino's skin.",
 			image: caraousel1,
+			Links: "/details",
 		},
 		{
 			id: 2,
@@ -26,6 +30,7 @@ function Swiper1() {
 			content:
 				"MATOA Way Kambas - This wood is chosen to represent the Sumatran Rhino's skin which is designed with an overlap effect on its strap to represent Rhino's skin.",
 			image: caraousel2,
+			Links: "/details",
 		},
 		{
 			id: 3,
@@ -33,6 +38,7 @@ function Swiper1() {
 			content:
 				"MATOA Way Kambas - This wood is chosen to represent the Sumatran Rhino's skin which is designed with an overlap effect on its strap to represent Rhino's skin.",
 			image: caraousel1,
+			Links: "/details",
 		},
 		{
 			id: 4,
@@ -40,6 +46,7 @@ function Swiper1() {
 			content:
 				"MATOA Way Kambas - This wood is chosen to represent the Sumatran Rhino's skin which is designed with an overlap effect on its strap to represent Rhino's skin.",
 			image: caraousel1,
+			Links: "/details",
 		},
 	];
 	const navigationPrevRef = React.useRef(null);
@@ -95,10 +102,12 @@ function Swiper1() {
 												data-swiper-parallax-duration={800}
 											>
 												<Buttons style="btn-discover">Discover</Buttons>
-												<Buttons style="btn-read">
-													<FontAwesomeIcon icon={faInfoCircle} />
-													Read details
-												</Buttons>
+												<Link to={data.Links}>
+													<Buttons style="btn-read">
+														<FontAwesomeIcon icon={faInfoCircle} />
+														Read details
+													</Buttons>
+												</Link>
 											</div>
 										</div>
 									</div>
