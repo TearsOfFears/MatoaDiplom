@@ -1,28 +1,16 @@
 
 import React from 'react';
-import {Swiper1,Header,OurProducts,MonthyDeals,News,LinesBg,LinesBottom, Series1, Testimonals, TestimonalsLines, InstagramPosts, Bils,Footer } from "./components"
+import { Home,Cart } from './pages';
 import 'animate';
+import { Route,Routes } from 'react-router';
 
 function App() {
   return (
-    <div className="App">
-      <Header/>
-      <Swiper1/>
-      <OurProducts/>
-      <MonthyDeals/>
-      <section className="news">
-      <LinesBg/>
-      <News/>
-      <LinesBottom/>
-      </section>
-      <Series1/>
-      <section className="testimonals">
-      <TestimonalsLines/>
-      <Testimonals/>
-      </section>
-      <InstagramPosts/>
-      <Bils/>
-      <Footer/>
+    <div>
+      <Routes>
+        <Route path="/" element={<Home />} />
+        <Route path="/cart" element={<Cart />} />
+      </Routes>
     </div>
   );
 }

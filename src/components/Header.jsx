@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../assets/img/home/logo.png";
-import {Buttons,IconLogin,IconCart} from "./index"
-
+import { Buttons, IconLogin, IconCart } from "./index";
+import { Link } from "react-router-dom";
 
 const Header = (props) => {
 	return (
@@ -15,10 +15,12 @@ const Header = (props) => {
 				</a>
 
 				<div className="d-flex ml-auto order-sm-start order-lg-last">
-                    <Buttons style = "btn-login" text="Log in" icon = {<IconLogin/>}/>
-                    <Buttons style = "btn-cart" icon = {<IconCart/>}>
-                         <span>1</span>
-                    </Buttons>
+					<Buttons style="btn-login" text="Log in" icon={<IconLogin />} />
+					<Link to="/cart">
+						<Buttons style="btn-cart" icon={<IconCart />}>
+							<span>1</span>
+						</Buttons>
+					</Link>
 				</div>
 
 				<button
@@ -32,7 +34,7 @@ const Header = (props) => {
 				>
 					<span className="fa fa-bars"></span>
 				</button>
-				
+
 				<div
 					className="collapse navbar-collapse animate__animated"
 					id="ftco-nav"
