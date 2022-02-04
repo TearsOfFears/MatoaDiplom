@@ -14,31 +14,26 @@ import {
 	Bils,
 	Footer,
 } from "../components";
-import MainLayout from "../Layouts/MainLayout";
+
 
 function Home() {
 	return (
-		<div className="app">
-			<MainLayout>
-			<div className="main">
-				<Swiper1 />
-				<OurProducts />
-				<MonthyDeals />
-				<section className="news">
-					<LinesBg />
-					<News />
-					<LinesBottom />
-				</section>
-				<Series1 />
-				<section className="testimonals">
-					<TestimonalsLines />
-					<Testimonals />
-				</section>
-				<InstagramPosts />
-				<Bils />
-			</div>
-			</MainLayout>
-	
+		<div className="mainHome">
+			<Swiper1 />
+			<OurProducts />
+			<MonthyDeals />
+			<section className="news">
+				<LinesBg />
+				<News />
+				<LinesBottom />
+			</section>
+			<Series1 />
+			<section className="testimonals">
+				<TestimonalsLines />
+				<Testimonals />
+			</section>
+			<InstagramPosts />
+			<Bils />
 		</div>
 	);
 }

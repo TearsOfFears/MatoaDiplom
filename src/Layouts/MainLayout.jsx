@@ -4,9 +4,9 @@ import { Footer, Header } from "../components";
 const MainLayout = (props) => {
 	return (
 		<div>
-			<Header />
+			<Header {...props}/>
 			<div className="main">{props.children}</div>
-      <Footer/>
+			<Footer />
 		</div>
 	);
 };

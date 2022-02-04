@@ -7,9 +7,7 @@ import MainLayout from "../Layouts/MainLayout";
 function Cart() {
 	return (
 		<div className="Cart">
-			<MainLayout>
 				<Link to="/"> Back</Link>
-			</MainLayout>
 		</div>
 	);
 }

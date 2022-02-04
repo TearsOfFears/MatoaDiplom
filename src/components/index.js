@@ -20,3 +20,6 @@ export {default as LinesBottom} from "./LinesBottom";
 export {default as TestimonalsLines} from "./TestimonalsLines";
 
 export {default as SignIn} from "./SignIn";
+
+export {default as ButtonForm} from "./Forms/ButtonForm";
+

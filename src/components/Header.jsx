@@ -3,7 +3,10 @@ import logo from "../assets/img/home/logo.png";
 import { Buttons, IconLogin, IconCart } from "./index";
 import { Link } from "react-router-dom";
 
+import { auth } from "./../firebase/utils";
 const Header = (props) => {
+	const { currentUser } = props;
+
 	return (
 		<nav
 			className="navbar navbar-expand-lg ftco_navbar bg- ftco-navbar-light"
@@ -11,16 +14,29 @@ const Header = (props) => {
 		>
 			<div className="container align-items-center pt-3">
 				<Link to="/" className="navbar-brand">
-						<img src={logo} alt="" />
+					<img src={logo} alt="" />
 				</Link>
 				<div className="d-flex ml-auto order-sm-start order-lg-last">
-					<Link to="/login">
-						<Buttons style="btn-login" text="Log in" icon={<IconLogin />} />
-					</Link>
-					|
-					<Link to="/registration">
-						<Buttons style="btn-login" text="Register" />
-					</Link>
+					{currentUser && (
+						<div className="registrLogin" onClick={() => auth.signOut()}>
+							<span className="photoborder">
+								<img src={currentUser.photoURL} alt="" />
+							</span>
+							<Buttons style="btn-login">Log Out</Buttons>
+						</div>
+					)}
+					{!currentUser && (
+						<div className="registrLogin">
+							<Link to="/login">
+								<Buttons style="btn-login" text="Log in" icon={<IconLogin />} />
+							</Link>
+
+							<Link to="/registration">
+								<Buttons style="btn-login" text="Register" />
+							</Link>
+						</div>
+					)}
+
 					<Link to="/cart">
 						<Buttons style="btn-cart" icon={<IconCart />}>
 							<span>1</span>
@@ -71,4 +87,9 @@ const Header = (props) => {
 		</nav>
 	);
 };
+
+Header.defaultProps = {
+	currentUser: null,
+};
+
 export default Header;

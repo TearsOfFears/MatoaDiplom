@@ -4,7 +4,7 @@ import { Footer, Header, Bils } from "../components";
 const ItemLayout = (props) => {
 	return (
 		<div>
-			<Header />
+			<Header {...props}/>
 			<div className="main">{props.children}</div>
 			<Bils />
 			<Footer />

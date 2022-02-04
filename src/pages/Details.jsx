@@ -6,9 +6,7 @@ import ItemLayout from "../Layouts/ItemLayout";
 
 function Details() {
 	return (
-		<ItemLayout>
 			<Link to="/">Back</Link>
-		</ItemLayout>
 	);
 }
 
