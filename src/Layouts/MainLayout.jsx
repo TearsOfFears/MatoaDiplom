@@ -4,8 +4,10 @@ import { Footer, Header } from "../components";
 const MainLayout = (props) => {
 	return (
 		<div>
-			<Header {...props}/>
-			<div className="main">{props.children}</div>
+			<Header {...props} />
+			<div className="main">
+				<div className="container">{props.children}</div>
+			</div>
 			<Footer />
 		</div>
 	);

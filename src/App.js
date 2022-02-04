@@ -67,7 +67,7 @@ class App extends Component {
           }/>
              <Route exact path="/registration" element={
             <MainLayout currentUser={currentUser} >
-                  <registration/>
+                  <Registration/>
             </MainLayout>
           }/>
 
