@@ -15,7 +15,6 @@ import {
 	Footer,
 } from "../components";
 
-
 function Home() {
 	return (
 		<div className="mainHome">

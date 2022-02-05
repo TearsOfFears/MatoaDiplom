@@ -6,6 +6,7 @@ import { Route,Routes,Navigate } from 'react-router';
 
 import {auth,handleUserProfile} from "./firebase/utils"
 import MainLayout from './Layouts/MainLayout';
+import SecondLayout from './Layouts/SecondLayout';
 
 const initializeState = {
   currentUser:null
@@ -61,25 +62,25 @@ class App extends Component {
           }/>
            <Route exact path="/login" element={ 
              currentUser ? <Navigate to="/" /> :
-           ( <MainLayout currentUser={currentUser} >
+           ( <SecondLayout currentUser={currentUser} >
                   <Login/>
-            </MainLayout>)
+            </SecondLayout>)
           }/>
              <Route exact path="/registration" element={
-            <MainLayout currentUser={currentUser} >
+            <SecondLayout currentUser={currentUser} >
                   <Registration/>
-            </MainLayout>
+            </SecondLayout>
           }/>
 
            <Route exact path="/details" element={
-            <MainLayout currentUser={currentUser} >
+            <SecondLayout currentUser={currentUser} >
                   <Details/>
-            </MainLayout>
+            </SecondLayout>
           }/>
            <Route exact path="/cart" element={
-            <MainLayout currentUser={currentUser} >
+            <SecondLayout currentUser={currentUser} >
                   <Cart/>
-            </MainLayout>
+            </SecondLayout>
           }/>
 
         </Routes>
