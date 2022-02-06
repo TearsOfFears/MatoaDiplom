@@ -10,7 +10,7 @@ const arrayPosts = [Posts1, Posts2, Posts3, Posts4, Posts5];
 
 function InstagramPosts() {
 	return (
-		<section class="instagram-posts ">
+		<section className="instagram-posts ">
 			<div className="container nopadding">
 				<div className="row">
 					<h1>Instagram </h1>
