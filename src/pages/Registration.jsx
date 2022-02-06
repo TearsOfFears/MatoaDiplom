@@ -1,17 +1,11 @@
-import React from "react";
+import React, { Component } from "react";
 import { Link } from "react-router-dom";
+import { SignUp } from "../components";
 
 import MainLayout from "../Layouts/MainLayout";
 
-const Registration = (props) => {
-	return (
-		<div className="Registration">
-				<div className="container">
-					<h1>regsitr</h1>
-					<Link to="/"> BACK</Link>
-				</div>
-		</div>
-	);
-}
+const Registration = () => {
+	return <SignUp />;
+};
 
 export default Registration;

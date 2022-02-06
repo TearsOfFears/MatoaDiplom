@@ -67,9 +67,10 @@ class App extends Component {
             </SecondLayout>)
           }/>
              <Route exact path="/registration" element={
-            <SecondLayout currentUser={currentUser} >
+                currentUser ? <Navigate to="/" /> :
+            (<SecondLayout currentUser={currentUser} >
                   <Registration/>
-            </SecondLayout>
+            </SecondLayout>)
           }/>
 
            <Route exact path="/details" element={
