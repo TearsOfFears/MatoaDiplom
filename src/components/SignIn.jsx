@@ -1,9 +1,10 @@
 import React, { Component } from "react";
-import { ButtonForm, Buttons } from "./index";
+import { ButtonForm, Buttons, AuthWrapper } from "./index";
 
 import { signInWithGoogle, auth } from "./../firebase/utils";
 
 import FormInput from "./Forms/FormInput";
+import { Link } from "react-router-dom";
 
 const initialState = {
 	email: "",
@@ -40,44 +41,48 @@ class SignIn extends Component {
 
 	render() {
 		const { email, password } = this.state;
-		
-		return (
-			<div className="signIn">
-				<div className="container">
-					<div className="wrapper">
-						<h1> Log In</h1>
-					</div>
-					<div className="formWrapper">
-						<form onSubmit={this.handleSubmit}>
-							<FormInput
-								type="email"
-								name="email"
-								value={email}
-								placeholder="Email"
-								onChange={this.handleChange}
-							/>
-							<FormInput
-								type="password"
-								name="password"
-								value={password}
-								placeholder="Password"
-								onChange={this.handleChange}
-							/>
-							<Buttons type="submit" style="btn-read">
-								ЗАЙТИ
-							</Buttons>
 
-							<div className="socialSignIn">
-								<div className="row">
-									<ButtonForm onClick={signInWithGoogle}>
-										Sign In with Google
-									</ButtonForm>
-								</div>
-							</div>
-						</form>
-					</div>
+		const configAuthWrapper = {
+			headline: "Зайти",
+		};
+		return (
+			<AuthWrapper {...configAuthWrapper}>
+				<div className="formWrapper">
+					<form onSubmit={this.handleSubmit}>
+						<FormInput
+							type="email"
+							name="email"
+							value={email}
+							placeholder="Email"
+							onChange={this.handleChange}
+						/>
+						<FormInput
+							type="password"
+							name="password"
+							value={password}
+							placeholder="Password"
+							onChange={this.handleChange}
+						/>
+						<Buttons type="submit" style="btn-read">
+							Зайти
+						</Buttons>
+
+						<div className="socialSignIn">
+							<ButtonForm
+								onClick={signInWithGoogle}
+								className="btn-read mb-5 mt-3"
+							>
+								Sign In with Google
+							</ButtonForm>
+						</div>
+						<div className="links">
+							<Link to="/recovery" className="btn-read mb-5 mt-3">
+								Відновити пароль
+							</Link>
+						</div>
+					</form>
 				</div>
-			</div>
+			</AuthWrapper>
 		);
 	}
 }

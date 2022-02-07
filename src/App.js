@@ -1,6 +1,6 @@
 
 import React, {Component} from 'react';
-import { Home,Cart,Details,Registration,Login } from './pages';
+import { Home,Cart,Details,Registration,Login,Recovery } from './pages';
 import 'animate';
 import { Route,Routes,Navigate } from 'react-router';
 
@@ -83,7 +83,11 @@ class App extends Component {
                   <Cart/>
             </SecondLayout>
           }/>
-
+ <Route exact path="/recovery" element={
+            <SecondLayout currentUser={currentUser} >
+                  <Recovery/>
+            </SecondLayout>
+          }/>
         </Routes>
       </div>
     );
