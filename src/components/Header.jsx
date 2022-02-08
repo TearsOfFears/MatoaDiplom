@@ -3,6 +3,7 @@ import logo from "../assets/img/home/logo.png";
 import { Buttons, IconLogin, IconCart } from "./index";
 import { Link } from "react-router-dom";
 
+import { connect } from "react-redux";
 import { auth } from "./../firebase/utils";
 const Header = (props) => {
 	const { currentUser } = props;
@@ -92,4 +93,8 @@ Header.defaultProps = {
 	currentUser: null,
 };
 
-export default Header;
+const mapStateToProps = ({ user }) => ({
+	currentUser: user.currentUser,
+});
+
+export default connect(mapStateToProps, null)(Header);

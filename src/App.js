@@ -8,37 +8,29 @@ import {auth,handleUserProfile} from "./firebase/utils"
 import MainLayout from './Layouts/MainLayout';
 import SecondLayout from './Layouts/SecondLayout';
 
-const initializeState = {
-  currentUser:null
-};
+
+import {connect} from 'react-redux'
+import {setCurrentUser} from './redux/User/user.actions';
+
 
 class App extends Component {
 
-  constructor(props){
-    super(props);
-    this.state = {
-      ...initializeState
-    };
-  }
   authListener = null;
 
-
   componentDidMount(){
+    const {setCurrentUser} = this.props;
     this.authListener = auth.onAuthStateChanged(async userAuth =>{
       if(userAuth){
         const userRef = await handleUserProfile(userAuth);
         userRef.onSnapshot(snapshot => {
-          this.setState({
-            currentUser:{
+          setCurrentUser({
               id:snapshot.id,
               ...snapshot.data(),
-            }
+            
           })
         });
       }
-      this.setState({
-        ...initializeState
-      })
+      setCurrentUser(userAuth);
     });
     console.log("mount");
   }
@@ -50,41 +42,41 @@ class App extends Component {
 
   render(){
 
-    const { currentUser } = this.state;
+    const { currentUser } = this.props;
 
     return (
       <div className='app'>
         <Routes>
           <Route exact path="/" element={
-            <MainLayout currentUser={currentUser} >
+            <MainLayout>
                   <Home/>
             </MainLayout>
           }/>
            <Route exact path="/login" element={ 
              currentUser ? <Navigate to="/" /> :
-           ( <SecondLayout currentUser={currentUser} >
+           ( <SecondLayout >
                   <Login/>
             </SecondLayout>)
           }/>
              <Route exact path="/registration" element={
                 currentUser ? <Navigate to="/" /> :
-            (<SecondLayout currentUser={currentUser} >
+            (<SecondLayout >
                   <Registration/>
             </SecondLayout>)
           }/>
 
            <Route exact path="/details" element={
-            <SecondLayout currentUser={currentUser} >
+            <SecondLayout>
                   <Details/>
             </SecondLayout>
           }/>
            <Route exact path="/cart" element={
-            <SecondLayout currentUser={currentUser} >
+            <SecondLayout >
                   <Cart/>
             </SecondLayout>
           }/>
- <Route exact path="/recovery" element={
-            <SecondLayout currentUser={currentUser} >
+            <Route exact path="/recovery" element={
+            <SecondLayout>
                   <Recovery/>
             </SecondLayout>
           }/>
@@ -95,4 +87,12 @@ class App extends Component {
 
 }
 
-export default App;
+const mapStateToProps = ({user})=>({
+  currentUser:user.currentUser,
+})
+
+const mapDispathToProps = dispatch =>({
+  setCurrentUser:user=> dispatch(setCurrentUser(user))
+})
+
+export default connect(mapStateToProps,mapDispathToProps)(App);
