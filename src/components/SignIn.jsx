@@ -77,7 +77,7 @@ class SignIn extends Component {
 						</div>
 						<div className="links">
 							<Link to="/recovery" className="btn-read mb-5 mt-3">
-								Відновити пароль
+								Відновити ваш пароль
 							</Link>
 						</div>
 					</form>
