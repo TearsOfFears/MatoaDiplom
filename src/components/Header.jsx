@@ -19,11 +19,16 @@ const Header = (props) => {
 				</Link>
 				<div className="d-flex ml-auto order-sm-start order-lg-last">
 					{currentUser && (
-						<div className="registrLogin" onClick={() => auth.signOut()}>
+						<div className="registrLogin">
 							<span className="photoborder">
 								<img src={currentUser.photoURL} alt="" />
 							</span>
-							<Buttons style="btn-login">Log Out</Buttons>
+							<div className="" onClick={() => auth.signOut()}>
+								<Buttons style="btn-login">Log Out</Buttons>
+							</div>
+							<Link to="/dashboard">
+								<Buttons style="btn-login" text="My account" />
+							</Link>
 						</div>
 					)}
 					{!currentUser && (

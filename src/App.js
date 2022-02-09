@@ -1,6 +1,6 @@
 
-import React, {Component} from 'react';
-import { Home,Cart,Details,Registration,Login,Recovery } from './pages';
+import React, {useState,useEffect} from 'react';
+import { Home,Cart,Details,Registration,Login,Recovery,Dashboard } from './pages';
 import 'animate';
 import { Route,Routes,Navigate } from 'react-router';
 
@@ -12,37 +12,35 @@ import SecondLayout from './Layouts/SecondLayout';
 import {connect} from 'react-redux'
 import {setCurrentUser} from './redux/User/user.actions';
 
+import WithAuth from './hoc/WithAuth';
 
-class App extends Component {
+const App = (props)=> {
 
-  authListener = null;
+  const {setCurrentUser,currentUser} =props;
+useEffect(()=>{
 
-  componentDidMount(){
-    const {setCurrentUser} = this.props;
-    this.authListener = auth.onAuthStateChanged(async userAuth =>{
-      if(userAuth){
-        const userRef = await handleUserProfile(userAuth);
-        userRef.onSnapshot(snapshot => {
-          setCurrentUser({
-              id:snapshot.id,
-              ...snapshot.data(),
-            
-          })
-        });
-      }
-      setCurrentUser(userAuth);
-    });
-    console.log("mount");
-  }
+ const authListener = auth.onAuthStateChanged(async userAuth =>{
+    if(userAuth){
+      const userRef = await handleUserProfile(userAuth);
+      userRef.onSnapshot(snapshot => {
+        setCurrentUser({
+            id:snapshot.id,
+            ...snapshot.data(),
+          
+        })
+      });
+    }
+    setCurrentUser(userAuth);
+  });
+  console.log("mount");
 
-  componentWillUnmount(){
-      this.authListener();
-  }
-  
+return()=>{
+authListener();
+}
+},[])
 
-  render(){
 
-    const { currentUser } = this.props;
+
 
     return (
       <div className='app'>
@@ -58,32 +56,37 @@ class App extends Component {
                   <Login/>
             </SecondLayout>)
           }/>
-             <Route exact path="/registration" element={
+             <Route  path="/registration" element={
                 currentUser ? <Navigate to="/" /> :
             (<SecondLayout >
                   <Registration/>
             </SecondLayout>)
           }/>
 
-           <Route exact path="/details" element={
+           <Route  path="/details" element={
             <SecondLayout>
                   <Details/>
             </SecondLayout>
           }/>
-           <Route exact path="/cart" element={
+           <Route  path="/cart" element={
             <SecondLayout >
                   <Cart/>
             </SecondLayout>
           }/>
-            <Route exact path="/recovery" element={
+            <Route  path="/recovery" element={
             <SecondLayout>
                   <Recovery/>
             </SecondLayout>
           }/>
+           <Route  path="/dashboard" element={
+            <SecondLayout>
+                  <Dashboard/>
+            </SecondLayout>
+
+          }/>
         </Routes>
       </div>
     );
-  }
 
 }
 

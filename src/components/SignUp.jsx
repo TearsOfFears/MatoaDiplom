@@ -1,19 +1,22 @@
-import React, { Component, useState,useEffect } from "react";
+import React, { Component, useState, useEffect } from "react";
 import { ButtonForm, AuthWrapper } from "./index";
 import FormInput from "./Forms/FormInput";
 import { Navigate } from "react-router";
 import { auth, handleUserProfile } from "./../firebase/utils";
+const initialState = {
+	displayName: "",
+	email: "",
+	password: "",
+	confirmPassword: "",
+	errors: [],
+};
 
 const SignUp = (props) => {
-	const initialState = {
-		displayName: "",
-		email: "",
-		password: "",
-		confirmPassword: "",
-		errors: [],
-	};
-
 	const [state, setstate] = useState(initialState);
+
+	const reset = () => {
+		setstate(initialState);
+	};
 
 	const handleChange = (e) => {
 		const value = e.target.value;
@@ -39,11 +42,8 @@ const SignUp = (props) => {
 				password
 			);
 			await handleUserProfile(user, { displayName });
-			
-			setstate({
-				...initialState,
-			});
 
+			reset();
 		} catch (err) {
 			console.log(err);
 		}
@@ -54,7 +54,7 @@ const SignUp = (props) => {
 	const configAuthWrapper = {
 		headline: "Зареєструватись",
 	};
-	
+
 	return (
 		<AuthWrapper {...configAuthWrapper}>
 			<div className="formWrapper">
@@ -88,7 +88,7 @@ const SignUp = (props) => {
 						placeholder="confirmPassword"
 						onChange={handleChange}
 					/>
-					<ButtonForm type="submit" > Зареєструватись</ButtonForm>
+					<ButtonForm type="submit"> Зареєструватись</ButtonForm>
 				</form>
 			</div>
 		</AuthWrapper>
