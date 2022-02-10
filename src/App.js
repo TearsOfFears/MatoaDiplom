@@ -9,33 +9,36 @@ import MainLayout from './Layouts/MainLayout';
 import SecondLayout from './Layouts/SecondLayout';
 
 
-import {connect} from 'react-redux'
+import {useSelector,useDispatch} from 'react-redux'
 import {setCurrentUser} from './redux/User/user.actions';
 
 import WithAuth from './hoc/WithAuth';
 
 const App = (props)=> {
 
-  const {setCurrentUser,currentUser} =props;
-useEffect(()=>{
+const [state, setstate] = useState(false);
+const dispatch= useDispatch();
 
+useEffect(()=>{
  const authListener = auth.onAuthStateChanged(async userAuth =>{
     if(userAuth){
       const userRef = await handleUserProfile(userAuth);
+      setstate(true)
       userRef.onSnapshot(snapshot => {
-        setCurrentUser({
+        dispatch(setCurrentUser({
             id:snapshot.id,
             ...snapshot.data(),
-          
-        })
-      });
+        }));
+      })
+
     }
-    setCurrentUser(userAuth);
+    dispatch(setCurrentUser(userAuth));
+    setstate(false)
   });
-  console.log("mount");
 
 return()=>{
 authListener();
+
 }
 },[])
 
@@ -51,13 +54,13 @@ authListener();
             </MainLayout>
           }/>
            <Route exact path="/login" element={ 
-             currentUser ? <Navigate to="/" /> :
+             setCurrentUser && state ? <Navigate to="/" /> :
            ( <SecondLayout >
                   <Login/>
             </SecondLayout>)
           }/>
              <Route  path="/registration" element={
-                currentUser ? <Navigate to="/" /> :
+                setCurrentUser && state ? <Navigate to="/" /> :
             (<SecondLayout >
                   <Registration/>
             </SecondLayout>)
@@ -90,12 +93,6 @@ authListener();
 
 }
 
-const mapStateToProps = ({user})=>({
-  currentUser:user.currentUser,
-})
 
-const mapDispathToProps = dispatch =>({
-  setCurrentUser:user=> dispatch(setCurrentUser(user))
-})
 
-export default connect(mapStateToProps,mapDispathToProps)(App);
+export default App;

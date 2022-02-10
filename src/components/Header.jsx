@@ -3,10 +3,15 @@ import logo from "../assets/img/home/logo.png";
 import { Buttons, IconLogin, IconCart } from "./index";
 import { Link } from "react-router-dom";
 
-import { connect } from "react-redux";
+import { useSelector } from "react-redux";
 import { auth } from "./../firebase/utils";
+
+const mapState = ({ user }) => ({
+	currentUser: user.currentUser,
+});
+
 const Header = (props) => {
-	const { currentUser } = props;
+	const { currentUser } = useSelector(mapState);
 
 	return (
 		<nav
@@ -98,8 +103,4 @@ Header.defaultProps = {
 	currentUser: null,
 };
 
-const mapStateToProps = ({ user }) => ({
-	currentUser: user.currentUser,
-});
-
-export default connect(mapStateToProps, null)(Header);
+export default Header;

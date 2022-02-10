@@ -1,18 +1,29 @@
-import React, { Component, useState, useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { ButtonForm, AuthWrapper } from "./index";
 import FormInput from "./Forms/FormInput";
 import { Navigate } from "react-router";
-import { auth, handleUserProfile } from "./../firebase/utils";
+import { useDispatch, useSelector } from "react-redux";
+
+import { signUpUser, resetAllAuthForm } from "../redux/User/user.actions";
+
+const mapState = ({ user }) => ({
+	signUpSuccess: user.signUpSuccess,
+	signUpError: user.signUpError,
+});
+
 const initialState = {
 	displayName: "",
 	email: "",
 	password: "",
 	confirmPassword: "",
-	errors: [],
 };
 
 const SignUp = (props) => {
 	const [state, setstate] = useState(initialState);
+	const dispatch = useDispatch();
+	const { signUpSuccess, signUpError } = useSelector(mapState);
+
+	const [errors, setErrors] = useState([]);
 
 	const reset = () => {
 		setstate(initialState);
@@ -26,39 +37,59 @@ const SignUp = (props) => {
 		});
 	};
 
-	const handleFormSubmit = async (event) => {
+	const handleFormSubmit = (event) => {
 		event.preventDefault();
-		const { displayName, email, password, confirmPassword, errors } = state;
-		if (password !== confirmPassword) {
-			const err = ["Паролі не спіпадають"];
-			setstate({
-				errors: err,
-			});
-			return;
-		}
-		try {
-			const { user } = await auth.createUserWithEmailAndPassword(
-				email,
-				password
-			);
-			await handleUserProfile(user, { displayName });
+		dispatch(
+			signUpUser({
+				displayName: displayName,
+				email: email,
+				password: password,
+				confirmPassword: confirmPassword,
+			})
+		);
+		// const { displayName, email, password, confirmPassword, errors } = state;
+		// if (password !== confirmPassword) {
+		// 	const err = ["Паролі не спіпадають"];
+		// 	setstate({
+		// 		errors: err,
+		// 	});
+		// 	return;
+		// }
+		// try {
+		// 	const { user } = await auth.createUserWithEmailAndPassword(
+		// 		email,
+		// 		password
+		// 	);
+		// 	await handleUserProfile(user, { displayName });
 
-			reset();
-		} catch (err) {
-			console.log(err);
-		}
+		// 	reset();
+		// } catch (err) {
+		// 	console.log(err);
+		// }
 	};
 
-	const { displayName, email, password, confirmPassword, errors } = state;
+	useEffect(() => {
+		if (signUpSuccess) {
+			reset();
+			dispatch(resetAllAuthForm());
+		}
+	}, [signUpSuccess]);
+
+	useEffect(() => {
+		if (Array.isArray(signUpError) && signUpError.length > 0) {
+			setErrors(signUpError);
+		}
+	}, [signUpError]);
+	const { displayName, email, password, confirmPassword } = state;
 
 	const configAuthWrapper = {
 		headline: "Зареєструватись",
 	};
-
 	return (
 		<AuthWrapper {...configAuthWrapper}>
 			<div className="formWrapper">
 				{errors.length > 0 && alert(errors)}
+
 				<form onSubmit={handleFormSubmit}>
 					<FormInput
 						type="text"

@@ -10,32 +10,38 @@ import { auth } from "../../firebase/utils";
 import { Navigate } from "react-router-dom";
 import { Login } from "../../pages";
 
+import { useDispatch, useSelector } from "react-redux";
+import { resetPassword, resetAllAuthForm } from "../../redux/User/user.actions";
+
+const mapState = ({ user }) => ({
+	resetPasswordSuccess: user.setPasswordSuccess,
+	resetPasswordError: user.setPasswordError,
+});
+
 const EmailPassword = (props) => {
 	const [email, setEmail] = useState("");
 	const [errors, setErrors] = useState([]);
 	const [redirect, setRedirect] = useState(false);
 
-	const handleSubmit = async (e) => {
-		e.preventDefault();
+	const { resetPasswordSuccess, resetPasswordError } = useSelector(mapState);
+	const dispatch = useDispatch();
 
-		try {
-			const config = {
-				url: "http://localhost:3000/login",
-			};
-
-			await auth
-				.sendPasswordResetEmail(email, config)
-
-				.then(() => {
-					setRedirect(true);
-				})
-				.cath(() => {
-					const err = ["Пошта не знайдена.Попробуйте ще раз"];
-					setErrors(err);
-				});
-		} catch (errFirebase) {
-			// console.log(err);
+	useEffect(() => {
+		if (resetPasswordSuccess) {
+			setRedirect(true);
+			dispatch(resetAllAuthForm());
 		}
+	}, [resetPasswordSuccess]);
+
+	useEffect(() => {
+		if (Array.isArray(resetPasswordError) && resetPasswordError.length > 0) {
+			setErrors(resetPasswordError);
+		}
+	}, [resetPasswordError]);
+
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		dispatch(resetPassword({ email }));
 	};
 
 	const configAuthWrapper = {

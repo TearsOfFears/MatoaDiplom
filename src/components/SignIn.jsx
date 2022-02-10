@@ -1,34 +1,50 @@
+import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { ButtonForm, Buttons, AuthWrapper } from "./index";
-
-import { signInWithGoogle, auth } from "./../firebase/utils";
 
 import FormInput from "./Forms/FormInput";
 import { Link } from "react-router-dom";
 
+import {
+	signInUser,
+	signInWithGoogle,
+	resetAllAuthForm,
+} from "./../redux/User/user.actions";
+
+const mapState = ({ user }) => ({
+	signInSuccess: user.signInSuccess,
+});
+
 const SignIn = (props) => {
+	const { signInSuccess } = useSelector(mapState);
+
+	const dispatch = useDispatch();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+
+	useEffect(() => {
+		if (signInSuccess) {
+			resetForm();
+			dispatch(resetAllAuthForm());
+		}
+	}, [signInSuccess]);
 
 	const resetForm = () => {
 		setEmail("");
 		setPassword("");
 	};
 
-	const handleSubmit = async (e) => {
+	const handleSubmit = (e) => {
 		e.preventDefault();
-		try {
-			await auth.signInWithEmailAndPassword(email, password);
-			resetForm();
-		} catch (err) {
-			console.log(err);
-		}
+		dispatch(signInUser({ email, password }));
 	};
 
 	const configAuthWrapper = {
 		headline: "Зайти",
 	};
-
+	const handleSignInWithGoogle = () => {
+		dispatch(signInWithGoogle());
+	};
 	return (
 		<AuthWrapper {...configAuthWrapper}>
 			<div className="formWrapper">
@@ -40,7 +56,6 @@ const SignIn = (props) => {
 						placeholder="Email"
 						onChange={(e) => setEmail(e.target.value)}
 					/>
-					{email}
 					<FormInput
 						type="password"
 						name="password"
@@ -54,7 +69,7 @@ const SignIn = (props) => {
 
 					<div className="socialSignIn">
 						<ButtonForm
-							onClick={signInWithGoogle}
+							onClick={handleSignInWithGoogle}
 							className="btn-read mb-5 mt-3"
 						>
 							Sign In with Google
