@@ -26,14 +26,13 @@ const {currentUser}= useSelector(mapState);
 
 useEffect(()=>{
 dispatch(checkUserSession());
-setstate(true);
+
 if(currentUser!==null){
-  setstate(false)
+  setstate(true)
 }
+setstate(true);
 },[])
-
 console.log(state);
-
     return (
       <div className='app'>
         <Routes>
@@ -43,13 +42,13 @@ console.log(state);
             </MainLayout>
           }/>
            <Route exact path="/login" element={ 
-           state ? <Navigate to="/" /> :
+           currentUser && state ? <Navigate to="/" /> :
            ( <SecondLayout >
                   <Login/>
             </SecondLayout>)
           }/>
              <Route  path="/registration" element={
-               state ? <Navigate to="/" /> :
+              currentUser && state ? <Navigate to="/" /> :
             (<SecondLayout >
                   <Registration/>
             </SecondLayout>)
