@@ -3,8 +3,9 @@ import logo from "../assets/img/home/logo.png";
 import { Buttons, IconLogin, IconCart } from "./index";
 import { Link } from "react-router-dom";
 
-import { useSelector } from "react-redux";
-import { auth } from "./../firebase/utils";
+import { useSelector, useDispatch } from "react-redux";
+
+import { signOutUserStart } from "../redux/User/user.actions";
 
 const mapState = ({ user }) => ({
 	currentUser: user.currentUser,
@@ -12,6 +13,12 @@ const mapState = ({ user }) => ({
 
 const Header = (props) => {
 	const { currentUser } = useSelector(mapState);
+
+	const dispatch = useDispatch();
+
+	const signOut = () => {
+		dispatch(signOutUserStart());
+	};
 
 	return (
 		<nav
@@ -26,9 +33,13 @@ const Header = (props) => {
 					{currentUser && (
 						<div className="registrLogin">
 							<span className="photoborder">
+								{currentUser.photoURL===null ?
+								<IconLogin />:
 								<img src={currentUser.photoURL} alt="" />
+								}
+							
 							</span>
-							<div className="" onClick={() => auth.signOut()}>
+							<div className="" onClick={() => signOut()}>
 								<Buttons style="btn-login">Log Out</Buttons>
 							</div>
 							<Link to="/dashboard">

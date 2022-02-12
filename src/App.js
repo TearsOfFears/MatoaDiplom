@@ -4,13 +4,12 @@ import { Home,Cart,Details,Registration,Login,Recovery,Dashboard } from './pages
 import 'animate';
 import { Route,Routes,Navigate } from 'react-router';
 
-import {auth,handleUserProfile} from "./firebase/utils"
 import MainLayout from './Layouts/MainLayout';
 import SecondLayout from './Layouts/SecondLayout';
 
 
-import {useSelector,useDispatch} from 'react-redux'
-import {setCurrentUser} from './redux/User/user.actions';
+import {useDispatch,useSelector} from 'react-redux'
+import {setCurrentUser,checkUserSession} from './redux/User/user.actions';
 
 import WithAuth from './hoc/WithAuth';
 
@@ -19,31 +18,21 @@ const App = (props)=> {
 const [state, setstate] = useState(false);
 const dispatch= useDispatch();
 
+const mapState = ({user})=>({
+  currentUser:user.currentUser
+})
+
+const {currentUser}= useSelector(mapState);
+
 useEffect(()=>{
- const authListener = auth.onAuthStateChanged(async userAuth =>{
-    if(userAuth){
-      const userRef = await handleUserProfile(userAuth);
-      setstate(true)
-      userRef.onSnapshot(snapshot => {
-        dispatch(setCurrentUser({
-            id:snapshot.id,
-            ...snapshot.data(),
-        }));
-      })
-
-    }
-    dispatch(setCurrentUser(userAuth));
-    setstate(false)
-  });
-
-return()=>{
-authListener();
-
+dispatch(checkUserSession());
+setstate(true);
+if(currentUser!==null){
+  setstate(false)
 }
 },[])
 
-
-
+console.log(state);
 
     return (
       <div className='app'>
@@ -54,13 +43,13 @@ authListener();
             </MainLayout>
           }/>
            <Route exact path="/login" element={ 
-             setCurrentUser && state ? <Navigate to="/" /> :
+           state ? <Navigate to="/" /> :
            ( <SecondLayout >
                   <Login/>
             </SecondLayout>)
           }/>
              <Route  path="/registration" element={
-                setCurrentUser && state ? <Navigate to="/" /> :
+               state ? <Navigate to="/" /> :
             (<SecondLayout >
                   <Registration/>
             </SecondLayout>)

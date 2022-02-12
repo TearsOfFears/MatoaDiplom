@@ -6,28 +6,24 @@ import FormInput from "./Forms/FormInput";
 import { Link } from "react-router-dom";
 
 import {
-	signInUser,
+	emailSigInStart,
 	signInWithGoogle,
-	resetAllAuthForm,
 } from "./../redux/User/user.actions";
 
 const mapState = ({ user }) => ({
-	signInSuccess: user.signInSuccess,
+	currentUser: user.currentUser,
 });
 
 const SignIn = (props) => {
-	const { signInSuccess } = useSelector(mapState);
-
+	const { currentUser } = useSelector(mapState);
 	const dispatch = useDispatch();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
-
 	useEffect(() => {
-		if (signInSuccess) {
+		if (currentUser) {
 			resetForm();
-			dispatch(resetAllAuthForm());
 		}
-	}, [signInSuccess]);
+	}, [currentUser]);
 
 	const resetForm = () => {
 		setEmail("");
@@ -36,7 +32,7 @@ const SignIn = (props) => {
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(signInUser({ email, password }));
+		dispatch(emailSigInStart({ email, password }));
 	};
 
 	const configAuthWrapper = {
@@ -45,6 +41,7 @@ const SignIn = (props) => {
 	const handleSignInWithGoogle = () => {
 		dispatch(signInWithGoogle());
 	};
+
 	return (
 		<AuthWrapper {...configAuthWrapper}>
 			<div className="formWrapper">

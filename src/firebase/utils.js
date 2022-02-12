@@ -1,41 +1,52 @@
 import firebase from 'firebase/compat/app';
 import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
+import {resolvePath} from 'react-router';
+import {useAuth} from '../customHooks';
 
 import {firebaseConfig} from './config';
 
-
 firebase.initializeApp(firebaseConfig);
-
 
 export const auth = firebase.auth();
 
 export const firestore = firebase.firestore();
 
-export const GoogleProvider = new firebase.auth.GoogleAuthProvider();
+export const GoogleProvider = new firebase
+  .auth
+  .GoogleAuthProvider();
 
-export const handleUserProfile = async (userAuth, additionalData) =>{
-if(!userAuth) return;
-const {uid,displayName} = userAuth; 
-const userRef = firestore.doc(`users/${displayName}-${uid}`);
-    
-const snapShot = await userRef.get();
+export const handleUserProfile = async({userAuth, additionalData}) => {
+  if (!userAuth) 
+    return;
+  const {uid, displayName} = userAuth;
+  const userRef = firestore.doc(`users/${displayName}-${uid}`);
 
-if(!snapShot.exists){
-    const {displayName,email,photoURL} = userAuth;
+  const snapShot = await userRef.get();
+
+  if (!snapShot.exists) {
+    const {displayName, email, photoURL} = userAuth;
     const timestamp = new Date();
-    try{
-    await userRef.set({
-    displayName,
-    email,
-    createdDate:timestamp,
-    photoURL,
-    ...additionalData
-    });
+    try {
+      await userRef.set({
+        displayName,
+        email,
+        createdDate: timestamp,
+        photoURL,
+        ...additionalData
+      });
+    } catch (err) {
+      console.log(err);
     }
-    catch(err){
-        console.log(err);
-    }
-}
-return userRef;
+  }
+  return userRef;
 };
+
+export const getCurrentUser = () => {
+  return new Promise((resolve, reject) => {
+    const unsubscribe = auth.onAuthStateChanged((userAuth) => {
+        unsubscribe();
+      resolve(userAuth);
+    }, reject);
+  })
+}
