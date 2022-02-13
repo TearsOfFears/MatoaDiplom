@@ -7,7 +7,7 @@ import { Link } from "react-router-dom";
 
 import {
 	emailSigInStart,
-	signInWithGoogle,
+	googleSignIn
 } from "./../redux/User/user.actions";
 
 const mapState = ({ user }) => ({
@@ -39,7 +39,7 @@ const SignIn = (props) => {
 		headline: "Зайти",
 	};
 	const handleSignInWithGoogle = () => {
-		dispatch(signInWithGoogle());
+		dispatch(googleSignIn());
 	};
 
 	return (

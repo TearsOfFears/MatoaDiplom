@@ -11,11 +11,14 @@ import { Navigate } from "react-router-dom";
 import { Login } from "../../pages";
 
 import { useDispatch, useSelector } from "react-redux";
-import { resetPassword, resetAllAuthForm } from "../../redux/User/user.actions";
+import {
+	onResetPasswordStart,
+	resetUserState,
+} from "../../redux/User/user.actions";
 
 const mapState = ({ user }) => ({
-	resetPasswordSuccess: user.setPasswordSuccess,
-	resetPasswordError: user.setPasswordError,
+	resetPasswordSuccess: user.resetPasswordSuccess,
+	userErrors: user.userErrors,
 });
 
 const EmailPassword = (props) => {
@@ -23,25 +26,25 @@ const EmailPassword = (props) => {
 	const [errors, setErrors] = useState([]);
 	const [redirect, setRedirect] = useState(false);
 
-	const { resetPasswordSuccess, resetPasswordError } = useSelector(mapState);
+	const { resetPasswordSuccess, userErrors } = useSelector(mapState);
 	const dispatch = useDispatch();
 
 	useEffect(() => {
 		if (resetPasswordSuccess) {
+			dispatch(resetUserState());
 			setRedirect(true);
-			dispatch(resetAllAuthForm());
 		}
 	}, [resetPasswordSuccess]);
 
 	useEffect(() => {
-		if (Array.isArray(resetPasswordError) && resetPasswordError.length > 0) {
-			setErrors(resetPasswordError);
+		if (Array.isArray(userErrors) && userErrors.length > 0) {
+			setErrors(userErrors);
 		}
-	}, [resetPasswordError]);
+	}, [userErrors]);
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispatch(resetPassword({ email }));
+		dispatch(onResetPasswordStart({ email }));
 	};
 
 	const configAuthWrapper = {

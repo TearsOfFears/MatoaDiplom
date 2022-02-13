@@ -9,6 +9,7 @@ import { signOutUserStart } from "../redux/User/user.actions";
 
 const mapState = ({ user }) => ({
 	currentUser: user.currentUser,
+
 });
 
 const Header = (props) => {
