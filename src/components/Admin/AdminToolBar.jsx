@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 
-import { checkUserIsAdmin } from "../utils/utils";
+import { checkUserIsAdmin } from "../../utils/utils";
 import { useSelector } from "react-redux";
 
 const mapState = ({ user }) => ({

@@ -6,6 +6,7 @@ import { Route,Routes,Navigate } from 'react-router';
 
 import MainLayout from './Layouts/MainLayout';
 import SecondLayout from './Layouts/SecondLayout';
+import AdminLayout from './Layouts/AdminLayout';
 
 import { AdminToolBar } from './components';
 
@@ -60,9 +61,9 @@ setstate(true);
           }/>
             <Route  path="/admin" element={
              <WithAdminAuth>
-               <SecondLayout >
+               <AdminLayout >
                   <Admin/>
-            </SecondLayout>
+            </AdminLayout>
              </WithAdminAuth>
        
           }/>

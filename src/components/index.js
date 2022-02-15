@@ -25,6 +25,6 @@ export {default as SignUp} from "./SignUp";
 export {default as ButtonForm} from "./Forms/ButtonForm";
 
 export {default as AuthWrapper} from "./AuthWrapper";
-export {default as AdminToolBar} from "./AdminToolBar";
+export {default as AdminToolBar} from "./Admin/AdminToolBar";
 
 export {default as EmailPassword} from "./Forms/EmailPassword";

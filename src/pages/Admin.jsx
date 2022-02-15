@@ -1,11 +1,7 @@
-import React from 'react'
+import React from "react";
 
-function Admin() {
-  return (
-    <div className='Admin'>
-        <h1>Admin</h1>
-    </div>
-  )
-}
+const Admin = (props) => {
+	return <div className="Admin">{props.children}</div>;
+};
 
-export default Admin
+export default Admin;
