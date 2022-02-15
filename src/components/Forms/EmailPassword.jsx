@@ -5,7 +5,6 @@ import { AuthWrapper } from "../index";
 import FormInput from "./FormInput";
 import ButtonForm from "./ButtonForm";
 
-import { auth } from "../../firebase/utils";
 
 import { Navigate } from "react-router-dom";
 import { Login } from "../../pages";

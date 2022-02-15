@@ -1,17 +1,20 @@
 
 import React, {useState,useEffect} from 'react';
-import { Home,Cart,Details,Registration,Login,Recovery,Dashboard } from './pages';
+import { Home,Cart,Details,Registration,Login,Recovery,Dashboard,Admin } from './pages';
 import 'animate';
 import { Route,Routes,Navigate } from 'react-router';
 
 import MainLayout from './Layouts/MainLayout';
 import SecondLayout from './Layouts/SecondLayout';
 
+import { AdminToolBar } from './components';
 
 import {useDispatch,useSelector} from 'react-redux'
 import {setCurrentUser,checkUserSession} from './redux/User/user.actions';
 
 import WithAuth from './hoc/WithAuth';
+
+import WithAdminAuth from './hoc/WithAdminAuth';
 
 const App = (props)=> {
 
@@ -32,9 +35,10 @@ if(currentUser!==null){
 }
 setstate(true);
 },[])
-console.log(state);
+
     return (
       <div className='app'>
+        <AdminToolBar/>
         <Routes>
           <Route exact path="/" element={
             <MainLayout>
@@ -43,6 +47,7 @@ console.log(state);
           }/>
            <Route exact path="/login" element={ 
            currentUser && state ? <Navigate to="/" /> :
+           
            ( <SecondLayout >
                   <Login/>
             </SecondLayout>)
@@ -53,7 +58,14 @@ console.log(state);
                   <Registration/>
             </SecondLayout>)
           }/>
-
+            <Route  path="/admin" element={
+             <WithAdminAuth>
+               <SecondLayout >
+                  <Admin/>
+            </SecondLayout>
+             </WithAdminAuth>
+       
+          }/>
            <Route  path="/details" element={
             <SecondLayout>
                   <Details/>
