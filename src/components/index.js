@@ -22,7 +22,11 @@ export {default as TestimonalsLines} from "./TestimonalsLines";
 export {default as SignIn} from "./SignIn";
 export {default as SignUp} from "./SignUp";
 
+export {default as Modal} from "./Modal"; 
+
 export {default as ButtonForm} from "./Forms/ButtonForm";
+export {default as FormInput} from "./Forms/FormInput";
+export {default as FormSelect} from "./Forms/FormSelect";
 
 export {default as AuthWrapper} from "./AuthWrapper";
 export {default as AdminToolBar} from "./Admin/AdminToolBar";

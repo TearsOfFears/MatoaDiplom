@@ -1,6 +1,6 @@
 import React from 'react';
 
-const FormInput = ({handleCahnge,Label, ...otherProprs}) => {
+const FormInput = ({handleChange,Label, ...otherProprs}) => {
   return (
       <div className="formRow">
           {Label &&(
@@ -8,7 +8,7 @@ const FormInput = ({handleCahnge,Label, ...otherProprs}) => {
                   {Label}
               </label>
           )}
-          <input className='formInput' onChange={handleCahnge} {...otherProprs}/>
+          <input className='formInput' onChange={handleChange} {...otherProprs}/>
       </div>
   );
 }
