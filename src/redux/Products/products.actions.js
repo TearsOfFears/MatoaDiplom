@@ -10,12 +10,12 @@ export const fetchProductsStart = () =>({
     type:productsTypes.FETCH_PRODUCTS_START,
 })
 
-export const setProducts = products =>({
+export const setProducts = product =>({
     type:productsTypes.SET_PRODUCTS,
-    payload:products
+    payload:product
 })
 
-export const deleteProducts = productsID =>({
+export const deleteProductsStart = productID =>({
     type:productsTypes.DELETE_PRODUCTS_START,
-    payload:productsID
+    payload:productID
 })

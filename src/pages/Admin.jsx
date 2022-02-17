@@ -3,7 +3,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	addProductStart,
 	fetchProductsStart,
-	deleteProducts,
+	deleteProductsStart,
 } from "../redux/Products/products.actions";
 import {
 	FormInput,
@@ -46,6 +46,7 @@ const Admin = (props) => {
 			addProductStart({ productCategory, productName, productThumbnail, price })
 		);
 		resetForm();
+		setHideModal(true);
 	};
 
 	return (
@@ -114,7 +115,7 @@ const Admin = (props) => {
 													productName,
 													productThumbnail,
 													price,
-													documentID,
+													documentId,
 												} = product;
 												return (
 													<tr>
@@ -126,7 +127,7 @@ const Admin = (props) => {
 														<td>
 															<Buttons
 																onClick={() =>
-																	dispath(deleteProducts(documentID))
+																	dispath(deleteProductsStart(documentId))
 																}
 															>
 																Delete

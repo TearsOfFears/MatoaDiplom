@@ -10,7 +10,8 @@ export function * addNewProducts({
     productCategory,
     productName,
     productThumbnail,
-    price
+    price,
+    documentID
   }
 }) {
   try {
@@ -29,19 +30,20 @@ export function * addNewProducts({
   }
 }
 
-export function* fetchProducts(){
+export function* fetchProducts({ payload }){
     try{
-        const products = yield handleFetchProducts();
+        const products = yield handleFetchProducts(payload);
         yield put(setProducts(products))
     }
     catch(err){
         //console.log(err);
     }
 }
-export function* deleteProduct( {payload}){
+
+export function* deleteProduct({payload}){
     try{
         yield handleDeleteProduct(payload);
-         put(fetchProductsStart());
+        yield put(fetchProductsStart());
     }
     catch(err){
         //console.log(err);
@@ -49,7 +51,7 @@ export function* deleteProduct( {payload}){
 }
 
 export function* onDeleteProductStart(){
-    yield takeLatest(productsTypes.FETCH_PRODUCTS_START,deleteProduct)
+    yield takeLatest(productsTypes.DELETE_PRODUCTS_START,deleteProduct)
 }
 
 
