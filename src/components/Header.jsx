@@ -85,9 +85,9 @@ const Header = (props) => {
 				>
 					<ul className="navbar-nav m-auto ">
 						<li className="nav-item ">
-							<a href="#" className="nav-link">
-								Watches
-							</a>
+							<Link to="/products" className="nav-link">
+								Products
+							</Link>
 						</li>
 						<li className="nav-item">
 							<a href="#" className="nav-link">

@@ -20,7 +20,7 @@ const Admin = (props) => {
 	const dispath = useDispatch();
 	const [hideModal, setHideModal] = useState(true);
 
-	const [productCategory, setProductCategory] = useState("Годинники");
+	const [productCategory, setProductCategory] = useState("watches");
 	const [productName, setProductName] = useState("");
 	const [productThumbnail, setProductThumbnail] = useState("");
 	const [price, setPrice] = useState(0);
@@ -32,7 +32,7 @@ const Admin = (props) => {
 		toggleModal,
 	};
 	const resetForm = () => {
-		setProductCategory("Годинники");
+		setProductCategory("watches");
 		setProductName("");
 		setProductThumbnail("");
 		setPrice(0);
@@ -62,11 +62,11 @@ const Admin = (props) => {
 								label="Категорія"
 								options={[
 									{
-										value: "Годинники",
+										value: "watches",
 										name: "Годинники",
 									},
 									{
-										value: "Окуляри",
+										value: "glasses",
 										name: "Окуляри",
 									},
 								]}

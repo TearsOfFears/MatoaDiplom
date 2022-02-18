@@ -32,3 +32,6 @@ export {default as AuthWrapper} from "./AuthWrapper";
 export {default as AdminToolBar} from "./Admin/AdminToolBar";
 
 export {default as EmailPassword} from "./Forms/EmailPassword";
+
+export {default as ProductsShow} from "./ProductsShow"; 
+export {default as ProductRender} from "./ProductRender"; 

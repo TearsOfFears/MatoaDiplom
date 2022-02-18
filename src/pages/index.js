@@ -8,3 +8,6 @@ export  {default as Dashboard} from './Dashboard';
 
 export  {default as Admin} from './Admin';
 export  {default as Recovery} from './Recovery';
+
+
+export  {default as Products} from './Products';

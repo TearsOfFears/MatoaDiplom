@@ -30,9 +30,9 @@ export function * addNewProducts({
   }
 }
 
-export function* fetchProducts({ payload }){
+export function* fetchProducts({ payload:{filterType} }){
     try{
-        const products = yield handleFetchProducts(payload);
+        const products = yield handleFetchProducts({filterType});
         yield put(setProducts(products))
     }
     catch(err){

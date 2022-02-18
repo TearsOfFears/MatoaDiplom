@@ -1,4 +1,6 @@
+@import "./../../libs.scss";
 @import "../utils/variables";
+
 *,
 *::before,
 *::after {
@@ -36,12 +38,13 @@ body {
   padding: 0px;
   margin-bottom: 10px;
   line-height: 1.2;
+  outline: none;
+  box-shadow:none;
+  border:none;
   text-decoration: none;
-background:transparent;
-outline: 0;
-border:none;
-border-bottom: 1px solid #000;
-transition: .4s;
+  border-bottom: 1px solid #000;
+  background-color: transparent;
+
   &:hover {
     cursor: pointer;
     color: $accent;
@@ -56,12 +59,4 @@ transition: .4s;
     padding-left: 15px !important ;
     padding-right: 15px !important;
   }
-}
-
-a{
-  padding: 0;
-  margin: 0;
-  display: flex;
-  align-items: center;
-  text-decoration: none !important;
 }
