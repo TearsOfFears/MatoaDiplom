@@ -13,11 +13,13 @@ import {
 	Buttons,
 } from "../components";
 
+import { LoadMore } from "../components";
+
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
 const Admin = (props) => {
 	const { products } = useSelector(mapState);
-	const dispath = useDispatch();
+	const dispatch = useDispatch();
 	const [hideModal, setHideModal] = useState(true);
 
 	const [productCategory, setProductCategory] = useState("watches");
@@ -38,15 +40,28 @@ const Admin = (props) => {
 		setPrice(0);
 	};
 	useEffect(() => {
-		dispath(fetchProductsStart());
+		dispatch(fetchProductsStart());
 	}, []);
 	const handleSubmit = (e) => {
 		e.preventDefault();
-		dispath(
+		dispatch(
 			addProductStart({ productCategory, productName, productThumbnail, price })
 		);
 		resetForm();
 		setHideModal(true);
+	};
+	const { data, queryDoc, isLastPage } = products;
+
+	const handleLoadMore = () => {
+		dispatch(
+			fetchProductsStart({
+				startAfterDoc: queryDoc,
+				persistProducts: data,
+			})
+		);
+	};
+	const configLoadMore = {
+		onLoadMoreEvt: handleLoadMore,
 	};
 
 	return (
@@ -110,33 +125,44 @@ const Admin = (props) => {
 								<td>
 									<table>
 										<tbody>
-											{products.map((product, index) => {
-												const {
-													productName,
-													productThumbnail,
-													price,
-													documentId,
-												} = product;
-												return (
-													<tr>
-														<td>
-															<img src={productThumbnail} />
-														</td>
-														<td>{productName}</td>
-														<td>{price} Грн.</td>
-														<td>
-															<Buttons
-																onClick={() =>
-																	dispath(deleteProductsStart(documentId))
-																}
-															>
-																Delete
-															</Buttons>
-														</td>
-													</tr>
-												);
-											})}
+											{Array.isArray(data) &&
+												data.length > 0 &&
+												data.map((product, index) => {
+													const {
+														productName,
+														productThumbnail,
+														price,
+														documentId,
+													} = product;
+													return (
+														<tr>
+															<td>
+																<img src={productThumbnail} />
+															</td>
+															<td>{productName}</td>
+															<td>{price} Грн.</td>
+															<td>
+																<Buttons
+																	onClick={() =>
+																		dispatch(deleteProductsStart(documentId))
+																	}
+																>
+																	Delete
+																</Buttons>
+															</td>
+														</tr>
+													);
+												})}
 										</tbody>
+									</table>
+								</td>
+							</tr>
+							<tr>
+								<td>
+									<table>
+										<tr>
+											<td>{!isLastPage && <LoadMore {...configLoadMore} />}</td>
+										</tr>
 									</table>
 								</td>
 							</tr>

@@ -35,3 +35,5 @@ export {default as EmailPassword} from "./Forms/EmailPassword";
 
 export {default as ProductsShow} from "./ProductsShow"; 
 export {default as ProductRender} from "./ProductRender"; 
+
+export {default as LoadMore} from "./LoadMore"; 
