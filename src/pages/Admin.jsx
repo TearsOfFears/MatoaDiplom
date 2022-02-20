@@ -14,7 +14,7 @@ import {
 } from "../components";
 
 import { LoadMore } from "../components";
-
+import { CKEditor } from "ckeditor4-react";
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
 const Admin = (props) => {
@@ -26,7 +26,7 @@ const Admin = (props) => {
 	const [productName, setProductName] = useState("");
 	const [productThumbnail, setProductThumbnail] = useState("");
 	const [price, setPrice] = useState(0);
-
+	const [productDesc, setProductDesc] = useState([]);
 	const toggleModal = () => setHideModal(!hideModal);
 
 	const configModal = {
@@ -38,6 +38,7 @@ const Admin = (props) => {
 		setProductName("");
 		setProductThumbnail("");
 		setPrice(0);
+		setProductDesc([])
 	};
 	useEffect(() => {
 		dispatch(fetchProductsStart());
@@ -45,7 +46,7 @@ const Admin = (props) => {
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(
-			addProductStart({ productCategory, productName, productThumbnail, price })
+			addProductStart({ productCategory, productName, productThumbnail, price,productDesc })
 		);
 		resetForm();
 		setHideModal(true);
@@ -106,6 +107,7 @@ const Admin = (props) => {
 								step="0.01"
 								handleChange={(e) => setPrice(e.target.value)}
 							/>
+							<CKEditor onChange={evt =>setProductDesc(evt.editor.getData())}/>
 							<Buttons type="submit" style="btn-read">
 								Добавити новий продукт
 							</Buttons>
@@ -133,6 +135,7 @@ const Admin = (props) => {
 														productThumbnail,
 														price,
 														documentId,
+														productDesc
 													} = product;
 													return (
 														<tr>
@@ -141,6 +144,7 @@ const Admin = (props) => {
 															</td>
 															<td>{productName}</td>
 															<td>{price} Грн.</td>
+															<td>{productDesc} Грн.</td>
 															<td>
 																<Buttons
 																	onClick={() =>

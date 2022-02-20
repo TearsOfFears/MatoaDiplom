@@ -78,7 +78,6 @@ const ProductsShow = () => {
 					<div className="wrapper-products">
 						{data.map((product, ind) => {
 							const { productThumbnail, productName, price } = product;
-							console.log(productThumbnail);
 							if (
 								!productThumbnail ||
 								!productName ||
@@ -86,9 +85,7 @@ const ProductsShow = () => {
 							)
 								return null;
 							const configProduct = {
-								productThumbnail,
-								productName,
-								price,
+							...product
 							};
 							return <ProductRender {...configProduct} key={ind} />;
 						})}

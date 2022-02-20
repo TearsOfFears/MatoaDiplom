@@ -47,25 +47,6 @@ const SignUp = (props) => {
 				confirmPassword: confirmPassword,
 			})
 		);
-		// const { displayName, email, password, confirmPassword, errors } = state;
-		// if (password !== confirmPassword) {
-		// 	const err = ["Паролі не спіпадають"];
-		// 	setstate({
-		// 		errors: err,
-		// 	});
-		// 	return;
-		// }
-		// try {
-		// 	const { user } = await auth.createUserWithEmailAndPassword(
-		// 		email,
-		// 		password
-		// 	);
-		// 	await handleUserProfile(user, { displayName });
-
-		// 	reset();
-		// } catch (err) {
-		// 	console.log(err);
-		// }
 	};
 
 	useEffect(() => {

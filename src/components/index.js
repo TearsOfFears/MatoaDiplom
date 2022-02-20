@@ -37,3 +37,6 @@ export {default as ProductsShow} from "./ProductsShow";
 export {default as ProductRender} from "./ProductRender"; 
 
 export {default as LoadMore} from "./LoadMore"; 
+
+export {default as ProductCard} from "./ProductCard"; 
+export {default as ProductCardRender} from "./ProductCardRender"; 

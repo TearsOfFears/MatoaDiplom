@@ -11,12 +11,22 @@ export const fetchProductsStart = (filters={}) =>({
     payload:filters
 })
 
-export const setProducts = product =>({
+export const setProducts = products =>({
     type:productsTypes.SET_PRODUCTS,
-    payload:product
+    payload:products
 })
 
 export const deleteProductsStart = productID =>({
     type:productsTypes.DELETE_PRODUCTS_START,
     payload:productID
+})
+
+export const fetchCurrentProductStart = productID =>({
+    type:productsTypes.FETCH_CURRENT_PRODUCT_START,
+    payload:productID
+})
+
+export const setCurrentProduct = product =>({
+    type:productsTypes.SET_CURRENT_PRODUCT,
+    payload:product
 })

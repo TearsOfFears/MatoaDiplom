@@ -1,6 +1,6 @@
 
 import React, {useState,useEffect} from 'react';
-import { Home,Cart,Details,Registration,Login,Recovery,Dashboard,Admin,Products } from './pages';
+import { Home,Cart,Details,Registration,Login,Recovery,Dashboard,Admin,Products ,ProductsDeatails} from './pages';
 import 'animate';
 import { Route,Routes,Navigate } from 'react-router';
 
@@ -97,6 +97,12 @@ setstate(true);
                  <Route  path="/products/:filterType" element={
             <SecondLayout>
                   <Products/>
+            </SecondLayout>
+
+          }/>
+            <Route  path="/product/:productID" element={
+            <SecondLayout>
+                  <ProductsDeatails/>
             </SecondLayout>
 
           }/>
