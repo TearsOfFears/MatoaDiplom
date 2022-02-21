@@ -2,18 +2,18 @@ import React from "react";
 import logo from "../assets/img/home/logo.png";
 import { Buttons, IconLogin, IconCart } from "./index";
 import { Link } from "react-router-dom";
-
+import { selectCartItemsCount } from "../redux/Carts/cart.selectors";
 import { useSelector, useDispatch } from "react-redux";
 
 import { signOutUserStart } from "../redux/User/user.actions";
 
-const mapState = ({ user }) => ({
-	currentUser: user.currentUser,
-
+const mapState = (state ) => ({
+	currentUser:state.user.currentUser,
+	totalNumItems:selectCartItemsCount(state)
 });
 
 const Header = (props) => {
-	const { currentUser } = useSelector(mapState);
+	const { currentUser,totalNumItems } = useSelector(mapState);
 
 	const dispatch = useDispatch();
 
@@ -48,7 +48,7 @@ const Header = (props) => {
 							</Link>
 						</div>
 					)}
-					{!currentUser && (
+					{!currentUser && [
 						<div className="registrLogin">
 							<Link to="/login">
 								<Buttons style="btn-login" text="Log in" icon={<IconLogin />} />
@@ -58,11 +58,11 @@ const Header = (props) => {
 								<Buttons style="btn-login" text="Register" />
 							</Link>
 						</div>
-					)}
+					]}
 
 					<Link to="/cart">
 						<Buttons style="btn-cart" icon={<IconCart />}>
-							<span>1</span>
+							<span>{totalNumItems}</span>
 						</Buttons>
 					</Link>
 				</div>
