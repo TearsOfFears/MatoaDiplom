@@ -9,7 +9,8 @@ export {default as InstagramPosts} from "./InstagramPosts";
 export {default as Bils} from "./Bils";
 export {default as Footer} from "./Footer";
 
-
+export {default as Cart} from "./Cart";
+export {default as ItemRender} from "./ItemRender";
 
 export {default as Buttons} from "./Buttons";
 export {default as IconLogin} from "./IconLogin";

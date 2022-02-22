@@ -1,6 +1,6 @@
 
 import React, {useState,useEffect} from 'react';
-import { Home,Cart,Details,Registration,Login,Recovery,Dashboard,Admin,Products ,ProductsDeatails} from './pages';
+import { Home,CartPage,Details,Registration,Login,Recovery,Dashboard,Admin,Products ,ProductsDeatails} from './pages';
 import 'animate';
 import { Route,Routes,Navigate } from 'react-router';
 
@@ -74,7 +74,7 @@ setstate(true);
           }/>
            <Route  path="/cart" element={
             <SecondLayout >
-                  <Cart/>
+                  <CartPage/>
             </SecondLayout>
           }/>
             <Route  path="/recovery" element={

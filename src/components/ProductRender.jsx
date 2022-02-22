@@ -1,18 +1,19 @@
 import React from "react";
-
 import { Link } from "react-router-dom";
-
 import { useDispatch } from "react-redux";
-
 import { addProduct } from "../redux/Carts/cart.actions";
+
+import { useNavigate } from "react-router";
 
 const ProductRender = (product) => {
 	const dispatch = useDispatch();
+	const navigate = useNavigate();
 	const { ind, productThumbnail, productName, price, documentId } = product;
 
 	const handleAddToCart = (product) => {
 		if (!product) return;
 		dispatch(addProduct(product));
+		navigate("/cart");
 	};
 
 	if (
