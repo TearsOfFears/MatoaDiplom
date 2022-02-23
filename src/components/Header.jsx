@@ -7,13 +7,13 @@ import { useSelector, useDispatch } from "react-redux";
 
 import { signOutUserStart } from "../redux/User/user.actions";
 
-const mapState = (state ) => ({
-	currentUser:state.user.currentUser,
-	totalNumItems:selectCartItemsCount(state)
+const mapState = (state) => ({
+	currentUser: state.user.currentUser,
+	totalNumItems: selectCartItemsCount(state),
 });
 
 const Header = (props) => {
-	const { currentUser,totalNumItems } = useSelector(mapState);
+	const { currentUser, totalNumItems } = useSelector(mapState);
 
 	const dispatch = useDispatch();
 
@@ -34,11 +34,11 @@ const Header = (props) => {
 					{currentUser && (
 						<div className="registrLogin">
 							<span className="photoborder">
-								{currentUser.photoURL===null ?
-								<IconLogin />:
-								<img src={currentUser.photoURL} alt="" />
-								}
-							
+								{currentUser.photoURL === null ? (
+									<IconLogin />
+								) : (
+									<img src={currentUser.photoURL} alt="" />
+								)}
 							</span>
 							<div className="" onClick={() => signOut()}>
 								<Buttons style="btn-login">Log Out</Buttons>
@@ -57,12 +57,12 @@ const Header = (props) => {
 							<Link to="/registration">
 								<Buttons style="btn-login" text="Register" />
 							</Link>
-						</div>
+						</div>,
 					]}
 
 					<Link to="/cart">
 						<Buttons style="btn-cart" icon={<IconCart />}>
-							<span>{totalNumItems}</span>
+							{totalNumItems > 0 ? <span>{totalNumItems}</span> : <div></div>}
 						</Buttons>
 					</Link>
 				</div>
