@@ -11,5 +11,7 @@ export  {default as Recovery} from './Recovery';
 
 
 export  {default as Products} from './Products';
+export  {default as Paymant} from './Paymant';
+
 
 export  {default as ProductsDeatails} from './ProductsDeatails';

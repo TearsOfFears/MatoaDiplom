@@ -1,6 +1,6 @@
 
 import React, {useState,useEffect} from 'react';
-import { Home,CartPage,Details,Registration,Login,Recovery,Dashboard,Admin,Products ,ProductsDeatails} from './pages';
+import { Home,CartPage,Details,Registration,Login,Recovery,Dashboard,Admin,Products ,ProductsDeatails, Paymant} from './pages';
 import 'animate';
 import { Route,Routes,Navigate } from 'react-router';
 
@@ -20,7 +20,7 @@ import WithAdminAuth from './hoc/WithAdminAuth';
 const App = (props)=> {
 
 const [state, setstate] = useState(false);
-const dispatch= useDispatch();
+const dispatch = useDispatch();
 
 const mapState = ({user})=>({
   currentUser:user.currentUser
@@ -105,6 +105,11 @@ setstate(true);
                   <ProductsDeatails/>
             </SecondLayout>
 
+          }/>
+           <Route  path="/payment" element={
+            <SecondLayout>
+                  <Paymant/>
+            </SecondLayout>
           }/>
         </Routes>
       </div>

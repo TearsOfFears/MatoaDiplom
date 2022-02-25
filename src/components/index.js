@@ -41,3 +41,6 @@ export {default as LoadMore} from "./LoadMore";
 
 export {default as ProductCard} from "./ProductCard"; 
 export {default as ProductCardRender} from "./ProductCardRender"; 
+
+
+export {default as PaymantDetails} from "./Paymant/PaymantDetails";
