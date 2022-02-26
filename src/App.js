@@ -107,9 +107,12 @@ setstate(true);
 
           }/>
            <Route  path="/payment" element={
-            <SecondLayout>
+              currentUser && state ? <Navigate to="/" /> :(
+  <SecondLayout>
                   <Paymant/>
             </SecondLayout>
+              )
+          
           }/>
         </Routes>
       </div>

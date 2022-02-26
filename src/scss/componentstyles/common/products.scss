@@ -100,15 +100,18 @@
     }
 }
 
-select{
-    border:none;
-    outline: 0;
-    background-color:transparent;
-    font-size:23px;
-    font-weight: 500;
-    color:$black;
-    margin-top: 50px;
-    option{
-        background-color: red;
+.formRow{
+    input,
+    &.chekoutInput select{
+        border:1px solid black;
+        outline: 0;
+        background-color:transparent;
+        font-size:23px;
+        font-weight: 500;
+        color:$black;
+        margin-top: 20px;
+        option{
+            background-color: red;
+        }
     }
 }

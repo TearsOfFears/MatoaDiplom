@@ -1,3 +1,6 @@
+import axios from "axios";
+
+
 export const checkUserIsAdmin = currentUser =>{
     if(!currentUser || !Array.isArray(currentUser.userRoles))
     return false;
@@ -7,3 +10,7 @@ export const checkUserIsAdmin = currentUser =>{
     return true;
     return false;
 }
+
+export const apiInstance = axios.create({
+    baseURL:'http://localhost:5001/matoa-diplom/us-central1/api'
+});

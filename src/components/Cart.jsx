@@ -29,7 +29,7 @@ function Cart() {
 							<h1>Підсумок:</h1>
 							<p>{total} грн.</p>
 						</div>
-						<Link to="/paymant" className="btn-read w-100 text-center">
+						<Link to="/payment" className="btn-read w-100 text-center">
 							Пітвердити замовлення
 						</Link>
 						<Link to="/products" className="btn-read w-100 text-center">
