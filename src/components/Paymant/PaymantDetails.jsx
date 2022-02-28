@@ -6,12 +6,15 @@ import { CardElement, useElements, useStripe } from "@stripe/react-stripe-js";
 import {
 	selectCartTotal,
 	selectCartItemsCount,
+	selectCartItems,
 } from "../../redux/Carts/cart.selectors";
 import { createStructuredSelector } from "reselect";
 import { useSelector, useDispatch } from "react-redux";
 import { apiInstance } from "../../utils/utils";
 import { clearCart } from "../../redux/Carts/cart.actions";
 import { useNavigate } from "react-router-dom";
+
+import { saveOrderHistory } from "../../redux/Orders/orders.actions";
 
 const initialAddressState = {
 	line1: "",
@@ -25,13 +28,14 @@ const initialAddressState = {
 const mapState = createStructuredSelector({
 	total: selectCartTotal,
 	itemCount: selectCartItemsCount,
+	cartItems: selectCartItems,
 });
 const PaymantDetails = () => {
 	const stripe = useStripe();
 	const elements = useElements();
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { total, itemCount } = useSelector(mapState);
+	const { total, itemCount, cartItems } = useSelector(mapState);
 	const [billingAddress, setBillingAdress] = useState({
 		...initialAddressState,
 	});
@@ -43,10 +47,10 @@ const PaymantDetails = () => {
 
 	useEffect(() => {
 		if (itemCount < 1) {
-			navigate("/");
+			navigate("/dashboard");
 		}
 	}, [itemCount]);
-
+	console.log(cartItems);
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 		const cardElement = elements.getElement("card");
@@ -94,7 +98,26 @@ const PaymantDetails = () => {
 								payment_method: paymentMethod.id,
 							})
 							.then(({ paymentIntent }) => {
-								dispatch(clearCart());
+								const configOrder = {
+									orderTotal: total,
+									orderItems: cartItems.map((item) => {
+										const {
+											documentId,
+											productThumbnail,
+											productName,
+											price,
+											quantity,
+										} = item;
+										return {
+											documentId,
+											productThumbnail,
+											productName,
+											price,
+											quantity,
+										};
+									}),
+								};
+								dispatch(saveOrderHistory(configOrder));
 							});
 					});
 			});

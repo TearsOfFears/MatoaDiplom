@@ -44,3 +44,7 @@ export {default as ProductCardRender} from "./ProductCardRender";
 
 
 export {default as PaymantDetails} from "./Paymant/PaymantDetails";
+
+export {default as RenderOrderHistory} from "./RenderOrderHistory/RenderOrderHistory";
+
+export {default as OrderDetails} from "./RenderOrderHistory/OrderDetails";

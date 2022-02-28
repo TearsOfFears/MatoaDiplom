@@ -1,6 +1,6 @@
 
 import React, {useState,useEffect} from 'react';
-import { Home,CartPage,Details,Registration,Login,Recovery,Dashboard,Admin,Products ,ProductsDeatails, Paymant} from './pages';
+import { Home,CartPage,Details,Registration,Login,Recovery,Dashboard,Admin,Products ,ProductsDeatails, Paymant,Order} from './pages';
 import 'animate';
 import { Route,Routes,Navigate } from 'react-router';
 
@@ -31,7 +31,7 @@ const {currentUser}= useSelector(mapState);
 useEffect(()=>{
 dispatch(checkUserSession());
 
-if(currentUser!==null){
+if(!currentUser){
   setstate(true)
 }
 setstate(true);
@@ -107,13 +107,20 @@ setstate(true);
 
           }/>
            <Route  path="/payment" element={
-              currentUser && state ? <Navigate to="/" /> :(
-  <SecondLayout>
+              <WithAuth>
+              <SecondLayout>
                   <Paymant/>
             </SecondLayout>
-              )
-          
+              </WithAuth>
           }/>
+             <Route  path="/order/:orderID" element={
+              <WithAuth>
+                  <SecondLayout>
+                    <Order/>
+                  </SecondLayout>
+              </WithAuth>
+
+            }/> 
         </Routes>
       </div>
     );
