@@ -19,6 +19,7 @@ const Order = () => {
 		<div>
             <h2>{orderID}</h2>
 			<OrderDetails order={orderDetails}/>
+			<h3> {orderTotal} грн.</h3>
 		</div>
 	);
 };

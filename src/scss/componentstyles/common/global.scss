@@ -60,3 +60,91 @@ body {
     padding-right: 15px !important;
   }
 }
+
+
+.lines {
+  width: 100%;
+  z-index: 2;
+  top: -20px;
+  position: relative;
+  text-align: right;
+  height: 1px;
+
+  .block-top-lines {
+    width: inherit;
+    position: absolute;
+
+    img {
+      width: 51%;
+    }
+  }
+
+  .block-middle-lines {
+    width: inherit;
+    position: absolute;
+    margin-top: 35px;
+    opacity: 0.7;
+
+    img {
+      width: 51%;
+    }
+  }
+
+  .block-bottom-lines {
+    width: inherit;
+    position: absolute;
+    margin-top: 80px;
+    opacity: 0.4;
+
+    img {
+      width: 51%;
+    }
+  }
+}
+.links{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+.btn-read {
+  font-family: Taviraj;
+  font-size: 23px;
+  letter-spacing: 0.4px;
+  text-align: left;
+  color: $white;
+  padding: 0px;
+  background-color: $accent;
+  text-decoration: none;
+  padding: 20px 30px;
+  margin-top: 25px;
+  border: 2px solid $accent;
+  cursor: pointer;
+outline: 0;
+transition: .5s;
+  svg{
+    margin-right: 15px;
+  }
+  @media screen and (max-width: 1140px) {
+    padding: 10px 20px;
+  }
+
+  @media screen and (max-width: 960px) {
+    padding: 10px 20px;
+  }
+
+  @media screen and (max-width: 720px) {
+    padding: 10px 15px;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 10px 15px;
+    font-size: 17px;
+  }
+
+  &:hover {
+    background-color: $secondAccent;
+    color: $black;
+    transition: .5s;
+    border: 2px solid $accent;
+  }
+}

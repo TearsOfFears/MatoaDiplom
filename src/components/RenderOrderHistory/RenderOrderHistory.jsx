@@ -1,5 +1,5 @@
 import React from "react";
-
+import VerticalNav from "../Admin/VerticalNav";
 import {
 	TableContainer,
 	Table,
@@ -45,6 +45,7 @@ const RenderOrderHistory = ({ orders }) => {
 
   const navigate = useNavigate();
 	return (
+		<VerticalNav>
 		<TableContainer>
 			<Table>
 				<TableHead>
@@ -83,6 +84,7 @@ const RenderOrderHistory = ({ orders }) => {
 				</TableBody>
 			</Table>
 		</TableContainer>
+		</VerticalNav>
 	);
 };
 

@@ -10,7 +10,7 @@ const VerticalNav= (props)=> {
     const configUserProfile = {
         currentUser
     }
-    console.log(configUserProfile)
+    //console.log(configUserProfile)
   return (
     <div className='verticalNav'>
         <UserProfile {...configUserProfile}/>

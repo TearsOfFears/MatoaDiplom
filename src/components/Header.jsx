@@ -1,7 +1,7 @@
 import React from "react";
 import logo from "../assets/img/home/logo.png";
 import { Buttons, IconLogin, IconCart } from "./index";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { selectCartItemsCount } from "../redux/Carts/cart.selectors";
 import { useSelector, useDispatch } from "react-redux";
 
@@ -14,11 +14,12 @@ const mapState = (state) => ({
 
 const Header = (props) => {
 	const { currentUser, totalNumItems } = useSelector(mapState);
-
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 
 	const signOut = () => {
 		dispatch(signOutUserStart());
+		navigate("/");
 	};
 
 	return (

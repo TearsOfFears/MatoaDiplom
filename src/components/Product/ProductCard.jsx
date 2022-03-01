@@ -6,8 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	setCurrentProduct,
 	fetchCurrentProductStart,
-} from "../redux/Products/products.actions";
-import { ProductCardRender } from "./index";
+} from "./../../redux/Products/products.actions";
+
+import { ProductCardRender } from "./../index";
 
 
 const mapState = (state) => ({
@@ -20,12 +21,8 @@ const ProductCard = ({renderState}) => {
 
 	const {product} = useSelector(mapState);
 
-	const {productThumbnail, productName, productPrice} = product || {};
-
-  
 	useEffect(() => {
       dispatch(fetchCurrentProductStart(productID))
-      
 		return () => {
 			dispatch(setCurrentProduct({}))
 		}

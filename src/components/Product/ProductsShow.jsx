@@ -1,10 +1,10 @@
 import React, { useEffect } from "react";
-import { ProductRender } from "./index";
+import { ProductRender } from "../index";
 
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductsStart } from "../redux/Products/products.actions";
+import { fetchProductsStart } from "../../redux/Products/products.actions";
 
-import { FormSelect, LoadMore } from "./index";
+import { FormSelect, LoadMore } from "../index";
 
 import { useNavigate, useParams } from "react-router";
 const mapState = ({ productsData }) => ({ products: productsData.products });

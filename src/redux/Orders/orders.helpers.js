@@ -53,7 +53,7 @@ export const handleGetOrder = orderID =>{
       .then(snap=>{
         if(snap.exists){
           resolve({
-            ...snap.data,
+            ...snap.data(),
             documentID:orderID
           })
         }
