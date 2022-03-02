@@ -1,8 +1,10 @@
 import React from "react";
+import "./Form.scss";
 
 const FormSelect = ({
 	options,
 	defaultValue,
+	defaultName,
 	handleChange,
 	label,
 	...otherProps
@@ -12,7 +14,9 @@ const FormSelect = ({
 	return (
 		<div className="formRow">
 			{label && <label>{label}</label>}
-
+			<div>
+				
+			</div>
 			<select
 				className="formSelect"
 				value={defaultValue}
@@ -20,7 +24,7 @@ const FormSelect = ({
 				{...otherProps}
 			>
 				{options.map((option, index) => {
-					const { value, name } = option;
+					const { value,name } = option;
 
 					return (
 						<option key={index} value={value}>

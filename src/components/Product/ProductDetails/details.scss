@@ -1,3 +1,4 @@
+@import "./../../../scss/componentstyles/utils/variables";
 .details {
   margin-top: 100px;
 
@@ -83,7 +84,7 @@
         flex-direction: column;
         padding-right: calc( 16px + (22 - 16) * (100vw - 0px) / (576 - 0 ) ); 
       }
-    .tilte {
+    h2 {
         margin-top: 24px;
       font-family: Taviraj;
       font-size: 24px;
@@ -92,7 +93,7 @@
       color: $black;
     }
 
-    .text {
+    p {
       font-family: Nunito;
       font-size: 17px;
       line-height: 1.75;

@@ -16,8 +16,8 @@ const ProductSection = (product) => {
 	const dispatch = useDispatch();
     const navigate = useNavigate();
 
-	const { productName, price, productThumbnail,quantity } = product;
-
+	const { productName, price, productThumbnail } = product;
+	console.log(product);
 
 	const handleAddToCart = (product) => {
 		if (!product) return;

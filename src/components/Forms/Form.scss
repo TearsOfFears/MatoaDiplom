@@ -1,0 +1,38 @@
+@import "./../../scss/componentstyles/utils/variables.scss";
+
+.formRow{
+    input,
+    &.chekoutInput select{
+        outline: none;
+        outline: 0;
+        background-color:transparent;
+        font-size:23px;
+        font-weight: 500;
+        color:$black;
+        margin-top: 20px;
+    }
+    .formSelect {
+        outline: none;
+        outline: 0;
+        border:none;
+        background-color:transparent;
+        font-size:23px;
+        font-weight: 500;
+        color:$black;
+        margin-top: 20px;
+        width: 200px;
+        border-bottom:1px solid $accent;
+        padding-bottom: 5px;
+        option{
+            border-bottom:1px solid $grey;
+            background-color:$grey;
+            &:focus{
+                background-color:$accent;
+            }
+            &:hover{
+                background-color:$accent;
+            } 
+        }
+    }
+
+}
