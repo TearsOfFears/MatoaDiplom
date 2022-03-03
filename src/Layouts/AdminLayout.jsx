@@ -1,15 +1,23 @@
-import React from "react";
+import React,{useState} from "react";
 import { Link } from "react-router-dom";
-import { Footer, Header, Bils } from "../components";
+import { Footer, Header, Bils,ButtonForm, } from "../components";
 
 import { useDispatch } from "react-redux";
-
+import { Admin } from "../pages";
 import UserProfile from "../components/Admin/UserProfile";
 import VerticalNav from "../components/Admin/VerticalNav";
 import { signOutUserStart } from "../redux/User/user.actions";
 
-const ItemLayout = (props) => {
-	const dispatch = useDispatch();
+const AdminLayout = (props) => {
+	const dispatch = useDispatch();	
+	const [hideModal, setHideModal] = useState(true);
+	const toggleModal = () => setHideModal(!hideModal);
+
+	const configModal = {
+		hideModal,
+		toggleModal,
+		setHideModal
+	};
 
 	const signOut = () => {
 		dispatch(signOutUserStart());
@@ -18,7 +26,7 @@ const ItemLayout = (props) => {
 	return (
 		<div className="adminLayout">
 			<Header {...props} />
-			<div className="container">
+			<div className="container d-flex flex-row">
 				<div className="contorlPanel">
 					<div className="sideBar">
 						<VerticalNav>
@@ -26,7 +34,9 @@ const ItemLayout = (props) => {
 								<li>
 									{" "}
 									<Link to="/admin">До дому</Link>
+									
 								</li>
+								<li>	<ButtonForm onClick={() => toggleModal()}>Додати продукцію</ButtonForm></li>
 								<li>
 									<span className="btn" onClick={() => signOut()}> Вийти</span>
 								</li>
@@ -34,11 +44,11 @@ const ItemLayout = (props) => {
 						</VerticalNav>
 					</div>
 				</div>
-				<div className="content">{props.children}</div>
+				<div className="content"><Admin  {...configModal}/></div>
 			</div>
 			<Footer />
 		</div>
 	);
 };
 
-export default ItemLayout;
+export default AdminLayout;

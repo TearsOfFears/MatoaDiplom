@@ -26,6 +26,17 @@ export const fetchCurrentProductStart = productID =>({
     payload:productID
 })
 
+export const getProductDesc = productID =>({
+    type:productsTypes.GET_PRODUCT_DESC,
+    payload:productID
+})
+
+export const setProductDesc= product =>({
+    type:productsTypes.SET_PRODUCT_DESC,
+    payload:product
+})
+
+
 export const setCurrentProduct = product =>({
     type:productsTypes.SET_CURRENT_PRODUCT,
     payload:product

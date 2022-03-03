@@ -1,0 +1,9 @@
+
+@import "./../../scss/componentstyles/utils/variables";
+.read-or-hide{
+    color:$white;
+    cursor: pointer;
+    background: $accent;
+    padding: 5px;
+    margin-left: 5px;
+}

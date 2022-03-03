@@ -74,6 +74,22 @@ export const handleDeleteProduct = documentID => {
   });
 }
 
+export const handleGetProductDesc = documentID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('products')
+      .doc(documentID)
+      .get()
+      .then(() => {
+        resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+
 export const handleFetchCurrentProduct = productID => {
   return new Promise((resolve, reject) => {
     firestore

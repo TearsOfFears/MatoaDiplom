@@ -10,6 +10,16 @@
         font-weight: 500;
         color:$black;
         margin-top: 20px;
+        option{
+            border-bottom:1px solid $grey;
+            background-color:$grey;
+            &:focus{
+                background-color:$accent;
+            }
+            &:hover{
+                background-color:$accent;
+            } 
+        }
     }
     .formSelect {
         outline: none;

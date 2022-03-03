@@ -31,59 +31,60 @@ const styles = {
 	cursor: "pointer",
 	width: "10%",
 };
-const formatText = (columnName,columnVal)=>{
-  switch(columnName){
-      case `orderTotal`:
-        return `${columnVal} грн`;
-        case `orderCreated`:
-        return moment(columnVal.nano).format('DD/MM/YYYY')
-    default:
-        return columnVal
-  }
-}
+const formatText = (columnName, columnVal) => {
+	switch (columnName) {
+		case `orderTotal`:
+			return `${columnVal} грн`;
+		case `orderCreated`:
+			return moment(columnVal.nano).format("DD/MM/YYYY");
+		default:
+			return columnVal;
+	}
+};
 const RenderOrderHistory = ({ orders }) => {
-
-  const navigate = useNavigate();
+	const navigate = useNavigate();
 	return (
 		<VerticalNav>
-		<TableContainer>
-			<Table>
-				<TableHead>
-					<TableRow>
-						{colums.map((column, pos) => {
-							const { lable } = column;
-							return (
-								<TableCell key={pos} style={styles}>
-									{lable}
-								</TableCell>
-							);
-						})}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{Array.isArray(orders) &&
-						orders.length > 0 &&
-						orders.map((row, pos) => {
-              const {documentID}=row;
-							return (
-								<TableRow key={pos} onClick={()=> navigate(`/order/${documentID}`)}>
-									{colums.map((column, pos) => {
-          
-										const columnName = column.id;
-                    const columnVal = row[columnName]
-                    const formatedText =formatText(columnName,columnVal)
-										return (
-											<TableCell key={pos} style={styles}>
-												{formatedText}
-											</TableCell>
-										);
-									})}
-								</TableRow>
-							);
-						})}
-				</TableBody>
-			</Table>
-		</TableContainer>
+			<TableContainer>
+				<Table>
+					<TableHead>
+						<TableRow>
+							{colums.map((column, pos) => {
+								const { lable } = column;
+								return (
+									<TableCell key={pos} style={styles}>
+										{lable}
+									</TableCell>
+								);
+							})}
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{Array.isArray(orders) &&
+							orders.length > 0 &&
+							orders.map((row, pos) => {
+								const { documentID } = row;
+								return (
+									<TableRow
+										key={pos}
+										onClick={() => navigate(`/order/${documentID}`)}
+									>
+										{colums.map((column, pos) => {
+											const columnName = column.id;
+											const columnVal = row[columnName];
+											const formatedText = formatText(columnName, columnVal);
+											return (
+												<TableCell key={pos} style={styles}>
+													{formatedText}
+												</TableCell>
+											);
+										})}
+									</TableRow>
+								);
+							})}
+					</TableBody>
+				</Table>
+			</TableContainer>
 		</VerticalNav>
 	);
 };
