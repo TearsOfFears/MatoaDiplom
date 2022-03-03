@@ -31,7 +31,7 @@ export const getProductDesc = productID =>({
     payload:productID
 })
 
-export const setProductDesc= product =>({
+export const setProductDesc = product =>({
     type:productsTypes.SET_PRODUCT_DESC,
     payload:product
 })

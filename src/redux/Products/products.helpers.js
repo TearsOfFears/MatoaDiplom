@@ -74,11 +74,11 @@ export const handleDeleteProduct = documentID => {
   });
 }
 
-export const handleGetProductDesc = documentID => {
+export const handleGetProductDesc = documentId => {
   return new Promise((resolve, reject) => {
     firestore
       .collection('products')
-      .doc(documentID)
+      .doc(documentId)
       .get()
       .then(() => {
         resolve();
