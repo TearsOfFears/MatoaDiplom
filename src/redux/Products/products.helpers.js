@@ -90,6 +90,8 @@ export const handleGetProductDesc = documentId => {
 }
 
 
+
+
 export const handleFetchCurrentProduct = productID => {
   return new Promise((resolve, reject) => {
     firestore

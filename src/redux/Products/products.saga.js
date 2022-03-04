@@ -50,19 +50,6 @@ export function* fetchCurrentProduct({payload}){
 }
 
 
-export function* getProductDescProduc({payload}){
-  try{
-      const product = yield handleGetProductDesc(payload);
-      yield put(setProductDesc(product));
-  }
-  catch(err){
-      //console.log(err);
-  }
-}
-
-export function * onGetProductDesc() {
-  yield takeLatest(productsTypes.FETCH_CURRENT_PRODUCT_START, getProductDescProduc)
-}
 
 export function * onFetchCurrentProduct() {
   yield takeLatest(productsTypes.FETCH_CURRENT_PRODUCT_START, fetchCurrentProduct)
@@ -81,5 +68,5 @@ export function * onAddProductsStart() {
 }
 
 export default function * productsSagas() {
-  yield all([call(onAddProductsStart),call(onFetchProductsStart),call(onDeleteProductStart),call(onFetchCurrentProduct),call(onGetProductDesc)])
+  yield all([call(onAddProductsStart),call(onFetchProductsStart),call(onDeleteProductStart),call(onFetchCurrentProduct)])
 }

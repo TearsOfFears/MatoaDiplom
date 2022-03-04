@@ -24,6 +24,7 @@ import {
 import moment from "moment";
 import "./../components/Admin/Admin.scss";
 import { LoadMore } from "../components";
+import ReadMoreReact from "read-more-react";
 import { CKEditor } from "ckeditor4-react";
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
@@ -187,32 +188,33 @@ const Admin = (configModal) => {
 								{Array.isArray(data) &&
 									data.length > 0 &&
 									data.map((data, pos) => {
-										const {productName,productThumbnail,productDesc,documentId,price} = data
+										const {
+											productName,
+											productThumbnail,
+											productDesc,
+											documentId,
+											price,
+										} = data;
 										return (
 											<TableRow key={productName} style={styles}>
 												<TableCell component="th" scope="row">
 													{productName}
 												</TableCell>
 												<TableCell align="left">
-													<img
-														src={productThumbnail}
-														alt={productThumbnail}
-													/>
+													<img src={productThumbnail} alt={productThumbnail} />
 												</TableCell>
 												<TableCell align="left">{documentId}</TableCell>
 												<TableCell align="left">
-													{typeof productDesc === "string" && isReadMore
-														? productDesc.slice(0, 10)
-														: productDesc}
-
-													<span
-														onClick={() =>
-															toggleReadMore()
-														}
-														className="read-or-hide"
-													>
-														{isReadMore ? "...read more" : " show less"}
-													</span>
+													{typeof productDesc === "string" &&
+													productDesc.length > 0 ? (
+														<ReadMoreReact
+															text={productDesc}
+															min={5}
+															ideal={10}
+															max={productDesc.length}
+															readMoreText="click "
+														/>
+													) : null}
 												</TableCell>
 												<TableCell align="left">{price} грн.</TableCell>
 												<TableCell align="left">

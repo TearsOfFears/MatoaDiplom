@@ -31,6 +31,7 @@
     "react-router-dom": "^6.2.1",
     "react-scripts": "5.0.0",
     "react-select": "^5.2.2",
+    "read-more-react": "^1.0.10",
     "redux": "^4.1.2",
     "redux-logger": "^3.0.6",
     "redux-persist": "^6.0.0",
