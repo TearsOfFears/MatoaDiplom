@@ -1,6 +1,8 @@
 import {firestore} from "../../firebase/utils";
 
 export const handleAddProduct = products => {
+
+
   return new Promise((resolve, reject) => {
     firestore
       .collection('products')
@@ -74,24 +76,6 @@ export const handleDeleteProduct = documentID => {
   });
 }
 
-export const handleGetProductDesc = documentId => {
-  return new Promise((resolve, reject) => {
-    firestore
-      .collection('products')
-      .doc(documentId)
-      .get()
-      .then(() => {
-        resolve();
-      })
-      .catch(err => {
-        reject(err);
-      })
-  });
-}
-
-
-
-
 export const handleFetchCurrentProduct = productID => {
   return new Promise((resolve, reject) => {
     firestore
@@ -112,3 +96,25 @@ export const handleFetchCurrentProduct = productID => {
       })
   });
 }
+
+
+// export const handleAddImage = file => {
+//   return new Promise((resolve, reject) => {
+//     firestore
+//       .collection('products')
+//       .doc(productID)
+//       .get()
+//       .then(snapShot => {
+//         if (snapShot.exists) {
+//           resolve({
+//             ...snapShot.data(),
+//             documentID: productID
+//           });
+//         }   
+
+//       })
+//       .catch(err => {
+//         reject(err);
+//       })
+//   });
+// }

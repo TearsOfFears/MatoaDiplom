@@ -3,12 +3,18 @@ import 'firebase/compat/auth';
 import 'firebase/compat/firestore';
 import {resolvePath} from 'react-router';
 import {useAuth} from '../customHooks';
+import 'firebase/compat/storage'
+
 
 import {firebaseConfig} from './config';
 
 firebase.initializeApp(firebaseConfig);
 
 export const auth = firebase.auth();
+
+const storage = firebase.storage();
+
+export {storage , firebase as default}
 
 export const firestore = firebase.firestore();
 
@@ -53,3 +59,15 @@ export const getCurrentUser = () => {
     }, reject);
   })
 }
+
+export const onFileChange = async (file,productName) => {
+  const storageRef = storage.ref();
+  const fileRef = storageRef.child(`products/${productName}/${file.name}`);
+  await fileRef.put(file);
+  
+  const fileRefLast= await fileRef.getDownloadURL();
+  return new Promise(resolve => {
+   
+      resolve(fileRefLast);
+  });
+};

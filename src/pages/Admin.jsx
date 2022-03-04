@@ -6,6 +6,7 @@ import {
 	deleteProductsStart,
 	getProductDesc,
 } from "../redux/Products/products.actions";
+import { storage } from "../firebase/utils";
 import {
 	FormInput,
 	ButtonForm,
@@ -26,6 +27,7 @@ import "./../components/Admin/Admin.scss";
 import { LoadMore } from "../components";
 import ReadMoreReact from "read-more-react";
 import { CKEditor } from "ckeditor4-react";
+//import { onFileChange } from "../firebase/utils";
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
 const Admin = (configModal) => {
@@ -34,20 +36,49 @@ const Admin = (configModal) => {
 	const { hideModal, toggleModal, setHideModal } = configModal;
 	const [productCategory, setProductCategory] = useState("watches");
 	const [productName, setProductName] = useState("");
-	const [productThumbnail, setProductThumbnail] = useState("");
+	const [productThumbnail1, setProductThumbnail1] = useState("");
+	const [productThumbnail2, setProductThumbnail2] = useState("");
+	const [productThumbnail3, setProductThumbnail3] = useState("");
+	const [productThumbnail4, setProductThumbnail4] = useState("");
+	const [productThumbnails, setProductThumbnails] = useState({});
+
 	const [price, setPrice] = useState(0);
+
 	const [productDesc, setProductDesc] = useState([]);
+	let arrOfLinks = [];
+	const onHandleFile = async (files) => {
+		const file = files[0];
+		const storageRef = storage.ref();
+		const fileRef = storageRef.child(`products/${productName}/${file.name}`);
+		await fileRef.put(file);
 
-	const [isReadMore, setIsReadMore] = useState(true);
-
-	const toggleReadMore = (data) => {
-		setIsReadMore(!isReadMore);
+		arrOfLinks.push([await fileRef.getDownloadURL()]);
+		console.log(arrOfLinks);
+		arrOfLinks.map((link, id) => {
+			setProductThumbnails({
+				productThumbnail1: String(link[0]),
+				productThumbnail2: String(link[0]),
+				productThumbnail3: String(link[2]),
+				productThumbnail4: String(link[3]),
+			});
+		});
+		// setProductThumbnails({
+		// 	productThumbnail1: String(arrOfLinks[0]),
+		// 	productThumbnail2: String(arrOfLinks[1]),
+		// 	productThumbnail3: String(arrOfLinks[2]),
+		// 	productThumbnail4: String(arrOfLinks[3]),
+		// });
 	};
+	console.log("productThumbnail1", productThumbnail1);
+	console.log("productThumbnail2", productThumbnail2);
+	console.log("productThumbnail3", productThumbnail3);
+	console.log("productThumbnail4", productThumbnail4);
+	console.log(productThumbnails);
 
 	const resetForm = () => {
 		setProductCategory("watches");
 		setProductName("");
-		setProductThumbnail("");
+		setProductThumbnails({});
 		setPrice(0);
 		setProductDesc([]);
 	};
@@ -60,7 +91,12 @@ const Admin = (configModal) => {
 			addProductStart({
 				productCategory,
 				productName,
-				productThumbnail,
+				productThumbnails: {
+					productThumbnail1,
+					productThumbnail2,
+					productThumbnail3,
+					productThumbnail4,
+				},
 				price,
 				productDesc,
 			})
@@ -144,9 +180,24 @@ const Admin = (configModal) => {
 								handleChange={(e) => setProductName(e.target.value)}
 							/>
 							<FormInput
-								Label="Головна сторінка Посилання"
-								type="url"
-								handleChange={(e) => setProductThumbnail(e.target.value)}
+								Label="Головне зображення"
+								type="file"
+								handleChange={(e) => onHandleFile(e.target.files)}
+							/>
+							<FormInput
+								Label="Зображення каруселі 1"
+								type="file"
+								handleChange={(e) => onHandleFile(e.target.files)}
+							/>
+							<FormInput
+								Label="Зображення каруселі 2"
+								type="file"
+								handleChange={(e) => onHandleFile(e.target.files)}
+							/>
+							<FormInput
+								Label="Зображення каруселі 3"
+								type="file"
+								handleChange={(e) => onHandleFile(e.target.files)}
 							/>
 							<FormInput
 								Label="Ціна"
