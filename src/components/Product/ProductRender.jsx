@@ -8,7 +8,7 @@ import { useNavigate } from "react-router";
 const ProductRender = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { ind, productThumbnail, productName, price, documentId } = product;
+	const { ind, productThumbnail1, productName, price, documentId } = product;
 
 	const handleAddToCart = (product) => {
 		if (!product) return;
@@ -17,7 +17,7 @@ const ProductRender = (product) => {
 	};
 
 	if (
-		!productThumbnail ||
+		!productThumbnail1 ||
 		!documentId ||
 		!productName ||
 		typeof price === "undefined"
@@ -26,7 +26,7 @@ const ProductRender = (product) => {
 	return (
 		<div className="wrapper-products__item" key={ind}>
 			<div className="img-border">
-				<img src={productThumbnail} alt={productThumbnail} />
+				<img src={productThumbnail1} alt={productThumbnail1} />
 			</div>
 			<p className="titleProduct">{productName}</p>
 			<hr />

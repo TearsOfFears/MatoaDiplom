@@ -52,23 +52,24 @@ const Admin = (configModal) => {
 		const fileRef = storageRef.child(`products/${productName}/${file.name}`);
 		await fileRef.put(file);
 
-		arrOfLinks.push([await fileRef.getDownloadURL()]);
+		arrOfLinks.push(String([await fileRef.getDownloadURL()]));
 		console.log(arrOfLinks);
-		arrOfLinks.map((link, id) => {
-			setProductThumbnails({
-				productThumbnail1: String(link[0]),
-				productThumbnail2: String(link[0]),
-				productThumbnail3: String(link[2]),
-				productThumbnail4: String(link[3]),
-			});
-		});
+
 		// setProductThumbnails({
 		// 	productThumbnail1: String(arrOfLinks[0]),
 		// 	productThumbnail2: String(arrOfLinks[1]),
 		// 	productThumbnail3: String(arrOfLinks[2]),
 		// 	productThumbnail4: String(arrOfLinks[3]),
 		// });
+		if (arrOfLinks.length === 4) {
+			setProductThumbnail1(arrOfLinks[0]);
+			setProductThumbnail2(arrOfLinks[1]);
+			setProductThumbnail3(arrOfLinks[2]);
+			setProductThumbnail4(arrOfLinks[3]);
+	
+		}
 	};
+
 	console.log("productThumbnail1", productThumbnail1);
 	console.log("productThumbnail2", productThumbnail2);
 	console.log("productThumbnail3", productThumbnail3);
@@ -78,7 +79,10 @@ const Admin = (configModal) => {
 	const resetForm = () => {
 		setProductCategory("watches");
 		setProductName("");
-		setProductThumbnails({});
+		setProductThumbnail1("");
+		setProductThumbnail2("");
+		setProductThumbnail3("");
+		setProductThumbnail4("");
 		setPrice(0);
 		setProductDesc([]);
 	};
@@ -91,12 +95,12 @@ const Admin = (configModal) => {
 			addProductStart({
 				productCategory,
 				productName,
-				productThumbnails: {
-					productThumbnail1,
-					productThumbnail2,
-					productThumbnail3,
-					productThumbnail4,
-				},
+
+				productThumbnail1,
+				productThumbnail2,
+				productThumbnail3,
+				productThumbnail4,
+
 				price,
 				productDesc,
 			})
@@ -241,7 +245,7 @@ const Admin = (configModal) => {
 									data.map((data, pos) => {
 										const {
 											productName,
-											productThumbnail,
+											productThumbnail1,
 											productDesc,
 											documentId,
 											price,
@@ -252,7 +256,7 @@ const Admin = (configModal) => {
 													{productName}
 												</TableCell>
 												<TableCell align="left">
-													<img src={productThumbnail} alt={productThumbnail} />
+													<img src={productThumbnail1} alt={productThumbnail1} />
 												</TableCell>
 												<TableCell align="left">{documentId}</TableCell>
 												<TableCell align="left">

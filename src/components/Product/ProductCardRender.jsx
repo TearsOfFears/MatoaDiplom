@@ -9,7 +9,6 @@ import ProductSection from "./ProductDetails/ProductSection";
 
 
 const ProductCardRender = (product) => {
-	console.log(product);
 	return (
 		<div>
 			<ProductSection {...product}/>
