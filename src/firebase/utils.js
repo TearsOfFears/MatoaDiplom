@@ -60,14 +60,3 @@ export const getCurrentUser = () => {
   })
 }
 
-export const onFileChange = async (file,productName) => {
-  const storageRef = storage.ref();
-  const fileRef = storageRef.child(`products/${productName}/${file.name}`);
-  await fileRef.put(file);
-  
-  const fileRefLast= await fileRef.getDownloadURL();
-  return new Promise(resolve => {
-   
-      resolve(fileRefLast);
-  });
-};

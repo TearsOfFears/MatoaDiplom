@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import {
 	addProduct,
@@ -12,6 +12,8 @@ import {
 import "./addToCart.scss";
 import { useNavigate } from "react-router-dom";
 import Animate from "animate";
+
+import classnames from "classnames";
 const ProductSection = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -23,7 +25,7 @@ const ProductSection = (product) => {
 		productThumbnail2,
 		productThumbnail3,
 		productThumbnail4,
-	} = product;
+	} = product || [];
 
 	const arrImages = [
 		productThumbnail1,
@@ -36,25 +38,16 @@ const ProductSection = (product) => {
 		dispatch(addProduct(product));
 		navigate("/cart");
 	};
-	const [state, setstate] = useState({});
-
+	const [state, setstate] = useState();
+	const [stateStyle, setstateStyle] = useState({ fade: false });
 	const getLink = (link) => {
-		const styles = "imgAnimate";
-		const styleReset = "";
-
-		const ref = document.getElementById("image");
-		ref.classList.contains("imgAnimate");
-
-		if (!ref) {
-			setstate({ link, styleReset });
-		}
-		if (ref) {
-			setstate({ link, styles });
-			console.log("truesecond");
-		}
-		console.log(state);
+		setstate(link);
+		setstateStyle({ fade: true });
 	};
-
+	useEffect(() => {
+		setstate(productThumbnail1);
+	}, [product]);
+	
 	return (
 		<section className="addToCart">
 			<div className="bg-second-accent"></div>
@@ -78,10 +71,11 @@ const ProductSection = (product) => {
 								</div>
 								<div className="wrapper-addToCart-images-wrapper__active">
 									<img
-										src={state.link ? state.link : productThumbnail1}
+										src={state}
 										alt=""
 										id="image"
-										className={state.styles}
+										onAnimationEnd={() => setstateStyle({ fade: false })}
+										className={stateStyle.fade ? "imgAnimate" : ""}
 									/>
 								</div>
 							</div>

@@ -341,12 +341,15 @@
 
 
 .imgAnimate{
-
-  animation-name: annimateImage;
-  animation-duration: 1s;
+  animation: animateImage 0.5s ease-in;
 }
 
-@keyframes annimateImage {
+@keyframes animateImage {
   0% {opacity: 0; }
   100% { opacity: 1; }
 }
+
+.imgAnimateCancel{
+  animation: none;
+}
+

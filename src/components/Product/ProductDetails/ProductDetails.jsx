@@ -1,7 +1,37 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import "./details.scss";
+import classnames from "classnames";
 const ProductDetails = (product) => {
 	const { productDesc } = product;
+	const details = [
+		"Detail",
+		"Warranty",
+		"Custom Engrave",
+		"How to Adjust",
+		"How to Care",
+		"Gallery",
+	];
+	const detailsRender = [
+		"Detail 1 ",
+		"Warranty 2 ",
+		"Custom Engrave 3 ",
+		"How to Adjust 4 ",
+		"How to Care 5 ",
+		"Gallery 6",
+	];
+	const [active, setActive] = useState(0);
+	const [stateStyle, setstateStyle] = useState({ fade: false });
+	const handleActive = (index) => {
+		setActive(index);
+		setstateStyle({ fade: true });
+	};
+	console.log(active);
+
+	const [state, setstate] = useState();
+	useEffect(() => {
+		setstate();
+	}, [product]);
+
 	return (
 		<section class="details">
 			<div className="container">
@@ -9,74 +39,32 @@ const ProductDetails = (product) => {
 					<div className="wrapper-details">
 						<div className="header-details">
 							<ul className="header-details__list">
-								<li className="nav-link active">Detail</li>
-								<li className="nav-link"> Warranty</li>
-								<li className="nav-link">Custom Engrave</li>
-								<li className="nav-link">How to Adjust</li>
-								<li className="nav-link">How to Care</li>
-								<li className="nav-link">Gallery</li>
+								{details.map((text, index) => {
+									return (
+										<li
+											className={
+												active === index ? "nav-link active" : "nav-link"
+											}
+											onClick={() => handleActive(index)}
+										>
+											{text}
+										</li>
+									);
+								})}
 							</ul>
 						</div>
 						<div
-								className="header-info"
-								dangerouslySetInnerHTML={{ __html: productDesc }}
-							/>
+							className="header-info"
+							dangerouslySetInnerHTML={{ __html: productDesc }}
+						/>
 						<div className="header-info">
-						
-							<h2 className="tilte">Material</h2>
-							<p className="text">
-								MATOA Way Kambas - Sumatran Rhino comes with a material form of
-								Makassar Ebony (Diospyros celebica). This wood is chosen to
-								represent the Sumatran Rhino's skin which is designed with an
-								overlap effect on its strap to represent Rhino's skin. Sumatran
-								Rhino has unique skin fold, the skin is fairly thin about
-								10-16mm, and is soft and pliable.
-							</p>
-							<h2 className="tilte">Case</h2>
-							<p className="text">
-								MATOA Way Kambas - Sumatran Rhino comes with a material form of
-								Makassar Ebony (Diospyros celebica). This wood is chosen to
-								represent the Sumatran Rhino's skin which is designed with an
-								overlap effect on its strap to represent Rhino's skin. Sumatran
-								Rhino has unique skin fold, the skin is fairly thin about
-								10-16mm, and is soft and pliable.
-							</p>
-							<h2 className="tilte">Movement</h2>
-							<p className="text">
-								MATOA Way Kambas - Sumatran Rhino comes with a material form of
-								Makassar Ebony (Diospyros celebica). This wood is chosen to
-								represent the Sumatran Rhino's skin which is designed with an
-								overlap effect on its strap to represent Rhino's skin. Sumatran
-								Rhino has unique skin fold, the skin is fairly thin about
-								10-16mm, and is soft and pliable.
-							</p>
-							<h2 className="tilte">Dial</h2>
-							<p className="text">
-								MATOA Way Kambas - Sumatran Rhino comes with a material form of
-								Makassar Ebony (Diospyros celebica). This wood is chosen to
-								represent the Sumatran Rhino's skin which is designed with an
-								overlap effect on its strap to represent Rhino's skin. Sumatran
-								Rhino has unique skin fold, the skin is fairly thin about
-								10-16mm, and is soft and pliable.
-							</p>
-							<h2 className="tilte">Hand</h2>
-							<p className="text">
-								MATOA Way Kambas - Sumatran Rhino comes with a material form of
-								Makassar Ebony (Diospyros celebica). This wood is chosen to
-								represent the Sumatran Rhino's skin which is designed with an
-								overlap effect on its strap to represent Rhino's skin. Sumatran
-								Rhino has unique skin fold, the skin is fairly thin about
-								10-16mm, and is soft and pliable.
-							</p>
-							<h2 className="tilte">Important to Note</h2>
-							<p className="text">
-								MATOA Way Kambas - Sumatran Rhino comes with a material form of
-								Makassar Ebony (Diospyros celebica). This wood is chosen to
-								represent the Sumatran Rhino's skin which is designed with an
-								overlap effect on its strap to represent Rhino's skin. Sumatran
-								Rhino has unique skin fold, the skin is fairly thin about
-								10-16mm, and is soft and pliable.
-							</p>
+							<div
+								onAnimationEnd={() => setstateStyle({ fade: false })}
+								className={stateStyle.fade ? "imgAnimate" : ""}
+							>
+								{detailsRender[active]}
+							</div>
+
 							<div className="block-img">
 								<img src="../../img/kambas-mini/image 40.png" alt="" />
 							</div>
