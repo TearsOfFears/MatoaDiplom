@@ -7,3 +7,24 @@
     padding: 5px;
     margin-left: 5px;
 }
+
+.userProfile{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 200px;
+    height: 100%;
+}
+.sideBar{
+    
+    ul{
+        list-style-type: none;
+        margin: 0;
+        padding: 0;
+        li{
+            margin: 0;
+            padding: 0;
+        }
+    }
+}

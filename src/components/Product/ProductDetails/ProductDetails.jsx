@@ -4,20 +4,18 @@ import classnames from "classnames";
 const ProductDetails = (product) => {
 	const { productDesc } = product;
 	const details = [
-		"Detail",
-		"Warranty",
-		"Custom Engrave",
-		"How to Adjust",
-		"How to Care",
-		"Gallery",
+		"Деталі",
+		"Гарантія",
+		"На замовлення",
+		"Як налаштовувати",
+		"Догляд",
 	];
 	const detailsRender = [
-		"Detail 1 ",
-		"Warranty 2 ",
-		"Custom Engrave 3 ",
-		"How to Adjust 4 ",
-		"How to Care 5 ",
-		"Gallery 6",
+		productDesc,
+		"<h2>Warranty 2</h2> ",
+		"<h2>Custom Engrave 3</h2> ",
+		"<h2>How to Adjust 4</h2> ",
+		"<h2>How to Care 5</h2> ",
 	];
 	const [active, setActive] = useState(0);
 	const [stateStyle, setstateStyle] = useState({ fade: false });
@@ -25,8 +23,6 @@ const ProductDetails = (product) => {
 		setActive(index);
 		setstateStyle({ fade: true });
 	};
-	console.log(active);
-
 	const [state, setstate] = useState();
 	useEffect(() => {
 		setstate();
@@ -54,21 +50,12 @@ const ProductDetails = (product) => {
 							</ul>
 						</div>
 						<div
-							className="header-info"
-							dangerouslySetInnerHTML={{ __html: productDesc }}
+							onAnimationEnd={() => setstateStyle({ fade: false })}
+							className={
+								stateStyle.fade ? "imgAnimate header-info" : "header-info"
+							}
+							dangerouslySetInnerHTML={{ __html: detailsRender[active] }}
 						/>
-						<div className="header-info">
-							<div
-								onAnimationEnd={() => setstateStyle({ fade: false })}
-								className={stateStyle.fade ? "imgAnimate" : ""}
-							>
-								{detailsRender[active]}
-							</div>
-
-							<div className="block-img">
-								<img src="../../img/kambas-mini/image 40.png" alt="" />
-							</div>
-						</div>
 					</div>
 				</div>
 			</div>

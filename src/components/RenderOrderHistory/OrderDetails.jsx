@@ -13,6 +13,8 @@ import moment from "moment";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { setOrderDetailsStart } from "../../redux/Orders/orders.actions";
+import { useNavigate, Link } from "react-router-dom";
+import Buttons from "../Buttons";
 const columns = [
 	{
 		id: "productName",
@@ -20,14 +22,14 @@ const columns = [
 	},
 	{
 		id: "productThumbnail",
-		lable: "Order date",
+		lable: "Зображення замовлення ",
 	},
 
 	{
 		id: "quantity",
 		lable: "Кількість",
 	},
-    {
+	{
 		id: "price",
 		lable: "Ціна",
 	},
@@ -39,18 +41,22 @@ const styles = {
 };
 const formatText = (columnName, columnVal) => {
 	switch (columnName) {
-		case `productPrice`:
-			return `${columnVal} грн`;
-		case `orderCreated`:
-			return moment(columnVal.nano).format("DD/MM/YYYY");
+		case `productName`:
+			return `${columnVal}`;
 		case `productThumbnail`:
 			return <img src={columnVal} />;
+		case `quantity`:
+			return `${columnVal} од.`;
+		case `price`:
+			return `${columnVal} грн.`;
+
 		default:
 			return columnVal;
 	}
 };
 
 const OrderDetails = ({ order }) => {
+	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const orderItems = order && order.orderItems;
 	useEffect(() => {
@@ -58,44 +64,49 @@ const OrderDetails = ({ order }) => {
 			dispatch(setOrderDetailsStart({}));
 		};
 	}, []);
-
+const handleBack = ()=>{
+	navigate('/dashboard');
+}
 	return (
-		<TableContainer>
-			<Table>
-				<TableHead>
-					<TableRow>
-						{columns.map((column, pos) => {
-							return (
-								<TableCell key={pos} style={styles}>
-									{column.lable}
-								</TableCell>
-							);
-						})}
-					</TableRow>
-				</TableHead>
-				<TableBody>
-					{Array.isArray(orderItems) &&
-						orderItems.length > 0 &&
-						orderItems.map((row, pos) => {
-							const { documentID } = row;
-							return (
-								<TableRow key={pos}>
-									{columns.map((column, pos) => {
-										const columnName = column.id;
-										const colValue = row[columnName];
-										const formatedText = formatText(columnName, colValue);
-										return (
-											<TableCell key={pos} style={styles}>
-												{formatedText}
-											</TableCell>
-										);
-									})}
-								</TableRow>
-							);
-						})}
-				</TableBody>
-			</Table>
-		</TableContainer>
+		<div>
+			<TableContainer>
+				<Table>
+					<TableHead>
+						<TableRow>
+							{columns.map((column, pos) => {
+								return (
+									<TableCell key={pos} style={styles}>
+										{column.lable}
+									</TableCell>
+								);
+							})}
+						</TableRow>
+					</TableHead>
+					<TableBody>
+						{Array.isArray(orderItems) &&
+							orderItems.length > 0 &&
+							orderItems.map((row, pos) => {
+								const { documentID } = row;
+								return (
+									<TableRow key={pos}>
+										{columns.map((column, pos) => {
+											const columnName = column.id;
+											const colValue = row[columnName];
+											const formatedText = formatText(columnName, colValue);
+											return (
+												<TableCell key={pos} style={styles}>
+													{formatedText}
+												</TableCell>
+											);
+										})}
+									</TableRow>
+								);
+							})}
+					</TableBody>
+				</Table>
+			</TableContainer>
+			<Buttons onClick={handleBack}>Назад</Buttons>
+		</div>
 	);
 };
 

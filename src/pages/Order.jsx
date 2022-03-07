@@ -16,10 +16,13 @@ const Order = () => {
 		dispatch(getOrderDetailsStart(orderID));
 	}, []);
 	return (
-		<div>
-            <h2>{orderID}</h2>
-			<OrderDetails order={orderDetails}/>
-			<h3> {orderTotal} грн.</h3>
+		<div className="order">
+			<h2>{orderID}</h2>
+			<OrderDetails order={orderDetails} />
+			<div className="d-flex mt-3 mb-3 flex-row justify-content-around">
+				<h3>Загальна вартість : </h3>
+				<h3>{orderTotal} грн.</h3>
+			</div>
 		</div>
 	);
 };

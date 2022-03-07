@@ -9,20 +9,20 @@ import {
 	TableCell,
 } from "@material-ui/core";
 import { Order } from "../../pages";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import moment from "moment";
 const colums = [
 	{
 		id: "orderCreated",
-		lable: "Order date",
+		lable: "Дата замовлення",
 	},
 	{
 		id: "documentID",
-		lable: "Order ID",
+		lable: "ID - замовлення",
 	},
 	{
 		id: "orderTotal",
-		lable: "Amount",
+		lable: "Сума",
 	},
 ];
 
@@ -36,16 +36,20 @@ const formatText = (columnName, columnVal) => {
 		case `orderTotal`:
 			return `${columnVal} грн`;
 		case `orderCreated`:
-			return moment(columnVal.nano).format("DD/MM/YYYY");
+			return moment(columnVal.nano).format("DD.MM.YYYY"); 
 		default:
 			return columnVal;
 	}
 };
 const RenderOrderHistory = ({ orders }) => {
 	const navigate = useNavigate();
+	console.log(orders);
 	return (
-		<VerticalNav>
+		<div className="d-flex flex-row mt-5 mb-5">
+			<VerticalNav />
+			
 			<TableContainer>
+			<h1>Замовлення</h1>
 				<Table>
 					<TableHead>
 						<TableRow>
@@ -85,7 +89,8 @@ const RenderOrderHistory = ({ orders }) => {
 					</TableBody>
 				</Table>
 			</TableContainer>
-		</VerticalNav>
+		
+		</div>
 	);
 };
 

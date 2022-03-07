@@ -1,6 +1,7 @@
 import React from 'react'
 import {useSelector} from  'react-redux'
 import UserProfile from './UserProfile'
+import "./Admin.scss"
 const mapState = ({user})=>({
     currentUser:user.currentUser
 })
@@ -10,7 +11,6 @@ const VerticalNav= (props)=> {
     const configUserProfile = {
         currentUser
     }
-    //console.log(configUserProfile)
   return (
     <div className='verticalNav'>
         <UserProfile {...configUserProfile}/>
