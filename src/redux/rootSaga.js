@@ -6,5 +6,5 @@ import ordersSagas from './Orders/orders.saga'
 import homeSagas from './Home/home.saga'
 
 export default function* rootSaga(){
-    yield all([call(userSagas),call(productsSagas),call(ordersSagas)])
+    yield all([call(userSagas),call(productsSagas),call(ordersSagas),call(homeSagas)])
 }

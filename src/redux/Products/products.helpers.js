@@ -97,25 +97,3 @@ export const handleFetchCurrentProduct = productID => {
       })
   });
 }
-
-
-// export const handleAddImage = file => {
-//   return new Promise((resolve, reject) => {
-//     firestore
-//       .collection('products')
-//       .doc(productID)
-//       .get()
-//       .then(snapShot => {
-//         if (snapShot.exists) {
-//           resolve({
-//             ...snapShot.data(),
-//             documentID: productID
-//           });
-//         }   
-
-//       })
-//       .catch(err => {
-//         reject(err);
-//       })
-//   });
-// }

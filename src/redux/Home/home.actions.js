@@ -1,23 +1,23 @@
-import productsTypes from "./home.types";
+import homeTypes from "./home.types";
 
 
 export const addHomeContentStart = homeData =>({
-    type:productsTypes.ADD_NEW_HOME_CONTENT,
+    type:homeTypes.ADD_NEW_HOME_CONTENT,
     payload:homeData
 })
 
 export const fetchHomeContentStart = (filters={}) =>({
-    type:productsTypes.FETCH_CONTENT_START,
+    type:homeTypes.FETCH_CONTENT_START,
     payload:filters
 })
 
 export const setHomeContent = content =>({
-    type:productsTypes.SET_CONTENT,
+    type:homeTypes.SET_CONTENT,
     payload:content
 })
 
 export const deleteHomeContentStart = productID =>({
-    type:productsTypes.DELETE_CONTENT_START,
+    type:homeTypes.DELETE_CONTENT_START,
     payload:productID
 })
 
