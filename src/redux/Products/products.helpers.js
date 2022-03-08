@@ -16,6 +16,7 @@ export const handleAddProduct = products => {
       })
   })
 }
+
 export const handleFetchProducts = ({
   filterType,
   startAfterDoc,

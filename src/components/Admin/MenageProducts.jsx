@@ -14,6 +14,7 @@ import {
 	Modal,
 	FormSelect,
 	Buttons,
+	LoadMore
 } from "./../../components";
 import ReadMoreReact from "read-more-react";
 import { CKEditor } from "ckeditor4-react";
@@ -279,6 +280,9 @@ const MenageProducts = () => {
 									</TableRow>
 								);
 							})}
+							<TableRow>
+							{!isLastPage && <LoadMore {...configLoadMore} />}
+						</TableRow>
 					</TableBody>
 				</Table>
 			</TableContainer>

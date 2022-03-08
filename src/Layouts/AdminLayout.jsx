@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Header, Bils, ButtonForm } from "../components";
+import { Footer, Header, Bils, ButtonForm, Buttons } from "../components";
 
 import { useDispatch } from "react-redux";
 import { Admin } from "../pages";
@@ -23,13 +23,20 @@ const AdminLayout = (props) => {
 	// 	hideModal,
 	// 	toggleModal,
 	// 	setHideModal,
-	
-	// };
 
+	// };
+	const [active, setActive] = useState(0);
 	const signOut = () => {
 		dispatch(signOutUserStart());
 	};
-
+	const arrMenage = [<Admin />, <MenageHomePage />];
+	const arrButtons = [
+		"Переглянути продукти",
+		"Переглянути контент головного екрану",
+	];
+	const getIndex = (index) => {
+		setActive(index);
+	};
 	return (
 		<div className="adminLayout">
 			<Header {...props} />
@@ -38,32 +45,25 @@ const AdminLayout = (props) => {
 					<div className="sideBar">
 						<VerticalNav>
 							<ul>
-								<li>
-									<Link to="/admin">До дому</Link>
-								</li>
-								<li>
-									<ButtonForm >
-										Перегялнути продукти
-									</ButtonForm>
-								</li>
-								<li>
-									<ButtonForm >
-										Перегялнути контент головного екрану
-									</ButtonForm>
-								</li>
-								<li>
-									<span className="btn" onClick={() => signOut()}>
+								{arrButtons.map((text, index) => {
+									return (
+										<li>
+											<ButtonForm key={index} onClick={(e) => getIndex(index)}>
+												{text}
+											</ButtonForm>
+										</li>
+									);
+								})}
+								{/* <li>
+								 	<span className="btn" onClick={() => signOut()}>
 										Вийти
-									</span>
-								</li>
+								 	</span>
+								 </li> */}
 							</ul>
 						</VerticalNav>
 					</div>
 				</div>
-				<div className="content">
-					<Admin/>
-					{/* <MenageHomePage {...configModalHome} /> */}
-				</div>
+				<div className="content">{arrMenage[active]}</div>
 			</div>
 			<Footer />
 		</div>

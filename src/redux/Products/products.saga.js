@@ -1,7 +1,7 @@
 import {takeLatest, put, call, all} from "redux-saga/effects";
 import productsTypes from "./products.types";
-import { setProducts, fetchProductsStart, setCurrentProduct,getProductDesc, setProductDesc } from "./products.actions";
-import {handleAddProduct,handleFetchProducts,handleDeleteProduct,handleFetchCurrentProduct, handleGetProductDesc} from "./products.helpers";
+import { setProducts, fetchProductsStart, setCurrentProduct } from "./products.actions";
+import {handleAddProduct,handleFetchProducts,handleDeleteProduct,handleFetchCurrentProduct} from "./products.helpers";
 
 import {auth} from "../../firebase/utils";
 
