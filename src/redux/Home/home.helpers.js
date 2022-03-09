@@ -59,3 +59,19 @@ export const handleFetchContentHome = ({
       })
   })
 }
+
+
+export const handleDeleteHomeContent = documentID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('home')
+      .doc(documentID)
+      .delete()
+      .then(() => {
+        resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}

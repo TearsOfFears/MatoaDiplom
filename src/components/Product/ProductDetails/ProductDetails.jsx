@@ -29,7 +29,7 @@ const ProductDetails = (product) => {
 	}, [product]);
 
 	return (
-		<section class="details">
+		<section className="details">
 			<div className="container">
 				<div className="row">
 					<div className="wrapper-details">

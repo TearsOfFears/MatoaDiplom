@@ -15,10 +15,11 @@ import {
 	Modal,
 	FormSelect,
 	Buttons,
-	LoadMore
+	LoadMore,
 } from "./../../components";
 import {
 	addHomeContentStart,
+	deleteHomeContentStart,
 	fetchHomeContentStart,
 	// deleteProductsStart,
 	// fetchProductsStart,
@@ -26,7 +27,7 @@ import {
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
 
-const mapState = ({ productsData }) => ({ products: productsData.products });
+const mapState = ({ contentHome }) => ({ content: contentHome.content });
 
 const MenageHomePage = () => {
 	const [hideModal, setHideModal] = useState(true);
@@ -40,55 +41,43 @@ const MenageHomePage = () => {
 		setHideModal,
 	};
 
-	const { products } = useSelector(mapState);
+	const { content } = useSelector(mapState);
 	const dispatch = useDispatch();
-	const [productCategory, setProductCategory] = useState("watches");
-	const [productName, setProductName] = useState("");
-	const [productThumbnail1, setProductThumbnail1] = useState("");
-	const [productThumbnail2, setProductThumbnail2] = useState("");
-	const [productThumbnail3, setProductThumbnail3] = useState("");
-	const [productThumbnail4, setProductThumbnail4] = useState("");
-	const [price, setPrice] = useState(0);
-	const [productDesc, setProductDesc] = useState([]);
+
+	const [title, setTitle] = useState("");
+	const [descText, setDescText] = useState([]);
+	const [linkDiscover, setLinkDiscover] = useState("");
+	const [linkDetail, setlinkDetail] = useState("");
+	const [sliderThumbnail, setSliderThumbnail] = useState("");
 
 	let arrOfLinks = [];
 
 	const onHandleFile = async (files) => {
 		const file = files[0];
 		const storageRef = storage.ref();
-		const fileRef = storageRef.child(`home/${productName}/${file.name}`);
+		const fileRef = storageRef.child(`home/topSlider/${file.name}`);
 		await fileRef.put(file);
 
 		arrOfLinks.push(String([await fileRef.getDownloadURL()]));
-		if (arrOfLinks.length === 4) {
-			setProductThumbnail1(arrOfLinks[0]);
-			setProductThumbnail2(arrOfLinks[1]);
-			setProductThumbnail3(arrOfLinks[2]);
-			setProductThumbnail4(arrOfLinks[3]);
-		}
+
+		setSliderThumbnail(arrOfLinks[0]);
 	};
 	const resetForm = () => {
-		setProductCategory("watches");
-		setProductName("");
-		setProductThumbnail1("");
-		setProductThumbnail2("");
-		setProductThumbnail3("");
-		setProductThumbnail4("");
-		setPrice(0);
-		setProductDesc([]);
+		setTitle("");
+		setDescText([]);
+		setLinkDiscover("");
+		setlinkDetail("");
+		setSliderThumbnail("");
 	};
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(
 			addHomeContentStart({
-				productCategory,
-				productName,
-				productThumbnail1,
-				productThumbnail2,
-				productThumbnail3,
-				productThumbnail4,
-				price,
-				productDesc,
+				title,
+				descText,
+				linkDiscover,
+				linkDetail,
+				sliderThumbnail,
 			})
 		);
 		resetForm();
@@ -96,25 +85,29 @@ const MenageHomePage = () => {
 	};
 	const colums = [
 		{
-			id: "productName",
+			id: "title",
 			lable: "Назва продукту",
 		},
 		{
-			id: "productThumbnail",
-			lable: "Зображення головного екрану",
+			id: "sliderThumbnail",
+			lable: "Зображення слайдера",
 		},
 		{
 			id: "documentId",
 			lable: "ID - продукту",
 		},
 		{
-			id: "productDesc",
-			lable: "Опис продукту",
+			id: "linkDiscover",
+			lable: " Посилання на інформацію",
+		},
+		{
+			id: "linkDetail",
+			lable: "Посиланян на продукт",
 		},
 
 		{
-			id: "price",
-			lable: "Ціна продукту",
+			id: "descText",
+			lable: "Опис слайдера",
 		},
 		{
 			id: "documentId",
@@ -130,7 +123,7 @@ const MenageHomePage = () => {
 	useEffect(() => {
 		dispatch(fetchHomeContentStart());
 	}, []);
-	const { data, queryDoc, isLastPage } = products;
+	const { data, queryDoc, isLastPage } = content;
 
 	const handleLoadMore = () => {
 		dispatch(
@@ -152,58 +145,28 @@ const MenageHomePage = () => {
 			<Modal {...configModal}>
 				<div className="addNewProductForm">
 					<form onSubmit={handleSubmit}>
-						<h2>Добавити новий продукт</h2>
-						<FormSelect
-							label="Категорія"
-							options={[
-								{
-									value: "watches",
-									name: "Годинники",
-								},
-								{
-									value: "glasses",
-									name: "Окуляри",
-								},
-							]}
-							value={productCategory}
-							handleChange={(e) => setProductCategory(e.target.value)}
-						/>
+						<h2>Добавити слайд</h2>
 						<FormInput
-							Label="Назва"
+							Label="Заголовок"
 							type="text"
-							handleChange={(e) => setProductName(e.target.value)}
+							handleChange={(e) => setTitle(e.target.value)}
 						/>
 						<FormInput
-							Label="Головне зображення"
+							Label="Посилання переглянути"
+							type="text"
+							handleChange={(e) => setLinkDiscover(e.target.value)}
+						/>
+						<FormInput
+							Label="Посилання на продукт"
+							type="text"
+							handleChange={(e) => setlinkDetail(e.target.value)}
+						/>
+						<FormInput
+							Label="Зображення слайдера"
 							type="file"
 							handleChange={(e) => onHandleFile(e.target.files)}
 						/>
-						<FormInput
-							Label="Зображення каруселі 1"
-							type="file"
-							handleChange={(e) => onHandleFile(e.target.files)}
-						/>
-						<FormInput
-							Label="Зображення каруселі 2"
-							type="file"
-							handleChange={(e) => onHandleFile(e.target.files)}
-						/>
-						<FormInput
-							Label="Зображення каруселі 3"
-							type="file"
-							handleChange={(e) => onHandleFile(e.target.files)}
-						/>
-						<FormInput
-							Label="Ціна"
-							type="number"
-							min="0.00"
-							max="10000.00"
-							step="0.01"
-							handleChange={(e) => setPrice(e.target.value)}
-						/>
-						<CKEditor
-							onChange={(evt) => setProductDesc(evt.editor.getData())}
-						/>
+						<CKEditor onChange={(evt) => setDescText(evt.editor.getData())} />
 						<Buttons type="submit" style="btn-read">
 							Добавити новий продукт
 						</Buttons>
@@ -229,40 +192,41 @@ const MenageHomePage = () => {
 							data.length > 0 &&
 							data.map((data, pos) => {
 								const {
-									productName,
-									productThumbnail1,
-									productDesc,
+									title,
+									descText,
+									linkDiscover,
+									linkDetail,
+									sliderThumbnail,
 									documentId,
-									price,
 								} = data;
 								return (
-									<TableRow key={productName} style={styles}>
+									<TableRow key={title} style={styles}>
 										<TableCell component="th" scope="row">
-											{productName}
+											{title}
 										</TableCell>
 										<TableCell align="left">
-											<img src={productThumbnail1} alt={productThumbnail1} />
+											<img src={sliderThumbnail} alt={sliderThumbnail} />
 										</TableCell>
 										<TableCell align="left">{documentId}</TableCell>
+										<TableCell align="left">{linkDiscover}</TableCell>
+										<TableCell align="left">{linkDetail}</TableCell>
 										<TableCell align="left">
-											{typeof productDesc === "string" &&
-											productDesc.length > 0 ? (
+											{typeof descText === "string" && descText.length > 0 ? (
 												<ReadMoreReact
-													text={productDesc}
+													text={descText}
 													min={5}
 													ideal={10}
-													max={productDesc.length}
+													max={descText.length}
 													readMoreText="click "
 												/>
 											) : null}
 										</TableCell>
-										<TableCell align="left">{price} грн.</TableCell>
 										<TableCell align="left">
 											<button
 												className="delete"
-												// onClick={() =>
-												// 	dispatch(deleteProductsStart(documentId))
-												// }
+												onClick={() =>
+													dispatch(deleteHomeContentStart(documentId))
+												}
 											>
 												<svg
 													width="17"

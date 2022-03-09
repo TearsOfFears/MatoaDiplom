@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigation, Pagination, Scrollbar, A11y, Parallax } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import caraousel1 from "../assets/img/home/caraousel1.png";
@@ -10,12 +10,21 @@ import {
 	faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
+import { fetchHomeContentStart } from "./../redux/Home/home.actions";
 
+const mapState = ({ contentHome }) => ({ content: contentHome.content.data });
 
 function Swiper1() {
-	const content = [
+	const dispatch = useDispatch();
+	const { content } = useSelector(mapState);
+
+	useEffect(() => {
+		dispatch(fetchHomeContentStart());
+	}, []);
+	console.log(content);
+	const contents = [
 		{
 			id: 1,
 			title: "WAY KAMBAS MINI EBONY 1",
@@ -67,7 +76,7 @@ function Swiper1() {
 						parallax={true}
 						loop={true}
 					>
-						{content.map((data) => {
+						{contents.map((data) => {
 							return (
 								<SwiperSlide key={data.id}>
 									<div className="swiper-slide-wrapper">
