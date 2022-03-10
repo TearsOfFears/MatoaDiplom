@@ -3,7 +3,7 @@ import {firestore} from "../../firebase/utils";
 export const handleAddContentHome = homeData => {
   return new Promise((resolve, reject) => {
     firestore
-      .collection('home')
+      .collection('homeProduct')
       .doc()
       .set(homeData)
       .then(() => {
@@ -16,21 +16,19 @@ export const handleAddContentHome = homeData => {
 }
 
 export const handleFetchContentHome = ({
-  filterType,
   startAfterDoc,
   persistProducts = []
 }) => {
   return new Promise((resolve, reject) => {
 
-    const pageSize = 8;
+    const pageSize = 5;
 
     let ref = firestore
-      .collection('home')
+      .collection('homeProduct')
       .orderBy('createdDate')
       .limit(pageSize);
 
-    if (filterType) 
-      ref = ref.where('productCategory', "==", filterType)
+      
     if (startAfterDoc) 
       ref = ref.startAfter(startAfterDoc)
     ref
@@ -64,8 +62,85 @@ export const handleFetchContentHome = ({
 export const handleDeleteHomeContent = documentID => {
   return new Promise((resolve, reject) => {
     firestore
-      .collection('home')
+      .collection('homeProduct')
       .doc(documentID)
+      .delete()
+      .then(() => {
+        resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+
+
+
+
+export const handleAddContentHomeTestimonals = homeTestimonals => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeTestimonals')
+      .doc()
+      .set(homeTestimonals)
+      .then(() => {
+        resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  })
+}
+
+export const handleFetchContentHomeTestimonals = ({
+  startAfterDoc,
+  persistProducts = []
+}) => {
+  return new Promise((resolve, reject) => {
+
+    const pageSize = 5;
+
+    let ref = firestore
+      .collection('homeTestimonals')
+      .orderBy('createdDate')
+      .limit(pageSize);
+
+    if (startAfterDoc) 
+      ref = ref.startAfter(startAfterDoc)
+    ref
+      .get()
+      .then((snapShot) => {
+        const totalCount = snapShot.size;
+        const data = [
+          ...persistProducts,
+          ...snapShot
+            .docs
+            .map(doc => {
+              return {
+                ...doc.data(),
+                documentId: doc.id
+              }
+            })
+        ];
+        resolve({
+          data,
+          queryDoc: snapShot.docs[totalCount - 1],
+          isLastPage: totalCount < pageSize
+        })
+      })
+      .catch(err => {
+        reject(err);
+      })
+  })
+}
+
+
+export const handleDeleteHomeContentTestimonals = testimonalsID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeTestimonals')
+      .doc(testimonalsID)
       .delete()
       .then(() => {
         resolve();

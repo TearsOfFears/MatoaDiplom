@@ -6,22 +6,42 @@ export const addHomeContentStart = homeData =>({
     payload:homeData
 })
 
-export const fetchHomeContentStart = (filters={}) =>({
+export const fetchHomeContentStart = (data) =>({
     type:homeTypes.FETCH_CONTENT_START,
-    payload:filters
+    payload:data
 })
 
-export const setHomeContent = content =>({
+export const setHomeContent = contentProduct =>({
     type:homeTypes.SET_CONTENT,
-    payload:content
+    payload:contentProduct
 })
 
-export const deleteHomeContentStart = productID =>({
+export const deleteHomeContentStart = sliderID =>({
     type:homeTypes.DELETE_CONTENT_START,
-    payload:productID
+    payload:sliderID
 })
 
 
+
+export const addHomeContentTestimonalsStart = homeDataTestimonals =>({
+    type:homeTypes.ADD_NEW_HOME_CONTENT_TESTIMONALS,
+    payload:homeDataTestimonals
+})
+
+export const fetchHomeContentTestimonalsStart = (data) =>({
+    type:homeTypes.FETCH_CONTENT_TESTIMONALS_START,
+    payload:data
+})
+
+export const setHomeContentTestimonals = contentTestimonals =>({
+    type:homeTypes.SET_CONTENT_TESTIMONALS,
+    payload:contentTestimonals
+})
+
+export const deleteHomeContentTestimonalsStart = sliderID =>({
+    type:homeTypes.DELETE_CONTENT_TESTIMONALS_START,
+    payload:sliderID
+})
 // export const fetchCurrentProductStart = productID =>({
 //     type:productsTypes.FETCH_CURRENT_PRODUCT_START,
 //     payload:productID

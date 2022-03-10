@@ -14,7 +14,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchHomeContentStart } from "./../redux/Home/home.actions";
 
-const mapState = ({ contentHome }) => ({ content: contentHome.content.data });
+const mapState = ({ contentHome }) => ({ content: contentHome.contentProduct.data });
 
 function Swiper1() {
 	const dispatch = useDispatch();
@@ -23,41 +23,7 @@ function Swiper1() {
 	useEffect(() => {
 		dispatch(fetchHomeContentStart());
 	}, []);
-	console.log(content);
-	const contents = [
-		{
-			id: 1,
-			title: "WAY KAMBAS MINI EBONY 1",
-			content:
-				"MATOA Way Kambas - This wood is chosen to represent the Sumatran Rhino's skin which is designed with an overlap effect on its strap to represent Rhino's skin.",
-			image: caraousel1,
-			Links: "/details",
-		},
-		{
-			id: 2,
-			title: "WAY KAMBAS MINI EBONY 2",
-			content:
-				"MATOA Way Kambas - This wood is chosen to represent the Sumatran Rhino's skin which is designed with an overlap effect on its strap to represent Rhino's skin.",
-			image: caraousel2,
-			Links: "/details",
-		},
-		{
-			id: 3,
-			title: "WAY KAMBAS MINI EBONY 3",
-			content:
-				"MATOA Way Kambas - This wood is chosen to represent the Sumatran Rhino's skin which is designed with an overlap effect on its strap to represent Rhino's skin.",
-			image: caraousel1,
-			Links: "/details",
-		},
-		{
-			id: 4,
-			title: "WAY KAMBAS MINI EBONY 4",
-			content:
-				"MATOA Way Kambas - This wood is chosen to represent the Sumatran Rhino's skin which is designed with an overlap effect on its strap to represent Rhino's skin.",
-			image: caraousel1,
-			Links: "/details",
-		},
-	];
+
 	const navigationPrevRef = React.useRef(null);
 	const navigationNextRef = React.useRef(null);
 
@@ -76,13 +42,22 @@ function Swiper1() {
 						parallax={true}
 						loop={true}
 					>
-						{contents.map((data) => {
+						{ Array.isArray(content) &&
+							content.length > 0 && content.map((data) => {
+							const {
+								documentId,
+								descText,
+								linkDetail,
+								linkDiscover,
+								sliderThumbnail,
+								title,
+							} = data;
 							return (
-								<SwiperSlide key={data.id}>
+								<SwiperSlide key={documentId}>
 									<div className="swiper-slide-wrapper">
 										<div className="swiper-slide-wrapper__img">
 											<img
-												src={data.image}
+												src={sliderThumbnail}
 												alt=""
 												data-swiper-parallax={-1400}
 												data-swiper-parallax-duration={700}
@@ -93,7 +68,7 @@ function Swiper1() {
 												data-swiper-parallax={-900}
 												data-swiper-parallax-duration={500}
 											>
-												{data.title}
+												{title}
 											</h1>
 											<hr
 												data-swiper-parallax={-900}
@@ -102,16 +77,19 @@ function Swiper1() {
 											<p
 												data-swiper-parallax={-900}
 												data-swiper-parallax-duration={700}
-											>
-												{data.content}
-											</p>
+												dangerouslySetInnerHTML={{ __html: descText }}
+											/>
+
 											<div
 												className="links"
 												data-swiper-parallax={-1200}
 												data-swiper-parallax-duration={800}
 											>
-												<Buttons style="btn-discover">Discover</Buttons>
-												<Link to={data.Links}>
+												<Link to={linkDiscover} className="btn-discover">
+													Discover
+												</Link>
+
+												<Link to={linkDetail}>
 													<Buttons style="btn-read">
 														<FontAwesomeIcon icon={faInfoCircle} />
 														Read details
