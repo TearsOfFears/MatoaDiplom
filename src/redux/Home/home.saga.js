@@ -1,7 +1,7 @@
 import {takeLatest, put, call, all} from "redux-saga/effects";
 import homeTypes from "./home.types";
-import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals} from "./home.helpers";
-import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals,} from "./home.actions";
+import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals,handleDeleteHomeContentTestimonals, handleEditHomeContentTestimonals} from "./home.helpers";
+import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent,} from "./home.actions";
 import {auth} from "../../firebase/utils";
 
 export function * addNewContentHome({payload}) {
@@ -61,22 +61,38 @@ export function * fetchHomeContentTestimonals(payload) {
 
 export function * deleteHomeContentTestimonals({payload}) {
   try {
-    yield handleDeleteHomeContent(payload);
+    yield handleDeleteHomeContentTestimonals(payload);
     yield put(fetchHomeContentTestimonalsStart());
   } catch (err) {
     //console.log(err);
   }
 }
 
+
+export function * editContent({payload}) {
+  try {
+    const content =  yield handleEditHomeContentTestimonals(payload);
+    yield put(setEditContent(content))
+  } catch (err) {
+    //console.log(err);
+  }
+}
+
+
+export function * onEditContent() {
+  yield takeLatest(homeTypes.FETCH_CONTENT_EDIT, editContent)
+}
+
+
 export function * onDeleteContentTestimonalsStart() {
-  yield takeLatest(homeTypes.DELETE_CONTENT_START, deleteHomeContentTestimonals)
+  yield takeLatest(homeTypes.DELETE_CONTENT_TESTIMONALS_START, deleteHomeContentTestimonals)
 }
 
 export function * onFetchContentTestimonalsStart() {
-  yield takeLatest(homeTypes.FETCH_CONTENT_START, fetchHomeContentTestimonals)
+  yield takeLatest(homeTypes.FETCH_CONTENT_TESTIMONALS_START, fetchHomeContentTestimonals)
 }
 export function * onAddHomeContentTestimonalsStart() {
-  yield takeLatest(homeTypes.ADD_NEW_HOME_CONTENT, addNewContentTestimonalsHome)
+  yield takeLatest(homeTypes.ADD_NEW_HOME_CONTENT_TESTIMONALS, addNewContentTestimonalsHome)
 }
 
 export function * onDeleteContentStart() {
@@ -97,6 +113,7 @@ export default function * homeSagas() {
     call(onDeleteContentStart),
     call(onAddHomeContentTestimonalsStart),
     call(onFetchContentTestimonalsStart),
-    call(onDeleteContentTestimonalsStart)
+    call(onDeleteContentTestimonalsStart),
+    call(onEditContent)
   ])
 }

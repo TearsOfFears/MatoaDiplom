@@ -24,11 +24,15 @@ import {
 	addHomeContentTestimonalsStart,
 	deleteHomeContentTestimonalsStart,
 	fetchHomeContentTestimonalsStart,
+	editContent,
 } from "../../redux/Home/home.actions";
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
 
-const mapState = ({ contentHome }) => ({ content: contentHome.contentProduct });
+import MenageHomeProducts from "./MenageHomeProducts";
+import MenageHomeTestimonals from "./MenageHomeTestimonals";
+
+const mapState = ({ contentHome }) => ({ content: contentHome });
 
 const MenageHomePage = () => {
 	const [hideModal, setHideModal] = useState(true);
@@ -43,79 +47,10 @@ const MenageHomePage = () => {
 	};
 
 	const { content } = useSelector(mapState);
+	const { contentProduct, contentTestimonals } = content;
+
 	const dispatch = useDispatch();
 
-	const [title, setTitle] = useState("");
-	const [descText, setDescText] = useState([]);
-	const [linkDiscover, setLinkDiscover] = useState("");
-	const [linkDetail, setlinkDetail] = useState("");
-	const [sliderThumbnail, setSliderThumbnail] = useState("");
-
-	const [titleTestimonals, setTitleTestimonals] = useState("");
-	const [descTextTestimonals, setDescTextTestimonals] = useState([]);
-	const [textAuthor, setTextAuthor] = useState("");
-	const [jobPosition, setJobPosition] = useState("");
-	const [testimonalsThumbnail, setTestimonalsThumbnail] = useState("");
-
-	const onHandleFile = async (files) => {
-		const file = files[0];
-		const storageRef = storage.ref();
-		const fileRef = storageRef.child(`home/topSlider/${file.name}`);
-		await fileRef.put(file);
-		setSliderThumbnail(await fileRef.getDownloadURL());
-	};
-	const onHandleFileTestimonals = async (files) => {
-		const file = files[0];
-		const storageRef = storage.ref();
-		const fileRef = storageRef.child(`home/testimonals/${file.name}`);
-		await fileRef.put(file);
-		setTestimonalsThumbnail(await fileRef.getDownloadURL());
-	};
-
-	const resetForm = () => {
-		setTitle("");
-		setDescText([]);
-		setLinkDiscover("");
-		setlinkDetail("");
-		setSliderThumbnail("");
-	};
-	
-	const resetFormTestimonals = () => {
-		setTitleTestimonals("");
-		setDescTextTestimonals([]);
-		setTextAuthor("");
-		setJobPosition("");
-		setTestimonalsThumbnail("");
-	};
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		dispatch(
-			addHomeContentStart({
-				title,
-				descText,
-				linkDiscover,
-				linkDetail,
-				sliderThumbnail,
-			})
-		);
-		resetForm();
-		setHideModal(true);
-	};
-
-	const handleSubmitTestimonals = (e) => {
-		e.preventDefault();
-		dispatch(
-			addHomeContentTestimonalsStart({
-				titleTestimonals,
-				descTextTestimonals,
-				textAuthor,
-				jobPosition,
-				testimonalsThumbnail,
-			})
-		);
-		resetFormTestimonals();
-		setHideModal(true);
-	};
 	const colums = [
 		{
 			id: "number",
@@ -152,17 +87,61 @@ const MenageHomePage = () => {
 		},
 	];
 
+	const columsTestimonals = [
+		{
+			id: "number",
+			lable: "#",
+		},
+		{
+			id: "titleTestimonals",
+			lable: "Заголовок",
+		},
+		{
+			id: "testimonalsThumbnail",
+			lable: "Зображення слайдера",
+		},
+		{
+			id: "documentId",
+			lable: "ID - слайдера",
+		},
+		{
+			id: "textAuthor",
+			lable: "Автор",
+		},
+		{
+			id: "jobPosition",
+			lable: "Робота автора",
+		},
+
+		{
+			id: "descTextTestimonals",
+			lable: "Опис слайдера",
+		},
+		{
+			id: "documentId",
+			lable: "Редагувати продукт",
+		},
+		{
+			id: "documentId",
+			lable: "Видалити продукт",
+		},
+	];
+
 	const styles = {
 		fontSize: "16px",
 		cursor: "cursor",
 		width: "15%",
 	};
+
 	useEffect(() => {
 		dispatch(fetchHomeContentStart());
 		dispatch(fetchHomeContentTestimonalsStart());
 	}, []);
-	const { data, queryDoc, isLastPage } = content;
 
+	const { data, queryDoc, isLastPage } = contentProduct;
+
+	const { dataTestimonals, queryDocTestimonals, isLastPageTestimonals } =
+		contentTestimonals;
 	const handleLoadMore = () => {
 		dispatch(
 			fetchHomeContentStart({
@@ -175,8 +154,8 @@ const MenageHomePage = () => {
 	const handleLoadMoreTestimonals = () => {
 		dispatch(
 			fetchHomeContentTestimonalsStart({
-				startAfterDoc: queryDoc,
-				persistProducts: data,
+				startAfterDoc: queryDocTestimonals,
+				persistProducts: dataTestimonals,
 			})
 		);
 	};
@@ -186,7 +165,10 @@ const MenageHomePage = () => {
 	};
 
 	const [active, setActive] = useState(1);
-
+	const handleEditContent = (documentId) => {
+		dispatch(editContent(documentId));
+		dispatch()
+	};
 	return (
 		<div className="menageProducts">
 			<th className="d-flex flex-row align-items-center justify-content-between">
@@ -210,63 +192,7 @@ const MenageHomePage = () => {
 					handleChange={(e) => setActive(Number(e.target.value))}
 				/>
 				<div className="addNewProductForm">
-					{active === 1 ? (
-						<form onSubmit={handleSubmit}>
-							<FormInput
-								Label="Заголовок"
-								type="text"
-								handleChange={(e) => setTitle(e.target.value)}
-							/>
-							<FormInput
-								Label="Посилання переглянути"
-								type="text"
-								handleChange={(e) => setLinkDiscover(e.target.value)}
-							/>
-							<FormInput
-								Label="Посилання на продукт"
-								type="text"
-								handleChange={(e) => setlinkDetail(e.target.value)}
-							/>
-							<FormInput
-								Label="Зображення слайдера"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<CKEditor onChange={(evt) => setDescText(evt.editor.getData())} />
-							<Buttons type="submit" style="btn-read">
-								Добавити новий слайдер
-							</Buttons>
-						</form>
-					) : (
-						<form onSubmit={handleSubmitTestimonals}>
-							<FormInput
-								Label="Заголовок"
-								type="text"
-								handleChange={(e) => setTitleTestimonals(e.target.value)}
-							/>
-							<FormInput
-								Label="Автор"
-								type="text"
-								handleChange={(e) => setTextAuthor(e.target.value)}
-							/>
-							<FormInput
-								Label="Посада"
-								type="text"
-								handleChange={(e) => setJobPosition(e.target.value)}
-							/>
-							<FormInput
-								Label="Зображення"
-								type="file"
-								handleChange={(e) => onHandleFileTestimonals(e.target.files)}
-							/>
-							<CKEditor
-								onChange={(evt) => setDescTextTestimonals(evt.editor.getData())}
-							/>
-							<Buttons type="submit" style="btn-read">
-								Добавити новий слайдер
-							</Buttons>
-						</form>
-					)}
+					{active === 1 ? <MenageHomeProducts /> : <MenageHomeTestimonals />}
 				</div>
 			</Modal>
 			<TableContainer>
@@ -356,7 +282,7 @@ const MenageHomePage = () => {
 				<Table>
 					<TableHead>
 						<TableRow>
-							{colums.map((column, pos) => {
+							{columsTestimonals.map((column, pos) => {
 								const { lable } = column;
 								return (
 									<TableCell key={pos} style={styles}>
@@ -367,36 +293,40 @@ const MenageHomePage = () => {
 						</TableRow>
 					</TableHead>
 					<TableBody>
-						{Array.isArray(data) &&
-							data.length > 0 &&
-							data.map((data, pos) => {
+						{Array.isArray(dataTestimonals) &&
+							dataTestimonals.length > 0 &&
+							dataTestimonals.map((data, pos) => {
 								const {
-									title,
-									descText,
-									linkDiscover,
-									linkDetail,
-									sliderThumbnail,
+									titleTestimonals,
+									descTextTestimonals,
+									textAuthor,
+									jobPosition,
+									testimonalsThumbnail,
 									documentId,
 								} = data;
 								return (
-									<TableRow key={title} style={styles}>
+									<TableRow key={titleTestimonals} style={styles}>
 										<TableCell align="left">{pos + 1}</TableCell>
 										<TableCell component="th" scope="row">
-											{title}
+											{titleTestimonals}
 										</TableCell>
 										<TableCell align="left">
-											<img src={sliderThumbnail} alt={sliderThumbnail} />
+											<img
+												src={testimonalsThumbnail}
+												alt={testimonalsThumbnail}
+											/>
 										</TableCell>
 										<TableCell align="left">{documentId}</TableCell>
-										<TableCell align="left">{linkDiscover}</TableCell>
-										<TableCell align="left">{linkDetail}</TableCell>
+										<TableCell align="left">{textAuthor}</TableCell>
+										<TableCell align="left">{jobPosition}</TableCell>
 										<TableCell align="left">
-											{typeof descText === "string" && descText.length > 0 ? (
+											{typeof descTextTestimonals === "string" &&
+											descTextTestimonals.length > 0 ? (
 												<ReadMoreReact
-													text={descText}
+													text={descTextTestimonals}
 													min={5}
 													ideal={10}
-													max={descText.length}
+													max={descTextTestimonals.length}
 													readMoreText="click "
 												/>
 											) : null}
@@ -404,8 +334,42 @@ const MenageHomePage = () => {
 										<TableCell align="left">
 											<button
 												className="delete"
+												onClick={() => handleEditContent(documentId)}
+											>
+												<svg
+													xmlns="http://www.w3.org/2000/svg"
+													width="17"
+													height="19"
+													viewBox="0 0 494.936 494.936"
+													fill="#d84727"
+												>
+													<g>
+														<path
+															d="M389.844,182.85c-6.743,0-12.21,5.467-12.21,12.21v222.968c0,23.562-19.174,42.735-42.736,42.735H67.157
+			c-23.562,0-42.736-19.174-42.736-42.735V150.285c0-23.562,19.174-42.735,42.736-42.735h267.741c6.743,0,12.21-5.467,12.21-12.21
+			s-5.467-12.21-12.21-12.21H67.157C30.126,83.13,0,113.255,0,150.285v267.743c0,37.029,30.126,67.155,67.157,67.155h267.741
+			c37.03,0,67.156-30.126,67.156-67.155V195.061C402.054,188.318,396.587,182.85,389.844,182.85z"
+														/>
+														<path
+															d="M483.876,20.791c-14.72-14.72-38.669-14.714-53.377,0L221.352,229.944c-0.28,0.28-3.434,3.559-4.251,5.396l-28.963,65.069
+			c-2.057,4.619-1.056,10.027,2.521,13.6c2.337,2.336,5.461,3.576,8.639,3.576c1.675,0,3.362-0.346,4.96-1.057l65.07-28.963
+			c1.83-0.815,5.114-3.97,5.396-4.25L483.876,74.169c7.131-7.131,11.06-16.61,11.06-26.692
+			C494.936,37.396,491.007,27.915,483.876,20.791z M466.61,56.897L257.457,266.05c-0.035,0.036-0.055,0.078-0.089,0.107
+			l-33.989,15.131L238.51,247.3c0.03-0.036,0.071-0.055,0.107-0.09L447.765,38.058c5.038-5.039,13.819-5.033,18.846,0.005
+			c2.518,2.51,3.905,5.855,3.905,9.414C470.516,51.036,469.127,54.38,466.61,56.897z"
+														/>
+													</g>
+												</svg>
+											</button>
+										</TableCell>
+
+										<TableCell align="left">
+											<button
+												className="delete"
 												onClick={() =>
-													dispatch(deleteHomeContentStart(documentId))
+													dispatch(
+														deleteHomeContentTestimonalsStart(documentId)
+													)
 												}
 											>
 												<svg

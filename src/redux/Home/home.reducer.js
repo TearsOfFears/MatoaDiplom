@@ -2,7 +2,8 @@ import productsTypes from "./home.types";
 
 const INITIAL_STATE = {
   contentProduct: [],
-  contentTestimonals: []
+  contentTestimonals: [],
+  contentEdit:[]
 }
 
 const homeReducer = (state = INITIAL_STATE, action) => {
@@ -17,6 +18,11 @@ const homeReducer = (state = INITIAL_STATE, action) => {
         ...state,
         contentTestimonals: action.payload
       }
+      case productsTypes.SET_EDIT_CONTENT:
+        return {
+          ...state,
+          contentEdit: action.payload
+        }
     default:
       return state;
   }

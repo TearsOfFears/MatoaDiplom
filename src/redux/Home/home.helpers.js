@@ -112,7 +112,7 @@ export const handleFetchContentHomeTestimonals = ({
       .get()
       .then((snapShot) => {
         const totalCount = snapShot.size;
-        const data = [
+        const dataTestimonals = [
           ...persistProducts,
           ...snapShot
             .docs
@@ -124,13 +124,14 @@ export const handleFetchContentHomeTestimonals = ({
             })
         ];
         resolve({
-          data,
-          queryDoc: snapShot.docs[totalCount - 1],
-          isLastPage: totalCount < pageSize
+          dataTestimonals,
+          queryDocTestimonals: snapShot.docs[totalCount - 1],
+          isLastPageTestimonals: totalCount < pageSize
         })
       })
       .catch(err => {
         reject(err);
+      
       })
   })
 }
@@ -144,6 +145,33 @@ export const handleDeleteHomeContentTestimonals = testimonalsID => {
       .delete()
       .then(() => {
         resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+export const handleEditHomeContentTestimonals = testimonalsID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeTestimonals')
+      .doc(testimonalsID)
+      .get()
+      .then((snapShot) => {
+        const data = [
+          ...snapShot
+            .docs
+            .map(doc => {
+              return {
+                ...doc.data(),
+                documentId: doc.id
+              }
+            })
+        ];
+        resolve({
+          data,
+        })
       })
       .catch(err => {
         reject(err);

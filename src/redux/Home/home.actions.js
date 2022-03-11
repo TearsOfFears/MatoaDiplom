@@ -38,9 +38,18 @@ export const setHomeContentTestimonals = contentTestimonals =>({
     payload:contentTestimonals
 })
 
-export const deleteHomeContentTestimonalsStart = sliderID =>({
+export const deleteHomeContentTestimonalsStart = testimonalsID =>({
     type:homeTypes.DELETE_CONTENT_TESTIMONALS_START,
-    payload:sliderID
+    payload:testimonalsID
+})
+
+export const editContent = contentID =>({
+    type:homeTypes.FETCH_CONTENT_EDIT,
+    payload:contentID
+})
+export const setEditContent = content =>({
+    type:homeTypes.SET_EDIT_CONTENT,
+    payload:content
 })
 // export const fetchCurrentProductStart = productID =>({
 //     type:productsTypes.FETCH_CURRENT_PRODUCT_START,
