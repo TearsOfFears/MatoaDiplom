@@ -25,6 +25,7 @@ import {
 	deleteHomeContentTestimonalsStart,
 	fetchHomeContentTestimonalsStart,
 	editContent,
+	setEditContent
 } from "../../redux/Home/home.actions";
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
@@ -167,7 +168,7 @@ const MenageHomePage = () => {
 	const [active, setActive] = useState(1);
 	const handleEditContent = (documentId) => {
 		dispatch(editContent(documentId));
-		dispatch()
+		dispatch(setEditContent())
 	};
 	return (
 		<div className="menageProducts">

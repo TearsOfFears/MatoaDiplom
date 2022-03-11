@@ -158,22 +158,15 @@ export const handleEditHomeContentTestimonals = testimonalsID => {
       .collection('homeTestimonals')
       .doc(testimonalsID)
       .get()
-      .then((snapShot) => {
-        const data = [
-          ...snapShot
-            .docs
-            .map(doc => {
-              return {
-                ...doc.data(),
-                documentId: doc.id
-              }
-            })
-        ];
-        resolve({
-          data,
-        })
+      .then(snap=>{
+        if(snap.exists){
+          resolve({
+            ...snap.data(),
+            documentID:testimonalsID
+          })
+        }
       })
-      .catch(err => {
+      .catch(err=>{
         reject(err);
       })
   });

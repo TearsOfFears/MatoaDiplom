@@ -71,8 +71,8 @@ export function * deleteHomeContentTestimonals({payload}) {
 
 export function * editContent({payload}) {
   try {
-    const content =  yield handleEditHomeContentTestimonals(payload);
-    yield put(setEditContent(content))
+    const contentID =  yield handleEditHomeContentTestimonals(payload);
+    yield put(setEditContent(contentID))
   } catch (err) {
     //console.log(err);
   }
