@@ -15,6 +15,10 @@ export const handleAddContentHome = homeData => {
   })
 }
 
+
+
+
+
 export const handleFetchContentHome = ({
   startAfterDoc,
   persistProducts = []
@@ -171,3 +175,24 @@ export const handleEditHomeContentTestimonals = testimonalsID => {
       })
   });
 }
+
+
+export const handleUpdateContentHomeTestimonals = homeTestimonals => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeTestimonals')
+      .doc()
+      .update(homeTestimonals)
+      .then(snap=>{
+        if(snap.exists){
+          resolve({
+            ...snap.data(),
+          })
+        }
+      })
+      .catch(err => {
+        reject(err);
+      })
+  })
+}
+

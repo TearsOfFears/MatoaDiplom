@@ -2,22 +2,16 @@ import React, { useState, useEffect } from "react";
 import { CKEditor } from "ckeditor4-react";
 import ReadMoreReact from "read-more-react";
 
-import {
-	addHomeContentTestimonalsStart,
-} from "../../redux/Home/home.actions";
-import {
-	FormInput,
-	Buttons,
-} from "./../../components";
+import { addHomeContentTestimonalsStart } from "../../redux/Home/home.actions";
+import { FormInput, Buttons } from "./../../components";
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
-const mapState = ({ contentHome }) => ({ content: contentHome.contentProduct });
+const mapState = ({ contentHome }) => ({ content: contentHome.contentEdit });
 
-function MenageHomeTestimonals() {
-
-  const { content } = useSelector(mapState);
+const MenageHomeTestimonals = (props) => {
+	const { content } = useSelector(mapState);
 	const dispatch = useDispatch();
-
+	console.log(props.contendEditProps);
 	const [titleTestimonals, setTitleTestimonals] = useState("");
 	const [descTextTestimonals, setDescTextTestimonals] = useState([]);
 	const [textAuthor, setTextAuthor] = useState("");
@@ -32,7 +26,7 @@ function MenageHomeTestimonals() {
 		setTestimonalsThumbnail(await fileRef.getDownloadURL());
 	};
 
-  const resetFormTestimonals = () => {
+	const resetFormTestimonals = () => {
 		setTitleTestimonals("");
 		setDescTextTestimonals([]);
 		setTextAuthor("");
@@ -84,6 +78,6 @@ function MenageHomeTestimonals() {
 			</Buttons>
 		</form>
 	);
-}
+};
 
 export default MenageHomeTestimonals;

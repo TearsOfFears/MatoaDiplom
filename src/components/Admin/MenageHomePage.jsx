@@ -25,7 +25,7 @@ import {
 	deleteHomeContentTestimonalsStart,
 	fetchHomeContentTestimonalsStart,
 	editContent,
-	setEditContent
+	setEditContent,
 } from "../../redux/Home/home.actions";
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
@@ -41,14 +41,9 @@ const MenageHomePage = () => {
 	const toggleModal = () => {
 		setHideModal(!hideModal);
 	};
-	const configModal = {
-		hideModal,
-		toggleModal,
-		setHideModal,
-	};
 
 	const { content } = useSelector(mapState);
-	const { contentProduct, contentTestimonals } = content;
+	const { contentProduct, contentTestimonals, contentEdit } = content;
 
 	const dispatch = useDispatch();
 
@@ -168,8 +163,17 @@ const MenageHomePage = () => {
 	const [active, setActive] = useState(1);
 	const handleEditContent = (documentId) => {
 		dispatch(editContent(documentId));
-		dispatch(setEditContent())
+		dispatch(setEditContent());
+		toggleModal();
 	};
+	//console.log(contentEdit);
+	const configModal = {
+		hideModal,
+		toggleModal,
+		setHideModal,
+		handleEditContent,
+	};
+
 	return (
 		<div className="menageProducts">
 			<th className="d-flex flex-row align-items-center justify-content-between">
@@ -193,7 +197,11 @@ const MenageHomePage = () => {
 					handleChange={(e) => setActive(Number(e.target.value))}
 				/>
 				<div className="addNewProductForm">
-					{active === 1 ? <MenageHomeProducts /> : <MenageHomeTestimonals />}
+					{active === 1 ? (
+						<MenageHomeProducts contendEditProps={contentEdit} />
+					) : (
+						<MenageHomeTestimonals />
+					)}
 				</div>
 			</Modal>
 			<TableContainer>

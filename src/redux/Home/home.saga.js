@@ -78,6 +78,15 @@ export function * editContent({payload}) {
   }
 }
 
+// export function * updateContent({payload}) {
+//   try {
+//     const contentID =  yield handleEditHomeContentTestimonals(payload);
+//     yield put(setEditContent(contentID))
+//   } catch (err) {
+//     //console.log(err);
+//   }
+// }
+
 
 export function * onEditContent() {
   yield takeLatest(homeTypes.FETCH_CONTENT_EDIT, editContent)
