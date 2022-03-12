@@ -163,7 +163,6 @@ const MenageHomePage = () => {
 	const [active, setActive] = useState(1);
 	const handleEditContent = (documentId) => {
 		dispatch(editContent(documentId));
-		dispatch(setEditContent());
 		toggleModal();
 	};
 	//console.log(contentEdit);
@@ -198,9 +197,9 @@ const MenageHomePage = () => {
 				/>
 				<div className="addNewProductForm">
 					{active === 1 ? (
-						<MenageHomeProducts contendEditProps={contentEdit} />
+						<MenageHomeProducts  />
 					) : (
-						<MenageHomeTestimonals />
+						<MenageHomeTestimonals contentEdit = {contentEdit} />
 					)}
 				</div>
 			</Modal>
@@ -232,7 +231,7 @@ const MenageHomePage = () => {
 									documentId,
 								} = data;
 								return (
-									<TableRow key={title} style={styles}>
+									<TableRow key={documentId} style={styles}>
 										<TableCell align="left">{pos + 1}</TableCell>
 										<TableCell component="th" scope="row">
 											{title}
@@ -314,7 +313,7 @@ const MenageHomePage = () => {
 									documentId,
 								} = data;
 								return (
-									<TableRow key={titleTestimonals} style={styles}>
+									<TableRow key={documentId} style={styles}>
 										<TableCell align="left">{pos + 1}</TableCell>
 										<TableCell component="th" scope="row">
 											{titleTestimonals}

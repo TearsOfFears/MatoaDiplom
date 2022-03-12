@@ -156,6 +156,9 @@ export const handleDeleteHomeContentTestimonals = testimonalsID => {
   });
 }
 
+
+
+
 export const handleEditHomeContentTestimonals = testimonalsID => {
   return new Promise((resolve, reject) => {
     firestore
@@ -177,18 +180,17 @@ export const handleEditHomeContentTestimonals = testimonalsID => {
 }
 
 
-export const handleUpdateContentHomeTestimonals = homeTestimonals => {
+
+
+
+export const handleUpdateContentHomeTestimonals = (content, contentID) => {
   return new Promise((resolve, reject) => {
     firestore
       .collection('homeTestimonals')
-      .doc()
-      .update(homeTestimonals)
-      .then(snap=>{
-        if(snap.exists){
-          resolve({
-            ...snap.data(),
-          })
-        }
+      .doc(contentID)
+      .update(content)
+      .then(() => {
+        resolve();
       })
       .catch(err => {
         reject(err);

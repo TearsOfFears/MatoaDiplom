@@ -51,6 +51,12 @@ export const setEditContent = content =>({
     type:homeTypes.SET_EDIT_CONTENT,
     payload:content
 })
+export const updateContent = content =>({
+    type:homeTypes.UPDATE_CONTENT,
+    payload:content
+})
+
+
 // export const fetchCurrentProductStart = productID =>({
 //     type:productsTypes.FETCH_CURRENT_PRODUCT_START,
 //     payload:productID
