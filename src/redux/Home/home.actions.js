@@ -21,8 +21,6 @@ export const deleteHomeContentStart = sliderID =>({
     payload:sliderID
 })
 
-
-
 export const addHomeContentTestimonalsStart = homeDataTestimonals =>({
     type:homeTypes.ADD_NEW_HOME_CONTENT_TESTIMONALS,
     payload:homeDataTestimonals
@@ -47,16 +45,22 @@ export const editContent = contentID =>({
     type:homeTypes.FETCH_CONTENT_EDIT,
     payload:contentID
 })
-export const setEditContent = content =>({
+
+export const updateContent = (content,id) =>({
+    type:homeTypes.UPDATE_CONTENT,
+    payload:{content,id}
+})
+
+export const setEditContent = (content) =>({
     type:homeTypes.SET_EDIT_CONTENT,
     payload:content
 })
-export const updateContent = content =>({
-    type:homeTypes.UPDATE_CONTENT,
-    payload:content
+
+
+export const getCurrentDocumentId = documentID =>({
+    type:homeTypes.GET_CURRENT_DOCUMENTID,
+    payload:documentID
 })
-
-
 // export const fetchCurrentProductStart = productID =>({
 //     type:productsTypes.FETCH_CURRENT_PRODUCT_START,
 //     payload:productID

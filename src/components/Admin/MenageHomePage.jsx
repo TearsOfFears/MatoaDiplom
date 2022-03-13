@@ -26,12 +26,14 @@ import {
 	fetchHomeContentTestimonalsStart,
 	editContent,
 	setEditContent,
+	getCurrentDocumentId
 } from "../../redux/Home/home.actions";
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
 
 import MenageHomeProducts from "./MenageHomeProducts";
 import MenageHomeTestimonals from "./MenageHomeTestimonals";
+import { deleteProductsStart } from "../../redux/Products/products.actions";
 
 const mapState = ({ contentHome }) => ({ content: contentHome });
 
@@ -41,7 +43,18 @@ const MenageHomePage = () => {
 	const toggleModal = () => {
 		setHideModal(!hideModal);
 	};
-
+	const deleteImage = async (link) => {
+		const ref = storage.refFromURL(link);
+		await ref.delete();
+	};
+	const deleteAllTestimonals = (link, documentId) => {
+		deleteImage(link);
+		dispatch(deleteHomeContentTestimonalsStart(documentId));
+	};
+	const deleteAllSliderProduct = (link, documentId) => {
+		deleteImage(link);
+		dispatch(deleteHomeContentStart(documentId));
+	};
 	const { content } = useSelector(mapState);
 	const { contentProduct, contentTestimonals, contentEdit } = content;
 
@@ -161,8 +174,9 @@ const MenageHomePage = () => {
 	};
 
 	const [active, setActive] = useState(1);
-	const handleEditContent = (documentId) => {
+	const handleGetContent = (documentId) => {
 		dispatch(editContent(documentId));
+		dispatch(getCurrentDocumentId(documentId))
 		toggleModal();
 	};
 	//console.log(contentEdit);
@@ -170,7 +184,7 @@ const MenageHomePage = () => {
 		hideModal,
 		toggleModal,
 		setHideModal,
-		handleEditContent,
+		handleGetContent,
 	};
 
 	return (
@@ -197,9 +211,9 @@ const MenageHomePage = () => {
 				/>
 				<div className="addNewProductForm">
 					{active === 1 ? (
-						<MenageHomeProducts  />
+						<MenageHomeProducts />
 					) : (
-						<MenageHomeTestimonals contentEdit = {contentEdit} />
+						<MenageHomeTestimonals contentEdit={contentEdit} />
 					)}
 				</div>
 			</Modal>
@@ -230,6 +244,7 @@ const MenageHomePage = () => {
 									sliderThumbnail,
 									documentId,
 								} = data;
+							
 								return (
 									<TableRow key={documentId} style={styles}>
 										<TableCell align="left">{pos + 1}</TableCell>
@@ -257,7 +272,7 @@ const MenageHomePage = () => {
 											<button
 												className="delete"
 												onClick={() =>
-													dispatch(deleteHomeContentStart(documentId))
+													deleteAllSliderProduct(sliderThumbnail, documentId)
 												}
 											>
 												<svg
@@ -312,6 +327,7 @@ const MenageHomePage = () => {
 									testimonalsThumbnail,
 									documentId,
 								} = data;
+							
 								return (
 									<TableRow key={documentId} style={styles}>
 										<TableCell align="left">{pos + 1}</TableCell>
@@ -342,7 +358,7 @@ const MenageHomePage = () => {
 										<TableCell align="left">
 											<button
 												className="delete"
-												onClick={() => handleEditContent(documentId)}
+												onClick={() => handleGetContent(documentId)}
 											>
 												<svg
 													xmlns="http://www.w3.org/2000/svg"
@@ -375,9 +391,7 @@ const MenageHomePage = () => {
 											<button
 												className="delete"
 												onClick={() =>
-													dispatch(
-														deleteHomeContentTestimonalsStart(documentId)
-													)
+													deleteAllTestimonals(testimonalsThumbnail, documentId)
 												}
 											>
 												<svg

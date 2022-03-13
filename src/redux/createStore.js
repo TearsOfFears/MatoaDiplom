@@ -3,14 +3,12 @@ import logger from 'redux-logger'
 import rootReducer from './rootReducer';
 import rootSaga from './rootSaga';
 import createSagaMiddle from 'redux-saga'
-
+import { composeWithDevTools } from 'redux-devtools-extension';
 import persistStore from 'redux-persist/es/persistStore';
 
 const sagaMiddleware = createSagaMiddle();
 
-// const reduxDevTools = ()=>(
-//     window.__REDUX_DEVTOOLS_EXTENSION__ && window.__REDUX_DEVTOOLS_EXTENSION__()
-// )
+
 
 export const middleWares= [sagaMiddleware,logger];
 

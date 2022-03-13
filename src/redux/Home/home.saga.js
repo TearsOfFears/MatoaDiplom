@@ -1,7 +1,7 @@
-import {takeLatest, put, call, all} from "redux-saga/effects";
+import {takeLatest, put, call, all, take} from "redux-saga/effects";
 import homeTypes from "./home.types";
 import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals,handleDeleteHomeContentTestimonals, handleEditHomeContentTestimonals,handleUpdateContentHomeTestimonals} from "./home.helpers";
-import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent,} from "./home.actions";
+import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent, getCurrentDocumentId,} from "./home.actions";
 import {auth} from "../../firebase/utils";
 
 export function * addNewContentHome({payload}) {
@@ -71,7 +71,6 @@ export function * deleteHomeContentTestimonals({payload}) {
 
 export function * editContent({payload}) {
   try {
-    console.log();
     const content =  yield handleEditHomeContentTestimonals(payload);
     yield put(setEditContent(content))
   } catch (err) {
@@ -80,26 +79,24 @@ export function * editContent({payload}) {
 }
 
 
-
-
 export function * updateContent({payload}) {
   try {
-    const contentID =  yield handleEditHomeContentTestimonals(payload);
-    const timestamp = new Date();
-   const content =  yield handleAddContentHome({
-      ...payload,
-      createdDate: timestamp
-    });
-    yield put(handleUpdateContentHomeTestimonals(content,contentID))
-    yield put(setEditContent())
+
+    const content =  yield put(handleUpdateContentHomeTestimonals(payload.content,payload.id.temp))
+    yield put(setEditContent(content))
   } catch (err) {
-    //console.log(err);
+    console.log(err);
   }
 }
 
 export function * onUpdateContent() {
   yield takeLatest(homeTypes.UPDATE_CONTENT, updateContent)
 }
+
+// export function * onGetCurrentDocumentID () {
+//   yield takeLatest(homeTypes.GET_CURRENT_DOCUMENTID, getCurrentDocumentID)
+// }
+
 
 export function * onEditContent() {
   yield takeLatest(homeTypes.FETCH_CONTENT_EDIT, editContent)
@@ -137,6 +134,7 @@ export default function * homeSagas() {
     call(onFetchContentTestimonalsStart),
     call(onDeleteContentTestimonalsStart),
     call(onEditContent),
-    call(onUpdateContent)
+    call(onUpdateContent),
+    //call(onGetCurrentDocumentID)
   ])
 }

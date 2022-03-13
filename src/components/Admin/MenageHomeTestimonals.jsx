@@ -6,6 +6,8 @@ import {
 	addHomeContentTestimonalsStart,
 	fetchHomeContentTestimonalsStart,
 	updateContent,
+	editContent,
+	getCurrentDocumentId,
 } from "../../redux/Home/home.actions";
 import { FormInput, Buttons } from "./../../components";
 import { storage } from "./../../firebase/utils";
@@ -48,6 +50,7 @@ const MenageHomeTestimonals = (props) => {
 			setTextAuthor(props.contentEdit.textAuthor);
 			setJobPosition(props.contentEdit.jobPosition);
 			setTestimonalsThumbnail(props.contentEdit.testimonalsThumbnail);
+
 			setActiveFunc(true);
 		} else {
 			resetFormTestimonals();
@@ -68,22 +71,29 @@ const MenageHomeTestimonals = (props) => {
 		resetFormTestimonals();
 		//setHideModal(true);
 	};
+	const handleEditContent = (documentId) => {
+		dispatch(editContent(documentId));
+	};
 
 	const handleSubmitTestimonalsEdit = (e) => {
+		const temp = props.contentEdit.documentID;
 		e.preventDefault();
 		dispatch(
-			updateContent({
-				titleTestimonals,
-				descTextTestimonals,
-				textAuthor,
-				jobPosition,
-				testimonalsThumbnail,
-			})
+			updateContent(
+				{
+					titleTestimonals,
+					descTextTestimonals,
+					textAuthor,
+					jobPosition,
+					testimonalsThumbnail,
+				},
+				{ temp }
+			)
 		);
+
 		dispatch(fetchHomeContentTestimonalsStart());
 		resetFormTestimonals();
 		//setHideModal(true);
-		console.log("testiminalEDIT");
 	};
 	//handleSubmitTestimonalsEdit
 	return (
@@ -93,19 +103,16 @@ const MenageHomeTestimonals = (props) => {
 					<FormInput
 						Label="Заголовок"
 						type="text"
-						value={titleTestimonals}
 						handleChange={(e) => setTitleTestimonals(e.target.value)}
 					/>
 					<FormInput
 						Label="Автор"
 						type="text"
-						value={textAuthor}
 						handleChange={(e) => setTextAuthor(e.target.value)}
 					/>
 					<FormInput
 						Label="Посада"
 						type="text"
-						value={jobPosition}
 						handleChange={(e) => setJobPosition(e.target.value)}
 					/>
 					<FormInput
@@ -114,7 +121,6 @@ const MenageHomeTestimonals = (props) => {
 						handleChange={(e) => onHandleFileTestimonals(e.target.files)}
 					/>
 					<CKEditor
-						data={descTextTestimonals}
 						onChange={(evt) => setDescTextTestimonals(evt.editor.getData())}
 					/>
 					<Buttons type="submit" style="btn-read">

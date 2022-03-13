@@ -1,5 +1,6 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
+
 import {
 	TableContainer,
 	Table,
@@ -14,7 +15,7 @@ import {
 	Modal,
 	FormSelect,
 	Buttons,
-	LoadMore
+	LoadMore,
 } from "./../../components";
 import ReadMoreReact from "read-more-react";
 import { CKEditor } from "ckeditor4-react";
@@ -32,11 +33,11 @@ const MenageProducts = () => {
 	const toggleModal = () => {
 		setHideModal(!hideModal);
 	};
-    const configModal = {
-        	hideModal,
-        	toggleModal,
-        	setHideModal,
-        };
+	const configModal = {
+		hideModal,
+		toggleModal,
+		setHideModal,
+	};
 	const { products } = useSelector(mapState);
 	const dispatch = useDispatch();
 	const [productCategory, setProductCategory] = useState("watches");
@@ -63,6 +64,15 @@ const MenageProducts = () => {
 			setProductThumbnail3(arrOfLinks[2]);
 			setProductThumbnail4(arrOfLinks[3]);
 		}
+	};
+	const deleteImage = async (path) => {
+		const storageHanlde = storage.storage();
+		const storageRef = storageHanlde.ref();
+		await storageRef.child(path).delete();
+	};
+	const deleteAll = (path, documentId) => {
+		deleteImage(path);
+		dispatch(deleteProductsStart(documentId));
 	};
 	const resetForm = () => {
 		setProductCategory("watches");
@@ -257,9 +267,7 @@ const MenageProducts = () => {
 										<TableCell align="left">
 											<button
 												className="delete"
-												onClick={() =>
-													dispatch(deleteProductsStart(documentId))
-												}
+												onClick={() => deleteAll(productName, documentId)}
 											>
 												<svg
 													width="17"
@@ -280,7 +288,7 @@ const MenageProducts = () => {
 									</TableRow>
 								);
 							})}
-							<TableRow>
+						<TableRow>
 							{!isLastPage && <LoadMore {...configLoadMore} />}
 						</TableRow>
 					</TableBody>

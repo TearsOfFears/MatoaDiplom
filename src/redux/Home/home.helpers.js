@@ -179,19 +179,22 @@ export const handleEditHomeContentTestimonals = testimonalsID => {
   });
 }
 
+// export const getID = (payload)=>{
+// const contentID=payload;
+// return contentID;
+// }
 
+export const handleUpdateContentHomeTestimonals = (content,contentID) => {
 
-
-
-export const handleUpdateContentHomeTestimonals = (content, contentID) => {
   return new Promise((resolve, reject) => {
     firestore
       .collection('homeTestimonals')
       .doc(contentID)
       .update(content)
-      .then(() => {
-        resolve();
-      })
+      .then(()=>{
+        resolve()
+        }
+      )
       .catch(err => {
         reject(err);
       })
