@@ -101,11 +101,10 @@ const MenageHomeTestimonals = (props) => {
 				{ temp }
 			)
 		);
-		dispatch(setEditContent({}));
+		dispatch(setEditContent({"some":1}));
 		dispatch(fetchHomeContentTestimonalsStart());
 		resetFormTestimonals();
 
-		setHideModal(true);
 	};
 	return (
 		<div>

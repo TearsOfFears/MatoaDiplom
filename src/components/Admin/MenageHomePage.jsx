@@ -63,10 +63,10 @@ const MenageHomePage = () => {
 	const toggleModal = () => {
 		setHideModalEdit(!hideModalEdit);
 		setHideModalAdd(!hideModalAdd);
-	
+
 		dispatch(fetchHomeContentTestimonalsStart());
 		dispatch(fetchHomeContentStart());
-		dispatch(setEditContent({}));
+		dispatch(setEditContent({ some: 1 }));
 	};
 
 	const colums = [
@@ -156,6 +156,7 @@ const MenageHomePage = () => {
 	};
 
 	useEffect(() => {
+		dispatch(setEditContent({}));
 		dispatch(fetchHomeContentStart());
 		dispatch(fetchHomeContentTestimonalsStart());
 		setHideModalEdit(!hideModalEdit);

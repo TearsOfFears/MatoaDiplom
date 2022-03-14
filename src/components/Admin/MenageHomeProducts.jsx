@@ -90,7 +90,7 @@ const MenageHomeProducts = (props) => {
 				{ temp }
 			)
 		);
-		dispatch(setEditContent({}));
+		dispatch(setEditContent({"some":1},{"some":1}));
 		dispatch(fetchHomeContentStart());
 		resetForm();
 	};
