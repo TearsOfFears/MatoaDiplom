@@ -40,7 +40,7 @@ const MenageHomeProducts = (props) => {
 		setSliderThumbnail("");
 	};
 
-	const setEditValue = () => {
+	const setEditValueProduct = () => {
 		if (
 			typeof props.contentEdit === "object" &&
 			Object.keys(content).length > 0
@@ -50,13 +50,16 @@ const MenageHomeProducts = (props) => {
 			setLinkDiscover(props.contentEdit.linkDiscover);
 			setlinkDetail(props.contentEdit.linkDetail);
 			setSliderThumbnail(props.contentEdit.sliderThumbnail);
+			console.log("yes");
 		} else {
 			resetForm();
 			setActiveEdit(false);
 			dispatch(editContent());
 		}
 	};
-
+	useEffect(()=>{
+		setEditValueProduct()
+	},[])
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(
@@ -103,16 +106,19 @@ const MenageHomeProducts = (props) => {
 					<FormInput
 						Label="Заголовок"
 						type="text"
+						value={title}
 						handleChange={(e) => setTitle(e.target.value)}
 					/>
 					<FormInput
 						Label="Посилання переглянути"
 						type="text"
+						value={linkDiscover}
 						handleChange={(e) => setLinkDiscover(e.target.value)}
 					/>
 					<FormInput
 						Label="Посилання на продукт"
 						type="text"
+						value={linkDetail}
 						handleChange={(e) => setlinkDetail(e.target.value)}
 					/>
 					<FormInput

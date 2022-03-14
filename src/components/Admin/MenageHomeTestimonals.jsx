@@ -64,7 +64,9 @@ const MenageHomeTestimonals = (props) => {
 			dispatch(editContent());
 		}
 	};
-
+	useEffect(()=>{
+		setEditValue()
+	},[])
 	const handleSubmitTestimonals = (e) => {
 		e.preventDefault();
 		dispatch(
@@ -106,7 +108,6 @@ const MenageHomeTestimonals = (props) => {
 
 		setHideModal(true);
 	};
-
 	return (
 		<div>
 			{Object.keys(content).length > 0 ? (
