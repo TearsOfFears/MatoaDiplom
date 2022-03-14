@@ -50,11 +50,9 @@ const MenageHomeProducts = (props) => {
 			setLinkDiscover(props.contentEdit.linkDiscover);
 			setlinkDetail(props.contentEdit.linkDetail);
 			setSliderThumbnail(props.contentEdit.sliderThumbnail);
-			console.log("yes");
 		} else {
 			resetForm();
 			setActiveEdit(false);
-			dispatch(editContent());
 		}
 	};
 	useEffect(()=>{
@@ -72,13 +70,10 @@ const MenageHomeProducts = (props) => {
 			})
 		);
 		resetForm();
-		dispatch(editContent());
+		dispatch(setEditContent({}));
 		//setHideModal(true);
 	};
 
-	const handleEditContent = (documentId) => {
-		dispatch(editContent(documentId));
-	};
 
 	const handleSubmitEdit = (e) => {
 		const temp = props.contentEdit.documentID;

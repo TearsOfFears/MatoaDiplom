@@ -61,7 +61,6 @@ const MenageHomeTestimonals = (props) => {
 		} else {
 			resetFormTestimonals();
 			setActiveEdit(false);
-			dispatch(editContent());
 		}
 	};
 	useEffect(()=>{
@@ -78,7 +77,7 @@ const MenageHomeTestimonals = (props) => {
 				testimonalsThumbnail,
 			})
 		);
-		dispatch(editContent());
+		dispatch(editContent({}));
 		resetFormTestimonals();
 		//setHideModal(true);
 	};

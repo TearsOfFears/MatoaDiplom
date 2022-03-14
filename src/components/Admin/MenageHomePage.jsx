@@ -40,6 +40,7 @@ const mapState = ({ contentHome }) => ({ content: contentHome });
 
 const MenageHomePage = () => {
 	const dispatch = useDispatch();
+	const [active, setActive] = useState(1);
 	const [hideModalEdit, setHideModalEdit] = useState(true);
 	const [hideModalAdd, setHideModalAdd] = useState(true);
 
@@ -60,10 +61,12 @@ const MenageHomePage = () => {
 	const { contentProduct, contentTestimonals, contentEdit } = content;
 
 	const toggleModal = () => {
-		dispatch(setEditContent({}));
-		dispatch(fetchHomeContentTestimonalsStart());
 		setHideModalEdit(!hideModalEdit);
 		setHideModalAdd(!hideModalAdd);
+	
+		dispatch(fetchHomeContentTestimonalsStart());
+		dispatch(fetchHomeContentStart());
+		dispatch(setEditContent({}));
 	};
 
 	const colums = [
@@ -155,6 +158,8 @@ const MenageHomePage = () => {
 	useEffect(() => {
 		dispatch(fetchHomeContentStart());
 		dispatch(fetchHomeContentTestimonalsStart());
+		setHideModalEdit(!hideModalEdit);
+		setHideModalAdd(!hideModalAdd);
 	}, []);
 
 	const { data, queryDoc, isLastPage } = contentProduct;
@@ -182,8 +187,6 @@ const MenageHomePage = () => {
 		onLoadMoreEvt: handleLoadMore,
 		onLoadMoreEvtTestimonals: handleLoadMoreTestimonals,
 	};
-
-	const [active, setActive] = useState(1);
 
 	const handleGetContent = (documentId) => {
 		dispatch(editContent(documentId));
