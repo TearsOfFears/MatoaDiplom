@@ -28,15 +28,15 @@ import { storage } from "./../../firebase/utils";
 
 const mapState = ({ productsData }) => ({ products: productsData.products });
 const MenageProducts = () => {
-	const [hideModal, setHideModal] = useState(true);
+	const [hideModalAdd, setHideModalAdd] = useState(true);
 
 	const toggleModal = () => {
-		setHideModal(!hideModal);
+		setHideModalAdd(!hideModalAdd);
 	};
 	const configModal = {
-		hideModal,
+		hideModalAdd,
 		toggleModal,
-		setHideModal,
+		setHideModalAdd,
 	};
 	const { products } = useSelector(mapState);
 	const dispatch = useDispatch();
@@ -65,6 +65,7 @@ const MenageProducts = () => {
 			setProductThumbnail4(arrOfLinks[3]);
 		}
 	};
+	
 	const deleteImage = async (path) => {
 		const storageHanlde = storage.storage();
 		const storageRef = storageHanlde.ref();
@@ -99,7 +100,7 @@ const MenageProducts = () => {
 			})
 		);
 		resetForm();
-		setHideModal(true);
+		setHideModalAdd(true);
 	};
 	const colums = [
 		{

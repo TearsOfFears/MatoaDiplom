@@ -51,16 +51,31 @@ export const updateContent = (content,id) =>({
     payload:{content,id}
 })
 
+export const editContentProduct = contentID =>({
+    type:homeTypes.FETCH_CONTENT_EDIT_PRODUCT,
+    payload:contentID
+})
+
+export const updateContentProduct = (content,id) =>({
+    type:homeTypes.UPDATE_CONTENT_PRODUCT,
+    payload:{content,id}
+})
+
+
+
+
 export const setEditContent = (content) =>({
     type:homeTypes.SET_EDIT_CONTENT,
     payload:content
 })
 
 
-export const getCurrentDocumentId = documentID =>({
-    type:homeTypes.GET_CURRENT_DOCUMENTID,
-    payload:documentID
-})
+
+
+// export const getCurrentDocumentId = documentID =>({
+//     type:homeTypes.GET_CURRENT_DOCUMENTID,
+//     payload:documentID
+// })
 // export const fetchCurrentProductStart = productID =>({
 //     type:productsTypes.FETCH_CURRENT_PRODUCT_START,
 //     payload:productID

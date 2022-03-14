@@ -3,20 +3,21 @@ import { CKEditor } from "ckeditor4-react";
 import ReadMoreReact from "read-more-react";
 import {
 	addHomeContentStart,
+	editContent,
+	fetchHomeContentStart,
+	setEditContent,
+	updateContentProduct,
 } from "../../redux/Home/home.actions";
-import {
-	FormInput,
-	Buttons,
-} from "./../../components";
+import { FormInput, Buttons } from "./../../components";
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
 
-const mapState = ({ contentHome }) => ({ content: contentHome.contentProduct });
+const mapState = ({ contentHome }) => ({ content: contentHome.contentEdit });
 
-const  MenageHomeProducts = ({setHideModal}) => {
+const MenageHomeProducts = (props) => {
 	const { content } = useSelector(mapState);
 	const dispatch = useDispatch();
-
+	const [activeEdit, setActiveEdit] = useState(true);
 	const [title, setTitle] = useState("");
 	const [descText, setDescText] = useState([]);
 	const [linkDiscover, setLinkDiscover] = useState("");
@@ -39,6 +40,23 @@ const  MenageHomeProducts = ({setHideModal}) => {
 		setSliderThumbnail("");
 	};
 
+	const setEditValue = () => {
+		if (
+			typeof props.contentEdit === "object" &&
+			Object.keys(content).length > 0
+		) {
+			setTitle(props.contentEdit.title);
+			setDescText(props.contentEdit.descText);
+			setLinkDiscover(props.contentEdit.linkDiscover);
+			setlinkDetail(props.contentEdit.linkDetail);
+			setSliderThumbnail(props.contentEdit.sliderThumbnail);
+		} else {
+			resetForm();
+			setActiveEdit(false);
+			dispatch(editContent());
+		}
+	};
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(
@@ -51,37 +69,92 @@ const  MenageHomeProducts = ({setHideModal}) => {
 			})
 		);
 		resetForm();
+		dispatch(editContent());
 		//setHideModal(true);
 	};
 
+	const handleEditContent = (documentId) => {
+		dispatch(editContent(documentId));
+	};
+
+	const handleSubmitEdit = (e) => {
+		const temp = props.contentEdit.documentID;
+		e.preventDefault();
+		dispatch(
+			updateContentProduct(
+				{
+					title,
+					descText,
+					linkDiscover,
+					linkDetail,
+					sliderThumbnail,
+				},
+				{ temp }
+			)
+		);
+		dispatch(setEditContent({}));
+		dispatch(fetchHomeContentStart());
+		resetForm();
+	};
 	return (
-		<form onSubmit={handleSubmit}>
-			<FormInput
-				Label="Заголовок"
-				type="text"
-				handleChange={(e) => setTitle(e.target.value)}
-			/>
-			<FormInput
-				Label="Посилання переглянути"
-				type="text"
-				handleChange={(e) => setLinkDiscover(e.target.value)}
-			/>
-			<FormInput
-				Label="Посилання на продукт"
-				type="text"
-				handleChange={(e) => setlinkDetail(e.target.value)}
-			/>
-			<FormInput
-				Label="Зображення слайдера"
-				type="file"
-				handleChange={(e) => onHandleFile(e.target.files)}
-			/>
-			<CKEditor onChange={(evt) => setDescText(evt.editor.getData())} />
-			<Buttons type="submit" style="btn-read">
-				Добавити новий слайдер
-			</Buttons>
-		</form>
+		<div>
+			{Object.keys(content).length > 0 ? (
+				<form onSubmit={handleSubmitEdit}>
+					<FormInput
+						Label="Заголовок"
+						type="text"
+						handleChange={(e) => setTitle(e.target.value)}
+					/>
+					<FormInput
+						Label="Посилання переглянути"
+						type="text"
+						handleChange={(e) => setLinkDiscover(e.target.value)}
+					/>
+					<FormInput
+						Label="Посилання на продукт"
+						type="text"
+						handleChange={(e) => setlinkDetail(e.target.value)}
+					/>
+					<FormInput
+						Label="Зображення слайдера"
+						type="file"
+						handleChange={(e) => onHandleFile(e.target.files)}
+					/>
+					<CKEditor onChange={(evt) => setDescText(evt.editor.getData())} />
+					<Buttons type="submit" style="btn-read">
+						Редагувати слайдер
+					</Buttons>
+				</form>
+			) : (
+				<form onSubmit={handleSubmit}>
+					<FormInput
+						Label="Заголовок"
+						type="text"
+						handleChange={(e) => setTitle(e.target.value)}
+					/>
+					<FormInput
+						Label="Посилання переглянути"
+						type="text"
+						handleChange={(e) => setLinkDiscover(e.target.value)}
+					/>
+					<FormInput
+						Label="Посилання на продукт"
+						type="text"
+						handleChange={(e) => setlinkDetail(e.target.value)}
+					/>
+					<FormInput
+						Label="Зображення слайдера"
+						type="file"
+						handleChange={(e) => onHandleFile(e.target.files)}
+					/>
+					<CKEditor onChange={(evt) => setDescText(evt.editor.getData())} />
+					<Buttons type="submit" style="btn-read">
+						Добавити новий слайдер
+					</Buttons>
+				</form>
+			)}
+		</div>
 	);
-}
+};
 
 export default MenageHomeProducts;

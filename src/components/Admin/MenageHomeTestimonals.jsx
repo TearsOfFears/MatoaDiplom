@@ -8,6 +8,7 @@ import {
 	updateContent,
 	editContent,
 	getCurrentDocumentId,
+	setEditContent,
 } from "../../redux/Home/home.actions";
 import { FormInput, Buttons } from "./../../components";
 import { storage } from "./../../firebase/utils";
@@ -17,13 +18,20 @@ const mapState = ({ contentHome }) => ({ content: contentHome.contentEdit });
 const MenageHomeTestimonals = (props) => {
 	const { content } = useSelector(mapState);
 	const dispatch = useDispatch();
-	const [activeFunc, setActiveFunc] = useState(false);
+	const [activeEdit, setActiveEdit] = useState(true);
+	const [activeAdd, setActiveAdd] = useState(false);
+
 	const [titleTestimonals, setTitleTestimonals] = useState("");
 	const [descTextTestimonals, setDescTextTestimonals] = useState([]);
 	const [textAuthor, setTextAuthor] = useState("");
 	const [jobPosition, setJobPosition] = useState("");
 	const [testimonalsThumbnail, setTestimonalsThumbnail] = useState("");
 
+	const [hideModal, setHideModal] = useState(true);
+
+	const toggleModal = () => {
+		setHideModal(!hideModal);
+	};
 	const onHandleFileTestimonals = async (files) => {
 		const file = files[0];
 		const storageRef = storage.ref();
@@ -39,24 +47,24 @@ const MenageHomeTestimonals = (props) => {
 		setJobPosition("");
 		setTestimonalsThumbnail("");
 	};
-	useEffect(() => {
-		setEditValue();
-	}, []);
 
 	const setEditValue = () => {
-		if (typeof props.contentEdit === "object") {
+		if (
+			typeof props.contentEdit === "object" &&
+			Object.keys(content).length >0
+		) {
 			setTitleTestimonals(props.contentEdit.titleTestimonals);
 			setDescTextTestimonals(props.contentEdit.descTextTestimonals);
 			setTextAuthor(props.contentEdit.textAuthor);
 			setJobPosition(props.contentEdit.jobPosition);
 			setTestimonalsThumbnail(props.contentEdit.testimonalsThumbnail);
-
-			setActiveFunc(true);
 		} else {
 			resetFormTestimonals();
-			setActiveFunc(false);
+			setActiveEdit(false);
+			dispatch(editContent());
 		}
 	};
+
 	const handleSubmitTestimonals = (e) => {
 		e.preventDefault();
 		dispatch(
@@ -68,9 +76,11 @@ const MenageHomeTestimonals = (props) => {
 				testimonalsThumbnail,
 			})
 		);
+		dispatch(editContent());
 		resetFormTestimonals();
 		//setHideModal(true);
 	};
+
 	const handleEditContent = (documentId) => {
 		dispatch(editContent(documentId));
 	};
@@ -90,29 +100,33 @@ const MenageHomeTestimonals = (props) => {
 				{ temp }
 			)
 		);
-
+		dispatch(setEditContent({}));
 		dispatch(fetchHomeContentTestimonalsStart());
 		resetFormTestimonals();
-		//setHideModal(true);
+
+		setHideModal(true);
 	};
-	//handleSubmitTestimonalsEdit
+
 	return (
 		<div>
-			{activeFunc ? (
+			{Object.keys(content).length > 0 ? (
 				<form onSubmit={handleSubmitTestimonalsEdit}>
 					<FormInput
 						Label="Заголовок"
 						type="text"
+						value={titleTestimonals}
 						handleChange={(e) => setTitleTestimonals(e.target.value)}
 					/>
 					<FormInput
 						Label="Автор"
 						type="text"
+						value={textAuthor}
 						handleChange={(e) => setTextAuthor(e.target.value)}
 					/>
 					<FormInput
 						Label="Посада"
 						type="text"
+						value={jobPosition}
 						handleChange={(e) => setJobPosition(e.target.value)}
 					/>
 					<FormInput
@@ -124,7 +138,7 @@ const MenageHomeTestimonals = (props) => {
 						onChange={(evt) => setDescTextTestimonals(evt.editor.getData())}
 					/>
 					<Buttons type="submit" style="btn-read">
-						Добавити новий слайдер
+						Редагувати слайдер
 					</Buttons>
 				</form>
 			) : (

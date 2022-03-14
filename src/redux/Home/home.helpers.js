@@ -179,10 +179,6 @@ export const handleEditHomeContentTestimonals = testimonalsID => {
   });
 }
 
-// export const getID = (payload)=>{
-// const contentID=payload;
-// return contentID;
-// }
 
 export const handleUpdateContentHomeTestimonals = (content,contentID) => {
 
@@ -201,3 +197,41 @@ export const handleUpdateContentHomeTestimonals = (content,contentID) => {
   })
 }
 
+
+export const handleEditHomeContentProduct = productID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeProduct')
+      .doc(productID)
+      .get()
+      .then(snap=>{
+        if(snap.exists){
+          resolve({
+            ...snap.data(),
+            documentID:productID
+          })
+        }
+      })
+      .catch(err=>{
+        reject(err);
+      })
+  });
+}
+
+
+export const handleUpdateContentHomeProduct = (content,contentID) => {
+
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeProduct')
+      .doc(contentID)
+      .update(content)
+      .then(()=>{
+        resolve()
+        }
+      )
+      .catch(err => {
+        reject(err);
+      })
+  })
+}
