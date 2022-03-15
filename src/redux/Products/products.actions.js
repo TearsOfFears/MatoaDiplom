@@ -31,3 +31,22 @@ export const setCurrentProduct = product =>({
     type:productsTypes.SET_CURRENT_PRODUCT,
     payload:product
 })
+
+
+
+export const setEditContentMain= product =>({
+    type:productsTypes.SET_EDIT_CONTENT_MAIN_PRODUCT,
+    payload:product
+})
+
+
+export const editContentMainProduct = contentID =>({
+    type:productsTypes.FETCH_CONTENT_EDIT_MAIN_PRODUCT,
+    payload:contentID
+})
+
+export const updateContentMainProduct = (content,id) =>({
+    type:productsTypes.UPDATE_CONTENT_MAIN_PRODUCT,
+    payload:{content,id}
+})
+

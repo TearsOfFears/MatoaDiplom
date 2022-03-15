@@ -77,7 +77,7 @@ const MenageHomeTestimonals = (props) => {
 				testimonalsThumbnail,
 			})
 		);
-		dispatch(setEditContent({ some: 1 }, { some: 1 }, { some: 1 }));
+		//dispatch(setEditContent({ some: 1 }, { some: 1 }, { some: 1 }));
 		resetFormTestimonals();
 		//setHideModal(true);
 	};
@@ -107,7 +107,7 @@ const MenageHomeTestimonals = (props) => {
 	};
 	return (
 		<div>
-			{Object.keys(content).length > 0 ? (
+			{typeof content !== "undefined" && Object.keys(content).length > 0 ? (
 				<form onSubmit={handleSubmitTestimonalsEdit}>
 					<FormInput
 						Label="Заголовок"

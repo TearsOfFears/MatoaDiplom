@@ -62,8 +62,6 @@ export const updateContentProduct = (content,id) =>({
 })
 
 
-
-
 export const setEditContent = (content) =>({
     type:homeTypes.SET_EDIT_CONTENT,
     payload:content

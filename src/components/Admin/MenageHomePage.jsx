@@ -63,7 +63,7 @@ const MenageHomePage = () => {
 	const toggleModal = () => {
 		setHideModalEdit(!hideModalEdit);
 		setHideModalAdd(!hideModalAdd);
-		dispatch(setEditContent({ }));
+		dispatch(setEditContent({}));
 		dispatch(fetchHomeContentTestimonalsStart());
 		dispatch(fetchHomeContentStart());
 

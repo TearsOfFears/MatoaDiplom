@@ -95,7 +95,7 @@ const MenageHomeProducts = (props) => {
 	};
 	return (
 		<div>
-			{Object.keys(content).length > 0 ? (
+			{typeof content !== "undefined" && Object.keys(content).length > 0 ? (
 				<form onSubmit={handleSubmitEdit}>
 					<FormInput
 						Label="Заголовок"

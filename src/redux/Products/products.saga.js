@@ -1,7 +1,7 @@
 import {takeLatest, put, call, all} from "redux-saga/effects";
 import productsTypes from "./products.types";
 import { setProducts, fetchProductsStart, setCurrentProduct } from "./products.actions";
-import {handleAddProduct,handleFetchProducts,handleDeleteProduct,handleFetchCurrentProduct} from "./products.helpers";
+import {handleAddProduct,handleFetchProducts,handleDeleteProduct,handleFetchCurrentProduct, handleEditContent, handleUpdateContent} from "./products.helpers";
 
 import {auth} from "../../firebase/utils";
 
@@ -49,6 +49,35 @@ export function* fetchCurrentProduct({payload}){
   }
 }
 
+export function* editContent({payload}){
+  try{
+      const product = yield handleEditContent(payload);
+      yield put(setCurrentProduct(product));
+  }
+  catch(err){
+      //console.log(err);
+  }
+}
+
+export function* updateContent({payload}){
+  try{
+    const content =  yield put(handleUpdateContent(payload.content,payload.id.temp))
+    yield put(setCurrentProduct(content))
+  }
+  catch(err){
+      //console.log(err);
+  }
+}
+
+
+export function * onUpdateContent() {
+  yield takeLatest(productsTypes.UPDATE_CONTENT, updateContent)
+}
+
+
+export function * onEditContent() {
+  yield takeLatest(productsTypes.FETCH_CONTENT_EDIT_MAIN_PRODUCT, editContent)
+}
 
 
 export function * onFetchCurrentProduct() {
@@ -68,5 +97,5 @@ export function * onAddProductsStart() {
 }
 
 export default function * productsSagas() {
-  yield all([call(onAddProductsStart),call(onFetchProductsStart),call(onDeleteProductStart),call(onFetchCurrentProduct)])
+  yield all([call(onAddProductsStart),call(onFetchProductsStart),call(onDeleteProductStart),call(onFetchCurrentProduct),call(onEditContent)])
 }

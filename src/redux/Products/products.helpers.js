@@ -77,6 +77,7 @@ export const handleDeleteProduct = documentID => {
   });
 }
 
+
 export const handleFetchCurrentProduct = productID => {
   return new Promise((resolve, reject) => {
     firestore
@@ -96,4 +97,44 @@ export const handleFetchCurrentProduct = productID => {
         reject(err);
       })
   });
+}
+
+
+
+export const handleEditContent = productID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('products')
+      .doc(productID)
+      .get()
+      .then(snap=>{
+        if(snap.exists){
+          resolve({
+            ...snap.data(),
+            documentID:productID
+          })
+        }
+      })
+      .catch(err=>{
+        reject(err);
+      })
+  });
+}
+
+
+export const handleUpdateContent = (content,contentID) => {
+
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('products')
+      .doc(contentID)
+      .update(content)
+      .then(()=>{
+        resolve()
+        }
+      )
+      .catch(err => {
+        reject(err);
+      })
+  })
 }
