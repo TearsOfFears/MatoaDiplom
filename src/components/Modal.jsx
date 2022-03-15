@@ -10,10 +10,13 @@ const Modal = ({
 	contentEdit,
 }) => {
 	if (!hideModalEdit) return null;
+	if (!hideModalAdd) return null;
 
-	if (Object.keys(contentEdit).length === 0) {
+	if (Object.keys(contentEdit).length === 3) {
 		setHideModalAdd(hideModalAdd);
-		if (!hideModalAdd) return null;
+		setHideModalEdit(hideModalEdit);
+		if (!hideModalAdd || !hideModalEdit) return null;
+		console.log(true);
 	}
 
 	if (Object.keys(contentEdit).length === 1) {
@@ -26,7 +29,6 @@ const Modal = ({
 		if (!hideModalEdit) return null;
 	}
 
-
 	// else{
 	// 	setHideModalEdit(!hideModalEdit);
 	// 	setHideModalAdd(!hideModalAdd);console.log("cahnge");
@@ -36,7 +38,7 @@ const Modal = ({
 	// 	if (hideModalEdit || hideModalAdd) return null;
 	// 	console.log(hideModalEdit);
 	// }
-	console.log(hideModalEdit);
+	console.log(hideModalAdd);
 	return [
 		<div
 			className="modalOverlay"

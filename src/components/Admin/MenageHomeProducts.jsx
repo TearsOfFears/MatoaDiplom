@@ -55,9 +55,9 @@ const MenageHomeProducts = (props) => {
 			setActiveEdit(false);
 		}
 	};
-	useEffect(()=>{
-		setEditValueProduct()
-	},[])
+	useEffect(() => {
+		setEditValueProduct();
+	}, []);
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(
@@ -70,10 +70,9 @@ const MenageHomeProducts = (props) => {
 			})
 		);
 		resetForm();
-		dispatch(setEditContent({}));
+		dispatch(setEditContent({ some: 1 }, { some: 1 }, { some: 1 }));
 		//setHideModal(true);
 	};
-
 
 	const handleSubmitEdit = (e) => {
 		const temp = props.contentEdit.documentID;
@@ -90,7 +89,7 @@ const MenageHomeProducts = (props) => {
 				{ temp }
 			)
 		);
-		dispatch(setEditContent({"some":1},{"some":1}));
+		dispatch(setEditContent({ some: 1 }, { some: 1 }));
 		dispatch(fetchHomeContentStart());
 		resetForm();
 	};

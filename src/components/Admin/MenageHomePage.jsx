@@ -63,10 +63,10 @@ const MenageHomePage = () => {
 	const toggleModal = () => {
 		setHideModalEdit(!hideModalEdit);
 		setHideModalAdd(!hideModalAdd);
-
+		dispatch(setEditContent({ }));
 		dispatch(fetchHomeContentTestimonalsStart());
 		dispatch(fetchHomeContentStart());
-		dispatch(setEditContent({ some: 1 }));
+
 	};
 
 	const colums = [
@@ -281,7 +281,7 @@ const MenageHomePage = () => {
 												<ReadMoreReact
 													text={descText}
 													min={5}
-													ideal={10}
+													ideal={7}
 													max={descText.length}
 													readMoreText="click "
 												/>
@@ -399,7 +399,7 @@ const MenageHomePage = () => {
 												<ReadMoreReact
 													text={descTextTestimonals}
 													min={5}
-													ideal={10}
+													ideal={7}
 													max={descTextTestimonals.length}
 													readMoreText="click "
 												/>

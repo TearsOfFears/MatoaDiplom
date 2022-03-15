@@ -51,7 +51,7 @@ const MenageHomeTestimonals = (props) => {
 	const setEditValue = () => {
 		if (
 			typeof props.contentEdit === "object" &&
-			Object.keys(content).length >0
+			Object.keys(content).length > 0
 		) {
 			setTitleTestimonals(props.contentEdit.titleTestimonals);
 			setDescTextTestimonals(props.contentEdit.descTextTestimonals);
@@ -63,9 +63,9 @@ const MenageHomeTestimonals = (props) => {
 			setActiveEdit(false);
 		}
 	};
-	useEffect(()=>{
-		setEditValue()
-	},[])
+	useEffect(() => {
+		setEditValue();
+	}, []);
 	const handleSubmitTestimonals = (e) => {
 		e.preventDefault();
 		dispatch(
@@ -77,7 +77,7 @@ const MenageHomeTestimonals = (props) => {
 				testimonalsThumbnail,
 			})
 		);
-		dispatch(editContent({}));
+		dispatch(setEditContent({ some: 1 }, { some: 1 }, { some: 1 }));
 		resetFormTestimonals();
 		//setHideModal(true);
 	};
@@ -101,10 +101,9 @@ const MenageHomeTestimonals = (props) => {
 				{ temp }
 			)
 		);
-		dispatch(setEditContent({"some":1}));
+		dispatch(setEditContent({ some: 1 }));
 		dispatch(fetchHomeContentTestimonalsStart());
 		resetFormTestimonals();
-
 	};
 	return (
 		<div>
