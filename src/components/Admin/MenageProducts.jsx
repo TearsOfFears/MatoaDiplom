@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalProduct from "./ModalProduct";
+
 import {
 	TableContainer,
 	Table,
@@ -17,8 +18,9 @@ import {
 	Buttons,
 	LoadMore,
 } from "./../../components";
+
 import ReadMoreReact from "read-more-react";
-import { CKEditor } from "ckeditor4-react";
+
 import {
 	addProductStart,
 	deleteProductsStart,
@@ -28,39 +30,14 @@ import {
 	updateContentMainProduct,
 } from "../../redux/Products/products.actions";
 import { storage } from "./../../firebase/utils";
+//import MenageProductEdit from "./MenageProductEdit";
 
-const mapState = ({ productsData }) => ({ productsMain: productsData });
+const mapState = ({ productsData }) => ({ products: productsData.products });
 const MenageProducts = () => {
-	const [hideModal, setHideModal] = useState(true);
-
-	const { productsMain } = useSelector(mapState);
-	const { product, products } = productsMain;
+	const [hideModal, setHideModal] = useState(false);
+	//const [hideModalEdit, setHideModalEdit] = useState(true);
+	const { products } = useSelector(mapState);
 	const dispatch = useDispatch();
-	const [productCategory, setProductCategory] = useState("watches");
-	const [productName, setProductName] = useState("");
-	const [productThumbnail1, setProductThumbnail1] = useState("");
-	const [productThumbnail2, setProductThumbnail2] = useState("");
-	const [productThumbnail3, setProductThumbnail3] = useState("");
-	const [productThumbnail4, setProductThumbnail4] = useState("");
-	const [price, setPrice] = useState(0);
-	const [productDesc, setProductDesc] = useState([]);
-
-	let arrOfLinks = [];
-
-	const onHandleFile = async (files) => {
-		const file = files[0];
-		const storageRef = storage.ref();
-		const fileRef = storageRef.child(`products/${productName}/${file.name}`);
-		await fileRef.put(file);
-
-		arrOfLinks.push(String([await fileRef.getDownloadURL()]));
-		if (arrOfLinks.length === 4) {
-			setProductThumbnail1(arrOfLinks[0]);
-			setProductThumbnail2(arrOfLinks[1]);
-			setProductThumbnail3(arrOfLinks[2]);
-			setProductThumbnail4(arrOfLinks[3]);
-		}
-	};
 
 	const deleteImage = async (path) => {
 		const storageHanlde = storage.storage();
@@ -71,56 +48,12 @@ const MenageProducts = () => {
 		deleteImage(path);
 		dispatch(deleteProductsStart(documentId));
 	};
-	const resetForm = () => {
-		setProductCategory("watches");
-		setProductName("");
-		setProductThumbnail1("");
-		setProductThumbnail2("");
-		setProductThumbnail3("");
-		setProductThumbnail4("");
-		setPrice(0);
-		setProductDesc([]);
-	};
-	const handleSubmit = (e) => {
-		e.preventDefault();
-		dispatch(
-			addProductStart({
-				productCategory,
-				productName,
-				productThumbnail1,
-				productThumbnail2,
-				productThumbnail3,
-				productThumbnail4,
-				price,
-				productDesc,
-			})
-		);
-		resetForm();
-		setHideModal(true);
-		dispatch(setCurrentProduct({}));
-	};
-	const handleSubmitEdit = (e) => {
-		e.preventDefault();
-		dispatch(
-			updateContentMainProduct(
-				{
-					productCategory,
-					productName,
-					productThumbnail1,
-					productThumbnail2,
-					productThumbnail3,
-					productThumbnail4,
-					price,
-					productDesc,
-				},
-				{}
-			)
-		);
-		resetForm();
-		setHideModal(true);
-		dispatch(setCurrentProduct({}));
-	};
+
 	const colums = [
+		{
+			id: "number",
+			lable: "#",
+		},
 		{
 			id: "productName",
 			lable: "Назва продукту",
@@ -179,147 +112,23 @@ const MenageProducts = () => {
 	const toggleModal = () => {
 		setHideModal(!hideModal);
 	};
-	const configModal = {
-		hideModal,
-		toggleModal,
-	};
 
 	const handleGetContentProduct = (documentID) => {
 		dispatch(editContentMainProduct(documentID));
-
 		toggleModal();
-		dispatch(setCurrentProduct({}));
 	};
-
+	const configModal = {
+		hideModal,
+		toggleModal,
+		setHideModal,
+	};
 	return (
 		<div className="menageProducts">
 			<div className="d-flex flex-row align-items-center justify-content-between">
 				<h1>Управління продукцією</h1>
 				<ButtonForm onClick={() => toggleModal()}>Додати продукт</ButtonForm>
 			</div>
-			<ModalProduct {...configModal}>
-				<div className="addNewProductForm">
-					{typeof product !== "undefined" && Object.keys(product).length > 0 ? (
-						<form onSubmit={handleSubmitEdit}>
-							<h2>Редагувати продукт</h2>
-							<FormSelect
-								label="Категорія"
-								options={[
-									{
-										value: "watches",
-										name: "Годинники",
-									},
-									{
-										value: "glasses",
-										name: "Окуляри",
-									},
-								]}
-								value={productCategory}
-								handleChange={(e) => setProductCategory(e.target.value)}
-							/>
-							<FormInput
-								Label="Назва"
-								type="text"
-								value={productName}
-								handleChange={(e) => setProductName(e.target.value)}
-							/>
-							<FormInput
-								Label="Головне зображення"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 1"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 2"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 3"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Ціна"
-								type="number"
-								min="0.00"
-								max="10000.00"
-								step="0.01"
-								handleChange={(e) => setPrice(e.target.value)}
-							/>
-							<CKEditor
-								onChange={(evt) => setProductDesc(evt.editor.getData())}
-							/>
-							<Buttons type="submit" style="btn-read">
-								Редагувати продукт
-							</Buttons>
-						</form>
-					) : (
-						<form onSubmit={handleSubmit}>
-							<h2>Добавити новий продукт</h2>
-							<FormSelect
-								label="Категорія"
-								options={[
-									{
-										value: "watches",
-										name: "Годинники",
-									},
-									{
-										value: "glasses",
-										name: "Окуляри",
-									},
-								]}
-								value={productCategory}
-								handleChange={(e) => setProductCategory(e.target.value)}
-							/>
-							<FormInput
-								Label="Назва"
-								type="text"
-								handleChange={(e) => setProductName(e.target.value)}
-							/>
-							<FormInput
-								Label="Головне зображення"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 1"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 2"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 3"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Ціна"
-								type="number"
-								min="0.00"
-								max="10000.00"
-								step="0.01"
-								handleChange={(e) => setPrice(e.target.value)}
-							/>
-							<CKEditor
-								onChange={(evt) => setProductDesc(evt.editor.getData())}
-							/>
-							<Buttons type="submit" style="btn-read">
-								Добавити новий продукт
-							</Buttons>
-						</form>
-					)}
-				</div>
-			</ModalProduct>
-
+			<ModalProduct {...configModal} />
 			<TableContainer>
 				<Table>
 					<TableHead>
@@ -347,6 +156,9 @@ const MenageProducts = () => {
 								} = data;
 								return (
 									<TableRow key={productName} style={styles}>
+										<TableCell component="th" scope="row">
+											{pos+1}
+										</TableCell>
 										<TableCell component="th" scope="row">
 											{productName}
 										</TableCell>

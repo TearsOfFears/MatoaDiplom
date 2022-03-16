@@ -57,7 +57,7 @@ const MenageHomeProducts = (props) => {
 	};
 	useEffect(() => {
 		setEditValueProduct();
-	}, []);
+	}, [content]);
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(
