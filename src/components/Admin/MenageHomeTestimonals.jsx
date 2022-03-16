@@ -9,7 +9,6 @@ import {
 	editContent,
 	getCurrentDocumentId,
 	setEditContent,
-	deleteHomeContentTestimonalsStart,
 } from "../../redux/Home/home.actions";
 import { FormInput, Buttons } from "./../../components";
 import { storage } from "./../../firebase/utils";
@@ -33,12 +32,31 @@ const MenageHomeTestimonals = (props) => {
 	const toggleModal = () => {
 		setHideModal(!hideModal);
 	};
+	// const onHandleFileTestimonals = async (files) => {
+	// 	const file = files[0];
+	// 	const storageRef = storage.ref();
+	// 	const fileRef = storageRef.child(`home/testimonals/${file.name}`);
+	// 	await fileRef.put(file);
+	// 	setTestimonalsThumbnail(await fileRef.getDownloadURL());
+	// };
+	const deleteImage = async (link) => {
+		if (typeof link === "string") {
+			const ref = storage.refFromURL(link);
+			await ref.delete();
+		}
+	};
 	const onHandleFileTestimonals = async (files) => {
 		const file = files[0];
 		const storageRef = storage.ref();
 		const fileRef = storageRef.child(`home/testimonals/${file.name}`);
+
 		await fileRef.put(file);
-		setTestimonalsThumbnail(await fileRef.getDownloadURL());
+
+		if (fileRef.getDownloadURL !== props.contentEdit.testimonalsThumbnail) {
+			console.log(true);
+			deleteImage(props.contentEdit.testimonalsThumbnail);
+			setTestimonalsThumbnail(await fileRef.getDownloadURL());
+		}
 	};
 
 	const resetFormTestimonals = () => {
@@ -48,15 +66,7 @@ const MenageHomeTestimonals = (props) => {
 		setJobPosition("");
 		setTestimonalsThumbnail("");
 	};
-	const deleteImage = async (path) => {
-		const storageHanlde = storage.storage();
-		const storageRef = storageHanlde.ref();
-		await storageRef.child(path).delete();
-	};
-	const deleteAllTestimonals = (link, documentId) => {
-		deleteImage(link);
-		dispatch(deleteHomeContentTestimonalsStart(documentId));
-	};
+
 	const setEditValue = () => {
 		if (
 			typeof props.contentEdit === "object" &&
@@ -72,11 +82,9 @@ const MenageHomeTestimonals = (props) => {
 			setActiveEdit(false);
 		}
 	};
-
 	useEffect(() => {
 		setEditValue();
 	}, [content]);
-	
 	const handleSubmitTestimonals = (e) => {
 		e.preventDefault();
 		dispatch(

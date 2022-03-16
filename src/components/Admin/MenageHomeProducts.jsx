@@ -24,12 +24,22 @@ const MenageHomeProducts = (props) => {
 	const [linkDetail, setlinkDetail] = useState("");
 	const [sliderThumbnail, setSliderThumbnail] = useState("");
 
+	const deleteImage = async (link) => {
+		if (typeof link === "string") {
+			const ref = storage.refFromURL(link);
+			await ref.delete();
+		}
+	};
 	const onHandleFile = async (files) => {
 		const file = files[0];
 		const storageRef = storage.ref();
 		const fileRef = storageRef.child(`home/topSlider/${file.name}`);
 		await fileRef.put(file);
-		setSliderThumbnail(await fileRef.getDownloadURL());
+		if (fileRef.getDownloadURL !== props.contentEdit.sliderThumbnail) {
+			console.log(true);
+			deleteImage(props.contentEdit.sliderThumbnail);
+			setSliderThumbnail(await fileRef.getDownloadURL());
+		}
 	};
 
 	const resetForm = () => {
