@@ -7,7 +7,6 @@ import 'firebase/compat/storage'
 
 
 
-
 import {firebaseConfig} from './config';
 
 firebase.initializeApp(firebaseConfig);

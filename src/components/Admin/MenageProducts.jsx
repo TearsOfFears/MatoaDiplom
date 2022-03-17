@@ -39,13 +39,15 @@ const MenageProducts = () => {
 	const { products } = useSelector(mapState);
 	const dispatch = useDispatch();
 
-	const deleteImage = async (path) => {
-		const storageHanlde = storage.storage();
-		const storageRef = storageHanlde.ref();
-		await storageRef.child(path).delete();
+	const deleteImage = async (deleteLinks) => {
+		for (let i = 0; i < deleteLinks.length; i++) {
+			const ref = storage.refFromURL(deleteLinks[i]);
+			await ref.delete();
+		}
 	};
-	const deleteAll = (path, documentId) => {
-		deleteImage(path);
+
+	const deleteAll = (deleteLinks, documentId) => {
+		deleteImage(deleteLinks);
 		dispatch(deleteProductsStart(documentId));
 	};
 
@@ -150,14 +152,24 @@ const MenageProducts = () => {
 								const {
 									productName,
 									productThumbnail1,
+									productThumbnail2,
+									productThumbnail3,
+									productThumbnail4,
 									productDesc,
 									documentId,
 									price,
 								} = data;
+								const deleteLinks = [
+									productThumbnail1,
+									productThumbnail2,
+									productThumbnail3,
+									productThumbnail4,
+								];
+
 								return (
 									<TableRow key={productName} style={styles}>
 										<TableCell component="th" scope="row">
-											{pos+1}
+											{pos + 1}
 										</TableCell>
 										<TableCell component="th" scope="row">
 											{productName}
@@ -213,7 +225,7 @@ const MenageProducts = () => {
 										<TableCell align="left">
 											<button
 												className="delete"
-												onClick={() => deleteAll(productName, documentId)}
+												onClick={() => deleteAll(deleteLinks, documentId)}
 											>
 												<svg
 													width="17"
