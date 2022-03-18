@@ -41,8 +41,10 @@ const MenageProducts = () => {
 
 	const deleteImage = async (deleteLinks) => {
 		for (let i = 0; i < deleteLinks.length; i++) {
-			const ref = storage.refFromURL(deleteLinks[i]);
-			await ref.delete();
+			if (typeof deleteLinks[i] === "string") {
+				const ref = storage.refFromURL(deleteLinks[i]);
+				await ref.delete();
+			}
 		}
 	};
 

@@ -103,7 +103,6 @@ export function * editContentProduct({payload}) {
 
 export function * updateContentProduct({payload}) {
   try {
-
     const content =  yield put(handleUpdateContentHomeProduct(payload.content,payload.id.temp))
     yield put(setEditContent(content))
   } catch (err) {

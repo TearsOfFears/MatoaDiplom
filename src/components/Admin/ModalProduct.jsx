@@ -27,19 +27,47 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const [productDesc, setProductDesc] = useState([]);
 
 	let arrOfLinks = [];
+
+	const deleteImage = async (deleteLinks) => {
+		for (let i = 0; i < deleteLinks.length; i++) {
+			if (typeof deleteLinks[i] === "string") {
+				const ref = storage.refFromURL(deleteLinks[i]);
+				await ref.delete();
+			}
+		}
+	};
+
 	const onHandleFile = async (files) => {
 		const file = files[0];
 		const storageRef = storage.ref();
 		const fileRef = storageRef.child(`products/${productName}/${file.name}`);
 		await fileRef.put(file);
 		arrOfLinks.push(String([await fileRef.getDownloadURL()]));
+
+		const tempArr = [
+			product.productThumbnail1,
+			product.productThumbnail2,
+			product.productThumbnail3,
+			product.productThumbnail4,
+		];
+		console.log(tempArr);
 		if (arrOfLinks.length === 4) {
-			setProductThumbnail1(arrOfLinks[0]);
-			setProductThumbnail2(arrOfLinks[1]);
-			setProductThumbnail3(arrOfLinks[2]);
-			setProductThumbnail4(arrOfLinks[3]);
+			console.log(arrOfLinks);
+			if (
+				arrOfLinks[0] !== tempArr[0] ||
+				arrOfLinks[1] !== tempArr[1] ||
+				arrOfLinks[2] !== tempArr[2] ||
+				arrOfLinks[3] !== tempArr[3]
+			) {
+				deleteImage(tempArr);
+				setProductThumbnail1(arrOfLinks[0]);
+				setProductThumbnail2(arrOfLinks[1]);
+				setProductThumbnail3(arrOfLinks[2]);
+				setProductThumbnail4(arrOfLinks[3]);
+			}
 		}
 	};
+
 	const setEditValue = () => {
 		if (typeof product === "object" && Object.keys(product).length > 0) {
 			setProductCategory(product.productCategory);
@@ -50,14 +78,16 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			setProductThumbnail3(product.productThumbnail3);
 			setProductThumbnail4(product.productThumbnail4);
 			setProductDesc(product.productDesc);
-			console.log("REPLACE");
 		} else {
 			resetForm();
 		}
 	};
+
 	useEffect(() => {
 		setEditValue();
 	}, [product]);
+
+	//console.log(product.productThumbnail1);
 
 	const resetForm = () => {
 		setProductCategory("watches");
