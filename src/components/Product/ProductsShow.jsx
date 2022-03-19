@@ -121,9 +121,9 @@ const ProductsShow = () => {
 				<div className="row mt-3 mb-5">
 					<div className="wrapper-products">
 						{data.map((product, ind) => {
-							const { productThumbnail1, productName, price } = product;
+							const { productThumbnail, productName, price } = product;
 							if (
-								!productThumbnail1 ||
+								!productThumbnail ||
 								!productName ||
 								typeof price === "undefined"
 							)

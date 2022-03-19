@@ -19,16 +19,15 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const { product } = useSelector(mapState);
 	const [productCategory, setProductCategory] = useState("watches");
 	const [productName, setProductName] = useState("");
-	const [productThumbnail1, setProductThumbnail1] = useState("");
-	const [productThumbnail2, setProductThumbnail2] = useState("");
-	const [productThumbnail3, setProductThumbnail3] = useState("");
-	const [productThumbnail4, setProductThumbnail4] = useState("");
+	const [productThumbnail, setProductThumbnail] = useState([]);
+	// const [productThumbnail2, setProductThumbnail2] = useState("");
+	// const [productThumbnail3, setProductThumbnail3] = useState("");
+	// const [productThumbnail4, setProductThumbnail4] = useState("");
 	const [price, setPrice] = useState(0);
 	const [productDesc, setProductDesc] = useState([]);
 
-	let arrOfLinks = [];
-
 	const deleteImage = async (deleteLinks) => {
+		console.log("deleteLinks", deleteLinks);
 		for (let i = 0; i < deleteLinks.length; i++) {
 			if (typeof deleteLinks[i] === "string") {
 				const ref = storage.refFromURL(deleteLinks[i]);
@@ -37,35 +36,48 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		}
 	};
 
-	const onHandleFile = async (files) => {
+	let arrOfLinks = [];
+	const onHandleFiles = async (files, key) => {
 		const file = files[0];
 		const storageRef = storage.ref();
 		const fileRef = storageRef.child(`products/${productName}/${file.name}`);
 		await fileRef.put(file);
-		arrOfLinks.push(String([await fileRef.getDownloadURL()]));
-
-		const tempArr = [
-			product.productThumbnail1,
-			product.productThumbnail2,
-			product.productThumbnail3,
-			product.productThumbnail4,
-		];
-		console.log(tempArr);
-		if (arrOfLinks.length === 4) {
-			console.log(arrOfLinks);
+		const link = String(await fileRef.getDownloadURL());
+		arrOfLinks[key] = link;
+		for (let i = 0; i < arrOfLinks.length; i++) {
 			if (
-				arrOfLinks[0] !== tempArr[0] ||
-				arrOfLinks[1] !== tempArr[1] ||
-				arrOfLinks[2] !== tempArr[2] ||
-				arrOfLinks[3] !== tempArr[3]
+				arrOfLinks.length === 4 &&
+				typeof arrOfLinks[i] === "string" &&
+				!arrOfLinks.includes(undefined)
 			) {
-				deleteImage(tempArr);
-				setProductThumbnail1(arrOfLinks[0]);
-				setProductThumbnail2(arrOfLinks[1]);
-				setProductThumbnail3(arrOfLinks[2]);
-				setProductThumbnail4(arrOfLinks[3]);
+				setProductThumbnail(arrOfLinks);
 			}
 		}
+	};
+
+	const onHandleFileEdit = async (files, key) => {
+		const file = files[0];
+		const storageRef = storage.ref();
+		const fileRef = storageRef.child(`products/${productName}/${file.name}`);
+		await fileRef.put(file);
+		const link = String(await fileRef.getDownloadURL());
+		arrOfLinks[key] = link;
+
+		for (let i = 0; i < arrOfLinks.length; i++) {
+			if (
+				arrOfLinks.length === 4 &&
+				typeof arrOfLinks[i] === "string" &&
+				!arrOfLinks.includes(undefined)
+			) {
+				console.log(arrOfLinks);
+				if (arrOfLinks[0] !== product.productThumbnail[0]) {
+					deleteImage(product.productThumbnail);
+					setProductThumbnail(arrOfLinks);
+					console.log("trueone");
+				}
+			}
+		}
+		//console.log(product.productThumbnail);
 	};
 
 	const setEditValue = () => {
@@ -73,10 +85,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			setProductCategory(product.productCategory);
 			setProductName(product.productName);
 			setPrice(product.price);
-			setProductThumbnail1(product.productThumbnail1);
-			setProductThumbnail2(product.productThumbnail2);
-			setProductThumbnail3(product.productThumbnail3);
-			setProductThumbnail4(product.productThumbnail4);
+			setProductThumbnail(product.productThumbnail);
 			setProductDesc(product.productDesc);
 		} else {
 			resetForm();
@@ -92,10 +101,10 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const resetForm = () => {
 		setProductCategory("watches");
 		setProductName("");
-		setProductThumbnail1("");
-		setProductThumbnail2("");
-		setProductThumbnail3("");
-		setProductThumbnail4("");
+		setProductThumbnail([]);
+		// setProductThumbnail2("");
+		// setProductThumbnail3("");
+		// setProductThumbnail4("");
 		setPrice(0);
 		setProductDesc([]);
 	};
@@ -106,10 +115,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			addProductStart({
 				productCategory,
 				productName,
-				productThumbnail1,
-				productThumbnail2,
-				productThumbnail3,
-				productThumbnail4,
+				productThumbnail,
 				price,
 				productDesc,
 			})
@@ -126,10 +132,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 				{
 					productCategory,
 					productName,
-					productThumbnail1,
-					productThumbnail2,
-					productThumbnail3,
-					productThumbnail4,
+					productThumbnail,
 					price,
 					productDesc,
 				},
@@ -141,6 +144,13 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		dispatch(fetchProductsStart());
 		setHideModal(!hideModal);
 	};
+
+	const arrLabel = [
+		"Головне зображення",
+		"Зображення каруселі 1",
+		"Зображення каруселі 2",
+		"Зображення каруселі 3",
+	];
 	if (!hideModal) return null;
 	return [
 		<div className="modalOverlay" onClick={() => toggleModal()} key={1} />,
@@ -171,14 +181,21 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								Label="Назва"
 								type="text"
 								value={productName}
+								disabled
 								handleChange={(e) => setProductName(e.target.value)}
 							/>
-							<FormInput
-								Label="Головне зображення"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
+							{arrLabel.map((label, key) => {
+								return (
+									<FormInput
+										key={key}
+										Label={label}
+										type="file"
+										handleChange={(e) => onHandleFileEdit(e.target.files, key)}
+									/>
+								);
+							})}
+
+							{/* <FormInput
 								Label="Зображення каруселі 1"
 								type="file"
 								handleChange={(e) => onHandleFile(e.target.files)}
@@ -192,7 +209,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								Label="Зображення каруселі 3"
 								type="file"
 								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
+							/> */}
 							<FormInput
 								Label="Ціна"
 								type="number"
@@ -233,26 +250,16 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={productName}
 								handleChange={(e) => setProductName(e.target.value)}
 							/>
-							<FormInput
-								Label="Головне зображення"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 1"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 2"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 3"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
+							{arrLabel.map((label, key) => {
+								return (
+									<FormInput
+										key={key}
+										Label={label}
+										type="file"
+										handleChange={(e) => onHandleFiles(e.target.files, key)}
+									/>
+								);
+							})}
 							<FormInput
 								Label="Ціна"
 								type="number"

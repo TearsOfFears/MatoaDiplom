@@ -18,21 +18,8 @@ const ProductSection = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const {
-		productName,
-		price,
-		productThumbnail1,
-		productThumbnail2,
-		productThumbnail3,
-		productThumbnail4,
-	} = product || [];
+	const { productName, price, productThumbnail } = product || [];
 
-	const arrImages = [
-		productThumbnail1,
-		productThumbnail2,
-		productThumbnail3,
-		productThumbnail4,
-	];
 	const handleAddToCart = (product) => {
 		if (!product) return;
 		dispatch(addProduct(product));
@@ -45,9 +32,9 @@ const ProductSection = (product) => {
 		setstateStyle({ fade: true });
 	};
 	useEffect(() => {
-		setstate(productThumbnail1);
+		setstate(productThumbnail);
 	}, [product]);
-	
+
 	return (
 		<section className="addToCart">
 			<div className="bg-second-accent"></div>
@@ -57,17 +44,18 @@ const ProductSection = (product) => {
 						<div className="wrapper-addToCart">
 							<div className="wrapper-addToCart-images-wrapper">
 								<div className="wrapper-addToCart-images-wrapper__hover">
-									{arrImages.map((link, id) => {
-										return (
-											<img
-												src={link}
-												key={id}
-												alt="link"
-												className=""
-												onClick={(e) => getLink(link)}
-											/>
-										);
-									})}
+									{Array.isArray(productThumbnail) &&
+										productThumbnail.map((link, id) => {
+											return (
+												<img
+													src={link}
+													key={id}
+													alt="link"
+													className=""
+													onClick={(e) => getLink(link)}
+												/>
+											);
+										})}
 								</div>
 								<div className="wrapper-addToCart-images-wrapper__active">
 									<img

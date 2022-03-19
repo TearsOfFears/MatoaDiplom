@@ -153,21 +153,11 @@ const MenageProducts = () => {
 							data.map((data, pos) => {
 								const {
 									productName,
-									productThumbnail1,
-									productThumbnail2,
-									productThumbnail3,
-									productThumbnail4,
+									productThumbnail,
 									productDesc,
 									documentId,
 									price,
 								} = data;
-								const deleteLinks = [
-									productThumbnail1,
-									productThumbnail2,
-									productThumbnail3,
-									productThumbnail4,
-								];
-
 								return (
 									<TableRow key={productName} style={styles}>
 										<TableCell component="th" scope="row">
@@ -177,7 +167,7 @@ const MenageProducts = () => {
 											{productName}
 										</TableCell>
 										<TableCell align="left">
-											<img src={productThumbnail1} alt={productThumbnail1} />
+											<img src={productThumbnail[0]} alt={productThumbnail[0]} />
 										</TableCell>
 										<TableCell align="left">{documentId}</TableCell>
 										<TableCell align="left">
@@ -227,7 +217,7 @@ const MenageProducts = () => {
 										<TableCell align="left">
 											<button
 												className="delete"
-												onClick={() => deleteAll(deleteLinks, documentId)}
+												onClick={() => deleteAll(productThumbnail, documentId)}
 											>
 												<svg
 													width="17"

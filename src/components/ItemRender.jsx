@@ -7,7 +7,7 @@ import { removeCartItem,addProduct,reduceCartItem } from "../redux/Carts/cart.ac
 const ItemRender = (product) => {
 	const dispatch = useDispatch();
 
-	const { productThumbnail1, productName, price, quantity, documentId } =
+	const { productThumbnail, productName, price, quantity, documentId } =
 		product;
 
 	const handleRemoveCurrentItem = (documentId) => {
@@ -25,7 +25,7 @@ const ItemRender = (product) => {
 		<div className="cart-item" key={documentId}>
 			<div className="img-title">
 				<div className="img-wrapper">
-					<img src={productThumbnail1} alt={productName} />
+					<img src={productThumbnail[0]} alt={productName} />
 				</div>
 				<div className="title-price-wrapper">
 					<h1>{productName}</h1>
