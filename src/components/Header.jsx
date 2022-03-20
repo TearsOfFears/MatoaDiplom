@@ -6,7 +6,9 @@ import { selectCartItemsCount } from "../redux/Carts/cart.selectors";
 import { useSelector, useDispatch } from "react-redux";
 
 import { signOutUserStart } from "../redux/User/user.actions";
-
+import Loader from "./Loader/Loader";
+import { useEffect } from "react";
+import { loadingToggleAction } from "../redux/Home/home.actions";
 const mapState = (state) => ({
 	currentUser: state.user.currentUser,
 	totalNumItems: selectCartItemsCount(state),

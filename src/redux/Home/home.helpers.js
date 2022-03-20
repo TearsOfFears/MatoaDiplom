@@ -1,4 +1,5 @@
 import {firestore} from "../../firebase/utils";
+import { loadingToggleAction } from "./home.actions";
 
 export const handleAddContentHome = homeData => {
   return new Promise((resolve, reject) => {

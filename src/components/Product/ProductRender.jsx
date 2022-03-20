@@ -2,7 +2,7 @@ import React from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "./../../redux/Carts/cart.actions";
-
+import Skeleton from "./Skeleton";
 import { useNavigate } from "react-router";
 
 const ProductRender = (product) => {
@@ -24,6 +24,7 @@ const ProductRender = (product) => {
 	)
 		return null;
 	return (
+		
 		<div className="wrapper-products__item" key={ind}>
 			<div className="img-border">
 				<img src={productThumbnail[0]} alt={productThumbnail[0]} />

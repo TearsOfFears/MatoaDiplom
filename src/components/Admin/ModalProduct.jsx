@@ -7,8 +7,16 @@ import {
 	updateContentMainProduct,
 } from "../../redux/Products/products.actions";
 import { storage } from "./../../firebase/utils";
+import {
+	getStorage,
+	ref,
+	uploadString,
+	uploadBytes,
+	getDownloadURL,
+} from "firebase/storage";
 import { FormInput, FormSelect, Buttons } from "./../../components";
 import { CKEditor } from "ckeditor4-react";
+import Compress from "react-image-file-resizer";
 
 const mapState = ({ productsData }) => ({
 	product: productsData.product,
@@ -35,15 +43,44 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			}
 		}
 	};
+	const resizeFile = (file) =>
+		new Promise((resolve) => {
+			Compress.imageFileResizer(
+				file,
+				800,
+				800,
+				"WEBP",
+				60,
+				0,
+				(uri) => {
+					resolve(uri);
+				},
+				"base64"
+			);
+		});
 
 	let arrOfLinks = [];
 	const onHandleFiles = async (files, key) => {
-		const file = files[0];
-		const storageRef = storage.ref();
-		const fileRef = storageRef.child(`products/${productName}/${file.name}`);
-		await fileRef.put(file);
-		const link = String(await fileRef.getDownloadURL());
-		arrOfLinks[key] = link;
+		try {
+			const storage = getStorage();
+			const file = files[0];
+
+			const uri = await resizeFile(file);
+			//const storageRef = storage.ref();
+			const fileName = `thumb_${file.name}`;
+			const thumbRef = ref(storage, `products/${productName}/${fileName}`);
+			//const fileRef = storageRef.child();
+			const thumbSnapshot = await uploadString(thumbRef, uri, "data_url");
+
+			const linkPut = String(await getDownloadURL(thumbSnapshot.ref));
+			// const storageRef = ref(storage, `images/${file.name}`);
+			// const snapshot = await uploadBytes(storageRef, file);
+			//const linkPut = await getDownloadURL(snapshot.ref);
+			arrOfLinks[key] = linkPut;
+		} catch (err) {
+			console.log(err);
+		}
+
 		for (let i = 0; i < arrOfLinks.length; i++) {
 			if (
 				arrOfLinks.length === 4 &&

@@ -1,7 +1,7 @@
 import {takeLatest, put, call, all, take} from "redux-saga/effects";
 import homeTypes from "./home.types";
 import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals,handleDeleteHomeContentTestimonals, handleEditHomeContentTestimonals,handleUpdateContentHomeTestimonals, handleEditHomeContentProduct, handleUpdateContentHomeProduct} from "./home.helpers";
-import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent, getCurrentDocumentId,} from "./home.actions";
+import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent, getCurrentDocumentId, loadingToggleAction,} from "./home.actions";
 import {auth} from "../../firebase/utils";
 
 export function * addNewContentHome({payload}) {
@@ -21,7 +21,12 @@ export function * addNewContentHome({payload}) {
 export function * fetchHomeContent(payload) {
   try {
     const content = yield handleFetchContentHome(payload);
-    yield put(setHomeContent(content))
+    if(content.lenght!==0){
+      yield put(loadingToggleAction(false))
+    }
+      yield put(setHomeContent(content))
+    
+
   } catch (err) {
     //console.log(err);
   }

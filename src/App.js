@@ -16,21 +16,23 @@ import {setCurrentUser,checkUserSession} from './redux/User/user.actions';
 import WithAuth from './hoc/WithAuth';
 
 import WithAdminAuth from './hoc/WithAdminAuth';
+import { fetchHomeContentStart, loadingToggleAction } from './redux/Home/home.actions';
+import Loader from './components/Loader/Loader';
 
 const App = (props)=> {
 
 const [state, setstate] = useState(false);
 const dispatch = useDispatch();
 
-const mapState = ({user})=>({
-  currentUser:user.currentUser
+const mapState = ({user,contentHome})=>({
+  currentUser:user.currentUser,
+  contentHomeLoading:contentHome.showLoading
 })
 
-const {currentUser}= useSelector(mapState);
+const {currentUser,contentHomeLoading}= useSelector(mapState);
 
 useEffect(()=>{
 dispatch(checkUserSession());
-
 if(!currentUser){
   setstate(true)
 }
@@ -40,6 +42,7 @@ setstate(true);
     return (
       <div className='app'>
         <AdminToolBar/>
+      {  contentHomeLoading ?  <Loader/> : null}
         <Routes>
           <Route exact path="/" element={
             <MainLayout>
@@ -119,7 +122,6 @@ setstate(true);
                     <Order/>
                   </SecondLayout>
               </WithAuth>
-
             }/> 
         </Routes>
       </div>

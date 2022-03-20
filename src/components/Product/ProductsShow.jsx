@@ -6,7 +6,7 @@ import { fetchProductsStart } from "../../redux/Products/products.actions";
 import SelectedItems from "./SelectedItems";
 import Select, { StylesConfig } from "react-select";
 import { FormSelect, LoadMore } from "../index";
-
+import Skeleton from "./Skeleton";
 import { useNavigate, useParams } from "react-router";
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
@@ -73,13 +73,13 @@ const ProductsShow = () => {
 		onLoadMoreEvt: handleLoadMore,
 	};
 	const colourStyles = {
-		control: (styles,{ data, isDisabled, isFocused, isSelected }) => ({
+		control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
 			...styles,
 			backgroundColor: "white",
 			width: "250px",
 			borderColor: isFocused ? "#d84727" : "#f7f6f4 ",
 			borderColor: isSelected ? "#f7f6f4" : "#d84727",
-			boxShadow: 'none'
+			boxShadow: "none",
 		}),
 		menubar: (styles, { data, isDisabled, isFocused, isSelected }) => {
 			return {
@@ -96,10 +96,10 @@ const ProductsShow = () => {
 				backgroundColor: isSelected ? "#d84727" : "#f7f6f4",
 				color: isSelected ? "#f7f6f4" : "#333",
 				cursor: isDisabled ? "not-allowed" : "default",
-				':hover': {
-					backgroundColor: '#d84727',
-					color:"#f7f6f4"
-				  },
+				":hover": {
+					backgroundColor: "#d84727",
+					color: "#f7f6f4",
+				},
 			};
 		},
 	};
@@ -108,31 +108,34 @@ const ProductsShow = () => {
 		<section className="products">
 			<div className="container">
 				<h1>{typeof label === "string" ? label : "Всі продукти"}</h1>
-				<div style={{width: "250px"}}>
+				<div style={{ width: "250px" }}>
 					<Select
 						options={options}
 						defaultValue={options[0]}
 						styles={colourStyles}
 						onChange={setSelectedOption}
-					
 					/>
 				</div>
 
 				<div className="row mt-3 mb-5">
 					<div className="wrapper-products">
-						{data.map((product, ind) => {
-							const { productThumbnail, productName, price } = product;
-							if (
-								!productThumbnail ||
-								!productName ||
-								typeof price === "undefined"
-							)
-								return null;
-							const configProduct = {
-								...product,
-							};
-							return <ProductRender {...configProduct} key={ind} />;
-						})}
+						{data.length>0 ? (
+							data.map((product, ind) => {
+								const { productThumbnail, productName, price } = product;
+								if (
+									!productThumbnail ||
+									!productName ||
+									typeof price === "undefined"
+								)
+									return null;
+								const configProduct = {
+									...product,
+								};
+								return <ProductRender {...configProduct} key={ind} />;
+							})
+						) : (
+							<Skeleton />
+						)}
 					</div>
 
 					{!isLastPage && <LoadMore {...configLoadMore} />}

@@ -67,6 +67,10 @@ export const setEditContent = (content) =>({
     payload:content
 })
 
+export const loadingToggleAction = (status) =>({
+    type:homeTypes.LOADING_TOGGLE_ACTION,
+    payload:status
+})
 
 
 

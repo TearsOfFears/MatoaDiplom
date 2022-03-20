@@ -50,3 +50,11 @@ export const updateContentMainProduct = (content,id) =>({
     payload:{content,id}
 })
 
+
+
+export const loadingToggleAction = (status) =>({
+    type:productsTypes.LOADING_TOGGLE_ACTION,
+    payload:status
+})
+
+

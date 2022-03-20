@@ -1,28 +1,34 @@
-import productsTypes from "./home.types";
+import homeTypes from "./home.types";
 
 const INITIAL_STATE = {
   contentProduct: [],
   contentTestimonals: [],
-  contentEdit:[]
+  contentEdit: [],
+  showLoading: true
 }
 
 const homeReducer = (state = INITIAL_STATE, action) => {
   switch (action.type) {
-    case productsTypes.SET_CONTENT:
+    case homeTypes.SET_CONTENT:
       return {
         ...state,
         contentProduct: action.payload
       }
-    case productsTypes.SET_CONTENT_TESTIMONALS:
+    case homeTypes.SET_CONTENT_TESTIMONALS:
       return {
         ...state,
         contentTestimonals: action.payload
       }
-      case productsTypes.SET_EDIT_CONTENT:
-        return {
-          ...state,
-          contentEdit: action.payload
-        }
+    case homeTypes.SET_EDIT_CONTENT:
+      return {
+        ...state,
+        contentEdit: action.payload
+      }
+    case homeTypes.LOADING_TOGGLE_ACTION:
+      return {
+        ...state,
+        showLoading: action.payload
+      }
     default:
       return state;
   }
