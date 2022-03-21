@@ -119,25 +119,27 @@ const ProductsShow = () => {
 
 				<div className="row mt-3 mb-5">
 					<div className="wrapper-products">
-						{data.length>0 ? (
-							data.map((product, ind) => {
-								const { productThumbnail, productName, price } = product;
-								if (
-									!productThumbnail ||
-									!productName ||
-									typeof price === "undefined"
-								)
-									return null;
-								const configProduct = {
-									...product,
-								};
-								return <ProductRender {...configProduct} key={ind} />;
-							})
-						) : (
-							<Skeleton />
-						)}
+						{data.map((product, ind) => {
+							const { productThumbnail, productName, price } = product;
+							if (
+								!productThumbnail ||
+								!productName ||
+								typeof price === "undefined"
+							)
+								return null;
+							const configProduct = {
+								...product,
+							};
+							return <ProductRender {...configProduct} key={ind} />;
+						})}
 					</div>
-
+					{Array.isArray(data) && data.length > 0 ? null : (
+						<div className="d-flex flex-row align-center w-100 h-100 text-center">
+							<div>
+								<h1 className="text-center">Немає продуктів</h1>
+							</div>
+						</div>
+					)}
 					{!isLastPage && <LoadMore {...configLoadMore} />}
 				</div>
 			</div>

@@ -21,11 +21,12 @@ export function * addNewContentHome({payload}) {
 export function * fetchHomeContent(payload) {
   try {
     const content = yield handleFetchContentHome(payload);
+    yield put(setHomeContent(content))
     if(content.lenght!==0){
       yield put(loadingToggleAction(false))
     }
-      yield put(setHomeContent(content))
     
+
 
   } catch (err) {
     //console.log(err);

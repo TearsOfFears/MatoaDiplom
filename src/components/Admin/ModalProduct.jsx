@@ -50,7 +50,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 				800,
 				800,
 				"WEBP",
-				60,
+				80,
 				0,
 				(uri) => {
 					resolve(uri);
@@ -64,18 +64,12 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		try {
 			const storage = getStorage();
 			const file = files[0];
-
 			const uri = await resizeFile(file);
-			//const storageRef = storage.ref();
 			const fileName = `thumb_${file.name}`;
 			const thumbRef = ref(storage, `products/${productName}/${fileName}`);
-			//const fileRef = storageRef.child();
 			const thumbSnapshot = await uploadString(thumbRef, uri, "data_url");
 
 			const linkPut = String(await getDownloadURL(thumbSnapshot.ref));
-			// const storageRef = ref(storage, `images/${file.name}`);
-			// const snapshot = await uploadBytes(storageRef, file);
-			//const linkPut = await getDownloadURL(snapshot.ref);
 			arrOfLinks[key] = linkPut;
 		} catch (err) {
 			console.log(err);
@@ -93,12 +87,25 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	};
 
 	const onHandleFileEdit = async (files, key) => {
-		const file = files[0];
-		const storageRef = storage.ref();
-		const fileRef = storageRef.child(`products/${productName}/${file.name}`);
-		await fileRef.put(file);
-		const link = String(await fileRef.getDownloadURL());
-		arrOfLinks[key] = link;
+		try {
+			const storage = getStorage();
+			const file = files[0];
+			const uri = await resizeFile(file);
+			const fileName = `thumb_${file.name}`;
+			const thumbRef = ref(storage, `products/${productName}/${fileName}`);
+			const thumbSnapshot = await uploadString(thumbRef, uri, "data_url");
+			const linkPut = String(await getDownloadURL(thumbSnapshot.ref));
+			arrOfLinks[key] = linkPut;
+		} catch (err) {
+			console.log(err);
+		}
+
+		// const file = files[0];
+		// const storageRef = storage.ref();
+		// const fileRef = storageRef.child(`products/${productName}/${file.name}`);
+		// await fileRef.put(file);
+		// const link = String(await fileRef.getDownloadURL());
+		// arrOfLinks[key] = link;
 
 		for (let i = 0; i < arrOfLinks.length; i++) {
 			if (

@@ -13,6 +13,14 @@ import {
 import { FormInput, Buttons } from "./../../components";
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
+import Compress from "react-image-file-resizer";
+import {
+	getStorage,
+	ref,
+	uploadString,
+	uploadBytes,
+	getDownloadURL,
+} from "firebase/storage";
 const mapState = ({ contentHome }) => ({ content: contentHome.contentEdit });
 
 const MenageHomeTestimonals = (props) => {
@@ -32,13 +40,21 @@ const MenageHomeTestimonals = (props) => {
 	const toggleModal = () => {
 		setHideModal(!hideModal);
 	};
-	// const onHandleFileTestimonals = async (files) => {
-	// 	const file = files[0];
-	// 	const storageRef = storage.ref();
-	// 	const fileRef = storageRef.child(`home/testimonals/${file.name}`);
-	// 	await fileRef.put(file);
-	// 	setTestimonalsThumbnail(await fileRef.getDownloadURL());
-	// };
+	const resizeFile = (file) =>
+		new Promise((resolve) => {
+			Compress.imageFileResizer(
+				file,
+				800,
+				800,
+				"WEBP",
+				80,
+				0,
+				(uri) => {
+					resolve(uri);
+				},
+				"base64"
+			);
+		});
 	const deleteImage = async (link) => {
 		if (typeof link === "string") {
 			const ref = storage.refFromURL(link);
@@ -46,13 +62,30 @@ const MenageHomeTestimonals = (props) => {
 		}
 	};
 	const onHandleFileTestimonals = async (files) => {
-		const file = files[0];
-		const storageRef = storage.ref();
-		const fileRef = storageRef.child(`home/testimonals/${file.name}`);
-		await fileRef.put(file);
-		if (fileRef.getDownloadURL !== props.contentEdit.testimonalsThumbnail) {
-			deleteImage(props.contentEdit.testimonalsThumbnail);
-			setTestimonalsThumbnail(await fileRef.getDownloadURL());
+		// const file = files[0];
+		// const storageRef = storage.ref();
+		// const fileRef = storageRef.child(`home/testimonals/${file.name}`);
+		// await fileRef.put(file);
+		// if (fileRef.getDownloadURL !== props.contentEdit.testimonalsThumbnail) {
+		// 	deleteImage(props.contentEdit.testimonalsThumbnail);
+		// 	setTestimonalsThumbnail(await fileRef.getDownloadURL());
+		// }
+		try {
+			const storage = getStorage();
+			const file = files[0];
+			const uri = await resizeFile(file);
+			const fileName = `thumb_${file.name}`;
+			const thumbRef = ref(storage, `home/testimonals/${fileName}`);
+			const thumbSnapshot = await uploadString(thumbRef, uri, "data_url");
+
+			const linkPut = String(await getDownloadURL(thumbSnapshot.ref));
+			if (linkPut !== props.contentEdit.testimonalsThumbnail) {
+				console.log(true);
+				deleteImage(props.contentEdit.testimonalsThumbnail);
+				setTestimonalsThumbnail(linkPut);
+			}
+		} catch (err) {
+			console.log(err);
 		}
 	};
 

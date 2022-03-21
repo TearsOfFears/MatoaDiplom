@@ -11,6 +11,14 @@ import {
 import { FormInput, Buttons } from "./../../components";
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
+import Compress from "react-image-file-resizer";
+import {
+	getStorage,
+	ref,
+	uploadString,
+	uploadBytes,
+	getDownloadURL,
+} from "firebase/storage";
 
 const mapState = ({ contentHome }) => ({ content: contentHome.contentEdit });
 
@@ -30,15 +38,40 @@ const MenageHomeProducts = (props) => {
 			await ref.delete();
 		}
 	};
+	const resizeFile = (file) =>
+		new Promise((resolve) => {
+			Compress.imageFileResizer(
+				file,
+				800,
+				800,
+				"WEBP",
+				80,
+				0,
+				(uri) => {
+					resolve(uri);
+				},
+				"base64"
+			);
+		});
+
 	const onHandleFile = async (files) => {
-		const file = files[0];
-		const storageRef = storage.ref();
-		const fileRef = storageRef.child(`home/topSlider/${file.name}`);
-		await fileRef.put(file);
-		if (fileRef.getDownloadURL !== props.contentEdit.sliderThumbnail) {
-			console.log(true);
-			deleteImage(props.contentEdit.sliderThumbnail);
-			setSliderThumbnail(await fileRef.getDownloadURL());
+		try {
+			const storage = getStorage();
+			const file = files[0];
+			const uri = await resizeFile(file);
+			const fileName = `thumb_${file.name}`;
+			const thumbRef = ref(storage, `home/topSlider/${fileName}`);
+			const thumbSnapshot = await uploadString(thumbRef, uri, "data_url");
+
+			const linkPut = String(await getDownloadURL(thumbSnapshot.ref));
+			console.log(linkPut);
+			if (linkPut !== props.contentEdit.sliderThumbnail) {
+				console.log(true);
+				deleteImage(props.contentEdit.sliderThumbnail);
+				setSliderThumbnail(linkPut);
+			}
+		} catch (err) {
+			console.log(err);
 		}
 	};
 
