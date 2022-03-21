@@ -1,5 +1,12 @@
 import React, { useEffect } from "react";
-import { Navigation, Pagination, Scrollbar, A11y, Parallax } from "swiper";
+import {
+	Navigation,
+	Pagination,
+	Scrollbar,
+	A11y,
+	Parallax,
+	Lazy,
+} from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
 import caraousel1 from "../assets/img/home/caraousel1.png";
 import caraousel2 from "../assets/img/home/maple-1.png";
@@ -13,8 +20,12 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
 import { fetchHomeContentStart } from "./../redux/Home/home.actions";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
-const mapState = ({ contentHome }) => ({ content: contentHome.contentProduct.data });
+const mapState = ({ contentHome }) => ({
+	content: contentHome.contentProduct.data,
+});
 
 function Swiper1() {
 	const dispatch = useDispatch();
@@ -32,75 +43,80 @@ function Swiper1() {
 			<div className="container">
 				<div className="row">
 					<Swiper
-						modules={[Navigation, Pagination, Scrollbar, A11y, Parallax]}
+						modules={[Navigation, Pagination, Scrollbar, A11y, Parallax, Lazy]}
 						spaceBetween={50}
 						slidesPerView={1}
 						navigation={{
 							prevEl: ".swiper-button-prev",
 							nextEl: ".swiper-button-next",
 						}}
+						preloadImages={true}
+						lazy={true}
 						parallax={true}
 						loop={true}
 					>
-						{ Array.isArray(content) &&
-							content.length > 0 && content.map((data) => {
-							const {
-								documentId,
-								descText,
-								linkDetail,
-								linkDiscover,
-								sliderThumbnail,
-								title,
-							} = data;
-							return (
-								<SwiperSlide key={documentId}>
-									<div className="swiper-slide-wrapper">
-										<div className="swiper-slide-wrapper__img">
-											<img
-												src={sliderThumbnail}
-												alt=""
-												data-swiper-parallax={-1400}
-												data-swiper-parallax-duration={700}
-											/>
-										</div>
-										<div className="swiper-slide-wrapper__content">
-											<h1
-												data-swiper-parallax={-900}
-												data-swiper-parallax-duration={500}
-											>
-												{title}
-											</h1>
-											<hr
-												data-swiper-parallax={-900}
-												data-swiper-parallax-duration={600}
-											/>
-											<p
-												data-swiper-parallax={-900}
-												data-swiper-parallax-duration={700}
-												dangerouslySetInnerHTML={{ __html: descText }}
-											/>
+						{Array.isArray(content) &&
+							content.length > 0 &&
+							content.map((data) => {
+								const {
+									documentId,
+									descText,
+									linkDetail,
+									linkDiscover,
+									sliderThumbnail,
+									title,
+								} = data;
+								return (
+									<SwiperSlide key={documentId}>
+										<div className="swiper-slide-wrapper">
+											<div className="swiper-slide-wrapper__img">
+												<LazyLoadImage
+													effect="blur"
+													src={sliderThumbnail}
+													data-swiper-parallax={-1400}
+													data-swiper-parallax-duration={700}
+													width="400px"
+													height="400px"
+												/>
+											</div>
+											<div className="swiper-slide-wrapper__content">
+												<h1
+													data-swiper-parallax={-900}
+													data-swiper-parallax-duration={500}
+												>
+													{title}
+												</h1>
+												<hr
+													data-swiper-parallax={-900}
+													data-swiper-parallax-duration={600}
+												/>
+												<p
+													data-swiper-parallax={-900}
+													data-swiper-parallax-duration={700}
+													dangerouslySetInnerHTML={{ __html: descText }}
+												/>
 
-											<div
-												className="links"
-												data-swiper-parallax={-1200}
-												data-swiper-parallax-duration={800}
-											>
-												<Link to={linkDiscover} className="btn-discover">
-													Discover
-												</Link>
+												<div
+													className="links"
+													data-swiper-parallax={-1200}
+													data-swiper-parallax-duration={800}
+												>
+													<Link to={linkDiscover} className="btn-discover">
+														Discover
+													</Link>
 
-												<Link to={linkDetail}>
-													<Buttons style="btn-read">
-														<FontAwesomeIcon icon={faInfoCircle} />
-														Read details
-													</Buttons>
-												</Link>
+													<Link to={linkDetail}>
+														<Buttons style="btn-read">
+															<FontAwesomeIcon icon={faInfoCircle} />
+															Read details
+														</Buttons>
+													</Link>
+												</div>
 											</div>
 										</div>
-									</div>
-								</SwiperSlide>
-							);
-						})}
+									</SwiperSlide>
+								);
+							})}
 						<div className="swiper-button-prev">
 							<FontAwesomeIcon icon={faChevronLeft} />
 						</div>

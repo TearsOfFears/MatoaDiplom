@@ -46,9 +46,9 @@ export const editContent = contentID =>({
     payload:contentID
 })
 
-export const updateContent = (content,id) =>({
+export const updateContent = contentId =>({
     type:homeTypes.UPDATE_CONTENT,
-    payload:{content,id}
+    payload:contentId
 })
 
 export const editContentProduct = contentID =>({
@@ -56,9 +56,9 @@ export const editContentProduct = contentID =>({
     payload:contentID
 })
 
-export const updateContentProduct = (content,id) =>({
+export const updateContentProduct = contentId =>({
     type:homeTypes.UPDATE_CONTENT_PRODUCT,
-    payload:{content,id}
+    payload:contentId
 })
 
 

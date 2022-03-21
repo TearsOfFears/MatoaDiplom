@@ -45,9 +45,9 @@ export const editContentMainProduct = contentID =>({
     payload:contentID
 })
 
-export const updateContentMainProduct = (content,id) =>({
+export const updateContentMainProduct = contentId =>({
     type:productsTypes.UPDATE_CONTENT_MAIN_PRODUCT,
-    payload:{content,id}
+    payload:contentId
 })
 
 

@@ -1,6 +1,8 @@
 import React, { useState, useEffect } from "react";
 import { CKEditor } from "ckeditor4-react";
 import ReadMoreReact from "read-more-react";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import {
 	TableContainer,
 	Table,
@@ -66,7 +68,6 @@ const MenageHomePage = () => {
 		dispatch(setEditContent({}));
 		dispatch(fetchHomeContentTestimonalsStart());
 		dispatch(fetchHomeContentStart());
-
 	};
 
 	const colums = [
@@ -271,7 +272,12 @@ const MenageHomePage = () => {
 											{title}
 										</TableCell>
 										<TableCell align="left">
-											<img src={sliderThumbnail} alt={sliderThumbnail} />
+											<LazyLoadImage
+												effect="blur"
+												useIntersectionObserver={true}
+												src={sliderThumbnail}
+												wrapperClassName="text-center"
+											/>
 										</TableCell>
 										<TableCell align="left">{documentId}</TableCell>
 										<TableCell align="left">{linkDiscover}</TableCell>
@@ -385,9 +391,11 @@ const MenageHomePage = () => {
 											{titleTestimonals}
 										</TableCell>
 										<TableCell align="left">
-											<img
+											<LazyLoadImage
+												effect="blur"
+												useIntersectionObserver={true}
 												src={testimonalsThumbnail}
-												alt={testimonalsThumbnail}
+												wrapperClassName="text-center"
 											/>
 										</TableCell>
 										<TableCell align="left">{documentId}</TableCell>

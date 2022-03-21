@@ -181,13 +181,13 @@ export const handleEditHomeContentTestimonals = testimonalsID => {
 }
 
 
-export const handleUpdateContentHomeTestimonals = (content,contentID) => {
+export const handleUpdateContentHomeTestimonals = (editData, id) => {
 
   return new Promise((resolve, reject) => {
     firestore
       .collection('homeTestimonals')
-      .doc(contentID)
-      .update(content)
+      .doc(id)
+      .update(editData)
       .then(()=>{
         resolve()
         }

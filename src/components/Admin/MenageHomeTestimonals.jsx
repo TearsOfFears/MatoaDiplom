@@ -136,20 +136,16 @@ const MenageHomeTestimonals = (props) => {
 	};
 
 	const handleSubmitTestimonalsEdit = (e) => {
-		const temp = props.contentEdit.documentID;
+		const id = props.contentEdit.documentID;
+		const editData = {
+			titleTestimonals,
+			descTextTestimonals,
+			textAuthor,
+			jobPosition,
+			testimonalsThumbnail,
+		};
 		e.preventDefault();
-		dispatch(
-			updateContent(
-				{
-					titleTestimonals,
-					descTextTestimonals,
-					textAuthor,
-					jobPosition,
-					testimonalsThumbnail,
-				},
-				{ temp }
-			)
-		);
+		dispatch(updateContent({ editData, id }));
 		dispatch(setEditContent({ some: 1 }));
 		dispatch(fetchHomeContentTestimonalsStart());
 		resetFormTestimonals();

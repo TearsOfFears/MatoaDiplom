@@ -62,9 +62,14 @@ export function * editContent({payload}) {
   }
 }
 
-export function * updateContent({payload}) {
+export function * updateContent({
+  payload: {
+    updateData,
+    id
+  }
+}) {
   try {
-    const content = yield put(handleUpdateContent(payload.content, payload.id.id))
+    const content = yield put(handleUpdateContent(updateData, id))
     yield put(setCurrentProduct(content))
   } catch (err) {
     //console.log(err);

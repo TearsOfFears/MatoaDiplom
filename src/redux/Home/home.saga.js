@@ -86,10 +86,14 @@ export function * editContent({payload}) {
 }
 
 
-export function * updateContent({payload}) {
+export function * updateContent({
+  payload: {
+    editData, id
+  }
+}) {
   try {
 
-    const content =  yield put(handleUpdateContentHomeTestimonals(payload.content,payload.id.temp))
+    const content =  yield put(handleUpdateContentHomeTestimonals(editData, id))
     yield put(setEditContent(content))
   } catch (err) {
     console.log(err);
@@ -107,9 +111,13 @@ export function * editContentProduct({payload}) {
 }
 
 
-export function * updateContentProduct({payload}) {
+export function * updateContentProduct({
+  payload: {
+    editData, id
+  }
+}) {
   try {
-    const content =  yield put(handleUpdateContentHomeProduct(payload.content,payload.id.temp))
+    const content =  yield put(handleUpdateContentHomeProduct(editData, id))
     yield put(setEditContent(content))
   } catch (err) {
     console.log(err);

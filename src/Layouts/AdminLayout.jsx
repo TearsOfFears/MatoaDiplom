@@ -8,6 +8,8 @@ import UserProfile from "../components/Admin/UserProfile";
 import VerticalNav from "../components/Admin/VerticalNav";
 import { signOutUserStart } from "../redux/User/user.actions";
 import MenageHomePage from "../components/Admin/MenageHomePage";
+
+import "./Layouts.scss";
 const AdminLayout = (props) => {
 	const dispatch = useDispatch();
 	// const [hideModal, setHideModal] = useState(true);
@@ -54,11 +56,11 @@ const AdminLayout = (props) => {
 										</li>
 									);
 								})}
-								{/* <li>
+								<li>
 								 	<span className="btn" onClick={() => signOut()}>
 										Вийти
 								 	</span>
-								 </li> */}
+								 </li>
 							</ul>
 						</VerticalNav>
 					</div>

@@ -1,7 +1,8 @@
 import React, { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import ModalProduct from "./ModalProduct";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import {
 	TableContainer,
 	Table,
@@ -167,7 +168,14 @@ const MenageProducts = () => {
 											{productName}
 										</TableCell>
 										<TableCell align="left">
-											<img src={productThumbnail[0]} alt={productThumbnail[0]} />
+											<LazyLoadImage
+												effect="blur"
+												useIntersectionObserver={true}
+												//placeholder={<Loader />}
+												src={productThumbnail[0]}
+												//width="250px"
+												wrapperClassName="text-center"
+											/>
 										</TableCell>
 										<TableCell align="left">{documentId}</TableCell>
 										<TableCell align="left">

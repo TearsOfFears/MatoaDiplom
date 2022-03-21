@@ -1,0 +1,26 @@
+
+@import "./../../scss/componentstyles/utils/variables.scss";
+
+.adminToolBar{
+    background-color: $black;
+    color:$white;   
+    position: absolute;
+    z-index: 1059;
+    width: 100%;
+    top:0;
+    position: fixed;
+    .container{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-between;
+        a{
+            text-decoration: none;
+            color:inherit;
+            &:hover{
+                color:$accent;
+            }
+        }
+    }
+
+}

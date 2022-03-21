@@ -118,20 +118,16 @@ const MenageHomeProducts = (props) => {
 	};
 
 	const handleSubmitEdit = (e) => {
-		const temp = props.contentEdit.documentID;
+		const id = props.contentEdit.documentID;
 		e.preventDefault();
-		dispatch(
-			updateContentProduct(
-				{
-					title,
-					descText,
-					linkDiscover,
-					linkDetail,
-					sliderThumbnail,
-				},
-				{ temp }
-			)
-		);
+		const editData = {
+			title,
+			descText,
+			linkDiscover,
+			linkDetail,
+			sliderThumbnail,
+		};
+		dispatch(updateContentProduct({ editData, id }));
 		dispatch(setEditContent({ some: 1 }, { some: 1 }));
 		dispatch(fetchHomeContentStart());
 		resetForm();

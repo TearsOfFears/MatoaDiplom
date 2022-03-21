@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import { checkUserIsAdmin } from "../../utils/utils";
 import { useSelector } from "react-redux";
-
+import "./adminToolBar.scss";
 const mapState = ({ user }) => ({
 	currentUser: user.currentUser,
 });

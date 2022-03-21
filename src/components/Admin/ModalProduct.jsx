@@ -171,18 +171,14 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const handleSubmitEdit = (e) => {
 		e.preventDefault();
 		const id = product.documentID;
-		dispatch(
-			updateContentMainProduct(
-				{
-					productCategory,
-					productName,
-					productThumbnail,
-					price,
-					productDesc,
-				},
-				{ id }
-			)
-		);
+		const updateData = {
+			productCategory,
+			productName,
+			productThumbnail,
+			price,
+			productDesc,
+		};
+		dispatch(updateContentMainProduct({ updateData, id }));
 		resetForm();
 		dispatch(setCurrentProduct({}));
 		dispatch(fetchProductsStart());
