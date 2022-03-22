@@ -23,11 +23,9 @@ export function * fetchHomeContent(payload) {
     const content = yield handleFetchContentHome(payload);
     yield put(setHomeContent(content))
     if(content.lenght!==0){
+    
       yield put(loadingToggleAction(false))
     }
-    
-
-
   } catch (err) {
     //console.log(err);
   }

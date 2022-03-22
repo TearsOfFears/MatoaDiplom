@@ -12,7 +12,8 @@ import {
 import "./addToCart.scss";
 import { useNavigate } from "react-router-dom";
 import Animate from "animate";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import classnames from "classnames";
 const ProductSection = (product) => {
 	const dispatch = useDispatch();
@@ -47,23 +48,36 @@ const ProductSection = (product) => {
 									{Array.isArray(productThumbnail) &&
 										productThumbnail.map((link, id) => {
 											return (
-												<img
-													src={link}
+												<LazyLoadImage
 													key={id}
-													alt="link"
-													className=""
+													effect="blur"
+													useIntersectionObserver={true}
+													//placeholder={<Loader />}
+													src={link}
+													width="180px"
+													
+													wrapperClassName="text-center"
 													onClick={(e) => getLink(link)}
 												/>
+												// <img
+												// 	src={link}
+												// 	key={id}
+												// 	alt="link"
+												// 	className=""
+
+												// />
 											);
 										})}
 								</div>
 								<div className="wrapper-addToCart-images-wrapper__active">
-									<img
+									<LazyLoadImage
+										effect="blur"
+										useIntersectionObserver={true}
+										//placeholder={<Loader />}
 										src={state}
-										alt=""
-										id="image"
+										width="250px"
 										onAnimationEnd={() => setstateStyle({ fade: false })}
-										className={stateStyle.fade ? "imgAnimate" : ""}
+										wrapperClassName={stateStyle.fade ? "imgAnimate" : ""}
 									/>
 								</div>
 							</div>

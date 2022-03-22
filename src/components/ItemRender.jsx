@@ -1,8 +1,12 @@
 import React from "react";
 import { useDispatch } from "react-redux";
-import { removeCartItem,addProduct,reduceCartItem } from "../redux/Carts/cart.actions";
-
-
+import {
+	removeCartItem,
+	addProduct,
+	reduceCartItem,
+} from "../redux/Carts/cart.actions";
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 
 const ItemRender = (product) => {
 	const dispatch = useDispatch();
@@ -11,21 +15,28 @@ const ItemRender = (product) => {
 		product;
 
 	const handleRemoveCurrentItem = (documentId) => {
-		dispatch(removeCartItem({documentId}));
+		dispatch(removeCartItem({ documentId }));
 	};
 
-    const handleAddProduct = (product) => {
+	const handleAddProduct = (product) => {
 		dispatch(addProduct(product));
 	};
 
-    const handleReduceProduct = (product) => {
+	const handleReduceProduct = (product) => {
 		dispatch(reduceCartItem(product));
 	};
 	return (
 		<div className="cart-item" key={documentId}>
 			<div className="img-title">
 				<div className="img-wrapper">
-					<img src={productThumbnail[0]} alt={productName} />
+					<LazyLoadImage
+						effect="blur"
+						useIntersectionObserver={true}
+						//placeholder={<Loader />}
+						src={productThumbnail[0]}
+						//width="250px"
+						wrapperClassName="text-center"
+					/>
 				</div>
 				<div className="title-price-wrapper">
 					<h1>{productName}</h1>
@@ -35,7 +46,10 @@ const ItemRender = (product) => {
 
 			<div className="plus-minus-delete">
 				<div className="block-minus-plus">
-					<button className="minus" onClick={()=>handleReduceProduct(product)}>
+					<button
+						className="minus"
+						onClick={() => handleReduceProduct(product)}
+					>
 						<svg
 							width="16"
 							height="2"
@@ -47,7 +61,7 @@ const ItemRender = (product) => {
 						</svg>
 					</button>
 					<span>{quantity}</span>
-					<button className="plus" onClick={()=>handleAddProduct(product)}>
+					<button className="plus" onClick={() => handleAddProduct(product)}>
 						<svg
 							width="16"
 							height="16"

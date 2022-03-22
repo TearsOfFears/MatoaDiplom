@@ -69,12 +69,14 @@ function Swiper1() {
 								return (
 									<SwiperSlide key={documentId}>
 										<div className="swiper-slide-wrapper">
-											<div className="swiper-slide-wrapper__img">
+											<div
+												className="swiper-slide-wrapper__img"
+												data-swiper-parallax={-1400}
+												data-swiper-parallax-duration={700}
+											>
 												<LazyLoadImage
 													effect="blur"
 													src={sliderThumbnail}
-													data-swiper-parallax={-1400}
-													data-swiper-parallax-duration={700}
 													width="400px"
 													height="400px"
 												/>

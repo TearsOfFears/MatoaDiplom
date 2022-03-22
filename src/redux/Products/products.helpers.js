@@ -95,6 +95,7 @@ export const handleFetchCurrentProduct = productID => {
       })
       .catch(err => {
         reject(err);
+        console.log(err);
       })
   });
 }

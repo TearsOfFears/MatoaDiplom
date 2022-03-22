@@ -1,6 +1,6 @@
 import {takeLatest, put, call, all} from "redux-saga/effects";
 import productsTypes from "./products.types";
-import {setProducts, fetchProductsStart, setCurrentProduct} from "./products.actions";
+import {setProducts, fetchProductsStart, setCurrentProduct, loadingToggleAction} from "./products.actions";
 import {
   handleAddProduct,
   handleFetchProducts,
@@ -30,6 +30,12 @@ export function * fetchProducts({payload}) {
   try {
     const products = yield handleFetchProducts(payload);
     yield put(setProducts(products))
+    const {data} = products;
+     if(data.length!==0){
+      yield put(loadingToggleAction(false));
+     }
+ 
+    //yield put(setProducts(products))
   } catch (err) {
     //console.log(err);
   }
@@ -48,6 +54,11 @@ export function * fetchCurrentProduct({payload}) {
   try {
     const product = yield handleFetchCurrentProduct(payload);
     yield put(setCurrentProduct(product));
+
+    // if(product.lenght!==0){
+    //   yield put(loadingToggleAction(true))
+    // }
+
   } catch (err) {
     //console.log(err);
   }

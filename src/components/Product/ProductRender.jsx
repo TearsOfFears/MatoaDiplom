@@ -4,12 +4,10 @@ import { useDispatch } from "react-redux";
 import { addProduct } from "./../../redux/Carts/cart.actions";
 import Skeleton from "./Skeleton";
 import { useNavigate } from "react-router";
-import {
-	LazyLoadImage,
-	trackWindowScroll,
-} from "react-lazy-load-image-component";
+import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Loader from "../Loader/Loader";
+import { fetchCurrentProductStart } from "../../redux/Products/products.actions";
 
 const ProductRender = (product) => {
 	const dispatch = useDispatch();
@@ -21,7 +19,9 @@ const ProductRender = (product) => {
 		dispatch(addProduct(product));
 		navigate("/cart");
 	};
-
+	const getData = (productID) => {
+		dispatch(fetchCurrentProductStart(productID));
+	};
 	if (
 		!productThumbnail ||
 		!documentId ||
@@ -44,7 +44,11 @@ const ProductRender = (product) => {
 			<p className="titleProduct">{productName}</p>
 			<hr />
 			<p className="price">Ціна: {price} грн.</p>
-			<Link to={`/product/${documentId}`} className="btn-product">
+			<Link
+				to={`/product/${productName}`}
+				className="btn-product"
+				onClick={() => getData(documentId)}
+			>
 				Переглянути подробиці
 			</Link>
 			<button className="btn-product" onClick={() => handleAddToCart(product)}>

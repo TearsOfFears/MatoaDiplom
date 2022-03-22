@@ -53,7 +53,7 @@ export const updateContentMainProduct = contentId =>({
 
 
 export const loadingToggleAction = (status) =>({
-    type:productsTypes.LOADING_TOGGLE_ACTION,
+    type:productsTypes.LOADING_TOGGLE_ACTION_PRODUCTS,
     payload:status
 })
 

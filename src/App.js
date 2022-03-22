@@ -16,23 +16,27 @@ import {setCurrentUser,checkUserSession} from './redux/User/user.actions';
 import WithAuth from './hoc/WithAuth';
 
 import WithAdminAuth from './hoc/WithAdminAuth';
-import { fetchHomeContentStart, loadingToggleAction } from './redux/Home/home.actions';
 import Loader from './components/Loader/Loader';
+import { fetchHomeContentStart } from './redux/Home/home.actions';
 
 const App = (props)=> {
 
 const [state, setstate] = useState(false);
 const dispatch = useDispatch();
 
-const mapState = ({user,contentHome})=>({
+const mapState = ({user,contentHome,productsData})=>({
   currentUser:user.currentUser,
-  contentHomeLoading:contentHome.showLoading
+  contentHomeLoading:contentHome.showLoading,
+  contentProductLoading:productsData.showLoading
 })
 
-const {currentUser,contentHomeLoading}= useSelector(mapState);
+const {currentUser,contentHomeLoading,contentProductLoading}= useSelector(mapState);
+
+console.log("contentProductLoading",contentProductLoading);
 
 useEffect(()=>{
 dispatch(checkUserSession());
+dispatch(fetchHomeContentStart())
 if(!currentUser){
   setstate(true)
 }
@@ -42,12 +46,14 @@ setstate(true);
     return (
       <div className='app'>
         <AdminToolBar/>
-      {  contentHomeLoading ?  <Loader/> : null}
+    
         <Routes>
+       
           <Route exact path="/" element={
-            <MainLayout>
+              contentHomeLoading  ?  <Loader/> :
+          (  <MainLayout>
                   <Home/>
-            </MainLayout>
+            </MainLayout>)
           }/>
            <Route exact path="/login" element={ 
            currentUser && state ? <Navigate to="/" /> :
@@ -92,10 +98,13 @@ setstate(true);
 
           }/>
             <Route  exact path="/products" element={
-            <SecondLayout>
+            //      contentProductLoading  ?  <Loader/> : (    <SecondLayout>
+            //       <Products/>
+            // </SecondLayout>)
+        
+<SecondLayout>
                   <Products/>
             </SecondLayout>
-
           }/>
                  <Route  path="/products/:filterType" element={
             <SecondLayout>
@@ -103,7 +112,7 @@ setstate(true);
             </SecondLayout>
 
           }/>
-            <Route  path="/product/:productID" element={
+            <Route  path="/product/:productName" element={
             <SecondLayout>
                   <ProductsDeatails/>
             </SecondLayout>

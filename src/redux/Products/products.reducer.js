@@ -17,7 +17,7 @@ const productsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         product: action.payload
       }
-    case productsTypes.LOADING_TOGGLE_ACTION:
+    case productsTypes.LOADING_TOGGLE_ACTION_PRODUCTS:
       return {
         ...state,
         showLoading: action.payload

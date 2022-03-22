@@ -10,31 +10,27 @@ import {
 
 import { ProductCardRender } from "./../index";
 
-
 const mapState = (state) => ({
 	product: state.productsData.product,
 });
 
-const ProductCard = ({renderState}) => {
+const ProductCard = ({ renderState }) => {
 	const dispatch = useDispatch();
-	const { productID } = useParams();
-
-	const {product} = useSelector(mapState);
+	const { product } = useSelector(mapState);
+	const {productName, productID } = useParams();
 
 	useEffect(() => {
-      dispatch(fetchCurrentProductStart(productID))
+		//dispatch(fetchCurrentProductStart(productID));
 		return () => {
-			dispatch(setCurrentProduct({}))
-		}
+			dispatch(setCurrentProduct({}));
+		};
 	}, []);
 
-  
 	return (
-   <div>
-    <ProductCardRender {...product}/>
-   </div>
-      
-  );
+		<div>
+			<ProductCardRender {...product} />
+		</div>
+	);
 };
 
 export default ProductCard;
