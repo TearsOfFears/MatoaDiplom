@@ -77,7 +77,7 @@ const ProductSection = (product) => {
 										src={state}
 										width="250px"
 										onAnimationEnd={() => setstateStyle({ fade: false })}
-										wrapperClassName={stateStyle.fade ? "imgAnimate" : ""}
+										className={stateStyle.fade ? "imgAnimate" : ""}
 									/>
 								</div>
 							</div>
