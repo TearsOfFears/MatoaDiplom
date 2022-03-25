@@ -7,15 +7,20 @@ import { createStructuredSelector } from "reselect";
 import { Buttons, ItemRender } from ".";
 
 import { selectCartTotal } from "../redux/Carts/cart.selectors";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
+import { useEffect } from "react";
 
 const mapState = createStructuredSelector({
 	cartItems: selectCartItems,
 	total: selectCartTotal,
 });
 
+const mapState2 = ({ user }) => ({ user: user.currentUser });
+
 function Cart() {
+	const navigate = useNavigate();
 	const { cartItems, total } = useSelector(mapState);
+	const { user } = useSelector(mapState2);
 
 	return (
 		<section className="cart ">

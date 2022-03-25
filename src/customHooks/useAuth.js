@@ -13,6 +13,7 @@ const useAuth = props => {
     if (!checkUserIsSimple(currentUser)) {
 
         navigate('/login');
+        alert("Зарегайтесь")
     }
   }, [currentUser])
   return currentUser;

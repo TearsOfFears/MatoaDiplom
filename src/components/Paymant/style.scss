@@ -92,11 +92,10 @@
                 fill: $accent;
                 path {
                     stroke: $accent;
-                    fill:transparent;
+                    fill:$accent;
                 }
                 circle{
-                    stroke: $accent;
-                    fill:transparent;
+                    fill:$accent;
                 }
             }
         }
@@ -205,4 +204,12 @@
 
     }
 
+}
+
+.show{
+    display: block;
+}
+
+.hide{
+    display: none;
 }

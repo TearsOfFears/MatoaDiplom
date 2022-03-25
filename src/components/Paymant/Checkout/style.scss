@@ -1,0 +1,45 @@
+@import "./../../../scss/componentstyles/utils/variables.scss";
+
+.react-tel-input {
+
+    .form-control {
+        background-color: transparent;
+        width: 100%;
+        border: none;
+        border-bottom: 1px solid $black;
+        margin-top: 5px;
+        border-radius: 0px;
+        font-size: 16px;
+        &:focus {
+            color: $black;
+            background-color: transparent;
+            border-bottom: 1px solid $accent;
+            outline: 0;
+            box-shadow: none;
+
+        }
+
+    }
+
+    .flag-dropdown {
+        background-color: transparent;
+        border: none;
+        border-bottom: 1px solid $black;
+        border-radius: 0px;
+
+        &:hover {
+            border-bottom: 1px solid $accent;
+        }
+
+        &:focus {
+
+            color: $black;
+            background-color: transparent;
+            box-shadow: none;
+
+        }
+    }
+    .selected-flag {
+        border-radius: 0px;
+    }
+}
