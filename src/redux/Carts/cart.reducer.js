@@ -30,6 +30,14 @@ const cartReducer = (state = INITIAL_STATE, action) => {
               cartItemToReduce:action.payload
             })
           }
+          // case cartTypes.SET_PACKAGING:
+          //   return {
+          //     ...state,
+          //     cartItems:handleReduceCartItem({
+          //       prevCartItems:state.cartItems,
+          //       cartItemToReduce:action.payload
+          //     })
+          //   }
           case cartTypes.CLEAR_CART:
             return {
               ...state,

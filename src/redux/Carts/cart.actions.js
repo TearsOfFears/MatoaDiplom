@@ -20,3 +20,9 @@ export const reduceCartItem = (cartItem)=>({
 export const clearCart = ()=>({
     type:cartTypes.CLEAR_CART
 })
+
+
+export const setPackaging = (typePackging)=>({
+    type:cartTypes.SET_PACKAGING,
+    paylaod:typePackging
+})

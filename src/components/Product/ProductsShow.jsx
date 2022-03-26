@@ -11,7 +11,6 @@ import { useNavigate, useParams } from "react-router";
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
 const ProductsShow = () => {
-	const initalState = ["Всі продукти", "Годинники", "Окуляри"];
 	const { products } = useSelector(mapState);
 	const { data, queryDoc, isLastPage } = products;
 	const dispatch = useDispatch();

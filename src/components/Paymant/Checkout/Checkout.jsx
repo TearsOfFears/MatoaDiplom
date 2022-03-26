@@ -1,7 +1,12 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
 import { ButtonForm, FormInput } from "./../../index";
-import { CardElement, useElements, useStripe, CardElementComponent } from "@stripe/react-stripe-js";
+import {
+	CardElement,
+	useElements,
+	useStripe,
+	CardElementComponent,
+} from "@stripe/react-stripe-js";
 import {
 	selectCartTotal,
 	selectCartItemsCount,
@@ -209,7 +214,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	};
 	return (
 		<div>
-			<form onSubmit={handleFormSubmit}>
+			<form onSubmit={handleFormSubmit} validate>
 				<div className="col-12">
 					<div className="col-6">
 						<h2>Shipping address</h2>
@@ -361,20 +366,16 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								Label="Postal Code"
 								handleChange={(evt) => handleBilling(evt)}
 							/>
-
 						</div>
 					</div>
 				</div>
 
-				<div className="col-3">
-					<div className="group">
-						<h2>Cart Details</h2>
-						<CardElement options={configCardElement} />
-					</div>
-					<ButtonForm type="submit">Перейти дальше</ButtonForm>
-				</div>
+
+					<ButtonForm type="button" onClick={(e) => handleChangeState(1,billingAddress,shippingAddress)}>
+						Перейти дальше
+					</ButtonForm>
+		
 			</form>
-			<button onClick={(e) => handleChangeState(1)}>Click next </button>
 		</div>
 	);
 };

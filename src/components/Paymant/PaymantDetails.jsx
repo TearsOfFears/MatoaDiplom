@@ -29,7 +29,6 @@ import {
 	CountryRegionData,
 } from "react-country-region-selector";
 
-
 const mapState = createStructuredSelector({
 	total: selectCartTotal,
 	itemCount: selectCartItemsCount,
@@ -55,14 +54,26 @@ const PaymantDetails = () => {
 		},
 	];
 
-	const [stage, setStage] = useState(0);
+	const configStage = {
+		index: 0,
+		billingAddress: {},
+		shippingAddress: {},
+	};
 
-	const handleChangeState = (key) => {
-		setStage(key);
+	const [stage, setStage] = useState({ ...configStage });
+
+	const handleChangeState = (key, objBiling, objShipping) => {
+		setStage({
+			...configStage,
+			index: key,
+			billingAddress: objBiling,
+			shippingAddress: objShipping,
+		});
 	};
 
 	const configDetails = {
 		handleChangeState,
+		stage,
 	};
 
 	const renderStages = [
@@ -84,7 +95,7 @@ const PaymantDetails = () => {
 					const { icon, name } = obj;
 					return (
 						<div
-							className={stage === key ? "activeStage" : ""}
+							className={stage.index === key ? "activeStage" : ""}
 							key={key}
 							onClick={(e) => handleChangeState(key)}
 						>
@@ -96,7 +107,7 @@ const PaymantDetails = () => {
 			</div>
 			{renderStages.map((stages, key) => {
 				return (
-					<div key={key} className={stage === key ? "show" : "hide"}>
+					<div key={key} className={stage.index === key ? "show" : "hide"}>
 						{stages.stage}
 					</div>
 				);
