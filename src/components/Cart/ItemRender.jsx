@@ -5,7 +5,7 @@ import {
 	addProduct,
 	reduceCartItem,
 	setPackaging,
-} from "./../../redux/Carts/cart.actions";
+} from "../../redux/Carts/cart.actions";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Select, { StylesConfig } from "react-select";
@@ -31,14 +31,8 @@ const ItemRender = (product) => {
 
 	const [selectedOption, setSelectedOption] = useState("");
 
-	console.log(selectedOption);
-
 	const { value, label } = selectedOption;
 
-	const handleSetPackaging = (obj) => {
-		setSelectedOption(obj);
-		// dispatch(setPackaging(selectedOption));
-	};
 	const colourStyles = {
 		control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
 			...styles,
@@ -74,18 +68,23 @@ const ItemRender = (product) => {
 	const options = [
 		{
 			label: "Безплатна упаковка",
-			value: 0,
+			price: 0,
 		},
 		{
 			label: "Деревяна упаковка",
-			value: 300,
+			price: 300,
 		},
 		{
 			label: "Подарункова упаковка",
-			value: 500,
+			price: 500,
 		},
 	];
 
+	const handleSetPackaging = (packageType, documentId) => {
+		dispatch(setPackaging({ packageType, documentId }));
+
+	};
+	
 	return (
 		<div className="cart-item" key={documentId}>
 			<div className="img-title">
@@ -109,12 +108,14 @@ const ItemRender = (product) => {
 				<div style={{ width: "90% " }}>
 					<div className="selectPackage">
 						<h4 style={{ paddingBottom: "10px" }}>Виберіть упаковку:</h4>
-						{/* <Select
+						<Select
+							required
 							options={options}
 							defaultValue={options[0]}
 							styles={colourStyles}
-							onChange={(e) => handleSetPackaging(e.target)}
-						/> */}
+							placeholder="Select"
+							onChange={(evt) => handleSetPackaging(evt, documentId)}
+						/>
 					</div>
 					<div className="block-increase-price">
 						<div className="block-minus-plus">

@@ -10,24 +10,29 @@ import {
 	selectCartTotal,
 	selectCartItemsCount,
 	selectCartItems,
+	selectCartItemsCountPrice,
 } from "./../../../redux/Carts/cart.selectors";
 import { createStructuredSelector } from "reselect";
 
 import { useSelector, useDispatch } from "react-redux";
 
-const mapState = ({ user }) => ({ currentUser: user.currentUser });
+const mapState = ({ user, cartData }) => ({
+	currentUser: user.currentUser,
+	cartDataAll: cartData.cartItems,
+});
 
 const mapStateItems = createStructuredSelector({
 	total: selectCartTotal,
 	itemCount: selectCartItemsCount,
 	cartItems: selectCartItems,
+	calcPrice: selectCartItemsCountPrice,
 });
 
 function Payment({ handleChangeState, stage }) {
 	const elements = useElements();
 
-	const { currentUser } = useSelector(mapState);
-	const { total, itemCount, cartItems } = useSelector(mapStateItems);
+	const { currentUser, cartDataAll } = useSelector(mapState);
+	const { total, itemCount, cartItems, calcPrice } = useSelector(mapStateItems);
 
 	const configCardElement = {
 		iconStyle: "solid",
@@ -38,11 +43,22 @@ function Payment({ handleChangeState, stage }) {
 		},
 		hidePostalCode: true,
 	};
-	console.log(stage.billingAddress);
-	console.log(stage.shippingAddress);
+	// console.log(stage.billingAddress);
+	// console.log(stage.shippingAddress);
 	const {} = stage.shippingAddress || {};
 	const {} = stage.billingAddress || {};
 
+	// let check = cartDataAll.map((data, key) => {
+	// 	 data.reduce(
+	// 		(cartDataAll, cartItem) =>
+	// 			cartDataAll.quantity * cartItem.packageType.price,
+	// 		1
+	// 	);
+	// });
+	console.log(calcPrice);
+	console.log(cartDataAll);
+	const { packageType, documentId } = cartDataAll[0];
+	//console.log(packageType);
 	let grandTotal = 0;
 	grandTotal = total + 500 + 50;
 	return (

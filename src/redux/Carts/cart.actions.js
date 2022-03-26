@@ -22,7 +22,7 @@ export const clearCart = ()=>({
 })
 
 
-export const setPackaging = (typePackging)=>({
+export const setPackaging = (typePackaging)=>({
     type:cartTypes.SET_PACKAGING,
-    paylaod:typePackging
+    payload:typePackaging
 })
