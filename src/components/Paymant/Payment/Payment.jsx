@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import "./style.scss";
 import {
 	CardElement,
@@ -35,9 +35,6 @@ function Payment({ handleChangeState, stage }) {
 	const dispatch = useDispatch();
 	const { currentUser, cartDataAll } = useSelector(mapState);
 	const { total, itemCount, cartItems, calcPrice } = useSelector(mapStateItems);
-
-	const [recipientName, setRecipientName] = useState("");
-	const [nameOnCard, setnameOnCard] = useState("");
 	const stripe = useStripe();
 
 	const configCardElement = {
@@ -68,16 +65,24 @@ function Payment({ handleChangeState, stage }) {
 	let pricePackage = calcPrice.reduce((prev, current) => prev + current);
 
 	let grandTotal = total + 500 + pricePackage;
+	console.log(stage);
 
-	const sutmitPayment = async (e) => {
-		e.preventDefault();
-		handleChangeState(2);
+	const sutmitPayment = async (evt) => {
+		evt.preventDefault();
+		const cardElement = elements.getElement("card");
+		handleChangeState(
+			2,
+			stage.billingAddress,
+			stage.shippingAddress,
+			stage.recipientName,
+			stage.nameOnCard
+		);
 
 		apiInstance
 			.post("/payments/create", {
-				amount: total * 100,
+				amount: total,
 				shipping: {
-					name: recipientName,
+					name: stage.recipientName,
 					address: {
 						...stage.shippingAddress,
 					},
@@ -87,9 +92,9 @@ function Payment({ handleChangeState, stage }) {
 				stripe
 					.createPaymentMethod({
 						type: "card",
-						card: CardElement,
+						card: cardElement,
 						billing_details: {
-							name: nameOnCard,
+							name: stage.nameOnCard,
 							address: {
 								...stage.billingAddress,
 							},
@@ -103,6 +108,8 @@ function Payment({ handleChangeState, stage }) {
 							.then(({ paymentIntent }) => {
 								const configOrder = {
 									orderTotal: total,
+									// pricePackage: pricePackage,
+									// grandTotal: grandTotal,
 									orderItems: cartItems.map((item) => {
 										const {
 											documentId,
@@ -156,75 +163,75 @@ function Payment({ handleChangeState, stage }) {
 				</div>
 				<div className="col-6">
 					<h1>Order Detail</h1>
-					<div className="wrapper-detail-order">
-						<div className="wrapper-detail__headers_1">
-							<div className="title">
-								<h4>Purchase Date</h4>
+					<form onSubmit={sutmitPayment}>
+						<div className="wrapper-detail-order">
+							<div className="wrapper-detail__headers_1">
+								<div className="title">
+									<h4>Purchase Date</h4>
+								</div>
+								<div className="infoOrder">
+									<h4>2019-11-07 14:01:48</h4>
+								</div>
 							</div>
-							<div className="infoOrder">
-								<h4>2019-11-07 14:01:48</h4>
+							<div className="wrapper-detail__headers_1">
+								<div className="title">
+									<h4>Items</h4>
+								</div>
+								<div className="infoOrder">
+									<ul>
+										{cartItems.map((data, key) => {
+											const { quantity, productName, price } = data;
+											return (
+												<li key={key}>
+													<h4>{productName}</h4>
+													<p>
+														{quantity} од. x {price} грн.
+													</p>
+												</li>
+											);
+										})}
+									</ul>
+								</div>
 							</div>
+							<div className="wrapper-detail__headers_1">
+								<div className="title">
+									<h4>Name</h4>
+								</div>
+								<div className="infoOrder">
+									<h4>{line1}</h4>
+								</div>
+							</div>
+							<div className="wrapper-detail__headers_1">
+								<div className="title">
+									<h4>Phone</h4>
+								</div>
+								<div className="infoOrder">
+									<h4>{phoneNumber}</h4>
+								</div>
+							</div>
+							<div className="wrapper-detail__headers_1">
+								<div className="title">
+									<h4>Email</h4>
+								</div>
+								<div className="infoOrder">
+									<h4>{currentUser.email}</h4>
+								</div>
+							</div>
+							<div className="wrapper-detail__headers_1">
+								<div className="title">
+									<h4>Shipping Address</h4>
+								</div>
+								<div className="infoOrder">
+									<h4>
+										{line1} {line2} {country}, {state}, {city} {country_code}{" "}
+										{postal_code}
+									</h4>
+								</div>
+							</div>
+							<CardElement options={configCardElement} />
 						</div>
-						<div className="wrapper-detail__headers_1">
-							<div className="title">
-								<h4>Items</h4>
-							</div>
-							<div className="infoOrder">
-								<ul>
-									{cartItems.map((data, key) => {
-										const { quantity, productName, price } = data;
-										return (
-											<li key={key}>
-												<h4>{productName}</h4>
-												<p>
-													{quantity} од. x {price} грн.
-												</p>
-											</li>
-										);
-									})}
-								</ul>
-							</div>
-						</div>
-						<div className="wrapper-detail__headers_1">
-							<div className="title">
-								<h4>Name</h4>
-							</div>
-							<div className="infoOrder">
-								<h4>{line1}</h4>
-							</div>
-						</div>
-						<div className="wrapper-detail__headers_1">
-							<div className="title">
-								<h4>Phone</h4>
-							</div>
-							<div className="infoOrder">
-								<h4>{phoneNumber}</h4>
-							</div>
-						</div>
-						<div className="wrapper-detail__headers_1">
-							<div className="title">
-								<h4>Email</h4>
-							</div>
-							<div className="infoOrder">
-								<h4>{currentUser.email}</h4>
-							</div>
-						</div>
-						<div className="wrapper-detail__headers_1">
-							<div className="title">
-								<h4>Shipping Address</h4>
-							</div>
-							<div className="infoOrder">
-								<h4>
-									{line1} {line2} {country}, {state}, {city} {country_code}{" "}
-									{postal_code}
-								</h4>
-							</div>
-						</div>
-						<CardElement options={configCardElement} />
-					</div>
-					<ButtonForm type="submit" onClick={(e) => sutmitPayment(e)}>
-						Оплатити{" "}
-					</ButtonForm>
+						<ButtonForm type="submit">Оплатити</ButtonForm>
+					</form>
 				</div>
 			</div>
 		</div>

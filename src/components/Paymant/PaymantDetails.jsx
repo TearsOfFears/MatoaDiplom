@@ -66,16 +66,16 @@ const PaymantDetails = () => {
 		key,
 		objBiling,
 		objShipping,
-		setBillingAdress,
-		setShippingAddress
+		recipientName,
+		nameOnCard
 	) => {
 		setStage({
 			...configStage,
 			index: key,
 			billingAddress: objBiling,
 			shippingAddress: objShipping,
-			setBillingAdress: setBillingAdress,
-			setShippingAddress: setShippingAddress,
+			recipientName:recipientName,
+			nameOnCard: nameOnCard,
 		});
 	};
 

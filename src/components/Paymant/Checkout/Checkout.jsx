@@ -63,6 +63,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	const [recipientName, setRecipientName] = useState("");
 	const [nameOnCard, setnameOnCard] = useState("");
 
+	console.log("recipientName", recipientName);
 	useEffect(() => {
 		if (itemCount < 1) {
 			navigate("/dashboard");
@@ -159,7 +160,6 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	// 		});
 	// };
 
-
 	const selectCountry = (val) => {
 		setShippingAddress({
 			...shippingAddress,
@@ -198,7 +198,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			phoneNumber: `+${val}`,
 		});
 	};
-	console.log(shippingAddress);
+	
 	return (
 		<div>
 			<form onSubmit={handleFormSubmit} validate>
@@ -359,7 +359,15 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 
 				<ButtonForm
 					type="submit"
-					onClick={(e) => handleChangeState(1, billingAddress, shippingAddress)}
+					onClick={(e) =>
+						handleChangeState(
+							1,
+							billingAddress,
+							shippingAddress,
+							recipientName,
+							nameOnCard
+						)
+					}
 				>
 					Перейти дальше
 				</ButtonForm>
