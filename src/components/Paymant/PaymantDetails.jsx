@@ -62,12 +62,20 @@ const PaymantDetails = () => {
 
 	const [stage, setStage] = useState({ ...configStage });
 
-	const handleChangeState = (key, objBiling, objShipping) => {
+	const handleChangeState = (
+		key,
+		objBiling,
+		objShipping,
+		setBillingAdress,
+		setShippingAddress
+	) => {
 		setStage({
 			...configStage,
 			index: key,
 			billingAddress: objBiling,
 			shippingAddress: objShipping,
+			setBillingAdress: setBillingAdress,
+			setShippingAddress: setShippingAddress,
 		});
 	};
 
@@ -97,7 +105,13 @@ const PaymantDetails = () => {
 						<div
 							className={stage.index === key ? "activeStage" : ""}
 							key={key}
-							onClick={(e) => handleChangeState(key)}
+							onClick={(e) =>
+								handleChangeState(
+									key,
+									stage.billingAddress,
+									stage.shippingAddress
+								)
+							}
 						>
 							{icon}
 							<h3>{name}</h3>

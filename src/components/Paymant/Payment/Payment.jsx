@@ -1,4 +1,4 @@
-import React from "react";
+import React,{useState} from "react";
 import "./style.scss";
 import {
 	CardElement,
@@ -13,8 +13,10 @@ import {
 	selectCartItemsCountPrice,
 } from "./../../../redux/Carts/cart.selectors";
 import { createStructuredSelector } from "reselect";
-
+import { apiInstance } from "./../../../utils/utils";
 import { useSelector, useDispatch } from "react-redux";
+import { saveOrderHistory } from "../../../redux/Orders/orders.actions";
+import { ButtonForm } from "../..";
 
 const mapState = ({ user, cartData }) => ({
 	currentUser: user.currentUser,
@@ -30,9 +32,13 @@ const mapStateItems = createStructuredSelector({
 
 function Payment({ handleChangeState, stage }) {
 	const elements = useElements();
-
+	const dispatch = useDispatch();
 	const { currentUser, cartDataAll } = useSelector(mapState);
 	const { total, itemCount, cartItems, calcPrice } = useSelector(mapStateItems);
+
+	const [recipientName, setRecipientName] = useState("");
+	const [nameOnCard, setnameOnCard] = useState("");
+	const stripe = useStripe();
 
 	const configCardElement = {
 		iconStyle: "solid",
@@ -45,22 +51,81 @@ function Payment({ handleChangeState, stage }) {
 	};
 	// console.log(stage.billingAddress);
 	// console.log(stage.shippingAddress);
-	const {} = stage.shippingAddress || {};
-	const {} = stage.billingAddress || {};
+	//const {recipientName} = stage.shippingAddress || {};
+	//const { recipientName } = stage.billingAddress || {};
 
-	// let check = cartDataAll.map((data, key) => {
-	// 	 data.reduce(
-	// 		(cartDataAll, cartItem) =>
-	// 			cartDataAll.quantity * cartItem.packageType.price,
-	// 		1
-	// 	);
-	// });
-	console.log(calcPrice);
-	console.log(cartDataAll);
-	const { packageType, documentId } = cartDataAll[0];
-	//console.log(packageType);
-	let grandTotal = 0;
-	grandTotal = total + 500 + 50;
+	const {
+		phoneNumber,
+		line1,
+		line2,
+		country,
+		country_code,
+		city,
+		state,
+		postal_code,
+	} = stage.shippingAddress || {};
+
+	let pricePackage = calcPrice.reduce((prev, current) => prev + current);
+
+	let grandTotal = total + 500 + pricePackage;
+
+	const sutmitPayment = async (e) => {
+		e.preventDefault();
+		handleChangeState(2);
+
+		apiInstance
+			.post("/payments/create", {
+				amount: total * 100,
+				shipping: {
+					name: recipientName,
+					address: {
+						...stage.shippingAddress,
+					},
+				},
+			})
+			.then(({ data: clientSecret }) => {
+				stripe
+					.createPaymentMethod({
+						type: "card",
+						card: CardElement,
+						billing_details: {
+							name: nameOnCard,
+							address: {
+								...stage.billingAddress,
+							},
+						},
+					})
+					.then(({ paymentMethod }) => {
+						stripe
+							.confirmCardPayment(clientSecret, {
+								payment_method: paymentMethod.id,
+							})
+							.then(({ paymentIntent }) => {
+								const configOrder = {
+									orderTotal: total,
+									orderItems: cartItems.map((item) => {
+										const {
+											documentId,
+											productThumbnail,
+											productName,
+											price,
+											quantity,
+										} = item;
+										return {
+											documentId,
+											productThumbnail,
+											productName,
+											price,
+											quantity,
+										};
+									}),
+								};
+								dispatch(saveOrderHistory(configOrder));
+							});
+					});
+			});
+	};
+
 	return (
 		<div className="container payment">
 			<div className="col-12 d-flex flex-row">
@@ -77,7 +142,7 @@ function Payment({ handleChangeState, stage }) {
 							<h3>{total} грн.</h3>
 							<h3> 500 грн.</h3>
 							<h3>INDONESIA</h3>
-							<h3>50 грн.</h3>
+							<h3>{pricePackage} грн.</h3>
 						</div>
 					</div>
 					<div className="wrapper-detail-total">
@@ -94,14 +159,6 @@ function Payment({ handleChangeState, stage }) {
 					<div className="wrapper-detail-order">
 						<div className="wrapper-detail__headers_1">
 							<div className="title">
-								<h4>Order Number</h4>
-							</div>
-							<div className="infoOrder">
-								<h4>MTAWEB-3A86D4DB</h4>
-							</div>
-						</div>
-						<div className="wrapper-detail__headers_1">
-							<div className="title">
 								<h4>Purchase Date</h4>
 							</div>
 							<div className="infoOrder">
@@ -113,10 +170,19 @@ function Payment({ handleChangeState, stage }) {
 								<h4>Items</h4>
 							</div>
 							<div className="infoOrder">
-								<h4>Way Kambas Mini Ebony</h4>
-								<p>2 x IDR 1.024.000 </p>
-								<h4>Sikka (Ebony & Mapple)</h4>
-								<p>1 x IDR 1.264.000</p>
+								<ul>
+									{cartItems.map((data, key) => {
+										const { quantity, productName, price } = data;
+										return (
+											<li key={key}>
+												<h4>{productName}</h4>
+												<p>
+													{quantity} од. x {price} грн.
+												</p>
+											</li>
+										);
+									})}
+								</ul>
 							</div>
 						</div>
 						<div className="wrapper-detail__headers_1">
@@ -124,7 +190,7 @@ function Payment({ handleChangeState, stage }) {
 								<h4>Name</h4>
 							</div>
 							<div className="infoOrder">
-								<h4>Rasyidin Arsyad Nasution</h4>
+								<h4>{line1}</h4>
 							</div>
 						</div>
 						<div className="wrapper-detail__headers_1">
@@ -132,7 +198,7 @@ function Payment({ handleChangeState, stage }) {
 								<h4>Phone</h4>
 							</div>
 							<div className="infoOrder">
-								<h4>+18911188899</h4>
+								<h4>{phoneNumber}</h4>
 							</div>
 						</div>
 						<div className="wrapper-detail__headers_1">
@@ -148,14 +214,19 @@ function Payment({ handleChangeState, stage }) {
 								<h4>Shipping Address</h4>
 							</div>
 							<div className="infoOrder">
-								<h4>18 Richardson Drive Fountain Valley, CA 92708</h4>
+								<h4>
+									{line1} {line2} {country}, {state}, {city} {country_code}{" "}
+									{postal_code}
+								</h4>
 							</div>
 						</div>
 						<CardElement options={configCardElement} />
 					</div>
+					<ButtonForm type="submit" onClick={(e) => sutmitPayment(e)}>
+						Оплатити{" "}
+					</ButtonForm>
 				</div>
 			</div>
-			Payment <button onClick={(e) => handleChangeState(2)}> Next</button>
 		</div>
 	);
 }

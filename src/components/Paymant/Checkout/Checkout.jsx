@@ -38,6 +38,7 @@ const initialAddressState = {
 	phoneNumber: "",
 	postal_code: "",
 	country: "",
+	country_code: "",
 };
 
 const mapState = createStructuredSelector({
@@ -67,13 +68,6 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			navigate("/dashboard");
 		}
 	}, [itemCount]);
-	let countryCode;
-	if (
-		typeof shippingAddress.country === "string" &&
-		shippingAddress.country.length > 0
-	) {
-		countryCode = getCode(shippingAddress.country).toLowerCase();
-	}
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
@@ -165,20 +159,12 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	// 		});
 	// };
 
-	const configCardElement = {
-		iconStyle: "solid",
-		style: {
-			base: {
-				fontSize: "16px",
-			},
-		},
-		hidePostalCode: true,
-	};
 
 	const selectCountry = (val) => {
 		setShippingAddress({
 			...shippingAddress,
 			country: val,
+			country_code: getCode(val).toUpperCase(),
 		});
 	};
 	const selectState = (val) => {
@@ -212,6 +198,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			phoneNumber: `+${val}`,
 		});
 	};
+	console.log(shippingAddress);
 	return (
 		<div>
 			<form onSubmit={handleFormSubmit} validate>
@@ -285,7 +272,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 
 							<CountrySelect name="Phone">
 								<PhoneInput
-									country={countryCode}
+									country={shippingAddress.country_code.toLowerCase()}
 									defaultCountry={"us"}
 									value={shippingAddress.phoneNumber}
 									inputProps={{
@@ -370,11 +357,12 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 					</div>
 				</div>
 
-
-					<ButtonForm type="button" onClick={(e) => handleChangeState(1,billingAddress,shippingAddress)}>
-						Перейти дальше
-					</ButtonForm>
-		
+				<ButtonForm
+					type="submit"
+					onClick={(e) => handleChangeState(1, billingAddress, shippingAddress)}
+				>
+					Перейти дальше
+				</ButtonForm>
 			</form>
 		</div>
 	);
