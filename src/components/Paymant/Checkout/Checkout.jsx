@@ -35,12 +35,14 @@ const initialAddressState = {
 	line2: "",
 	city: "",
 	state: "",
-	//phoneNumber: "",
 	postal_code: "",
 	country: "",
-	//country_code: "",
 };
-
+const initalPasteInfo = {
+	recipientName: "",
+	nameOnCard: "",
+	phone: "",
+};
 const mapState = createStructuredSelector({
 	total: selectCartTotal,
 	itemCount: selectCartItemsCount,
@@ -60,16 +62,23 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	const [shippingAddress, setShippingAddress] = useState({
 		...initialAddressState,
 	});
+
+	const [pasteInfo, setPasteInfo] = useState({
+		...initalPasteInfo,
+	});
+
 	const [recipientName, setRecipientName] = useState("");
 	const [nameOnCard, setnameOnCard] = useState("");
+	const [phone, setPhone] = useState("");
 
 	console.log("recipientName", recipientName);
+
 	useEffect(() => {
 		if (itemCount < 1) {
 			navigate("/dashboard");
 		}
 	}, [itemCount]);
-
+	console.log(shippingAddress);
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 		const cardElement = elements.getElement("card");
@@ -84,6 +93,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			!billingAddress.postal_code ||
 			!billingAddress.country ||
 			!recipientName ||
+			!phone ||
 			!nameOnCard
 		) {
 			return;
@@ -106,58 +116,6 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			[name]: value,
 		});
 	};
-	// apiInstance
-	// 		.post("/payments/create", {
-	// 			amount: total * 100,
-	// 			shipping: {
-	// 				name: recipientName,
-	// 				address: {
-	// 					...shippingAddress,
-	// 				},
-	// 			},
-	// 		})
-	// 		.then(({ data: clientSecret }) => {
-	// 			stripe
-	// 				.createPaymentMethod({
-	// 					type: "card",
-	// 					card: cardElement,
-	// 					billing_details: {
-	// 						name: nameOnCard,
-	// 						address: {
-	// 							...billingAddress,
-	// 						},
-	// 					},
-	// 				})
-	// 				.then(({ paymentMethod }) => {
-	// 					stripe
-	// 						.confirmCardPayment(clientSecret, {
-	// 							payment_method: paymentMethod.id,
-	// 						})
-	// 						.then(({ paymentIntent }) => {
-	// 							const configOrder = {
-	// 								orderTotal: total,
-	// 								orderItems: cartItems.map((item) => {
-	// 									const {
-	// 										documentId,
-	// 										productThumbnail,
-	// 										productName,
-	// 										price,
-	// 										quantity,
-	// 									} = item;
-	// 									return {
-	// 										documentId,
-	// 										productThumbnail,
-	// 										productName,
-	// 										price,
-	// 										quantity,
-	// 									};
-	// 								}),
-	// 							};
-	// 							dispatch(saveOrderHistory(configOrder));
-	// 						});
-	// 				});
-	// 		});
-	// };
 
 	const selectCountry = (val) => {
 		setShippingAddress({
@@ -172,12 +130,6 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			state: val,
 		});
 	};
-	// const selectNumber = (val) => {
-	// 	setShippingAddress({
-	// 		...shippingAddress,
-	// 		phoneNumber: `+${val}`,
-	// 	});
-	// };
 
 	const selectCountryBilling = (val) => {
 		setBillingAdress({
@@ -191,10 +143,19 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			state: val,
 		});
 	};
-	const selectNumberBilling = (val) => {
-		setBillingAdress({
-			...billingAddress,
-			phoneNumber: `+${val}`,
+
+	const handlePasteInfo = (evt) => {
+		const { name, value } = evt.target;
+		setPasteInfo({
+			...pasteInfo,
+			[name]: value,
+		});
+	};
+
+	const selectNumber = (val) => {
+		setPasteInfo({
+			...pasteInfo,
+			["phone"]: `+${val}`,
 		});
 	};
 
@@ -209,10 +170,10 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								required
 								type="text"
 								placeholder="Ex: Rasyidin Arsyad Nasution"
-								value={recipientName}
+								value={pasteInfo.recipientName}
 								name="recipientName"
 								Label="Pecipient Name"
-								handleChange={(e) => setRecipientName(e.target.value)}
+								handleChange={(e) => handlePasteInfo(e)}
 							/>
 							<FormInputPayment
 								required
@@ -271,20 +232,21 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								handleChange={(evt) => handleShipping(evt)}
 							/>
 
-							{/* <CountrySelect name="Phone">
+							<CountrySelect name="Phone">
 								<PhoneInput
-									country={shippingAddress.country_code.toLowerCase()}
+									country={shippingAddress.country.toLowerCase()}
 									defaultCountry={"us"}
-									value={shippingAddress.phoneNumber}
+									value={phone}
+									name="phone"
 									inputProps={{
-										name: "phoneNumber",
+										name: "phone",
 										required: true,
 										autoFocus: true,
 									}}
 									autocompleteSearch={true}
-									onChange={(val) => selectNumber(val)}
+									onChange={(evt) => selectNumber(evt)}
 								/>
-							</CountrySelect> */}
+							</CountrySelect>
 						</div>
 					</div>
 
@@ -295,10 +257,10 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								required
 								type="text"
 								placeholder="Name on card"
-								value={nameOnCard}
+								value={pasteInfo.nameOnCard}
 								name="nameOnCard"
 								Label="Name on card"
-								handleChange={(e) => setnameOnCard(e.target.value)}
+								handleChange={(e) => handlePasteInfo(e)}
 							/>
 							<FormInputPayment
 								required
@@ -363,13 +325,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 				<ButtonForm
 					type="submit"
 					onClick={(e) =>
-						handleChangeState(
-							1,
-							billingAddress,
-							shippingAddress,
-							recipientName,
-							nameOnCard
-						)
+						handleChangeState(1, billingAddress, shippingAddress, pasteInfo)
 					}
 				>
 					Перейти дальше

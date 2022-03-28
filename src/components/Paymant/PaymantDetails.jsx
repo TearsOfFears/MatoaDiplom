@@ -58,24 +58,18 @@ const PaymantDetails = () => {
 		index: 0,
 		billingAddress: {},
 		shippingAddress: {},
+		pasteInfo: {},
 	};
 
 	const [stage, setStage] = useState({ ...configStage });
 
-	const handleChangeState = (
-		key,
-		objBiling,
-		objShipping,
-		recipientName,
-		nameOnCard
-	) => {
+	const handleChangeState = (key, objBiling, objShipping, pasteInfo) => {
 		setStage({
 			...configStage,
 			index: key,
 			billingAddress: objBiling,
 			shippingAddress: objShipping,
-			recipientName:recipientName,
-			nameOnCard: nameOnCard,
+			pasteInfo: pasteInfo,
 		});
 	};
 

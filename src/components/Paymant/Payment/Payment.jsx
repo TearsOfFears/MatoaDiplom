@@ -62,8 +62,6 @@ function Payment({ handleChangeState, stage }) {
 
 	let grandTotal = total + 500 + pricePackage;
 
-	console.log(stage);
-
 	const sutmitPayment = async (evt) => {
 		evt.preventDefault();
 		const cardElement = elements.getElement("card");
@@ -71,15 +69,14 @@ function Payment({ handleChangeState, stage }) {
 			2,
 			stage.billingAddress,
 			stage.shippingAddress,
-			stage.recipientName,
-			stage.nameOnCard
+			stage.pasteInfo,
 		);
 
 		apiInstance
 			.post("/payments/create", {
 				amount: total,
 				shipping: {
-					name: stage.recipientName,
+					name: stage.pasteInfo.recipientName,
 					address: {
 						...stage.shippingAddress,
 					},
@@ -91,11 +88,14 @@ function Payment({ handleChangeState, stage }) {
 						type: "card",
 						card: cardElement,
 						billing_details: {
-							name: stage.nameOnCard,
+							name: stage.pasteInfo.nameOnCard,
+							email: currentUser.email,
+							phone: stage.pasteInfo.phone,
 							address: {
 								...stage.billingAddress,
 							},
 						},
+						//customer: currentUser.displayName,
 					})
 					.then(({ paymentMethod }) => {
 						console.log(paymentMethod);
@@ -105,7 +105,7 @@ function Payment({ handleChangeState, stage }) {
 							})
 							.then(({ paymentIntent }) => {
 								const configOrder = {
-									orderTotal: total,
+									subtotal: total,
 									orderItems: cartItems.map((item) => {
 										const { documentId, productName, productPrice, quantity } =
 											item;
@@ -117,6 +117,8 @@ function Payment({ handleChangeState, stage }) {
 											quantity,
 										};
 									}),
+									packagingPrice: pricePackage,
+									grandTotal: grandTotal,
 								};
 
 								dispatch(saveOrderHistory(configOrder));
