@@ -11,9 +11,7 @@ const useAuth = props => {
   const {currentUser} = useSelector(mapState);
   useEffect(() => {
     if (!checkUserIsSimple(currentUser)) {
-
         navigate('/login');
-        alert("Зарегайтесь")
     }
   }, [currentUser])
   return currentUser;

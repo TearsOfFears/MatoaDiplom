@@ -3,7 +3,7 @@ import {takeLatest,put,all,call, take} from 'redux-saga/effects'
 import { handleSaveOrder,handleGetUserOrderHistory, handleGetOrder } from "./orders.helpers";
 
 import { auth } from "../../firebase/utils"; 
-import { clearCart, } from "../Carts/cart.actions";
+import { clearCart, } from "./../Carts/cart.actions";
 import {setOrderDetailsStart, setUserOrderHistory } from "./orders.actions";
 
 
@@ -21,9 +21,6 @@ export function * getOrderDetailsStart({payload}){
 export function * onGetOrderDetailsStart(){
     yield takeLatest(ordersTypes.GET_ORDER_DETAILS_START,getOrderDetailsStart)
 }
-
-
-
 
 
 export function* getUserOrderHistoryStart({payload}){

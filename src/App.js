@@ -119,11 +119,11 @@ setstate(true);
 
           }/>
            <Route  path="/payment" element={
-              <WithAuth>
+              // <WithAuth> </WithAuth>
               <SecondLayout>
                   <Paymant/>
             </SecondLayout>
-              </WithAuth>
+             
           }/>
              <Route  path="/order/:orderID" element={
               <WithAuth>
