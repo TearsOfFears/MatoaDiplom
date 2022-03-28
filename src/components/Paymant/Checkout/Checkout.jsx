@@ -35,10 +35,10 @@ const initialAddressState = {
 	line2: "",
 	city: "",
 	state: "",
-	phoneNumber: "",
+	//phoneNumber: "",
 	postal_code: "",
 	country: "",
-	country_code: "",
+	//country_code: "",
 };
 
 const mapState = createStructuredSelector({
@@ -73,7 +73,6 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 		const cardElement = elements.getElement("card");
-
 		if (
 			!shippingAddress.line1 ||
 			!shippingAddress.city ||
@@ -164,7 +163,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 		setShippingAddress({
 			...shippingAddress,
 			country: val,
-			country_code: getCode(val).toUpperCase(),
+			//country_code: getCode(val).toUpperCase(),
 		});
 	};
 	const selectState = (val) => {
@@ -173,12 +172,12 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			state: val,
 		});
 	};
-	const selectNumber = (val) => {
-		setShippingAddress({
-			...shippingAddress,
-			phoneNumber: `+${val}`,
-		});
-	};
+	// const selectNumber = (val) => {
+	// 	setShippingAddress({
+	// 		...shippingAddress,
+	// 		phoneNumber: `+${val}`,
+	// 	});
+	// };
 
 	const selectCountryBilling = (val) => {
 		setBillingAdress({
@@ -198,7 +197,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			phoneNumber: `+${val}`,
 		});
 	};
-	
+
 	return (
 		<div>
 			<form onSubmit={handleFormSubmit} validate>
@@ -237,6 +236,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								<CountryDropdown
 									required
 									name="country"
+									valueType="short"
 									value={shippingAddress.country}
 									onChange={(val) => selectCountry(val)}
 								/>
@@ -245,6 +245,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 							<CountrySelect name="State">
 								<RegionDropdown
 									name="state"
+									countryValueType="short"
 									country={shippingAddress.country}
 									value={shippingAddress.state}
 									onChange={(val) => selectState(val)}
@@ -270,7 +271,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								handleChange={(evt) => handleShipping(evt)}
 							/>
 
-							<CountrySelect name="Phone">
+							{/* <CountrySelect name="Phone">
 								<PhoneInput
 									country={shippingAddress.country_code.toLowerCase()}
 									defaultCountry={"us"}
@@ -283,7 +284,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 									autocompleteSearch={true}
 									onChange={(val) => selectNumber(val)}
 								/>
-							</CountrySelect>
+							</CountrySelect> */}
 						</div>
 					</div>
 
@@ -321,6 +322,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								<CountryDropdown
 									required
 									name="country"
+									valueType="short"
 									value={billingAddress.country}
 									onChange={(val) => selectCountryBilling(val)}
 								/>
@@ -329,6 +331,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 							<CountrySelect name="State">
 								<RegionDropdown
 									name="state"
+									countryValueType="short"
 									country={billingAddress.country}
 									value={billingAddress.state}
 									onChange={(val) => selectStateBilling(val)}

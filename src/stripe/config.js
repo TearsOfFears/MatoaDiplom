@@ -1,1 +1,1 @@
-export const publiskKey = 'pk_test_51KXSe4HmNGaKPzbC8HucAU5TEKW7DXjTsKxcbjB1RLC2LbBI1qs1FaWRnR1c0aPTuRwu7pnwIS0ULn1iE5558uSB00jNGmIhSv'
+export const publishKey = 'pk_test_51KXSe4HmNGaKPzbCDIcHtnIzCbKCVZnRAQRsQdLW6a6nJMaqx9mwcx3CQlL1PY0R433SbyYYMHUE2LE1qLy9oyaX00WNhE2nRK'

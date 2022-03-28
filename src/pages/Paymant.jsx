@@ -1,13 +1,13 @@
 import React from "react";
 import { PaymantDetails } from "../components";
 
-import { Elements } from "@stripe/react-stripe-js";
+import { Elements, StripeProvider } from "@stripe/react-stripe-js";
 
 import { loadStripe } from "@stripe/stripe-js";
 
-import { publiskKey } from "./../stripe/config";
+import { publishKey } from "./../stripe/config";
 
-const stripePromise = loadStripe(publiskKey);
+const stripePromise = loadStripe(publishKey);
 
 function Paymant() {
 	return (

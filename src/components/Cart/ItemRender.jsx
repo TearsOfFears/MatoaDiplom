@@ -53,9 +53,10 @@ const ItemRender = (product) => {
 				...styles,
 				width: "250px",
 				backgroundColor: isDisabled ? "#d84727" : "#f7f6f4",
-				backgroundColor: isFocused ? "#d84727" : "#f7f6f4",
-				backgroundColor: isSelected ? "#d84727" : "#f7f6f4",
-				color: isSelected ? "#f7f6f4" : "#333",
+				// backgroundColor: isFocused ? "#d84727" : "#f7f6f4",
+				// backgroundColor: isSelected ? "#d84727" : "#f7f6f4",
+				color: isDisabled ? "#f7f6f4" : "#333",
+
 				cursor: isDisabled ? "not-allowed" : "default",
 				":hover": {
 					backgroundColor: "#d84727",
@@ -92,9 +93,7 @@ const ItemRender = (product) => {
 					<LazyLoadImage
 						effect="blur"
 						useIntersectionObserver={true}
-						//placeholder={<Loader />}
 						src={productThumbnail[0]}
-						//width="250px"
 						wrapperClassName="text-center"
 					/>
 				</div>

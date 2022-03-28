@@ -32,8 +32,6 @@ const mapState = ({user,contentHome,productsData})=>({
 
 const {currentUser,contentHomeLoading,contentProductLoading}= useSelector(mapState);
 
-console.log("contentProductLoading",contentProductLoading);
-
 useEffect(()=>{
 dispatch(checkUserSession());
 dispatch(fetchHomeContentStart())
@@ -82,11 +80,11 @@ setstate(true);
             </SecondLayout>
           }/>
            <Route  path="/cart" element={
-                 <WithAuth>
+                 //<WithAuth>
             <SecondLayout >
                   <CartPage/>
             </SecondLayout>
-            </WithAuth>
+            //</WithAuth>
           }/>
             <Route  path="/recovery" element={
             <SecondLayout>

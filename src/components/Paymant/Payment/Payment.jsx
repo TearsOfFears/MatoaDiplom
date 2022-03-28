@@ -46,10 +46,6 @@ function Payment({ handleChangeState, stage }) {
 		},
 		hidePostalCode: true,
 	};
-	// console.log(stage.billingAddress);
-	// console.log(stage.shippingAddress);
-	//const {recipientName} = stage.shippingAddress || {};
-	//const { recipientName } = stage.billingAddress || {};
 
 	const {
 		phoneNumber,
@@ -65,6 +61,7 @@ function Payment({ handleChangeState, stage }) {
 	let pricePackage = calcPrice.reduce((prev, current) => prev + current);
 
 	let grandTotal = total + 500 + pricePackage;
+
 	console.log(stage);
 
 	const sutmitPayment = async (evt) => {
@@ -101,6 +98,7 @@ function Payment({ handleChangeState, stage }) {
 						},
 					})
 					.then(({ paymentMethod }) => {
+						console.log(paymentMethod);
 						stripe
 							.confirmCardPayment(clientSecret, {
 								payment_method: paymentMethod.id,
@@ -108,25 +106,19 @@ function Payment({ handleChangeState, stage }) {
 							.then(({ paymentIntent }) => {
 								const configOrder = {
 									orderTotal: total,
-									// pricePackage: pricePackage,
-									// grandTotal: grandTotal,
 									orderItems: cartItems.map((item) => {
-										const {
-											documentId,
-											productThumbnail,
-											productName,
-											price,
-											quantity,
-										} = item;
+										const { documentId, productName, productPrice, quantity } =
+											item;
+
 										return {
 											documentId,
-											productThumbnail,
 											productName,
-											price,
+											productPrice,
 											quantity,
 										};
 									}),
 								};
+
 								dispatch(saveOrderHistory(configOrder));
 							});
 					});
