@@ -2,6 +2,7 @@ import {firestore} from "../../firebase/utils";
 
 export const handleSaveOrder = order => {
   return new Promise((resolve, reject) => {
+    console.log(order);
     firestore
       .collection('orders')
       .doc()

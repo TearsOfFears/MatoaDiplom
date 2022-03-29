@@ -58,18 +58,20 @@ function Payment({ handleChangeState, stage }) {
 		postal_code,
 	} = stage.shippingAddress || {};
 
-	let pricePackage = calcPrice.reduce((prev, current) => prev + current);
+	let pricePackage = 0
 
-	let grandTotal = total + 500 + pricePackage;
+	let grandTotal = 0
 
 	const sutmitPayment = async (evt) => {
 		evt.preventDefault();
+		pricePackage = calcPrice.reduce((prev, current) => prev + current);
+		grandTotal = total + 500 + pricePackage;
 		const cardElement = elements.getElement("card");
 		handleChangeState(
 			2,
 			stage.billingAddress,
 			stage.shippingAddress,
-			stage.pasteInfo,
+			stage.pasteInfo
 		);
 
 		apiInstance
@@ -106,19 +108,18 @@ function Payment({ handleChangeState, stage }) {
 							.then(({ paymentIntent }) => {
 								const configOrder = {
 									subtotal: total,
+									packagingPrice: pricePackage,
+									grandTotal: grandTotal,
 									orderItems: cartItems.map((item) => {
-										const { documentId, productName, productPrice, quantity } =
+										const { documentId, productName, price, quantity } =
 											item;
-
 										return {
 											documentId,
 											productName,
-											productPrice,
+											price,
 											quantity,
 										};
 									}),
-									packagingPrice: pricePackage,
-									grandTotal: grandTotal,
 								};
 
 								dispatch(saveOrderHistory(configOrder));
