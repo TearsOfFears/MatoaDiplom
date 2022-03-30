@@ -8,7 +8,8 @@ import {
 	TableRow,
 	TableCell,
 } from "@material-ui/core";
-
+import { LazyLoadImage } from "react-lazy-load-image-component";
+import "react-lazy-load-image-component/src/effects/blur.css";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
@@ -39,21 +40,6 @@ const styles = {
 	fontSize: "16px",
 	width: "10%",
 };
-const formatText = (columnName, columnVal) => {
-	switch (columnName) {
-		case `productName`:
-			return `${columnVal}`;
-		case `productThumbnail`:
-			return <img src={columnVal} />;
-		case `quantity`:
-			return `${columnVal} од.`;
-		case `price`:
-			return `${columnVal} грн.`;
-
-		default:
-			return columnVal;
-	}
-};
 
 const OrderDetails = ({ order }) => {
 	const navigate = useNavigate();
@@ -64,9 +50,9 @@ const OrderDetails = ({ order }) => {
 			dispatch(setOrderDetailsStart({}));
 		};
 	}, []);
-const handleBack = ()=>{
-	navigate('/dashboard');
-}
+	const handleBack = () => {
+		navigate("/dashboard");
+	};
 	return (
 		<div>
 			<TableContainer>
@@ -86,19 +72,15 @@ const handleBack = ()=>{
 						{Array.isArray(orderItems) &&
 							orderItems.length > 0 &&
 							orderItems.map((row, pos) => {
-								const { documentID } = row;
+								const { documentID, productThumbnail } = row;
 								return (
 									<TableRow key={pos}>
-										{columns.map((column, pos) => {
-											const columnName = column.id;
-											const colValue = row[columnName];
-											const formatedText = formatText(columnName, colValue);
-											return (
-												<TableCell key={pos} style={styles}>
-													{formatedText}
-												</TableCell>
-											);
-										})}
+										<TableCell>			<LazyLoadImage
+												effect="blur"
+												useIntersectionObserver={true}
+												src={productThumbnail[0]}
+												wrapperClassName="text-center"
+											/></TableCell>
 									</TableRow>
 								);
 							})}

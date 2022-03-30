@@ -36,20 +36,30 @@ const formatText = (columnName, columnVal) => {
 		case `orderTotal`:
 			return `${columnVal} грн`;
 		case `orderCreated`:
-			return moment(columnVal.nano).format("DD.MM.YYYY"); 
+			return moment(columnVal.nano).format("DD.MM.YYYY");
 		default:
 			return columnVal;
 	}
 };
+const calcDate = (data) => {
+	let myDate = new Date(
+		data.seconds * 1000 + data.nanoseconds / 1000000
+	);
+	let formatedTime = myDate.toJSON();
+	let localDate = new Date(formatedTime);
+	let test = moment(localDate).format("DD.MM.YYYY, HH:mm:ss ");
+	return test;
+};
+
 const RenderOrderHistory = ({ orders }) => {
 	const navigate = useNavigate();
 	console.log(orders);
 	return (
 		<div className="d-flex flex-row mt-5 mb-5">
 			<VerticalNav />
-			
+
 			<TableContainer>
-			<h1>Замовлення</h1>
+				<h1>Замовлення</h1>
 				<Table>
 					<TableHead>
 						<TableRow>
@@ -67,29 +77,22 @@ const RenderOrderHistory = ({ orders }) => {
 						{Array.isArray(orders) &&
 							orders.length > 0 &&
 							orders.map((row, pos) => {
-								const { documentID } = row;
+								const { documentID, grandTotal, orderCreated } = row;
+
 								return (
 									<TableRow
 										key={pos}
 										onClick={() => navigate(`/order/${documentID}`)}
 									>
-										{colums.map((column, pos) => {
-											const columnName = column.id;
-											const columnVal = row[columnName];
-											const formatedText = formatText(columnName, columnVal);
-											return (
-												<TableCell key={pos} style={styles}>
-													{formatedText}
-												</TableCell>
-											);
-										})}
+										<TableCell align="left">{calcDate(orderCreated)}</TableCell>
+										<TableCell align="left">{documentID}</TableCell>
+										<TableCell align="left">{grandTotal} грн.</TableCell>
 									</TableRow>
 								);
 							})}
 					</TableBody>
 				</Table>
 			</TableContainer>
-		
 		</div>
 	);
 };

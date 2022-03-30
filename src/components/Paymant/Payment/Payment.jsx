@@ -111,10 +111,11 @@ function Payment({ handleChangeState, stage }) {
 									packagingPrice: pricePackage,
 									grandTotal: grandTotal,
 									orderItems: cartItems.map((item) => {
-										const { documentId, productName, price, quantity } =
+										const { documentId, productName,productThumbnail, price, quantity } =
 											item;
 										return {
 											documentId,
+											productThumbnail,
 											productName,
 											price,
 											quantity,
