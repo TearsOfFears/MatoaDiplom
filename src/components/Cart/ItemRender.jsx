@@ -86,9 +86,10 @@ const ItemRender = (product) => {
 		dispatch(setPackaging({ packageType, documentId }));
 	};
 
-	useEffect(() => {
-		handleSetPackaging();
-	}, []);
+	// useEffect(() => {
+	// 	handleSetPackaging();
+	// }, []);
+
 	return (
 		<div className="cart-item" key={documentId}>
 			<div className="img-title">
@@ -115,8 +116,10 @@ const ItemRender = (product) => {
 							defaultOptions
 							styles={colourStyles}
 							clearable={false}
+							isSearchable={false}
 							defaultValue={{ label: "Виберіть упаковку", value: 0 }}
 							onChange={(evt) => handleSetPackaging(evt, documentId)}
+							required
 						/>
 					</div>
 					<div className="block-increase-price">

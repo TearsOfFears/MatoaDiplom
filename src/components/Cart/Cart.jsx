@@ -21,13 +21,15 @@ function Cart() {
 	const { cartItems, total } = useSelector(mapState);
 	const [state, setState] = useState(false);
 
-	useEffect(() => {
-		if (JSON.stringify(cartItems).indexOf("packageType") > -1) {
-			setState(true);
-		} else {
-			setState(false);
-		}
-	}, [cartItems]);
+	// useEffect(() => {
+	// 	if (JSON.stringify(cartItems).indexOf("packageType") > -1) {
+	// 		setState(true);
+	// 	} else {
+	// 		setState(false);
+	// 	}
+	// }, [cartItems]);
+
+	// console.log(JSON.stringify(cartItems));
 
 	return (
 		<section className="cart ">
@@ -36,7 +38,7 @@ function Cart() {
 					cartItems.map((item, ind) => {
 						return <ItemRender {...item} key={ind} />;
 					}),
-					<div className="wrapper-checkout mt-4">
+					<div className="wrapper-checkout mt-4" key={0}>
 						<div className="total">
 							<h1>Підсумок:</h1>
 							<p>{total} грн.</p>
@@ -54,16 +56,15 @@ function Cart() {
 							<Link to="/products" className="btn-read w-40 text-center">
 								Продовжити покупки
 							</Link>
-							{state && (
-								<Link to="/payment" className="btn-read w-40 text-center">
-									Пітвердити замовлення
-								</Link>
-							)}
+
+							<Link to="/payment" className="btn-read w-40 text-center">
+								Пітвердити замовлення
+							</Link>
 						</div>
 					</div>,
 				]
 			) : (
-				<p>Немає нічого у вашій корзині</p>
+				<p key={1}>Немає нічого у вашій корзині</p>
 			)}
 		</section>
 	);

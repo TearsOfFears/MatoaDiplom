@@ -98,9 +98,13 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 		) {
 			return;
 		}
+
+		// if (
+
+		// )
+		// 	return
 	};
 	const handleShipping = (evt) => {
-		//console.log(evt.target);
 		const { name, value } = evt.target;
 		setShippingAddress({
 			...shippingAddress,
@@ -109,7 +113,6 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	};
 
 	const handleBilling = (evt) => {
-		//console.log(evt.target);
 		const { name, value } = evt.target;
 		setBillingAdress({
 			...billingAddress,
@@ -161,7 +164,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 
 	return (
 		<div>
-			<form onSubmit={handleFormSubmit} validate>
+			<form onSubmit={handleFormSubmit}>
 				<div className="col-12">
 					<div className="col-6">
 						<h2>Shipping address</h2>
@@ -205,6 +208,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 
 							<CountrySelect name="State">
 								<RegionDropdown
+									required
 									name="state"
 									countryValueType="short"
 									country={shippingAddress.country}
@@ -234,6 +238,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 
 							<CountrySelect name="Phone">
 								<PhoneInput
+									required
 									country={shippingAddress.country.toLowerCase()}
 									defaultCountry={"us"}
 									value={phone}
@@ -292,6 +297,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 
 							<CountrySelect name="State">
 								<RegionDropdown
+									required
 									name="state"
 									countryValueType="short"
 									country={billingAddress.country}
@@ -321,15 +327,18 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 						</div>
 					</div>
 				</div>
-
-				<ButtonForm
-					type="submit"
-					onClick={(e) =>
-						handleChangeState(1, billingAddress, shippingAddress, pasteInfo)
-					}
-				>
-					Перейти дальше
-				</ButtonForm>
+				{!Object.values(shippingAddress).includes("") &&
+				!Object.values(billingAddress).includes("") &&
+				!Object.values(initalPasteInfo).includes("") ? (
+					<ButtonForm
+						type="submit"
+						onClick={(e) =>
+							handleChangeState(1, billingAddress, shippingAddress, pasteInfo)
+						}
+					>
+						Перейти дальше
+					</ButtonForm>
+				) : null}
 			</form>
 		</div>
 	);

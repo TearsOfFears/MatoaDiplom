@@ -52,20 +52,12 @@ const ProductSection = (product) => {
 													key={id}
 													effect="blur"
 													useIntersectionObserver={true}
-													//placeholder={<Loader />}
 													src={link}
 													width="180px"
-													
+								
 													wrapperClassName="text-center"
 													onClick={(e) => getLink(link)}
 												/>
-												// <img
-												// 	src={link}
-												// 	key={id}
-												// 	alt="link"
-												// 	className=""
-
-												// />
 											);
 										})}
 								</div>
