@@ -10,6 +10,7 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Select, { StylesConfig } from "react-select";
 import "./style.scss";
+import { useEffect } from "react";
 
 const ItemRender = (product) => {
 	const dispatch = useDispatch();
@@ -83,9 +84,11 @@ const ItemRender = (product) => {
 
 	const handleSetPackaging = (packageType, documentId) => {
 		dispatch(setPackaging({ packageType, documentId }));
-
 	};
-	
+
+	useEffect(() => {
+		handleSetPackaging();
+	}, []);
 	return (
 		<div className="cart-item" key={documentId}>
 			<div className="img-title">
@@ -108,11 +111,11 @@ const ItemRender = (product) => {
 					<div className="selectPackage">
 						<h4 style={{ paddingBottom: "10px" }}>Виберіть упаковку:</h4>
 						<Select
-							required
 							options={options}
-							defaultValue={options[0]}
+							defaultOptions
 							styles={colourStyles}
-							placeholder="Select"
+							clearable={false}
+							defaultValue={{ label: "Виберіть упаковку", value: 0 }}
 							onChange={(evt) => handleSetPackaging(evt, documentId)}
 						/>
 					</div>

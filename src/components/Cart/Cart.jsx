@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { useSelector } from "react-redux";
 
 import { selectCartItems } from "../../redux/Carts/cart.selectors";
@@ -19,6 +19,15 @@ const mapState = createStructuredSelector({
 function Cart() {
 	const navigate = useNavigate();
 	const { cartItems, total } = useSelector(mapState);
+	const [state, setState] = useState(false);
+
+	useEffect(() => {
+		if (JSON.stringify(cartItems).indexOf("packageType") > -1) {
+			setState(true);
+		} else {
+			setState(false);
+		}
+	}, [cartItems]);
 
 	return (
 		<section className="cart ">
@@ -45,9 +54,11 @@ function Cart() {
 							<Link to="/products" className="btn-read w-40 text-center">
 								Продовжити покупки
 							</Link>
-							<Link to="/payment" className="btn-read w-40 text-center">
-								Пітвердити замовлення
-							</Link>
+							{state && (
+								<Link to="/payment" className="btn-read w-40 text-center">
+									Пітвердити замовлення
+								</Link>
+							)}
 						</div>
 					</div>,
 				]
