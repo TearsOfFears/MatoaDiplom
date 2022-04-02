@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import "./style.scss";
 import {
 	CardElement,
@@ -17,6 +17,9 @@ import { apiInstance } from "./../../../utils/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { saveOrderHistory } from "../../../redux/Orders/orders.actions";
 import { ButtonForm } from "../..";
+import ModalError from "../../ModalError/ModalError";
+import { Button } from "@material-ui/core";
+
 const mapState = ({ user, cartData }) => ({
 	currentUser: user.currentUser,
 	cartDataAll: cartData.cartItems,
@@ -37,6 +40,7 @@ function Payment({ handleChangeState, stage }) {
 	const [isProcessing, setProcessingTo] = useState(false);
 	const [checkoutError, setCheckoutError] = useState();
 	const stripe = useStripe();
+	const [hideModal, setHideModal] = useState(true);
 
 	const configCardElement = {
 		iconStyle: "solid",
@@ -71,72 +75,64 @@ function Payment({ handleChangeState, stage }) {
 		evt.preventDefault();
 		setProcessingTo(true);
 		const cardElement = elements.getElement("card");
-	
-			const { data: clientSecret } = await apiInstance.post(
-				"/payments/create",
-				{
-					amount: grandTotal,
-					shipping: {
-						name: stage.pasteInfo.recipientName,
-						phone: stage.pasteInfo.phone,
-						address: {
-							...stage.shippingAddress,
-						},
-					},
-				}
-			);
 
-			const paymentMethodReq = await stripe.createPaymentMethod({
-				type: "card",
-				card: cardElement,
-				billing_details: {
-					name: stage.pasteInfo.nameOnCard,
-					email: currentUser.email,
-					phone: stage.pasteInfo.phone,
-					address: {
-						...stage.billingAddress,
-					},
+		const { data: clientSecret } = await apiInstance.post("/payments/create", {
+			amount: grandTotal,
+			shipping: {
+				name: stage.pasteInfo.recipientName,
+				phone: stage.pasteInfo.phone,
+				address: {
+					...stage.shippingAddress,
 				},
-			});
+			},
+		});
 
-			if (paymentMethodReq.error) {
-				setCheckoutError(paymentMethodReq.error.message);
-				setProcessingTo(false);
-				return;
-			}
-			const { error } = await stripe.confirmCardPayment(clientSecret, {
-				payment_method: paymentMethodReq.paymentMethod.id,
-			});
+		const paymentMethodReq = await stripe.createPaymentMethod({
+			type: "card",
+			card: cardElement,
+			billing_details: {
+				name: stage.pasteInfo.nameOnCard,
+				email: currentUser.email,
+				phone: stage.pasteInfo.phone,
+				address: {
+					...stage.billingAddress,
+				},
+			},
+		});
 
-			if (error) {
-				setCheckoutError(error.message);
-				setProcessingTo(false);
-				return;
-			} else {
-				const configOrder = {
-					subtotal: total,
-					packagingPrice: pricePackage,
-					grandTotal: grandTotal,
-					orderItems: cartItems.map((item) => {
-						const {
-							documentId,
-							productName,
-							productThumbnail,
-							price,
-							quantity,
-						} = item;
-						return {
-							documentId,
-							productThumbnail,
-							productName,
-							price,
-							quantity,
-						};
-					}),
-				};
-				dispatch(saveOrderHistory(configOrder));
-			}
-		
+		if (paymentMethodReq.error) {
+			setCheckoutError(paymentMethodReq.error.message);
+			setProcessingTo(false);
+			return;
+		}
+		const { error } = await stripe.confirmCardPayment(clientSecret, {
+			payment_method: paymentMethodReq.paymentMethod.id,
+		});
+
+		if (error) {
+			setCheckoutError(error.message);
+			setProcessingTo(false);
+			return;
+		} else {
+			const configOrder = {
+				subtotal: total,
+				packagingPrice: pricePackage,
+				grandTotal: grandTotal,
+				orderItems: cartItems.map((item) => {
+					const { documentId, productName, productThumbnail, price, quantity } =
+						item;
+					return {
+						documentId,
+						productThumbnail,
+						productName,
+						price,
+						quantity,
+					};
+				}),
+			};
+			dispatch(saveOrderHistory(configOrder));
+		}
+
 		if (isProcessing) {
 			handleChangeState(
 				2,
@@ -146,10 +142,25 @@ function Payment({ handleChangeState, stage }) {
 			);
 		}
 	};
-	console.log(checkoutError);
 
+	useEffect(() => {
+		if (checkoutError) {
+			console.log(checkoutError);
+			setHideModal(!hideModal);
+		}
+	}, [checkoutError]);
+	const configModal = {
+		hideModal,
+		setHideModal,
+		isProcessing,
+		checkoutError,
+		setCheckoutError
+	};
+	console.log(checkoutError);
 	return (
 		<div className="container payment">
+			<ModalError {...configModal} />
+
 			<div className="col-12 d-flex flex-row">
 				<div className="col-6 bg-white">
 					<h1>Detail Order</h1>
@@ -157,13 +168,13 @@ function Payment({ handleChangeState, stage }) {
 						<div className="wrapper-detail__headers_1">
 							<h3>Subtotal</h3>
 							<h3>Shipping Cost</h3>
-							<h3>Promo Code</h3>
+
 							<h3>Packaging</h3>
 						</div>
 						<div className="wrapper-detail__headers_2">
 							<h3>{total} грн.</h3>
 							<h3> 500 грн.</h3>
-							<h3>INDONESIA</h3>
+
 							<h3>{pricePackage} грн.</h3>
 						</div>
 					</div>
@@ -248,6 +259,7 @@ function Payment({ handleChangeState, stage }) {
 								onChange={handleCardDetailsChange}
 							/>
 						</div>
+
 						<ButtonForm type="submit" disabled={isProcessing || !stripe}>
 							{isProcessing ? "Йде оплата..." : `Оплатити`}
 						</ButtonForm>

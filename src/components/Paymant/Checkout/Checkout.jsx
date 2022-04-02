@@ -220,7 +220,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								/>
 							</CountrySelect>
 							<div className="d-flex flex-row justify-content-between">
-								<div className="w-50">
+								<div className="w-45">
 									<FormInputPayment
 										required
 										type="text"
@@ -228,20 +228,20 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 										value={shippingAddress.city}
 										name="city"
 										Label="City"
-										className="w-100"
 										handleChange={(evt) => handleShipping(evt)}
 									/>
 								</div>
-
-								<FormInputPayment
-									required
-									type="text"
-									placeholder="PostalCode"
-									value={shippingAddress.postal_code}
-									name="postal_code"
-									Label="Postal Code"
-									handleChange={(evt) => handleShipping(evt)}
-								/>
+								<div className="w-45">
+									<FormInputPayment
+										required
+										type="text"
+										placeholder="PostalCode"
+										value={shippingAddress.postal_code}
+										name="postal_code"
+										Label="Postal Code"
+										handleChange={(evt) => handleShipping(evt)}
+									/>
+								</div>
 							</div>
 
 							<CountrySelect name="Phone">
