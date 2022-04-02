@@ -38,7 +38,7 @@ const mapState = createStructuredSelector({
 const PaymantDetails = () => {
 	const stripe = useStripe();
 	const elements = useElements();
-
+	const navigate = useNavigate();
 	const stageArr = [
 		{
 			icon: <CheckoutIcon />,
@@ -64,13 +64,32 @@ const PaymantDetails = () => {
 	const [stage, setStage] = useState({ ...configStage });
 
 	const handleChangeState = (key, objBiling, objShipping, pasteInfo) => {
-		setStage({
-			...configStage,
-			index: key,
-			billingAddress: objBiling,
-			shippingAddress: objShipping,
-			pasteInfo: pasteInfo,
-		});
+		console.log(Object.keys(objBiling).length === 0);
+		if (
+			Object.keys(objBiling).length === 0 &&
+			Object.keys(objShipping).length === 0 &&
+			Object.keys(pasteInfo).length === 0
+		) {
+			console.log("false");
+			console.log(objBiling);
+			console.log(objShipping);
+			setStage({
+				...configStage,
+				index: 0,
+				billingAddress: objBiling,
+				shippingAddress: objShipping,
+				pasteInfo: pasteInfo,
+			});
+		}else 
+		{
+			setStage({
+				...configStage,
+				index: key,
+				billingAddress: objBiling,
+				shippingAddress: objShipping,
+				pasteInfo: pasteInfo,
+			});
+		}
 	};
 
 	const configDetails = {
@@ -103,7 +122,8 @@ const PaymantDetails = () => {
 								handleChangeState(
 									key,
 									stage.billingAddress,
-									stage.shippingAddress
+									stage.shippingAddress,
+									stage.pasteInfo
 								)
 							}
 						>

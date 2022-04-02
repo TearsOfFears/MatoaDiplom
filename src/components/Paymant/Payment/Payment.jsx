@@ -17,7 +17,6 @@ import { apiInstance } from "./../../../utils/utils";
 import { useSelector, useDispatch } from "react-redux";
 import { saveOrderHistory } from "../../../redux/Orders/orders.actions";
 import { ButtonForm } from "../..";
-
 const mapState = ({ user, cartData }) => ({
 	currentUser: user.currentUser,
 	cartDataAll: cartData.cartItems,
@@ -35,6 +34,8 @@ function Payment({ handleChangeState, stage }) {
 	const dispatch = useDispatch();
 	const { currentUser, cartDataAll } = useSelector(mapState);
 	const { total, itemCount, cartItems, calcPrice } = useSelector(mapStateItems);
+	const [isProcessing, setProcessingTo] = useState(false);
+	const [checkoutError, setCheckoutError] = useState();
 	const stripe = useStripe();
 
 	const configCardElement = {
@@ -58,81 +59,94 @@ function Payment({ handleChangeState, stage }) {
 		postal_code,
 	} = stage.shippingAddress || {};
 
-	let pricePackage = calcPrice.reduce((prev, current) => prev + current);
-	console.log(cartItems);
-
+	let pricePackage = calcPrice.reduce((prev, current) => prev + current, 0);
+	const handleCardDetailsChange = (ev) => {
+		ev.error ? setCheckoutError(ev.error.message) : setCheckoutError();
+	};
 	let grandTotal = total + 500 + pricePackage;
+
+	const { email } = currentUser || {};
 
 	const sutmitPayment = async (evt) => {
 		evt.preventDefault();
-
+		setProcessingTo(true);
 		const cardElement = elements.getElement("card");
-		handleChangeState(
-			2,
-			stage.billingAddress,
-			stage.shippingAddress,
-			stage.pasteInfo
-		);
+	
+			const { data: clientSecret } = await apiInstance.post(
+				"/payments/create",
+				{
+					amount: grandTotal,
+					shipping: {
+						name: stage.pasteInfo.recipientName,
+						phone: stage.pasteInfo.phone,
+						address: {
+							...stage.shippingAddress,
+						},
+					},
+				}
+			);
 
-		apiInstance
-			.post("/payments/create", {
-				amount: total,
-				shipping: {
-					name: stage.pasteInfo.recipientName,
+			const paymentMethodReq = await stripe.createPaymentMethod({
+				type: "card",
+				card: cardElement,
+				billing_details: {
+					name: stage.pasteInfo.nameOnCard,
+					email: currentUser.email,
+					phone: stage.pasteInfo.phone,
 					address: {
-						...stage.shippingAddress,
+						...stage.billingAddress,
 					},
 				},
-			})
-			.then(({ data: clientSecret }) => {
-				stripe
-					.createPaymentMethod({
-						type: "card",
-						card: cardElement,
-						billing_details: {
-							name: stage.pasteInfo.nameOnCard,
-							email: currentUser.email,
-							phone: stage.pasteInfo.phone,
-							address: {
-								...stage.billingAddress,
-							},
-						},
-						//customer: currentUser.displayName,
-					})
-					.then(({ paymentMethod }) => {
-						console.log(paymentMethod);
-						stripe
-							.confirmCardPayment(clientSecret, {
-								payment_method: paymentMethod.id,
-							})
-							.then(({ paymentIntent }) => {
-								const configOrder = {
-									subtotal: total,
-									packagingPrice: pricePackage,
-									grandTotal: grandTotal,
-									orderItems: cartItems.map((item) => {
-										const {
-											documentId,
-											productName,
-											productThumbnail,
-											price,
-											quantity,
-										} = item;
-										return {
-											documentId,
-											productThumbnail,
-											productName,
-											price,
-											quantity,
-										};
-									}),
-								};
-
-								dispatch(saveOrderHistory(configOrder));
-							});
-					});
 			});
+
+			if (paymentMethodReq.error) {
+				setCheckoutError(paymentMethodReq.error.message);
+				setProcessingTo(false);
+				return;
+			}
+			const { error } = await stripe.confirmCardPayment(clientSecret, {
+				payment_method: paymentMethodReq.paymentMethod.id,
+			});
+
+			if (error) {
+				setCheckoutError(error.message);
+				setProcessingTo(false);
+				return;
+			} else {
+				const configOrder = {
+					subtotal: total,
+					packagingPrice: pricePackage,
+					grandTotal: grandTotal,
+					orderItems: cartItems.map((item) => {
+						const {
+							documentId,
+							productName,
+							productThumbnail,
+							price,
+							quantity,
+						} = item;
+						return {
+							documentId,
+							productThumbnail,
+							productName,
+							price,
+							quantity,
+						};
+					}),
+				};
+				dispatch(saveOrderHistory(configOrder));
+			}
+		
+		if (isProcessing) {
+			handleChangeState(
+				2,
+				stage.billingAddress,
+				stage.shippingAddress,
+				stage.pasteInfo
+			);
+		}
 	};
+	console.log(checkoutError);
 
 	return (
 		<div className="container payment">
@@ -207,7 +221,7 @@ function Payment({ handleChangeState, stage }) {
 									<h4>Phone</h4>
 								</div>
 								<div className="infoOrder">
-									<h4>{phoneNumber}</h4>
+									<h4>{stage.pasteInfo.phone}</h4>
 								</div>
 							</div>
 							<div className="wrapper-detail__headers_1">
@@ -215,7 +229,7 @@ function Payment({ handleChangeState, stage }) {
 									<h4>Email</h4>
 								</div>
 								<div className="infoOrder">
-									<h4>{currentUser.email}</h4>
+									<h4>{email}</h4>
 								</div>
 							</div>
 							<div className="wrapper-detail__headers_1">
@@ -229,9 +243,14 @@ function Payment({ handleChangeState, stage }) {
 									</h4>
 								</div>
 							</div>
-							<CardElement options={configCardElement} />
+							<CardElement
+								options={configCardElement}
+								onChange={handleCardDetailsChange}
+							/>
 						</div>
-						<ButtonForm type="submit">Оплатити</ButtonForm>
+						<ButtonForm type="submit" disabled={isProcessing || !stripe}>
+							{isProcessing ? "Йде оплата..." : `Оплатити`}
+						</ButtonForm>
 					</form>
 				</div>
 			</div>

@@ -55,7 +55,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const { total, itemCount, cartItems } = useSelector(mapState);
-
+	const [show, setShow] = useState(false);
 	const [billingAddress, setBillingAdress] = useState({
 		...initialAddressState,
 	});
@@ -71,14 +71,12 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	const [nameOnCard, setnameOnCard] = useState("");
 	const [phone, setPhone] = useState("");
 
-	console.log("recipientName", recipientName);
-
 	useEffect(() => {
 		if (itemCount < 1) {
 			navigate("/dashboard");
 		}
 	}, [itemCount]);
-	console.log(shippingAddress);
+
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 		const cardElement = elements.getElement("card");
@@ -98,11 +96,6 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 		) {
 			return;
 		}
-
-		// if (
-
-		// )
-		// 	return
 	};
 	const handleShipping = (evt) => {
 		const { name, value } = evt.target;
@@ -161,6 +154,16 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			["phone"]: `+${val}`,
 		});
 	};
+	useEffect(() => {
+		if (
+			!Object.values(shippingAddress).includes("") &&
+			!Object.values(billingAddress).includes("")
+		) {
+			setShow(true);
+		} else {
+			setShow(false);
+		}
+	}, [shippingAddress, billingAddress]);
 
 	return (
 		<div>
@@ -216,25 +219,30 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 									onChange={(val) => selectState(val)}
 								/>
 							</CountrySelect>
+							<div className="d-flex flex-row justify-content-between">
+								<div className="w-50">
+									<FormInputPayment
+										required
+										type="text"
+										placeholder="City"
+										value={shippingAddress.city}
+										name="city"
+										Label="City"
+										className="w-100"
+										handleChange={(evt) => handleShipping(evt)}
+									/>
+								</div>
 
-							<FormInputPayment
-								required
-								type="text"
-								placeholder="City"
-								value={shippingAddress.city}
-								name="city"
-								Label="City"
-								handleChange={(evt) => handleShipping(evt)}
-							/>
-							<FormInputPayment
-								required
-								type="text"
-								placeholder="PostalCode"
-								value={shippingAddress.postal_code}
-								name="postal_code"
-								Label="Postal Code"
-								handleChange={(evt) => handleShipping(evt)}
-							/>
+								<FormInputPayment
+									required
+									type="text"
+									placeholder="PostalCode"
+									value={shippingAddress.postal_code}
+									name="postal_code"
+									Label="Postal Code"
+									handleChange={(evt) => handleShipping(evt)}
+								/>
+							</div>
 
 							<CountrySelect name="Phone">
 								<PhoneInput
@@ -327,9 +335,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 						</div>
 					</div>
 				</div>
-				{!Object.values(shippingAddress).includes("") &&
-				!Object.values(billingAddress).includes("") &&
-				!Object.values(initalPasteInfo).includes("") ? (
+				{show && (
 					<ButtonForm
 						type="submit"
 						onClick={(e) =>
@@ -338,7 +344,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 					>
 						Перейти дальше
 					</ButtonForm>
-				) : null}
+				)}
 			</form>
 		</div>
 	);

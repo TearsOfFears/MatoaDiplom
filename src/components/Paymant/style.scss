@@ -15,14 +15,14 @@
         .col-12 {
             display: flex;
             flex-direction: row;
-            align-items: center;
-            justify-content: center;
 
+            justify-content: center;
+            align-items: stretch;
             .col-6 {
                 background-color: $white;
                 padding: 20px;
                 margin: 15px;
-
+                height: auto;
                 h1 {
                     margin-bottom: 40px;
                 }
@@ -39,7 +39,9 @@
             align-items: center;
             justify-content: center;
             padding: 10px;
-
+            &:hover{
+                cursor: pointer;
+            }
             img {
                 width: 60px;
             }

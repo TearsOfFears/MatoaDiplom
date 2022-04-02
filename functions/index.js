@@ -31,7 +31,11 @@ app.post('/payments/create', async (req, res) => {
   }
 })
 
-app.get('*', (req, res) => {
+app.get('/payments/create', (req, res) => {
+  // const { amount, shipping } = req.body;
+  // res 
+  // .status(200)
+  // .send(shipping)
   res
     .status(404)
     .send('404, Not Found.');
