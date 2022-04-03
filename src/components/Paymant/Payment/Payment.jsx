@@ -15,7 +15,7 @@ import {
 import { createStructuredSelector } from "reselect";
 import { apiInstance } from "./../../../utils/utils";
 import { useSelector, useDispatch } from "react-redux";
-import { saveOrderHistory } from "../../../redux/Orders/orders.actions";
+import { getUserOrderHistory, saveOrderHistory } from "../../../redux/Orders/orders.actions";
 import { ButtonForm } from "../..";
 import ModalError from "../../ModalError/ModalError";
 import { Button } from "@material-ui/core";
@@ -134,6 +134,7 @@ function Payment({ handleChangeState, stage }) {
 				}),
 			};
 			dispatch(saveOrderHistory(configOrder));
+			dispatch(getUserOrderHistory(currentUser.id));
 		}
 
 		if (!isProcessing) {

@@ -33,7 +33,7 @@ const mapState = ({ user, cartData, ordersData }) => ({
 	orderHistoryLast: ordersData.ordersHistory.data,
 });
 
-function Confirmation({ handleChangeState, stage, setStage }) {
+const Confirmation = ({ handleChangeState, stage, setStage }) => {
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const [lastElement, setLastElement] = useState({ ...objDefault });
@@ -45,15 +45,12 @@ function Confirmation({ handleChangeState, stage, setStage }) {
 
 	useEffect(() => {
 		if (stage.index === 2) {
-			dispatch(getUserOrderHistory(currentUser.id));
-			console.log("true");
 			if (typeof orderHistoryLast !== "undefined") {
 				let lastElementCurent = orderHistoryLast[orderHistoryLast.length - 1];
-				console.log(lastElementCurent);
 				setLastElement({ ...lastElementCurent });
 			}
 		}
-	}, [stage]);
+	}, [orderHistoryLast]);
 
 	return (
 		<div className="container confirmation">
@@ -135,6 +132,6 @@ function Confirmation({ handleChangeState, stage, setStage }) {
 			</div>
 		</div>
 	);
-}
+};
 
 export default Confirmation;
