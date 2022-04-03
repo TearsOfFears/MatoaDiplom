@@ -1,0 +1,119 @@
+@import "./../../../scss/componentstyles/utils/variables.scss";
+
+.confirmation{
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content:space-between;
+        .col-6 {
+            padding: 24px 32px;
+            margin-bottom: 80px;
+            
+            h2{
+                font-family: Taviraj;
+                font-size: 24px;
+                font-weight: 500;
+                line-height: 1.33;
+                letter-spacing: 0.48px;
+                color: $black;
+            }
+            h3 {
+                font-family: Nunito;
+                font-size: 16px;
+                line-height: 1.5;
+                letter-spacing: 0.32px;
+                color: $black;
+            }
+    
+            .wrapper-detail {
+                display: flex;
+                flex-direction: row;
+                align-items: flex-start;
+                justify-content: space-between;
+            }
+    
+            .wrapper-detail__headers_1,
+            .wrapper-detail__headers_2 {
+                display: flex;
+                flex-direction: column;
+                h4 {
+                    font-family: Taviraj;
+                    font-size: 22px;
+                    font-weight: normal;
+                    font-stretch: normal;
+                    font-style: normal;
+                    line-height: 1.6;
+                    letter-spacing: 0.4px;
+                    text-align: left;
+                    color: $black;
+                }
+                p{
+                    font-size: 16px;
+                    letter-spacing: 0.32px;
+                    color: #777;
+                }
+                .infoOrder{
+                    ul{
+                        list-style-type: none;
+                        padding: 0;
+                        margin: 0;
+                        li{
+                            h4,p{
+                                margin: 0;
+                            }
+                        }
+    
+                    }
+                }
+            }
+    
+            .wrapper-detail__headers_1 {
+                flex: 0 0 250px;
+            }
+    
+            .wrapper-detail__headers_2 {
+                flex: 1 1 auto;
+            }
+        }
+    
+        .wrapper-detail-total {
+            display: flex;
+            flex-direction: row;
+            border-top: 1px solid $black;
+            padding-top: 25px;
+        }
+        .wrapper-detail-order{
+            width: 100%;
+            .wrapper-detail__headers_1,
+            .wrapper-detail__headers_2 {
+                display: flex;
+                flex-direction: column;
+                
+                h3 {
+                    font-family: Taviraj;
+                    font-size: 24px;
+                    font-weight: 800;
+                    line-height: 2;
+                    letter-spacing: 0.72px;
+                    color: $black;
+                }
+    
+                h4 {
+                    font-family: Taviraj;
+                    font-size: 20px;
+                    line-height: 1.6;
+                    letter-spacing: 0.4px;
+                    font-weight: 600;
+                    color: $black;
+                }
+                p{
+                    font-family: Nunito;
+  font-size: 16px;
+
+  line-height: 2;
+  letter-spacing: 0.32px;
+  color: $black;
+                }
+            }
+        }
+}

@@ -71,11 +71,11 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	const [nameOnCard, setnameOnCard] = useState("");
 	const [phone, setPhone] = useState("");
 
-	useEffect(() => {
-		if (itemCount < 1) {
-			navigate("/dashboard");
-		}
-	}, [itemCount]);
+	// useEffect(() => {
+	// 	if (itemCount < 1) {
+	// 		navigate("/dashboard");
+	// 	}
+	// }, [itemCount]);
 
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
@@ -234,7 +234,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								<div className="w-45">
 									<FormInputPayment
 										required
-										type="text"
+										type="number"
 										placeholder="PostalCode"
 										value={shippingAddress.postal_code}
 										name="postal_code"
@@ -325,7 +325,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 							/>
 							<FormInputPayment
 								required
-								type="text"
+								type="number"
 								placeholder="PostalCode"
 								value={billingAddress.postal_code}
 								name="postal_code"
@@ -335,16 +335,16 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 						</div>
 					</div>
 				</div>
-				{show && (
-					<ButtonForm
-						type="submit"
-						onClick={(e) =>
-							handleChangeState(1, billingAddress, shippingAddress, pasteInfo)
-						}
-					>
-						Перейти дальше
-					</ButtonForm>
-				)}
+				<ButtonForm
+					style="mb-5"
+					type="submit"
+					disabled={!show}
+					onClick={(e) =>
+						handleChangeState(1, billingAddress, shippingAddress, pasteInfo)
+					}
+				>
+					{show ? "Перейти дальше" : `Заповніть всі поля`}
+				</ButtonForm>
 			</form>
 		</div>
 	);

@@ -1,4 +1,4 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import "./style.scss";
 import {
 	CardElement,
@@ -64,6 +64,7 @@ function Payment({ handleChangeState, stage }) {
 	} = stage.shippingAddress || {};
 
 	let pricePackage = calcPrice.reduce((prev, current) => prev + current, 0);
+
 	const handleCardDetailsChange = (ev) => {
 		ev.error ? setCheckoutError(ev.error.message) : setCheckoutError();
 	};
@@ -118,6 +119,8 @@ function Payment({ handleChangeState, stage }) {
 				subtotal: total,
 				packagingPrice: pricePackage,
 				grandTotal: grandTotal,
+				shippingAddress: stage.shippingAddress,
+				billingAddress: stage.billingAddress,
 				orderItems: cartItems.map((item) => {
 					const { documentId, productName, productThumbnail, price, quantity } =
 						item;
@@ -133,7 +136,7 @@ function Payment({ handleChangeState, stage }) {
 			dispatch(saveOrderHistory(configOrder));
 		}
 
-		if (isProcessing) {
+		if (!isProcessing) {
 			handleChangeState(
 				2,
 				stage.billingAddress,
@@ -154,7 +157,7 @@ function Payment({ handleChangeState, stage }) {
 		setHideModal,
 		isProcessing,
 		checkoutError,
-		setCheckoutError
+		setCheckoutError,
 	};
 	console.log(checkoutError);
 	return (
@@ -191,14 +194,14 @@ function Payment({ handleChangeState, stage }) {
 					<h1>Order Detail</h1>
 					<form onSubmit={sutmitPayment}>
 						<div className="wrapper-detail-order">
-							<div className="wrapper-detail__headers_1">
+							{/* <div className="wrapper-detail__headers_1">
 								<div className="title">
 									<h4>Purchase Date</h4>
 								</div>
 								<div className="infoOrder">
 									<h4>2019-11-07 14:01:48</h4>
 								</div>
-							</div>
+							</div> */}
 							<div className="wrapper-detail__headers_1">
 								<div className="title">
 									<h4>Items</h4>

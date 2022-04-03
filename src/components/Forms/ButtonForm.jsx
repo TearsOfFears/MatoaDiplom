@@ -1,7 +1,7 @@
 import React from "react";
 
-const ButtonForm = ({ children, ...otherProps }) => {
-	return <button className="btn-read mb-5" {...otherProps}>
+const ButtonForm = ({ children,style, ...otherProps }) => {
+	return <button className={`${style} btn-read ` } {...otherProps}>
         {children}
     </button>;
 };

@@ -10,7 +10,7 @@ import {
 } from "@material-ui/core";
 import { Order } from "../../pages";
 import { Link, useNavigate } from "react-router-dom";
-import moment from "moment";
+import { formatDate } from "../../utils/utils";
 const colums = [
 	{
 		id: "orderCreated",
@@ -31,25 +31,7 @@ const styles = {
 	cursor: "pointer",
 	width: "10%",
 };
-const formatText = (columnName, columnVal) => {
-	switch (columnName) {
-		case `orderTotal`:
-			return `${columnVal} грн`;
-		case `orderCreated`:
-			return moment(columnVal.nano).format("DD.MM.YYYY");
-		default:
-			return columnVal;
-	}
-};
-const calcDate = (data) => {
-	let myDate = new Date(
-		data.seconds * 1000 + data.nanoseconds / 1000000
-	);
-	let formatedTime = myDate.toJSON();
-	let localDate = new Date(formatedTime);
-	let test = moment(localDate).format("DD.MM.YYYY, HH:mm:ss ");
-	return test;
-};
+
 
 const RenderOrderHistory = ({ orders }) => {
 	const navigate = useNavigate();
@@ -84,7 +66,7 @@ const RenderOrderHistory = ({ orders }) => {
 										key={pos}
 										onClick={() => navigate(`/order/${documentID}`)}
 									>
-										<TableCell align="left">{calcDate(orderCreated)}</TableCell>
+										<TableCell align="left">{formatDate(orderCreated)}</TableCell>
 										<TableCell align="left">{documentID}</TableCell>
 										<TableCell align="left">{grandTotal} грн.</TableCell>
 									</TableRow>
