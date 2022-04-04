@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
 	removeCartItem,
 	addProduct,
@@ -11,11 +11,22 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import Select, { StylesConfig } from "react-select";
 import "./style.scss";
 import { useEffect } from "react";
+import { createStructuredSelector } from "reselect";
+import { selectCartItemsValue } from "./../../redux/Carts/cart.selectors";
+
+const mapState = ({ user, cartData, ordersData }) => ({
+	currentUser: user.currentUser,
+	cartData: cartData.cartItems,
+	orderHistoryLast: ordersData.ordersHistory.data,
+});
+
 
 const ItemRender = (product) => {
 	const dispatch = useDispatch();
 
-	const { productThumbnail, productName, price, quantity, documentId } =
+	const { currentUser, cartData } = useSelector(mapState);
+
+	const { productThumbnail, productName, price, quantity, documentId,packageType } =
 		product;
 
 	const handleRemoveCurrentItem = (documentId) => {
@@ -30,7 +41,7 @@ const ItemRender = (product) => {
 		dispatch(reduceCartItem(product));
 	};
 
-	const [selectedOption, setSelectedOption] = useState("");
+	const [selectedOption, setSelectedOption] = useState([]);
 
 	const { value, label } = selectedOption;
 
@@ -40,13 +51,19 @@ const ItemRender = (product) => {
 			backgroundColor: "white",
 			width: "250px",
 			borderColor: isFocused ? "#d84727" : "#f7f6f4 ",
-			borderColor: isSelected ? "#f7f6f4" : "#d84727",
+			borderColor: isSelected ? "#d84727" : "#d84727",
 			boxShadow: "none",
+				"&:hover": {
+					// Overwrittes the different states of border
+					borderColor: isFocused ? "#d84727" : "#d84727"
+				  }
 		}),
-		menubar: (styles, { data, isDisabled, isFocused, isSelected }) => {
+		menubar: (styles, { data, isDisabled, isFocused, isSelected,isHovered }) => {
 			return {
 				...styles,
 				width: "250px",
+			    borderColor: isFocused ? "#d84727" : "#f7f6f4",
+				borderColor: isSelected ? "#d84727" : "#f7f6f4",
 			};
 		},
 		option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -86,10 +103,6 @@ const ItemRender = (product) => {
 		dispatch(setPackaging({ packageType, documentId }));
 	};
 
-	// useEffect(() => {
-	// 	handleSetPackaging();
-	// }, []);
-
 	return (
 		<div className="cart-item" key={documentId}>
 			<div className="img-title">
@@ -111,6 +124,7 @@ const ItemRender = (product) => {
 				<div style={{ width: "90% " }}>
 					<div className="selectPackage">
 						<h4 style={{ paddingBottom: "10px" }}>Виберіть упаковку:</h4>
+						
 						<Select
 							options={options}
 							defaultOptions
@@ -118,7 +132,10 @@ const ItemRender = (product) => {
 							clearable={false}
 							isSearchable={false}
 							defaultValue={{ label: "Виберіть упаковку", value: 0 }}
-							onChange={(evt) => handleSetPackaging(evt, documentId)}
+							value={packageType}
+							onChange={(evt) => {
+								handleSetPackaging(evt, documentId);
+							}}
 							required
 						/>
 					</div>

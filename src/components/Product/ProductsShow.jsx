@@ -15,13 +15,13 @@ const ProductsShow = () => {
 	const { data, queryDoc, isLastPage } = products;
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	const { filterType } = useParams();
+	const { filterType,sortType } = useParams();
 
 	const [selectedOption, setSelectedOption] = useState("");
 
 	const { value, label } = selectedOption;
 	useEffect(() => {
-		dispatch(fetchProductsStart({ filterType }));
+		dispatch(fetchProductsStart({ filterType,sortType }));
 		if (typeof value === "string") {
 			navigation(`/products/${value}`);
 		}
@@ -79,6 +79,9 @@ const ProductsShow = () => {
 			borderColor: isFocused ? "#d84727" : "#f7f6f4 ",
 			borderColor: isSelected ? "#f7f6f4" : "#d84727",
 			boxShadow: "none",
+			"&:hover": {
+				color: "#f7f6f4",
+			},
 		}),
 		menubar: (styles, { data, isDisabled, isFocused, isSelected }) => {
 			return {

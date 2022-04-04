@@ -3,12 +3,12 @@
 .confirmation{
         display: flex;
         flex-direction: row;
-        align-items: center;
-        justify-content:space-between;
+        align-items: stretch;
+        justify-content:flex-start;
+        .col-5,
         .col-6 {
             padding: 24px 32px;
-            margin-bottom: 80px;
-            
+            margin-bottom: 80px;;
             h2{
                 font-family: Taviraj;
                 font-size: 24px;
@@ -24,7 +24,9 @@
                 letter-spacing: 0.32px;
                 color: $black;
             }
-    
+            &:nth-child(1){
+                margin-right: 50px;
+            }
             .wrapper-detail {
                 display: flex;
                 flex-direction: row;

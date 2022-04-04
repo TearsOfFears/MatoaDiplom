@@ -52,10 +52,20 @@ const Confirmation = ({ handleChangeState, stage, setStage }) => {
 		}
 	}, [orderHistoryLast]);
 
+	const {
+		phoneNumber,
+		line1,
+		line2,
+		country,
+		country_code,
+		city,
+		state,
+		postal_code,
+	} = stage.shippingAddress || {};
 	return (
 		<div className="container confirmation">
-			<div className="col-12 d-flex flex-row justify-content-between">
-				<div className="col-6 bg-white d-flex flex-column align-items-center justify-content-evenly mr-5">
+			<div className="col-12 d-flex flex-row justify-content-center">
+				<div className="col-5 bg-white d-flex flex-column align-items-center justify-content-evenly mr-5">
 					<img src={Confirm} alt="" />
 					<h2>Order Confirmed</h2>
 					<h3>
@@ -121,10 +131,11 @@ const Confirmation = ({ handleChangeState, stage, setStage }) => {
 						</div>
 						<div className="wrapper-detail mt-3">
 							<div className="wrapper-detail__headers_1">
-								<h4>Shipping Address</h4>
+								<h4>Адреса відправки</h4>
 							</div>
 							<div className="wrapper-detail__headers_2">
-								<p>18 Richardson Drive Fountain Valley, CA 92708</p>
+								<p>	{line1} {line2} {country}, {state}, {city} {country_code}
+										{postal_code}</p>
 							</div>
 						</div>
 					</div>
