@@ -1,0 +1,103 @@
+@import "./../../../scss/componentstyles/utils/variables.scss";
+
+.products{
+    .wrapper-products{
+        display: grid;
+        grid-row: auto;
+        grid-template-columns: repeat(4,1fr);
+        &__item{
+            margin-top: 30px;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            transition: .3s;
+            padding: 15px;
+            &:hover{
+                background-color:$secondAccent ;
+                border-radius: 10px;
+                transition: .3s;
+                .btn-product{
+                    border: 2px solid $accent;
+                }
+                hr{
+                    color: $accent;
+                    border-top: 1px solid $accent;
+                }
+      
+            }
+            .img-border{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: center;
+                img{
+                    width: 70%;
+                    margin-bottom: 20px;
+                }
+            }
+
+            strike{
+                font-size:23px;
+                font-weight: 500;
+                color:$black;
+                margin-bottom: 5px;
+                margin-top: 5px;
+            }
+            .titleProduct{
+                font-size:29px;
+                font-weight: 600;
+                color:$blackTrue;
+                margin-bottom: 10px;
+                font-family: "Nunito";
+            }
+            .price{
+                font-size:23px;
+                font-weight: 500;
+                color:$black;
+                margin-top: 10px;
+                margin-bottom: 10px;
+            }
+            .discount{
+                font-size:23px;
+                font-weight: 500;
+                color:$black;
+            }
+            hr {
+                border: none;
+                color: $accent;
+                opacity: 1;
+                border-top: 1px solid $accent;
+                width: 150px;
+                margin: 0;
+              }
+            .btn-product{
+                border: 0;
+                outline: none;
+                box-shadow: none;
+                background-color: transparent;
+                border: 2px solid $secondGrey;
+                width: 75%;
+                padding: 10px 10px;
+                margin-top: 8px;
+                transition: .3s;
+                border-radius: 10px;
+                font-size:16px;
+                font-weight: 500;
+                text-decoration: none;
+                color:inherit; 
+                text-align: center;
+                &:hover{
+                    background-color:$accent;
+                    border-color: $secondAccent;
+                    transition: .3s;
+                    color:$white;
+                    box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
+
+                }
+            }
+        }
+    }
+}
+
+

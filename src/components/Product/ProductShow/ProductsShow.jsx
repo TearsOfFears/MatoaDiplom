@@ -1,13 +1,14 @@
 import React, { useEffect, useState } from "react";
-import { ProductRender } from "../index";
-
+import { ButtonForm, ProductRender } from "../../index";
+import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductsStart } from "../../redux/Products/products.actions";
-import SelectedItems from "./SelectedItems";
+import { fetchProductsStart } from "../../../redux/Products/products.actions";
+import SelectedItems from "../SelectedItems";
 import Select, { StylesConfig } from "react-select";
-import { FormSelect, LoadMore } from "../index";
-import Skeleton from "./Skeleton";
+import { FormSelect, LoadMore } from "../../index";
+import Skeleton from "../Skeleton";
 import { useNavigate, useParams } from "react-router";
+import Buttons from "../../Buttons";
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
 const ProductsShow = () => {
@@ -15,21 +16,27 @@ const ProductsShow = () => {
 	const { data, queryDoc, isLastPage } = products;
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	const { filterType,sortType } = useParams();
+	const { filterType, sortType } = useParams();
 
+	const [sortTypes, setSortTypes] = useState();
 	const [selectedOption, setSelectedOption] = useState("");
 
+
+
 	const { value, label } = selectedOption;
+
 	useEffect(() => {
-		dispatch(fetchProductsStart({ filterType,sortType }));
+		dispatch(fetchProductsStart({ filterType, sortTypes }));
+
 		if (typeof value === "string") {
 			navigation(`/products/${value}`);
 		}
-	}, [filterType, selectedOption]);
+	}, [filterType, selectedOption, sortTypes]);
 
 	if (!Array.isArray(data)) {
 		return null;
 	}
+
 	if (data.lenght < 1) {
 		return (
 			<section className="products">
@@ -39,6 +46,8 @@ const ProductsShow = () => {
 			</section>
 		);
 	}
+
+	console.log(sortTypes);
 
 	const configFilters = {
 		defaultValue: value,
@@ -106,17 +115,47 @@ const ProductsShow = () => {
 		},
 	};
 
+	const handleSetVal = (e) => {
+		const val = e.target.value;
+		setSortTypes(val);
+	};
+
+	const optionsVal = [
+		{
+			label: "По зростанню",
+			value: "asc",
+		},
+		{
+			label: "По спаданню",
+			value: "desc",
+		},
+	];
+
 	return (
 		<section className="products">
 			<div className="container">
 				<h1>{typeof label === "string" ? label : "Всі продукти"}</h1>
-				<div style={{ width: "250px" }}>
-					<Select
-						options={options}
-						defaultValue={options[0]}
-						styles={colourStyles}
-						onChange={setSelectedOption}
-					/>
+				<div className="col-12 d-flex flex-row w-50 justify-content-between">
+					<div style={{ width: "250px" }}>
+						<Select
+							options={options}
+							defaultValue={options[0]}
+							styles={colourStyles}
+							onChange={setSelectedOption}
+						/>
+					</div>
+					<div style={{ width: "250px" }}>
+						<Select
+							options={optionsVal}
+							defaultValue={{
+								label: "Нажміть для сортування",
+								value: "",
+							}}
+							styles={colourStyles}
+							onChange={e=> setSortTypes(e.value)}
+						/>
+					</div>
+
 				</div>
 
 				<div className="row mt-3 mb-5">

@@ -39,6 +39,7 @@ const PaymantDetails = () => {
 	const stripe = useStripe();
 	const elements = useElements();
 	const navigate = useNavigate();
+	
 	const stageArr = [
 		{
 			icon: <CheckoutIcon />,

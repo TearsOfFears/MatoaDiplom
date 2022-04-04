@@ -37,7 +37,7 @@ export function * fetchProducts({payload}) {
  
     //yield put(setProducts(products))
   } catch (err) {
-    //console.log(err);
+    console.log(err);
   }
 }
 
