@@ -34,12 +34,25 @@ export const handleFetchProducts = ({
     if(sortTypes)
       ref = ref.orderBy("price", sortTypes)
 
-    if(filterType) 
+    if(filterType)
       ref = ref.where('productCategory', "==", filterType)
+
+  
+
+    // switch (filterType) {
+    //   case filterType==="all":
+    //     filterType = "";
+    //     return 
+    //        ref = ref.where('productCategory', "==", filterType)
+        
+    //   default:
+    //     ref = ref.where('productCategory', "==", filterType)
+    // }
 
       
     if (startAfterDoc) 
       ref = ref.startAfter(startAfterDoc)
+
     ref
       .get()
       .then((snapShot) => {

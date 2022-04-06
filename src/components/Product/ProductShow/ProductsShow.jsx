@@ -9,6 +9,14 @@ import { FormSelect, LoadMore } from "../../index";
 import Skeleton from "../Skeleton";
 import { useNavigate, useParams } from "react-router";
 import Buttons from "../../Buttons";
+
+const initialCat = {
+	key: 0,
+	value: "all",
+	label: "",
+	valueSec:""
+};
+
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
 const ProductsShow = () => {
@@ -18,20 +26,19 @@ const ProductsShow = () => {
 	const navigation = useNavigate();
 	const { filterType, sortType } = useParams();
 
-	const [sortTypes, setSortTypes] = useState();
-	const [selectedOption, setSelectedOption] = useState("");
+	const [sortTypes, setSortTypes] = useState("asc");
 
+	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
 
-
-	const { value, label } = selectedOption;
+	const { value,valueSec } = selectedCat;
 
 	useEffect(() => {
-		dispatch(fetchProductsStart({ filterType, sortTypes }));
+		dispatch(fetchProductsStart({ filterType:valueSec, sortTypes }));
 
 		if (typeof value === "string") {
-			navigation(`/products/${value}`);
+			navigation(`/products/${value}/${sortType}`);
 		}
-	}, [filterType, selectedOption, sortTypes]);
+	}, [filterType, selectedCat, sortTypes]);
 
 	if (!Array.isArray(data)) {
 		return null;
@@ -47,25 +54,9 @@ const ProductsShow = () => {
 		);
 	}
 
-	console.log(sortTypes);
-
 	const configFilters = {
 		defaultValue: value,
 	};
-	const options = [
-		{
-			label: "Всі продукти",
-			value: "",
-		},
-		{
-			label: "Годинники",
-			value: "watches",
-		},
-		{
-			label: "Окуляри",
-			value: "glasses",
-		},
-	];
 
 	const handleLoadMore = () => {
 		dispatch(
@@ -84,7 +75,7 @@ const ProductsShow = () => {
 		control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
 			...styles,
 			backgroundColor: "white",
-			width: "250px",
+
 			borderColor: isFocused ? "#d84727" : "#f7f6f4 ",
 			borderColor: isSelected ? "#f7f6f4" : "#d84727",
 			boxShadow: "none",
@@ -95,13 +86,12 @@ const ProductsShow = () => {
 		menubar: (styles, { data, isDisabled, isFocused, isSelected }) => {
 			return {
 				...styles,
-				width: "250px",
 			};
 		},
 		option: (styles, { data, isDisabled, isFocused, isSelected }) => {
 			return {
 				...styles,
-				width: "250px",
+
 				backgroundColor: isDisabled ? "#d84727" : "#f7f6f4",
 				backgroundColor: isFocused ? "#d84727" : "#f7f6f4",
 				backgroundColor: isSelected ? "#d84727" : "#f7f6f4",
@@ -131,20 +121,57 @@ const ProductsShow = () => {
 		},
 	];
 
+	const categoryArr = [
+		{
+			label: "Всі продукти",
+			value: "all",
+			valueSec:"",
+		},
+		{
+			label: "Годинники",
+			value: "watches",
+			valueSec:"watches",
+		},
+		{
+			label: "Окуляри",
+			value: "glasses",
+			valueSec:"glasses",
+		},
+	];
+
+	const handleSelectCat = (key, data) => {
+		const { label, value,valueSec } = data;
+		setSelectedCat({ key, value, label, valueSec });
+	};
+	console.log(selectedCat);
 	return (
 		<section className="products">
 			<div className="container">
-				<h1>{typeof label === "string" ? label : "Всі продукти"}</h1>
-				<div className="col-12 d-flex flex-row w-50 justify-content-between">
-					<div style={{ width: "250px" }}>
-						<Select
-							options={options}
-							defaultValue={options[0]}
-							styles={colourStyles}
-							onChange={setSelectedOption}
-						/>
+				<h1>
+					{selectedCat.label ? selectedCat.label : "Всі продукти"}
+				</h1>
+				<div className="col-12 d-flex flex-row w-100 justify-content-between align-items-center">
+					<div className="d-flex flex-row w-50 justify-content-between">
+						{categoryArr.map((data, key) => {
+							const { label, value } = data;
+
+							return (
+								<Buttons
+									style={
+										key === selectedCat.key
+											? "btn-Category activeCat "
+											: "btn-Category "
+									}
+									onClick={(e) => handleSelectCat(key, data)}
+									text={label}
+									value={value}
+									key={key}
+								/>
+							);
+						})}
 					</div>
-					<div style={{ width: "250px" }}>
+
+					<div style={{ width: "170px" }}>
 						<Select
 							options={optionsVal}
 							defaultValue={{
@@ -152,10 +179,10 @@ const ProductsShow = () => {
 								value: "",
 							}}
 							styles={colourStyles}
-							onChange={e=> setSortTypes(e.value)}
+							isSearchable={false}
+							onChange={(e) => setSortTypes(e.value)}
 						/>
 					</div>
-
 				</div>
 
 				<div className="row mt-3 mb-5">
