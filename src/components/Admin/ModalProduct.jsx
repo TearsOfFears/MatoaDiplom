@@ -26,6 +26,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const dispatch = useDispatch();
 	const { product } = useSelector(mapState);
 	const [productCategory, setProductCategory] = useState("watches");
+	const [availability, setAvailability] = useState("inStock");
 	const [productName, setProductName] = useState("");
 	const [productThumbnail, setProductThumbnail] = useState([]);
 	// const [productThumbnail2, setProductThumbnail2] = useState("");
@@ -113,7 +114,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 				typeof arrOfLinks[i] === "string" &&
 				!arrOfLinks.includes(undefined)
 			) {
-				console.log(arrOfLinks);
 				if (arrOfLinks[0] !== product.productThumbnail[0]) {
 					deleteImage(product.productThumbnail);
 					setProductThumbnail(arrOfLinks);
@@ -127,6 +127,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const setEditValue = () => {
 		if (typeof product === "object" && Object.keys(product).length > 0) {
 			setProductCategory(product.productCategory);
+			setAvailability(product.availability);
 			setProductName(product.productName);
 			setPrice(product.price);
 			setProductThumbnail(product.productThumbnail);
@@ -144,6 +145,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 
 	const resetForm = () => {
 		setProductCategory("watches");
+		setAvailability("inStock");
 		setProductName("");
 		setProductThumbnail([]);
 		// setProductThumbnail2("");
@@ -158,6 +160,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		dispatch(
 			addProductStart({
 				productCategory,
+				availability,
 				productName,
 				productThumbnail,
 				price,
@@ -173,6 +176,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		const id = product.documentID;
 		const updateData = {
 			productCategory,
+			availability,
 			productName,
 			productThumbnail,
 			price,
@@ -216,6 +220,25 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								]}
 								value={productCategory}
 								handleChange={(e) => setProductCategory(e.target.value)}
+							/>
+							<FormSelect
+								label="Наявність"
+								options={[
+									{
+										value: "inStock",
+										name: "Є в навності",
+									},
+									{
+										value: "availableSoon",
+										name: "Скоро буде",
+									},
+									{
+										value: "outOfStock",
+										name: "Немає в наявності",
+									},
+								]}
+								value={availability}
+								handleChange={(e) => setAvailability(e.target.value)}
 							/>
 							<FormInput
 								Label="Назва"
@@ -283,6 +306,25 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								]}
 								value={productCategory}
 								handleChange={(e) => setProductCategory(e.target.value)}
+							/>
+							<FormSelect
+								label="Наявність"
+								options={[
+									{
+										value: "inStock",
+										name: "Є в навності",
+									},
+									{
+										value: "availableSoon",
+										name: "Скоро буде",
+									},
+									{
+										value: "outOfStock",
+										name: "Немає в наявності",
+									},
+								]}
+								value={availability}
+								handleChange={(e) => setAvailability(e.target.value)}
 							/>
 							<FormInput
 								Label="Назва"

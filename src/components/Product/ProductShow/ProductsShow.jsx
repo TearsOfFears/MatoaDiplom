@@ -8,13 +8,19 @@ import Select, { StylesConfig } from "react-select";
 import { FormSelect, LoadMore } from "../../index";
 import Skeleton from "../Skeleton";
 import { useNavigate, useParams } from "react-router";
+import { useSearchParams,createSearchParams } from "react-router-dom";
 import Buttons from "../../Buttons";
 
-const initialCat = {
+ const initialCat = {
 	key: 0,
-	value: "all",
-	label: "",
-	valueSec:""
+ 	value: "",
+ 	label: "",
+	valueSec:"",
+};
+const initialSort = {
+	value: "",
+	valueSecSort: "",
+
 };
 
 const mapState = ({ productsData }) => ({ products: productsData.products });
@@ -24,20 +30,28 @@ const ProductsShow = () => {
 	const { data, queryDoc, isLastPage } = products;
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
+
+	let [searchParams, setSearchParams] = useSearchParams();
+
 	const { filterType, sortType } = useParams();
 
-	const [sortTypes, setSortTypes] = useState("asc");
+	const [sortTypes, setSortTypes] = useState({ ...initialSort });
+
+	const [sortAvailable, setSortAvailable] = useState("");
 
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
 
-	const { value,valueSec } = selectedCat;
+	const { value, valueSec } = selectedCat;
+
+	const { valueSecSort } = sortTypes;
 
 	useEffect(() => {
-		dispatch(fetchProductsStart({ filterType:valueSec, sortTypes }));
-
-		if (typeof value === "string") {
-			navigation(`/products/${value}/${sortType}`);
-		}
+		dispatch(fetchProductsStart({ filterType,sortType }));
+		// if (typeof filterType !== undefined) {
+		// 	navigation(`/products/${filterType}/${sortType}`);
+		// }
+		// searchParams.set(filterType,sortType);
+		// setSearchParams(searchParams)
 	}, [filterType, selectedCat, sortTypes]);
 
 	if (!Array.isArray(data)) {
@@ -112,49 +126,69 @@ const ProductsShow = () => {
 
 	const optionsVal = [
 		{
+			label: "Сортувати",
+			value: "",
+			// valueSecSort: "",
+		},
+		{
 			label: "По зростанню",
 			value: "asc",
+			//valueSecSort: "asc",
 		},
 		{
 			label: "По спаданню",
 			value: "desc",
+			//valueSecSort: "desc",
 		},
 	];
 
 	const categoryArr = [
 		{
 			label: "Всі продукти",
-			value: "all",
-			valueSec:"",
+			value: "",
+			valueSec:""
 		},
 		{
 			label: "Годинники",
 			value: "watches",
-			valueSec:"watches",
+			valueSec:"watches"
 		},
 		{
 			label: "Окуляри",
 			value: "glasses",
-			valueSec:"glasses",
+			valueSec:"glasses"
 		},
 	];
 
 	const handleSelectCat = (key, data) => {
-		const { label, value,valueSec } = data;
-		setSelectedCat({ key, value, label, valueSec });
+		const { label, value, valueSec } = data;
+		console.log(data);
+		console.log(value);
+		setSelectedCat({ key, value, label});
+
+
+		
+		setSearchParams({value})
+		console.log(searchParams);
+		//setSearchParams()
+		//navigation(`/products/${value}`);
 	};
-	console.log(selectedCat);
+
+	const handleSelectSort = (data) => {
+		const { value, valueSecSort } = data;
+		setSortTypes({ value, valueSecSort });
+		setSearchParams({valueSecSort})
+		//navigation(`/products/${selectedCat.value}/${value}`);
+	};
+
 	return (
 		<section className="products">
 			<div className="container">
-				<h1>
-					{selectedCat.label ? selectedCat.label : "Всі продукти"}
-				</h1>
+				<h1>{selectedCat.label ? selectedCat.label : "Всі продукти"}</h1>
 				<div className="col-12 d-flex flex-row w-100 justify-content-between align-items-center">
 					<div className="d-flex flex-row w-50 justify-content-between">
 						{categoryArr.map((data, key) => {
 							const { label, value } = data;
-
 							return (
 								<Buttons
 									style={
@@ -174,13 +208,10 @@ const ProductsShow = () => {
 					<div style={{ width: "170px" }}>
 						<Select
 							options={optionsVal}
-							defaultValue={{
-								label: "Нажміть для сортування",
-								value: "",
-							}}
+							defaultValue={optionsVal[0]}
 							styles={colourStyles}
 							isSearchable={false}
-							onChange={(e) => setSortTypes(e.value)}
+							onChange={(e) => handleSelectSort(e)}
 						/>
 					</div>
 				</div>
