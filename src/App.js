@@ -106,7 +106,7 @@ setstate(true);
                   <Products/>
             </SecondLayout>
           }/>
-                 <Route  path="/products/:filterType/:sortType" element={
+                 <Route  path="/products" element={
             <SecondLayout>
                   <Products/>
             </SecondLayout>

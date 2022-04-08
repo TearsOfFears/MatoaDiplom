@@ -14,13 +14,13 @@ import Buttons from "../../Buttons";
  const initialCat = {
 	key: 0,
  	value: "",
- 	label: "",
+ 	label: "Всі продукти",
 	valueSec:"",
 };
 const initialSort = {
 	value: "",
 	valueSecSort: "",
-
+	index:0,
 };
 
 const mapState = ({ productsData }) => ({ products: productsData.products });
@@ -31,29 +31,38 @@ const ProductsShow = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
 
-	let [searchParams, setSearchParams] = useSearchParams();
-
-	const { filterType, sortType } = useParams();
-
 	const [sortTypes, setSortTypes] = useState({ ...initialSort });
-
 	const [sortAvailable, setSortAvailable] = useState("");
 
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
-
 	const { value, valueSec } = selectedCat;
 
 	const { valueSecSort } = sortTypes;
 
+	let [searchParams, setSearchParams] = useSearchParams({sort:value,order:valueSecSort});
+
+
+	let filterType  = searchParams.get('sort')
+	let sortType  = searchParams.get('order')
+
 	useEffect(() => {
-		dispatch(fetchProductsStart({ filterType,sortType }));
-		// if (typeof filterType !== undefined) {
+	// if (typeof filterType !== undefined) {
 		// 	navigation(`/products/${filterType}/${sortType}`);
 		// }
 		// searchParams.set(filterType,sortType);
 		// setSearchParams(searchParams)
-	}, [filterType, selectedCat, sortTypes]);
+	
+		//const currentParams = Object.fromEntries([...searchParams]);
+		
+		//setSearchParams({ sort: value, order: valueSecSort });
+		//setSelectedCat({filterType})
 
+		// searchParams.set("sort","")
+		// searchParams.set("order","")
+
+		dispatch(fetchProductsStart({ filterType,sortType }));
+	}, [selectedCat, sortTypes]);
+	console.log(filterType);
 	if (!Array.isArray(data)) {
 		return null;
 	}
@@ -69,13 +78,14 @@ const ProductsShow = () => {
 	}
 
 	const configFilters = {
-		defaultValue: value,
+		defaultValue: filterType,
 	};
 
 	const handleLoadMore = () => {
 		dispatch(
 			fetchProductsStart({
 				filterType,
+				sortType,
 				startAfterDoc: queryDoc,
 				persistProducts: data,
 			})
@@ -128,17 +138,17 @@ const ProductsShow = () => {
 		{
 			label: "Сортувати",
 			value: "",
-			// valueSecSort: "",
+			valueSecSort: "",
 		},
 		{
 			label: "По зростанню",
 			value: "asc",
-			//valueSecSort: "asc",
+			valueSecSort: "asc",
 		},
 		{
 			label: "По спаданню",
 			value: "desc",
-			//valueSecSort: "desc",
+			valueSecSort: "desc",
 		},
 	];
 
@@ -161,38 +171,48 @@ const ProductsShow = () => {
 	];
 
 	const handleSelectCat = (key, data) => {
-		const { label, value, valueSec } = data;
-		console.log(data);
-		console.log(value);
+		const { label, value } = data;
 		setSelectedCat({ key, value, label});
 
-
-		
-		setSearchParams({value})
-		console.log(searchParams);
-		//setSearchParams()
-		//navigation(`/products/${value}`);
+		setSearchParams({sort:value,order:valueSecSort})
 	};
 
 	const handleSelectSort = (data) => {
-		const { value, valueSecSort } = data;
-		setSortTypes({ value, valueSecSort });
-		setSearchParams({valueSecSort})
-		//navigation(`/products/${selectedCat.value}/${value}`);
+		const { valueSecSort } = data;
+		console.log(data);
+		setSortTypes({ valueSecSort });
+	
+		setSearchParams({sort:value,order:valueSecSort})
 	};
 
+	const changeFilterTitle = (filterType)=>{
+		if(filterType==="watches"){
+			return "Годинники"
+		}
+		if(filterType==="glasses"){
+			return "Окуляри"
+		}
+		if(filterType===""){
+			return "Всі продукти"
+		}
+	}
+
+
+	console.log("selectedCat",selectedCat.value);
+	console.log("filterType",filterType);
 	return (
 		<section className="products">
 			<div className="container">
-				<h1>{selectedCat.label ? selectedCat.label : "Всі продукти"}</h1>
+				<h1>{filterType===selectedCat.value ? selectedCat.label : changeFilterTitle(filterType)}</h1>
 				<div className="col-12 d-flex flex-row w-100 justify-content-between align-items-center">
 					<div className="d-flex flex-row w-50 justify-content-between">
 						{categoryArr.map((data, key) => {
 							const { label, value } = data;
+							//let filterType  = searchParams.get('sort')
 							return (
 								<Buttons
 									style={
-										key === selectedCat.key
+										data.value === filterType
 											? "btn-Category activeCat "
 											: "btn-Category "
 									}
@@ -212,6 +232,7 @@ const ProductsShow = () => {
 							styles={colourStyles}
 							isSearchable={false}
 							onChange={(e) => handleSelectSort(e)}
+							loadOptions={sortTypes}
 						/>
 					</div>
 				</div>

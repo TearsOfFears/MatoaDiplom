@@ -34,6 +34,8 @@ export const handleFetchProducts = ({
     if(sortType)
       ref = ref.orderBy("price", sortType)
 
+
+      console.log(filterType);
     if(filterType){
       ref = ref.where('productCategory', "==", filterType)
       
