@@ -30,30 +30,37 @@ const ProductRender = (product) => {
 	)
 		return null;
 	return (
-		<div className="wrapper-products__item" key={ind}>
-			<div className="img-border">
-				<LazyLoadImage
-					effect="blur"
-					useIntersectionObserver={true}
-					placeholder={<Loader />}
-					src={productThumbnail[0]}
-					width="250px"
-					wrapperClassName="text-center"
-				/>
-			</div>
-			<p className="titleProduct">{productName}</p>
-			<hr />
-			<p className="price">Ціна: {price} грн.</p>
-			<Link
-				to={`/product/${productName}`}
-				className="btn-product"
-				onClick={() => getData(documentId)}
-			>
-				Переглянути подробиці
-			</Link>
-			<button className="btn-product" onClick={() => handleAddToCart(product)}>
-				Добавити до кошика
-			</button>
+		<div>
+			{product ? (
+				<div className="wrapper-products__item" key={ind}>
+					<div className="img-border">
+						<LazyLoadImage
+							effect="blur"
+							useIntersectionObserver={true}
+							placeholder={<Loader />}
+							src={productThumbnail[0]}
+							width="250px"
+							wrapperClassName="text-center"
+						/>
+					</div>
+					<p className="titleProduct">{productName}</p>
+					<hr />
+					<p className="price">Ціна: {price} грн.</p>
+					<Link
+						to={`/product/${productName}`}
+						className="btn-product"
+						onClick={() => getData(documentId)}
+					>
+						Переглянути подробиці
+					</Link>
+					<button
+						className="btn-product"
+						onClick={() => handleAddToCart(product)}
+					>
+						Добавити до кошика
+					</button>
+				</div>
+			) : <Skeleton/>}
 		</div>
 	);
 };

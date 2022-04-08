@@ -137,3 +137,33 @@
     color:$white;
     box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
 }
+.MuiInput-root{
+    border:1px solid $accent;
+    border-radius:5px;
+    padding: 3px 15px;
+    background-color:transparent;
+}
+.MuiInput-underline:before{
+    border-bottom: none;
+}
+.MuiListItem-root{
+
+    border-radius: 8px;
+}
+.MuiCheckbox-root{
+    border:1px solid $accent;
+}
+.MuiCheckbox-colorSecondary{
+    border:1px solid $accent;
+}
+
+.MuiListItem-root.Mui-selected, .MuiListItem-root.Mui-selected:hover{
+    border:1px solid $accent;
+}
+
+
+.MuiSelect-select {
+    &:focus{
+        background-color:transparent !important;
+    }
+}

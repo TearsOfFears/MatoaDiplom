@@ -4,13 +4,23 @@ import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
 import { fetchProductsStart } from "../../../redux/Products/products.actions";
 import SelectedItems from "../SelectedItems";
-import Select, { StylesConfig } from "react-select";
+import SelectCustom, { StylesConfig } from "react-select";
 import { FormSelect, LoadMore } from "../../index";
 import Skeleton from "../Skeleton";
 import { useNavigate, useParams } from "react-router";
 import { useSearchParams, createSearchParams } from "react-router-dom";
+import { makeStyles } from "@material-ui/core";
 import Buttons from "../../Buttons";
 
+import {
+	FormControl,
+	InputLabel,
+	MenuItem,
+	OutlinedInput,
+	ListItemText,
+	Checkbox,
+	Select,
+} from "@material-ui/core";
 const initialCat = {
 	key: 0,
 	value: "",
@@ -33,9 +43,9 @@ const ProductsShow = () => {
 
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
 
+	const [personName, setPersonName] = useState([]);
 
-	const { value, valueSec,label } = selectedCat;
-	console.log("selectedCat",value);
+	const { value, valueSec, label } = selectedCat;
 	const [sortTypes, setSortTypes] = useState({ ...initialSort });
 	const { valueSecSort } = sortTypes;
 
@@ -43,25 +53,20 @@ const ProductsShow = () => {
 		sort: value,
 		order: valueSecSort,
 	});
-
 	let filterType = searchParams.get("sort");
 	let sortType = searchParams.get("order");
-
 	useEffect(() => {
-	
-		if(sortType ==="asc"){
-			setSortTypes({valueSecSort:sortType,label:"По зростанню"})
+		if (sortType === "asc") {
+			setSortTypes({ valueSecSort: sortType, label: "По зростанню" });
 		}
-		if(sortType ==="desc"){
-			setSortTypes({valueSecSort:sortType,label:"По спаданню"})
+		if (sortType === "desc") {
+			setSortTypes({ valueSecSort: sortType, label: "По спаданню" });
 		}
-		if(sortType ===""){
-			setSortTypes({valueSecSort:sortType,label:"Ціна"})
+		if (sortType === "") {
+			setSortTypes({ valueSecSort: sortType, label: "Ціна" });
 		}
-
-		setSelectedCat({value:filterType})
-
-		dispatch(fetchProductsStart({ filterType, sortType }));
+		setSelectedCat({ value: filterType });
+		dispatch(fetchProductsStart({ filterType, sortType, sortAvailable }));
 	}, [searchParams]);
 	if (!Array.isArray(data)) {
 		return null;
@@ -86,6 +91,7 @@ const ProductsShow = () => {
 			fetchProductsStart({
 				filterType,
 				sortType,
+				sortAvailable,
 				startAfterDoc: queryDoc,
 				persistProducts: data,
 			})
@@ -193,7 +199,50 @@ const ProductsShow = () => {
 		}
 	};
 
+	const MenuProps = {
+		MuiSelect: {
+			style: {
+				margin: 30,
+				width: 100,
+				padding:30,
+			},
+		},
+		PaperProps: {
+			style: {
+				width: 200,
+			},
+		},
+	};
 
+	const theme = makeStyles({
+		components: {
+			// Name of the component
+			MuiButton: {
+				styleOverrides: {
+					// Name of the slot
+					root: {
+						// Some CSS
+						fontSize: "1rem",
+						width: 300,
+					},
+				},
+			},
+		},
+	});
+
+	const names = [
+		{ name: "Oliver Hansen", value: "ha" },
+		{ name: "Van Henry", value: "hdfa" },
+	];
+
+	const handleChange = (event) => {
+		const {
+			target: { value },
+		} = event;
+		setPersonName(typeof value === "string" ? value.split(",") : value);
+	};
+
+	console.log(personName);
 
 	return (
 		<section className="products">
@@ -223,9 +272,27 @@ const ProductsShow = () => {
 							);
 						})}
 					</div>
+					<Select
+						labelId="demo-multiple-checkbox-label"
+						id="demo-multiple-checkbox"
+						value={personName}
+						onChange={handleChange}
+						renderValue={(selected) => selected.join(",")}
+						MenuProps={MenuProps}
+					>
+						{names.map((data, key) => {
+							const { name, value } = data;
+							return (
+								<MenuItem key={key} value={name}>
+									<ListItemText primary={name} />
+									<Checkbox checked={personName.indexOf(name) > -1} />
+								</MenuItem>
+							);
+						})}
+					</Select>
 
-					<div style={{ width: "170px" }}>
-						<Select
+					<div style={{ width: "165px" }}>
+						<SelectCustom
 							options={optionsVal}
 							defaultValue={sortTypes}
 							styles={colourStyles}

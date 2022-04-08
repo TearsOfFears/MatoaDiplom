@@ -2,6 +2,7 @@ import React from "react"
 import ContentLoader from "react-content-loader"
 
 const Skeleton = (props) => (
+  console.log("yes"),
   <ContentLoader 
     speed={2}
     width={300}
