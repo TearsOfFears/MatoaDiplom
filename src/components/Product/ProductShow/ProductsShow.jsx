@@ -8,19 +8,18 @@ import Select, { StylesConfig } from "react-select";
 import { FormSelect, LoadMore } from "../../index";
 import Skeleton from "../Skeleton";
 import { useNavigate, useParams } from "react-router";
-import { useSearchParams,createSearchParams } from "react-router-dom";
+import { useSearchParams, createSearchParams } from "react-router-dom";
 import Buttons from "../../Buttons";
 
- const initialCat = {
+const initialCat = {
 	key: 0,
- 	value: "",
- 	label: "Всі продукти",
-	valueSec:"",
+	value: "",
+	label: "Всі продукти",
+	valueSec: "",
 };
 const initialSort = {
-	value: "",
 	valueSecSort: "",
-	index:0,
+	label: "",
 };
 
 const mapState = ({ productsData }) => ({ products: productsData.products });
@@ -30,39 +29,40 @@ const ProductsShow = () => {
 	const { data, queryDoc, isLastPage } = products;
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-
-	const [sortTypes, setSortTypes] = useState({ ...initialSort });
 	const [sortAvailable, setSortAvailable] = useState("");
 
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
-	const { value, valueSec } = selectedCat;
 
+
+	const { value, valueSec,label } = selectedCat;
+	console.log("selectedCat",value);
+	const [sortTypes, setSortTypes] = useState({ ...initialSort });
 	const { valueSecSort } = sortTypes;
 
-	let [searchParams, setSearchParams] = useSearchParams({sort:value,order:valueSecSort});
+	let [searchParams, setSearchParams] = useSearchParams({
+		sort: value,
+		order: valueSecSort,
+	});
 
-
-	let filterType  = searchParams.get('sort')
-	let sortType  = searchParams.get('order')
+	let filterType = searchParams.get("sort");
+	let sortType = searchParams.get("order");
 
 	useEffect(() => {
-	// if (typeof filterType !== undefined) {
-		// 	navigation(`/products/${filterType}/${sortType}`);
-		// }
-		// searchParams.set(filterType,sortType);
-		// setSearchParams(searchParams)
 	
-		//const currentParams = Object.fromEntries([...searchParams]);
-		
-		//setSearchParams({ sort: value, order: valueSecSort });
-		//setSelectedCat({filterType})
+		if(sortType ==="asc"){
+			setSortTypes({valueSecSort:sortType,label:"По зростанню"})
+		}
+		if(sortType ==="desc"){
+			setSortTypes({valueSecSort:sortType,label:"По спаданню"})
+		}
+		if(sortType ===""){
+			setSortTypes({valueSecSort:sortType,label:"Ціна"})
+		}
 
-		// searchParams.set("sort","")
-		// searchParams.set("order","")
+		setSelectedCat({value:filterType})
 
-		dispatch(fetchProductsStart({ filterType,sortType }));
-	}, [selectedCat, sortTypes]);
-	console.log(filterType);
+		dispatch(fetchProductsStart({ filterType, sortType }));
+	}, [searchParams]);
 	if (!Array.isArray(data)) {
 		return null;
 	}
@@ -95,6 +95,7 @@ const ProductsShow = () => {
 	const configLoadMore = {
 		onLoadMoreEvt: handleLoadMore,
 	};
+
 	const colourStyles = {
 		control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
 			...styles,
@@ -129,14 +130,9 @@ const ProductsShow = () => {
 		},
 	};
 
-	const handleSetVal = (e) => {
-		const val = e.target.value;
-		setSortTypes(val);
-	};
-
 	const optionsVal = [
 		{
-			label: "Сортувати",
+			label: "Ціна",
 			value: "",
 			valueSecSort: "",
 		},
@@ -156,54 +152,57 @@ const ProductsShow = () => {
 		{
 			label: "Всі продукти",
 			value: "",
-			valueSec:""
+			valueSec: "",
 		},
 		{
 			label: "Годинники",
 			value: "watches",
-			valueSec:"watches"
+			valueSec: "watches",
 		},
 		{
 			label: "Окуляри",
 			value: "glasses",
-			valueSec:"glasses"
+			valueSec: "glasses",
 		},
 	];
 
 	const handleSelectCat = (key, data) => {
 		const { label, value } = data;
-		setSelectedCat({ key, value, label});
+		setSelectedCat({ key, value, label });
 
-		setSearchParams({sort:value,order:valueSecSort})
+		setSearchParams({ sort: value, order: valueSecSort });
 	};
 
 	const handleSelectSort = (data) => {
-		const { valueSecSort } = data;
+		const { valueSecSort, label } = data;
 		console.log(data);
-		setSortTypes({ valueSecSort });
-	
-		setSearchParams({sort:value,order:valueSecSort})
+		setSortTypes({ valueSecSort, label });
+
+		setSearchParams({ sort: value, order: valueSecSort });
 	};
 
-	const changeFilterTitle = (filterType)=>{
-		if(filterType==="watches"){
-			return "Годинники"
+	const changeFilterTitle = (filterType) => {
+		if (filterType === "watches") {
+			return "Годинники";
 		}
-		if(filterType==="glasses"){
-			return "Окуляри"
+		if (filterType === "glasses") {
+			return "Окуляри";
 		}
-		if(filterType===""){
-			return "Всі продукти"
+		if (filterType === "") {
+			return "Всі продукти";
 		}
-	}
+	};
 
 
-	console.log("selectedCat",selectedCat.value);
-	console.log("filterType",filterType);
+
 	return (
 		<section className="products">
 			<div className="container">
-				<h1>{filterType===selectedCat.value ? selectedCat.label : changeFilterTitle(filterType)}</h1>
+				<h1>
+					{filterType === selectedCat.value
+						? changeFilterTitle(filterType)
+						: null}
+				</h1>
 				<div className="col-12 d-flex flex-row w-100 justify-content-between align-items-center">
 					<div className="d-flex flex-row w-50 justify-content-between">
 						{categoryArr.map((data, key) => {
@@ -228,11 +227,11 @@ const ProductsShow = () => {
 					<div style={{ width: "170px" }}>
 						<Select
 							options={optionsVal}
-							defaultValue={optionsVal[0]}
+							defaultValue={sortTypes}
 							styles={colourStyles}
 							isSearchable={false}
 							onChange={(e) => handleSelectSort(e)}
-							loadOptions={sortTypes}
+							value={sortTypes}
 						/>
 					</div>
 				</div>
