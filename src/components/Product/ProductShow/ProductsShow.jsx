@@ -31,6 +31,10 @@ const initialSort = {
 	valueSecSort: "",
 	label: "",
 };
+const initialAvailibity = {
+	valueSecSort: "",
+	label: "",
+};
 
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
@@ -39,11 +43,10 @@ const ProductsShow = () => {
 	const { data, queryDoc, isLastPage } = products;
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	const [sortAvailable, setSortAvailable] = useState("");
+	const [sortAvailable, setSortAvailable] = useState({...initialAvailibity});
 
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
-
-	const [personName, setPersonName] = useState([]);
+	
 
 	const { value, valueSec, label } = selectedCat;
 	const [sortTypes, setSortTypes] = useState({ ...initialSort });
@@ -67,6 +70,8 @@ const ProductsShow = () => {
 		}
 		setSelectedCat({ value: filterType });
 		dispatch(fetchProductsStart({ filterType, sortType, sortAvailable }));
+
+		//setPersonName({ name: "Oliver Hansen", value: "ha" },)
 	}, [searchParams]);
 	if (!Array.isArray(data)) {
 		return null;
@@ -199,50 +204,15 @@ const ProductsShow = () => {
 		}
 	};
 
-	const MenuProps = {
-		MuiSelect: {
-			style: {
-				margin: 30,
-				width: 100,
-				padding:30,
-			},
-		},
-		PaperProps: {
-			style: {
-				width: 200,
-			},
-		},
-	};
-
-	const theme = makeStyles({
-		components: {
-			// Name of the component
-			MuiButton: {
-				styleOverrides: {
-					// Name of the slot
-					root: {
-						// Some CSS
-						fontSize: "1rem",
-						width: 300,
-					},
-				},
-			},
-		},
-	});
-
-	const names = [
+	const Avaibility = [
 		{ name: "Oliver Hansen", value: "ha" },
 		{ name: "Van Henry", value: "hdfa" },
 	];
-
+  
 	const handleChange = (event) => {
-		const {
-			target: { value },
-		} = event;
-		setPersonName(typeof value === "string" ? value.split(",") : value);
+		//setSortAvailable();
 	};
 
-	console.log(personName);
 
 	return (
 		<section className="products">
@@ -252,7 +222,7 @@ const ProductsShow = () => {
 						? changeFilterTitle(filterType)
 						: null}
 				</h1>
-				<div className="col-12 d-flex flex-row w-100 justify-content-between align-items-center">
+				<div className="col-12 d-flex flex-row w-100 justify-content-between align-items-center mt-4">
 					<div className="d-flex flex-row w-50 justify-content-between">
 						{categoryArr.map((data, key) => {
 							const { label, value } = data;
@@ -272,24 +242,18 @@ const ProductsShow = () => {
 							);
 						})}
 					</div>
-					<Select
-						labelId="demo-multiple-checkbox-label"
-						id="demo-multiple-checkbox"
-						value={personName}
-						onChange={handleChange}
-						renderValue={(selected) => selected.join(",")}
-						MenuProps={MenuProps}
-					>
-						{names.map((data, key) => {
-							const { name, value } = data;
-							return (
-								<MenuItem key={key} value={name}>
-									<ListItemText primary={name} />
-									<Checkbox checked={personName.indexOf(name) > -1} />
-								</MenuItem>
-							);
-						})}
-					</Select>
+
+
+					<div style={{ width: "135px" }}>
+						<SelectCustom
+							options={optionsVal}
+							defaultValue={sortAvailable}
+							styles={colourStyles}
+							isSearchable={false}
+							onChange={(e) => handleChange(e)}
+							value={sortAvailable}
+						/>
+					</div>
 
 					<div style={{ width: "165px" }}>
 						<SelectCustom
@@ -301,6 +265,8 @@ const ProductsShow = () => {
 							value={sortTypes}
 						/>
 					</div>
+
+		
 				</div>
 
 				<div className="row mt-3 mb-5">
