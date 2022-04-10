@@ -31,10 +31,6 @@ const initialSort = {
 	valueSecSort: "",
 	label: "",
 };
-const initialAvailibity = {
-	valueSecSort: "",
-	label: "",
-};
 
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
@@ -43,21 +39,26 @@ const ProductsShow = () => {
 	const { data, queryDoc, isLastPage } = products;
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
-	const [sortAvailable, setSortAvailable] = useState({...initialAvailibity});
+
+	const [sortAvailable, setSortAvailable] = useState([]);
 
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
-	
+
+	const [tempArr, setTempArr] = useState("");
 
 	const { value, valueSec, label } = selectedCat;
 	const [sortTypes, setSortTypes] = useState({ ...initialSort });
 	const { valueSecSort } = sortTypes;
+	console.log(tempArr);
 
 	let [searchParams, setSearchParams] = useSearchParams({
 		sort: value,
 		order: valueSecSort,
+		available: tempArr,
 	});
 	let filterType = searchParams.get("sort");
 	let sortType = searchParams.get("order");
+	let sortAvailableP = searchParams.getAll("available");
 	useEffect(() => {
 		if (sortType === "asc") {
 			setSortTypes({ valueSecSort: sortType, label: "По зростанню" });
@@ -68,11 +69,18 @@ const ProductsShow = () => {
 		if (sortType === "") {
 			setSortTypes({ valueSecSort: sortType, label: "Ціна" });
 		}
+		
 		setSelectedCat({ value: filterType });
-		dispatch(fetchProductsStart({ filterType, sortType, sortAvailable }));
+
+		if (sortAvailableP[0] === "") {
+			sortAvailableP = "";
+			dispatch(fetchProductsStart({ filterType, sortType, sortAvailableP }));
+		}
+
+		dispatch(fetchProductsStart({ filterType, sortType, sortAvailableP }));
 
 		//setPersonName({ name: "Oliver Hansen", value: "ha" },)
-	}, [searchParams]);
+	}, [searchParams, sortAvailable]);
 	if (!Array.isArray(data)) {
 		return null;
 	}
@@ -181,15 +189,22 @@ const ProductsShow = () => {
 		const { label, value } = data;
 		setSelectedCat({ key, value, label });
 
-		setSearchParams({ sort: value, order: valueSecSort });
+		setSearchParams({
+			sort: value,
+			order: valueSecSort,
+			available: tempArr,
+		});
 	};
 
 	const handleSelectSort = (data) => {
 		const { valueSecSort, label } = data;
-		console.log(data);
 		setSortTypes({ valueSecSort, label });
 
-		setSearchParams({ sort: value, order: valueSecSort });
+		setSearchParams({
+			sort: value,
+			order: valueSecSort,
+			available: tempArr,
+		});
 	};
 
 	const changeFilterTitle = (filterType) => {
@@ -205,15 +220,30 @@ const ProductsShow = () => {
 	};
 
 	const Avaibility = [
-		{ name: "Oliver Hansen", value: "ha" },
-		{ name: "Van Henry", value: "hdfa" },
+		{ label: "В наявності", value: "inStock", valueAvailable: "inStock" },
+		{
+			label: "Скоро буде",
+			value: "availableSoon",
+			valueAvailable: "availableSoon",
+		},
+		{ label: "Немає", value: "outOfStock", valueAvailable: "outOfStock" },
 	];
-  
+
 	const handleChange = (event) => {
-		//setSortAvailable();
+		let arr = event.map((data, key) => {
+			return data.valueAvailable;
+		});
+
+		setTempArr(arr);
+
+		setSortAvailable(event);
+
+		setSearchParams({
+			sort: value,
+			order: valueSecSort,
+			available: arr,
+		});
 	};
-
-
 	return (
 		<section className="products">
 			<div className="container">
@@ -226,7 +256,6 @@ const ProductsShow = () => {
 					<div className="d-flex flex-row w-50 justify-content-between">
 						{categoryArr.map((data, key) => {
 							const { label, value } = data;
-							//let filterType  = searchParams.get('sort')
 							return (
 								<Buttons
 									style={
@@ -243,11 +272,11 @@ const ProductsShow = () => {
 						})}
 					</div>
 
-
-					<div style={{ width: "135px" }}>
+					<div style={{ width: "255px" }}>
 						<SelectCustom
-							options={optionsVal}
-							defaultValue={sortAvailable}
+							isMulti
+							options={Avaibility}
+							placeholder="Нявність"
 							styles={colourStyles}
 							isSearchable={false}
 							onChange={(e) => handleChange(e)}
@@ -265,8 +294,6 @@ const ProductsShow = () => {
 							value={sortTypes}
 						/>
 					</div>
-
-		
 				</div>
 
 				<div className="row mt-3 mb-5">

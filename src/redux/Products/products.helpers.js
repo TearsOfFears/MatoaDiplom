@@ -20,7 +20,7 @@ export const handleAddProduct = products => {
 export const handleFetchProducts = ({
   filterType,
   sortType,
-  sortAvailable,
+  sortAvailableP,
   startAfterDoc,
   persistProducts = []
 }) => {
@@ -35,16 +35,12 @@ export const handleFetchProducts = ({
     if(sortType)
       ref = ref.orderBy("price", sortType)
 
-    if(sortAvailable)
-       ref = ref.where("availability", "==",sortAvailable)
+    if(sortAvailableP)
+      ref = ref.where("availability", "in",sortAvailableP)
 
-    if(filterType){
+    if(filterType)
       ref = ref.where('productCategory', "==", filterType)
-      
-    }
    
-  
-      
     if (startAfterDoc) 
       ref = ref.startAfter(startAfterDoc)
 
