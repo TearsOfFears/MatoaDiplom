@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { addProduct } from "./../../redux/Carts/cart.actions";
@@ -8,11 +8,20 @@ import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 import Loader from "../Loader/Loader";
 import { fetchCurrentProductStart } from "../../redux/Products/products.actions";
-
+import "./ProductShow/style.scss";
 const ProductRender = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
-	const { ind, productThumbnail, productName, price, documentId } = product;
+	const [disable, setDisable] = useState();
+	//const [style, setStyle] = useState("");
+	const {
+		ind,
+		productThumbnail,
+		productName,
+		price,
+		documentId,
+		availability,
+	} = product;
 
 	const handleAddToCart = (product) => {
 		if (!product) return;
@@ -22,45 +31,68 @@ const ProductRender = (product) => {
 	const getData = (productID) => {
 		dispatch(fetchCurrentProductStart(productID));
 	};
+
+	const handleAvailability = () => {
+		if (availability === "outOfStock") return "outOfStock";
+		if (availability === "availableSoon") return "availableSoon";
+		if (availability === "inStock") return "inStock";
+	};
+	const handleDisable = () => {
+		if (availability === "outOfStock") setDisable(true);
+		if (availability === "availableSoon") setDisable(true);
+		if (availability === "inStock") setDisable(false);
+	};
+
+	useEffect(() => {
+		handleDisable();
+	}, [availability]);
+
+	console.log(disable);
 	if (
 		!productThumbnail ||
 		!documentId ||
 		!productName ||
+		!availability ||
 		typeof price === "undefined"
 	)
 		return null;
 	return (
 		<div>
 			{product ? (
-				<div className="wrapper-products__item" key={ind}>
-					<div className="img-border">
-						<LazyLoadImage
-							effect="blur"
-							useIntersectionObserver={true}
-							placeholder={<Loader />}
-							src={productThumbnail[0]}
-							width="250px"
-							wrapperClassName="text-center"
-						/>
+				<div className={`wrapper-main-product ${handleAvailability()}`}>
+					<div className="wrapper-products__item" key={ind}>
+						<div className="img-border">
+							<LazyLoadImage
+								effect="blur"
+								useIntersectionObserver={true}
+								placeholder={<Loader />}
+								src={productThumbnail[0]}
+								width="250px"
+								wrapperClassName="text-center"
+							/>
+						</div>
+						<p className="titleProduct">{productName}</p>
+						<hr />
+						<p className="price">Ціна: {price} грн.</p>
+						<Link
+							to={`/product/${productName}`}
+							className="btn-product"
+							onClick={() => getData(documentId)}
+						>
+							Переглянути подробиці
+						</Link>
+						<button
+							disabled={disable}
+							className="btn-product"
+							onClick={() => handleAddToCart(product)}
+						>
+							Добавити до кошика
+						</button>
 					</div>
-					<p className="titleProduct">{productName}</p>
-					<hr />
-					<p className="price">Ціна: {price} грн.</p>
-					<Link
-						to={`/product/${productName}`}
-						className="btn-product"
-						onClick={() => getData(documentId)}
-					>
-						Переглянути подробиці
-					</Link>
-					<button
-						className="btn-product"
-						onClick={() => handleAddToCart(product)}
-					>
-						Добавити до кошика
-					</button>
 				</div>
-			) : <Skeleton/>}
+			) : (
+				<Skeleton />
+			)}
 		</div>
 	);
 };

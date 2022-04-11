@@ -6,7 +6,6 @@
         grid-row: auto;
         grid-template-columns: repeat(4,1fr);
         &__item{
-            margin-top: 30px;
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -137,3 +136,15 @@
     box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
 }
 
+.wrapper-main-product{
+    margin-top: 30px;
+}
+.outOfStock{
+    border:2px solid red;
+}
+.availableSoon{
+    border:2px solid yellow;
+}
+.inStock{
+    border:2px solid green;
+}

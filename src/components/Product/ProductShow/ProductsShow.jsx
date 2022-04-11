@@ -40,7 +40,7 @@ const ProductsShow = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
 
-	const [sortAvailable, setSortAvailable] = useState([]);
+	const [sortAvailable, setSortAvailable] = useState("");
 
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
 
@@ -56,9 +56,11 @@ const ProductsShow = () => {
 		order: valueSecSort,
 		available: tempArr,
 	});
+
 	let filterType = searchParams.get("sort");
 	let sortType = searchParams.get("order");
 	let sortAvailableP = searchParams.getAll("available");
+
 	useEffect(() => {
 		if (sortType === "asc") {
 			setSortTypes({ valueSecSort: sortType, label: "По зростанню" });
@@ -69,18 +71,30 @@ const ProductsShow = () => {
 		if (sortType === "") {
 			setSortTypes({ valueSecSort: sortType, label: "Ціна" });
 		}
-		
+
+		// let stock = "";
+		// let soon = "";
+		// let outofStock = "";
+
+		let str = JSON.stringify(sortAvailableP);
+		console.log(str);
+		// setSortAvailable([
+		// 	{ label: "В нявності", value: "inStock" },
+		// 	{ label: "Скоро буде", value: "availableSoon" },
+		// 	{ label: "Немає", value: "outOfStock" },
+		// ]);
+
 		setSelectedCat({ value: filterType });
 
 		if (sortAvailableP[0] === "") {
 			sortAvailableP = "";
-			dispatch(fetchProductsStart({ filterType, sortType, sortAvailableP }));
+			dispatch(fetchProductsStart({ filterType, sortType, tempArr }));
 		}
 
 		dispatch(fetchProductsStart({ filterType, sortType, sortAvailableP }));
+	}, [searchParams]);
 
-		//setPersonName({ name: "Oliver Hansen", value: "ha" },)
-	}, [searchParams, sortAvailable]);
+
 	if (!Array.isArray(data)) {
 		return null;
 	}
@@ -188,7 +202,6 @@ const ProductsShow = () => {
 	const handleSelectCat = (key, data) => {
 		const { label, value } = data;
 		setSelectedCat({ key, value, label });
-
 		setSearchParams({
 			sort: value,
 			order: valueSecSort,
@@ -199,7 +212,6 @@ const ProductsShow = () => {
 	const handleSelectSort = (data) => {
 		const { valueSecSort, label } = data;
 		setSortTypes({ valueSecSort, label });
-
 		setSearchParams({
 			sort: value,
 			order: valueSecSort,
@@ -235,15 +247,15 @@ const ProductsShow = () => {
 		});
 
 		setTempArr(arr);
-
 		setSortAvailable(event);
-
 		setSearchParams({
 			sort: value,
 			order: valueSecSort,
 			available: arr,
 		});
 	};
+
+	
 	return (
 		<section className="products">
 			<div className="container">
@@ -299,10 +311,12 @@ const ProductsShow = () => {
 				<div className="row mt-3 mb-5">
 					<div className="wrapper-products">
 						{data.map((product, ind) => {
-							const { productThumbnail, productName, price } = product;
+							const { productThumbnail, productName, price,availability } = product;
+							console.log(availability);
 							if (
 								!productThumbnail ||
 								!productName ||
+								!availability ||
 								typeof price === "undefined"
 							)
 								return null;
