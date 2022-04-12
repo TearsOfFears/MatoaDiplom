@@ -40,16 +40,16 @@ const ProductsShow = () => {
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
 
-	const [sortAvailable, setSortAvailable] = useState("");
+	const [sortAvailable, setSortAvailable] = useState();
 
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
 
-	const [tempArr, setTempArr] = useState("");
+	let newArr = [""];
+	const [tempArr, setTempArr] = useState([...newArr]);
 
 	const { value, valueSec, label } = selectedCat;
 	const [sortTypes, setSortTypes] = useState({ ...initialSort });
 	const { valueSecSort } = sortTypes;
-	console.log(tempArr);
 
 	let [searchParams, setSearchParams] = useSearchParams({
 		sort: value,
@@ -61,6 +61,7 @@ const ProductsShow = () => {
 	let sortType = searchParams.get("order");
 	let sortAvailableP = searchParams.getAll("available");
 
+	console.log(sortAvailableP);
 	useEffect(() => {
 		if (sortType === "asc") {
 			setSortTypes({ valueSecSort: sortType, label: "По зростанню" });
@@ -71,21 +72,50 @@ const ProductsShow = () => {
 		if (sortType === "") {
 			setSortTypes({ valueSecSort: sortType, label: "Ціна" });
 		}
+		const avail = searchParams.getAll("available");
 
-		// let stock = "";
-		// let soon = "";
-		// let outofStock = "";
-
-		let str = JSON.stringify(sortAvailableP);
-		console.log(str);
-		// setSortAvailable([
-		// 	{ label: "В нявності", value: "inStock" },
-		// 	{ label: "Скоро буде", value: "availableSoon" },
-		// 	{ label: "Немає", value: "outOfStock" },
-		// ]);
+		if (avail.length > 0) {
+			const handleChangeAvaible = (
+				word1,
+				word2,
+				word3,
+				obj1,
+				obj2,
+				obj3,
+				arr
+			) => {
+				for (let i = 0; i < arr.length; i++) {
+					if (arr[i] === word1) {
+						newArr.push(obj1);
+					}
+					if (arr[i] === word2) {
+						newArr.push(obj2);
+					}
+					if (arr[i] === word3) {
+						newArr.push(obj3);
+					}
+				}
+			};
+			handleChangeAvaible(
+				"inStock",
+				"availableSoon",
+				"outOfStock",
+				{ label: "В наявності", value: "inStock", valueAvailable: "inStock" },
+				{
+					label: "Скоро буде",
+					value: "availableSoon",
+					valueAvailable: "availableSoon",
+				},
+				{ label: "Немає", value: "outOfStock", valueAvailable: "outOfStock" },
+				avail
+			);
+			console.log(newArr);
+			setTempArr(...newArr);
+			setSortAvailable(newArr);
+			dispatch(fetchProductsStart({ filterType, sortType, newArr }));
+		}
 
 		setSelectedCat({ value: filterType });
-
 		if (sortAvailableP[0] === "") {
 			sortAvailableP = "";
 			dispatch(fetchProductsStart({ filterType, sortType, tempArr }));
@@ -93,7 +123,6 @@ const ProductsShow = () => {
 
 		dispatch(fetchProductsStart({ filterType, sortType, sortAvailableP }));
 	}, [searchParams]);
-
 
 	if (!Array.isArray(data)) {
 		return null;
@@ -202,6 +231,7 @@ const ProductsShow = () => {
 	const handleSelectCat = (key, data) => {
 		const { label, value } = data;
 		setSelectedCat({ key, value, label });
+		setTempArr(...newArr);
 		setSearchParams({
 			sort: value,
 			order: valueSecSort,
@@ -245,7 +275,6 @@ const ProductsShow = () => {
 		let arr = event.map((data, key) => {
 			return data.valueAvailable;
 		});
-
 		setTempArr(arr);
 		setSortAvailable(event);
 		setSearchParams({
@@ -255,7 +284,6 @@ const ProductsShow = () => {
 		});
 	};
 
-	
 	return (
 		<section className="products">
 			<div className="container">
@@ -288,7 +316,7 @@ const ProductsShow = () => {
 						<SelectCustom
 							isMulti
 							options={Avaibility}
-							placeholder="Нявність"
+							placeholder="Наявність"
 							styles={colourStyles}
 							isSearchable={false}
 							onChange={(e) => handleChange(e)}
@@ -311,8 +339,8 @@ const ProductsShow = () => {
 				<div className="row mt-3 mb-5">
 					<div className="wrapper-products">
 						{data.map((product, ind) => {
-							const { productThumbnail, productName, price,availability } = product;
-							console.log(availability);
+							const { productThumbnail, productName, price, availability } =
+								product;
 							if (
 								!productThumbnail ||
 								!productName ||

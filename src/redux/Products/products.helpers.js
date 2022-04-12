@@ -35,9 +35,10 @@ export const handleFetchProducts = ({
     if(sortType)
       ref = ref.orderBy("price", sortType)
 
-    if(sortAvailableP)
-      ref = ref.where("availability", "in",sortAvailableP)
-
+    if(sortAvailableP )
+       ref = ref.where("availability", "in",sortAvailableP)
+    
+  
     if(filterType)
       ref = ref.where('productCategory', "==", filterType)
    

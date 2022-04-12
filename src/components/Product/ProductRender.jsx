@@ -47,7 +47,6 @@ const ProductRender = (product) => {
 		handleDisable();
 	}, [availability]);
 
-	console.log(disable);
 	if (
 		!productThumbnail ||
 		!documentId ||
@@ -68,26 +67,32 @@ const ProductRender = (product) => {
 								placeholder={<Loader />}
 								src={productThumbnail[0]}
 								width="250px"
+								
 								wrapperClassName="text-center"
+								placeholderSrc={<Skeleton/>}
 							/>
 						</div>
 						<p className="titleProduct">{productName}</p>
 						<hr />
 						<p className="price">Ціна: {price} грн.</p>
-						<Link
-							to={`/product/${productName}`}
-							className="btn-product"
-							onClick={() => getData(documentId)}
-						>
-							Переглянути подробиці
-						</Link>
-						<button
-							disabled={disable}
-							className="btn-product"
-							onClick={() => handleAddToCart(product)}
-						>
-							Добавити до кошика
-						</button>
+						<div className="wrapper-show ">
+							<div className="wrapper-show-main">
+								<Link
+									to={`/product/${productName}`}
+									className="btn-product"
+									onClick={() => getData(documentId)}
+								>
+									Переглянути подробиці
+								</Link>
+								<button
+									disabled={disable}
+									className="btn-product"
+									onClick={() => handleAddToCart(product)}
+								>
+									Добавити до кошика
+								</button>
+							</div>
+						</div>
 					</div>
 				</div>
 			) : (
