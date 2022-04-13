@@ -231,21 +231,20 @@ const ProductsShow = () => {
 	const handleSelectCat = (key, data) => {
 		const { label, value } = data;
 		setSelectedCat({ key, value, label });
-		setTempArr(...newArr);
 		setSearchParams({
 			sort: value,
 			order: valueSecSort,
-			available: tempArr,
+			available: sortAvailableP,
 		});
 	};
-
+	console.log(newArr);
 	const handleSelectSort = (data) => {
 		const { valueSecSort, label } = data;
 		setSortTypes({ valueSecSort, label });
 		setSearchParams({
 			sort: value,
 			order: valueSecSort,
-			available: tempArr,
+			available: sortAvailableP,
 		});
 	};
 
