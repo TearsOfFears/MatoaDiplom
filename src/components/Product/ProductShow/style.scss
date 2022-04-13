@@ -5,6 +5,11 @@
         display: grid;
         grid-row: auto;
         grid-template-columns: repeat(4,1fr);
+       
+        justify-items: center;
+        align-items: flex-end;
+        grid-auto-flow: column;
+
         &__item{
             display: flex;
             flex-direction: column;
@@ -13,11 +18,15 @@
             transition: .3s;
             padding: 15px;
             position: relative;
+            height: 100%;
+            border:2px solid $accent;
+            border-radius: 10px;
             &:hover{
                 background-color:$secondAccent ;
                 border-radius: 10px;
                 transition: .3s;
                 backdrop-filter: blur(2px);
+              
                 .btn-product{
                     border: 2px solid $accent;
                 }
@@ -26,6 +35,8 @@
                     border-top: 1px solid $accent;
                 }
                 .wrapper-show{
+                    border-radius: 10px;
+                    z-index: 3;
                     opacity: 1;
                     backdrop-filter: blur(10px);
                     background: rgb(216,71,39);
@@ -144,23 +155,51 @@
     box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
 }
 
+
 .wrapper-main-product{
     margin-top: 30px;
+    position: relative;
 }
+
+
 .outOfStock{
-    border:2px solid red;
+    position: absolute;
+    top:2%;
+    right: 2%;
+    border-radius:10px;
+    z-index: 1;
+    background: $accent;
+    &::before{
+        content: "Немає";
+        padding: 15px;
+        font-size:16px;
+        font-weight: 500;
+        color:$white;
+    }
 }
 .availableSoon{
-    border:2px solid yellow;
-}
-.inStock{
-    border:2px solid green;
+    position: absolute;
+    top:2%;
+    right: 2%;
+    border-radius:10px;
+    z-index: 1;
+    opacity: 1;
+    backdrop-filter: blur(1px);
+    background: $accent;
+    &::before{
+        content: "Скоро";
+        padding: 15px;
+        font-size:16px;
+        text-align: center;
+        font-weight: 500;
+        color:$white;
+    }
 }
 
 .wrapper-show{
     width: 100%;
     opacity: 0;
-    transition: .5s;
+    transition: .3s;
     position: absolute;
     width: 100%;
     height: 100%;

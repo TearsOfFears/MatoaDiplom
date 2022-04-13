@@ -169,10 +169,14 @@ const ProductsShow = () => {
 			"&:hover": {
 				color: "#f7f6f4",
 			},
+			zIndex: 9999,
 		}),
+		menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
+		menu: (provided) => ({ ...provided, zIndex: 9999 }),
 		menubar: (styles, { data, isDisabled, isFocused, isSelected }) => {
 			return {
 				...styles,
+				zIndex: 9999,
 			};
 		},
 		option: (styles, { data, isDisabled, isFocused, isSelected }) => {
@@ -184,9 +188,11 @@ const ProductsShow = () => {
 				backgroundColor: isSelected ? "#d84727" : "#f7f6f4",
 				color: isSelected ? "#f7f6f4" : "#333",
 				cursor: isDisabled ? "not-allowed" : "default",
+				zIndex: 9999,
 				":hover": {
 					backgroundColor: "#d84727",
 					color: "#f7f6f4",
+					zIndex: 9999,
 				},
 			};
 		},
@@ -237,7 +243,6 @@ const ProductsShow = () => {
 			available: sortAvailableP,
 		});
 	};
-	console.log(newArr);
 	const handleSelectSort = (data) => {
 		const { valueSecSort, label } = data;
 		setSortTypes({ valueSecSort, label });
@@ -320,6 +325,7 @@ const ProductsShow = () => {
 							isSearchable={false}
 							onChange={(e) => handleChange(e)}
 							value={sortAvailable}
+							classNamePrefix={"my-custom-react-select"}
 						/>
 					</div>
 

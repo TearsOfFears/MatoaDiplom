@@ -58,43 +58,44 @@ const ProductRender = (product) => {
 	return (
 		<div>
 			{product ? (
-				<div className={`wrapper-main-product ${handleAvailability()}`}>
-					<div className="wrapper-products__item" key={ind}>
-						<div className="img-border">
-							<LazyLoadImage
-								effect="blur"
-								useIntersectionObserver={true}
-								placeholder={<Loader />}
-								src={productThumbnail[0]}
-								width="250px"
-								
-								wrapperClassName="text-center"
-								placeholderSrc={<Skeleton/>}
-							/>
-						</div>
-						<p className="titleProduct">{productName}</p>
-						<hr />
-						<p className="price">Ціна: {price} грн.</p>
-						<div className="wrapper-show ">
-							<div className="wrapper-show-main">
-								<Link
-									to={`/product/${productName}`}
-									className="btn-product"
-									onClick={() => getData(documentId)}
-								>
-									Переглянути подробиці
-								</Link>
-								<button
-									disabled={disable}
-									className="btn-product"
-									onClick={() => handleAddToCart(product)}
-								>
-									Добавити до кошика
-								</button>
+				<div className="wrapper-main-product">
+						<div className="wrapper-products__item" key={ind}>
+						<div className={`${handleAvailability()}`}/>
+							<div className="img-border">
+								<LazyLoadImage
+									effect="blur"
+									useIntersectionObserver={true}
+									placeholder={<Loader />}
+									src={productThumbnail[0]}
+									width="250px"
+									wrapperClassName="text-center"
+									placeholderSrc={<Skeleton />}
+								/>
+							</div>
+							<p className="titleProduct">{productName}</p>
+							<hr />
+							<p className="price">Ціна: {price} грн.</p>
+							<div className="wrapper-show ">
+								<div className="wrapper-show-main">
+									<Link
+										to={`/product/${productName}`}
+										className="btn-product"
+										onClick={() => getData(documentId)}
+									>
+										Переглянути подробиці
+									</Link>
+									{!disable && (
+										<button
+											className="btn-product"
+											onClick={() => handleAddToCart(product)}
+										>
+											Добавити до кошика
+										</button>
+									)}
+								</div>
 							</div>
 						</div>
 					</div>
-				</div>
 			) : (
 				<Skeleton />
 			)}
