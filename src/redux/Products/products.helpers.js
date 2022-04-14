@@ -22,6 +22,7 @@ export const handleFetchProducts = ({
   sortType,
   sortAvailableP,
   startAfterDoc,
+  discount,
   persistProducts = []
 }) => {
   return new Promise((resolve, reject) => {
@@ -37,7 +38,8 @@ export const handleFetchProducts = ({
 
     if(sortAvailableP )
        ref = ref.where("availability", "in",sortAvailableP)
-    
+    if(discount)
+       ref = ref.where('discount', "==", discount)
   
     if(filterType)
       ref = ref.where('productCategory', "==", filterType)

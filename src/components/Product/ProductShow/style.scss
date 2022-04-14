@@ -1,14 +1,17 @@
 @import "./../../../scss/componentstyles/utils/variables.scss";
 
 .products{
+    width: 100%;
+    .sort-wrapper{
+        height: 80px;
+    }
     .wrapper-products{
         display: grid;
-        grid-row: auto;
         grid-template-columns: repeat(4,1fr);
-       
-        justify-items: center;
+        width: 100%;
+        grid-gap:30px;
+        justify-items: space-around;
         align-items: flex-end;
-        grid-auto-flow: column;
 
         &__item{
             display: flex;
@@ -29,6 +32,10 @@
               
                 .btn-product{
                     border: 2px solid $accent;
+                    &:hover{
+                        border: 2px solid $white;
+                        color:$white;
+                    }
                 }
                 hr{
                     color: $accent;

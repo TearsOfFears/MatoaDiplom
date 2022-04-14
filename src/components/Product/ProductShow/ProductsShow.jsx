@@ -61,7 +61,6 @@ const ProductsShow = () => {
 	let sortType = searchParams.get("order");
 	let sortAvailableP = searchParams.getAll("available");
 
-	console.log(sortAvailableP);
 	useEffect(() => {
 		if (sortType === "asc") {
 			setSortTypes({ valueSecSort: sortType, label: "По зростанню" });
@@ -162,14 +161,13 @@ const ProductsShow = () => {
 		control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
 			...styles,
 			backgroundColor: "white",
-
 			borderColor: isFocused ? "#d84727" : "#f7f6f4 ",
 			borderColor: isSelected ? "#f7f6f4" : "#d84727",
 			boxShadow: "none",
+			fontSize: "14px",
 			"&:hover": {
 				color: "#f7f6f4",
 			},
-			zIndex: 9999,
 		}),
 		menuPortal: (provided) => ({ ...provided, zIndex: 9999 }),
 		menu: (provided) => ({ ...provided, zIndex: 9999 }),
@@ -188,7 +186,7 @@ const ProductsShow = () => {
 				backgroundColor: isSelected ? "#d84727" : "#f7f6f4",
 				color: isSelected ? "#f7f6f4" : "#333",
 				cursor: isDisabled ? "not-allowed" : "default",
-				zIndex: 9999,
+
 				":hover": {
 					backgroundColor: "#d84727",
 					color: "#f7f6f4",
@@ -296,7 +294,7 @@ const ProductsShow = () => {
 						? changeFilterTitle(filterType)
 						: null}
 				</h1>
-				<div className="col-12 d-flex flex-row w-100 justify-content-between align-items-center mt-4">
+				<div className="col-12 d-flex flex-row w-100 justify-content-between align-items-center sort-wrapper">
 					<div className="d-flex flex-row w-50 justify-content-between">
 						{categoryArr.map((data, key) => {
 							const { label, value } = data;
@@ -315,29 +313,32 @@ const ProductsShow = () => {
 							);
 						})}
 					</div>
+					<div className="d-flex flex-row w-50 justify-content-end align-items-center">
+						Checkbox
+						<div style={{ width: "225px", paddingRight:"16px" }}>
+							<SelectCustom
+								isMulti
+								options={Avaibility}
+								placeholder="Наявність"
+								styles={colourStyles}
+								isSearchable={false}
+								onChange={(e) => handleChange(e)}
+								value={sortAvailable}
+								classNamePrefix={"my-custom-react-select"}
+							/>
+						</div>
 
-					<div style={{ width: "255px" }}>
-						<SelectCustom
-							isMulti
-							options={Avaibility}
-							placeholder="Наявність"
-							styles={colourStyles}
-							isSearchable={false}
-							onChange={(e) => handleChange(e)}
-							value={sortAvailable}
-							classNamePrefix={"my-custom-react-select"}
-						/>
-					</div>
-
-					<div style={{ width: "165px" }}>
-						<SelectCustom
-							options={optionsVal}
-							defaultValue={sortTypes}
-							styles={colourStyles}
-							isSearchable={false}
-							onChange={(e) => handleSelectSort(e)}
-							value={sortTypes}
-						/>
+						<div style={{ width: "165px" }}>
+							<SelectCustom
+								placeholder="Ціна"
+								options={optionsVal}
+								defaultValue={sortTypes}
+								styles={colourStyles}
+								isSearchable={false}
+								onChange={(e) => handleSelectSort(e)}
+								value={sortTypes}
+							/>
+						</div>
 					</div>
 				</div>
 

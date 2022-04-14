@@ -29,9 +29,10 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const [availability, setAvailability] = useState("inStock");
 	const [productName, setProductName] = useState("");
 	const [productThumbnail, setProductThumbnail] = useState([]);
-	// const [productThumbnail2, setProductThumbnail2] = useState("");
-	// const [productThumbnail3, setProductThumbnail3] = useState("");
-	// const [productThumbnail4, setProductThumbnail4] = useState("");
+
+	const [discount, setDiscount] = useState("no");
+	const [discountPersentage, setDiscountPersentage] = useState(0);
+
 	const [price, setPrice] = useState(0);
 	const [productDesc, setProductDesc] = useState([]);
 
@@ -98,15 +99,8 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			const linkPut = String(await getDownloadURL(thumbSnapshot.ref));
 			arrOfLinks[key] = linkPut;
 		} catch (err) {
-			console.log(err);
+			//console.log(err);
 		}
-
-		// const file = files[0];
-		// const storageRef = storage.ref();
-		// const fileRef = storageRef.child(`products/${productName}/${file.name}`);
-		// await fileRef.put(file);
-		// const link = String(await fileRef.getDownloadURL());
-		// arrOfLinks[key] = link;
 
 		for (let i = 0; i < arrOfLinks.length; i++) {
 			if (
@@ -129,6 +123,8 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			setProductCategory(product.productCategory);
 			setAvailability(product.availability);
 			setProductName(product.productName);
+			setDiscount(product.discount);
+			setDiscountPersentage(product.discountPersentage);
 			setPrice(product.price);
 			setProductThumbnail(product.productThumbnail);
 			setProductDesc(product.productDesc);
@@ -147,10 +143,9 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		setProductCategory("watches");
 		setAvailability("inStock");
 		setProductName("");
+		setDiscount(false);
+		setDiscountPersentage(0);
 		setProductThumbnail([]);
-		// setProductThumbnail2("");
-		// setProductThumbnail3("");
-		// setProductThumbnail4("");
 		setPrice(0);
 		setProductDesc([]);
 	};
@@ -163,6 +158,8 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 				availability,
 				productName,
 				productThumbnail,
+				discount,
+				discountPersentage,
 				price,
 				productDesc,
 			})
@@ -174,11 +171,14 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const handleSubmitEdit = (e) => {
 		e.preventDefault();
 		const id = product.documentID;
+
 		const updateData = {
 			productCategory,
 			availability,
 			productName,
 			productThumbnail,
+			discount,
+			discountPersentage,
 			price,
 			productDesc,
 		};
@@ -196,6 +196,14 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		"Зображення каруселі 3",
 	];
 	if (!hideModal) return null;
+
+	const setVal = (e) => {
+		const { value } = e.target;
+		setDiscount(value);
+		if (value === "no") 
+			setDiscountPersentage(0);
+	};
+
 	return [
 		<div className="modalOverlay" onClick={() => toggleModal()} key={1} />,
 		<div className="modalWrap" key={2}>
@@ -221,6 +229,32 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={productCategory}
 								handleChange={(e) => setProductCategory(e.target.value)}
 							/>
+							<FormSelect
+								label="Знижка"
+								options={[
+									{
+										value: "yes",
+										name: "На знижці",
+									},
+									{
+										value: "no",
+										name: "Без знижки",
+									},
+								]}
+								value={discount}
+								handleChange={(e) => setVal(e)}
+							/>
+							{discount === "yes" && (
+								<FormInput
+									Label="Відсток знижки"
+									type="number"
+									min="0.00"
+									max="10000.00"
+									step="0.01"
+									value={discountPersentage}
+									handleChange={(e) => setDiscountPersentage(e.target.value)}
+								/>
+							)}
 							<FormSelect
 								label="Наявність"
 								options={[
@@ -257,22 +291,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 									/>
 								);
 							})}
-
-							{/* <FormInput
-								Label="Зображення каруселі 1"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 2"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/>
-							<FormInput
-								Label="Зображення каруселі 3"
-								type="file"
-								handleChange={(e) => onHandleFile(e.target.files)}
-							/> */}
 							<FormInput
 								Label="Ціна"
 								type="number"
@@ -307,6 +325,32 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={productCategory}
 								handleChange={(e) => setProductCategory(e.target.value)}
 							/>
+							<FormSelect
+								label="Знижка"
+								options={[
+									{
+										value: "yes",
+										name: "На знижці",
+									},
+									{
+										value: "no",
+										name: "Без знижки",
+									},
+								]}
+								value={discount}
+								handleChange={(e) => setDiscount(e.target.value)}
+							/>
+							{discount === "yes" && (
+								<FormInput
+									Label="Відсток знижки"
+									type="number"
+									min="0.00"
+									max="10000.00"
+									step="0.01"
+									value={discountPersentage}
+									handleChange={(e) => setDiscountPersentage(e.target.value)}
+								/>
+							)}
 							<FormSelect
 								label="Наявність"
 								options={[

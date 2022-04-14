@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 
 import deals1 from "../assets/img/home/deals1.png";
 import deals2 from "../assets/img/home/deals2.png";
@@ -6,7 +6,9 @@ import deals3 from "../assets/img/home/deals3.png";
 import deals4 from "../assets/img/home/deals4.png";
 
 import { Buttons } from "./index";
-
+import { useDispatch, useSelector } from "react-redux";
+import { fetchCurrentProductStart, fetchProductsStart } from "../redux/Products/products.actions";
+import { useNavigate } from "react-router";
 const dealsArray = [
 	{
 		title: "Singo Maple",
@@ -33,8 +35,21 @@ const dealsArray = [
 		strikePrice: 2700,
 	},
 ];
+const mapState = ({ productsData }) => ({ products: productsData.products.data });
 
 function MonthyDeals() {
+	const dispatch = useDispatch();
+	const navigate = useNavigate()
+	const { products } = useSelector(mapState);
+	console.log(products);
+	useEffect(() => {
+		const discount = "yes";
+		dispatch(fetchProductsStart({ discount }));
+	}, []);
+	const getData = (productID) => {
+		//dispatch(fetchCurrentProductStart(productID));
+		navigate(`/product/${productID}`)
+	};
 	return (
 		<section className="monthlyDeals">
 			<div className="container nopadding">
@@ -42,18 +57,24 @@ function MonthyDeals() {
 				<hr />
 				<div className="row">
 					<div className="wrapper-ourProducts-Deals">
-						{dealsArray.map((data, index) => {
-							const priceNew =
-								data.strikePrice - (data.strikePrice * data.off) / 100;
+						{Array.isArray(products) && products.map((data, index) => {
+							const {
+								price,
+								discountPersentage,
+								productName,
+								productThumbnail,
+								documentId
+							} = data;
+							const priceNew = price - (price * discountPersentage) / 100;
 							return (
 								<div key={index}>
-									<img src={data.img} alt="" />
+									<img src={productThumbnail[0]} alt="" />
 									<div className="block-text ">
-										<h1>{data.title}</h1>
-										<p>{data.off}% off</p>
-										<strike>{data.strikePrice} грн.</strike>
+										<h1>{productName}</h1>
+										<p>{discountPersentage}% off</p>
+										<strike>{price} грн.</strike>
 										<h1>{priceNew} грн.</h1>
-										<Buttons style="btn-checkout animate__animated animate__fadeIn">
+										<Buttons style="btn-checkout animate__animated animate__fadeIn" onClick={e=>getData(documentId)}>
 											Check this out!
 										</Buttons>
 									</div>
