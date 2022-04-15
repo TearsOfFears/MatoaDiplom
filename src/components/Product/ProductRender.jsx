@@ -9,6 +9,7 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import Loader from "../Loader/Loader";
 import { fetchCurrentProductStart } from "../../redux/Products/products.actions";
 import "./ProductShow/style.scss";
+
 const ProductRender = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -24,8 +25,9 @@ const ProductRender = (product) => {
 		discount,
 		discountPersentage,
 	} = product;
+	
 	let priceNew=0;
-	if(discount==="yes"){
+	if(discount==="true"){
 	 priceNew = price - (price * discountPersentage) / 100;
 	}
 
@@ -61,6 +63,8 @@ const ProductRender = (product) => {
 		typeof price === "undefined"
 	)
 		return null;
+
+
 	return (
 		<div>
 			{product ? (
@@ -80,10 +84,10 @@ const ProductRender = (product) => {
 						</div>
 						<p className="titleProduct">{productName}</p>
 						<hr />
-						{discount === "yes" && 
+						{discount === "true" && 
 						<p className="price"> <strike>{price} ₴ </strike></p>
 						}
-						{discount === "yes" ?  <p className="price">{priceNew} ₴ </p> :  <p className="price">{price} ₴ </p>  }
+						{discount === "true" ?  <p className="price">{priceNew} ₴ </p> :  <p className="price">{price} ₴ </p>  }
 						
 						<div className="wrapper-show ">
 							<div className="wrapper-show-main">

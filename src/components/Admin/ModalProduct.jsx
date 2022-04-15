@@ -30,7 +30,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const [productName, setProductName] = useState("");
 	const [productThumbnail, setProductThumbnail] = useState([]);
 
-	const [discount, setDiscount] = useState("no");
+	const [discount, setDiscount] = useState(false);
 	const [discountPersentage, setDiscountPersentage] = useState(0);
 
 	const [price, setPrice] = useState(0);
@@ -200,8 +200,8 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const setVal = (e) => {
 		const { value } = e.target;
 		setDiscount(value);
-		if (value === "no") 
-			setDiscountPersentage(0);
+		setAvailability( "inStock");
+		if (value === "false") setDiscountPersentage(0);
 	};
 
 	return [
@@ -233,18 +233,18 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								label="Знижка"
 								options={[
 									{
-										value: "yes",
+										value: true,
 										name: "На знижці",
 									},
 									{
-										value: "no",
+										value: false,
 										name: "Без знижки",
 									},
 								]}
 								value={discount}
 								handleChange={(e) => setVal(e)}
 							/>
-							{discount === "yes" && (
+							{discount === "true" && (
 								<FormInput
 									Label="Відсток знижки"
 									type="number"
@@ -340,7 +340,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={discount}
 								handleChange={(e) => setDiscount(e.target.value)}
 							/>
-							{discount === "yes" && (
+							{discount === true && (
 								<FormInput
 									Label="Відсток знижки"
 									type="number"

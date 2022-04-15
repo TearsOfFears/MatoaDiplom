@@ -41,9 +41,8 @@ function MonthyDeals() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate()
 	const { products } = useSelector(mapState);
-	console.log(products);
 	useEffect(() => {
-		const discount = "yes";
+		const discount = "true";
 		dispatch(fetchProductsStart({ discount }));
 	}, []);
 	const getData = (productID) => {

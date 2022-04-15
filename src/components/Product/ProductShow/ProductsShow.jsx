@@ -11,16 +11,7 @@ import { useNavigate, useParams } from "react-router";
 import { useSearchParams, createSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import Buttons from "../../Buttons";
-
-import {
-	FormControl,
-	InputLabel,
-	MenuItem,
-	OutlinedInput,
-	ListItemText,
-	Checkbox,
-	Select,
-} from "@material-ui/core";
+import { Checkbox, FormControlLabel } from "@material-ui/core";
 const initialCat = {
 	key: 0,
 	value: "",
@@ -43,7 +34,7 @@ const ProductsShow = () => {
 	const [sortAvailable, setSortAvailable] = useState();
 
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
-
+	const [discount, setDiscount] = useState("");
 	let newArr = [""];
 	const [tempArr, setTempArr] = useState([...newArr]);
 
@@ -55,12 +46,13 @@ const ProductsShow = () => {
 		sort: value,
 		order: valueSecSort,
 		available: tempArr,
+		discount:discount,
 	});
 
 	let filterType = searchParams.get("sort");
 	let sortType = searchParams.get("order");
 	let sortAvailableP = searchParams.getAll("available");
-
+	let discountQ = searchParams.get("discount");
 	useEffect(() => {
 		if (sortType === "asc") {
 			setSortTypes({ valueSecSort: sortType, label: "По зростанню" });
@@ -108,7 +100,6 @@ const ProductsShow = () => {
 				{ label: "Немає", value: "outOfStock", valueAvailable: "outOfStock" },
 				avail
 			);
-			console.log(newArr);
 			setTempArr(...newArr);
 			setSortAvailable(newArr);
 			dispatch(fetchProductsStart({ filterType, sortType, newArr }));
@@ -117,10 +108,10 @@ const ProductsShow = () => {
 		setSelectedCat({ value: filterType });
 		if (sortAvailableP[0] === "") {
 			sortAvailableP = "";
-			dispatch(fetchProductsStart({ filterType, sortType, tempArr }));
+			dispatch(fetchProductsStart({ filterType, sortType, tempArr,discountQ }));
 		}
 
-		dispatch(fetchProductsStart({ filterType, sortType, sortAvailableP }));
+		dispatch(fetchProductsStart({ filterType, sortType, sortAvailableP,discountQ }));
 	}, [searchParams]);
 
 	if (!Array.isArray(data)) {
@@ -239,6 +230,7 @@ const ProductsShow = () => {
 			sort: value,
 			order: valueSecSort,
 			available: sortAvailableP,
+			discount:discount,
 		});
 	};
 	const handleSelectSort = (data) => {
@@ -248,6 +240,7 @@ const ProductsShow = () => {
 			sort: value,
 			order: valueSecSort,
 			available: sortAvailableP,
+			discount:discount,
 		});
 	};
 
@@ -283,9 +276,31 @@ const ProductsShow = () => {
 			sort: value,
 			order: valueSecSort,
 			available: arr,
+			discount:discount,
 		});
 	};
-
+	const handleChangeDiscount = (e) => {
+		let val = e.target.checked.toString();
+		if(val==="false"){
+			setSearchParams({
+				sort: value,
+				order: valueSecSort,
+				available: sortAvailableP,
+				discount:""
+			});
+			setDiscount("")
+		}
+		if(val==="true"){
+			setSearchParams({
+				sort: value,
+				order: valueSecSort,
+				available: sortAvailableP,
+				discount:"true"
+			});
+			setDiscount("true")
+		}
+		
+	};
 	return (
 		<section className="products">
 			<div className="container">
@@ -314,8 +329,12 @@ const ProductsShow = () => {
 						})}
 					</div>
 					<div className="d-flex flex-row w-50 justify-content-end align-items-center">
-						Checkbox
-						<div style={{ width: "225px", paddingRight:"16px" }}>
+						<FormControlLabel
+							control={<Checkbox onChange={handleChangeDiscount} checked={discountQ}/>}
+							
+							label="Акційні"
+						/>
+						<div style={{ width: "225px", paddingRight: "16px" }}>
 							<SelectCustom
 								isMulti
 								options={Avaibility}
@@ -324,7 +343,6 @@ const ProductsShow = () => {
 								isSearchable={false}
 								onChange={(e) => handleChange(e)}
 								value={sortAvailable}
-								classNamePrefix={"my-custom-react-select"}
 							/>
 						</div>
 
