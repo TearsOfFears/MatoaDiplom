@@ -21,7 +21,13 @@ const ProductRender = (product) => {
 		price,
 		documentId,
 		availability,
+		discount,
+		discountPersentage,
 	} = product;
+	let priceNew=0;
+	if(discount==="yes"){
+	 priceNew = price - (price * discountPersentage) / 100;
+	}
 
 	const handleAddToCart = (product) => {
 		if (!product) return;
@@ -59,43 +65,47 @@ const ProductRender = (product) => {
 		<div>
 			{product ? (
 				<div className="wrapper-main-product">
-						<div className="wrapper-products__item" key={ind}>
-						<div className={`${handleAvailability()}`}/>
-							<div className="img-border">
-								<LazyLoadImage
-									effect="blur"
-									useIntersectionObserver={true}
-									placeholder={<Loader />}
-									src={productThumbnail[0]}
-									width="250px"
-									wrapperClassName="text-center"
-									placeholderSrc={<Skeleton />}
-								/>
-							</div>
-							<p className="titleProduct">{productName}</p>
-							<hr />
-							<p className="price">Ціна: {price} грн.</p>
-							<div className="wrapper-show ">
-								<div className="wrapper-show-main">
-									<Link
-										to={`/product/${productName}`}
+					<div className="wrapper-products__item" key={ind}>
+						<div className={`${handleAvailability()}`} />
+						<div className="img-border">
+							<LazyLoadImage
+								effect="blur"
+								useIntersectionObserver={true}
+								placeholder={<Loader />}
+								src={productThumbnail[0]}
+								width="250px"
+								wrapperClassName="text-center"
+								placeholderSrc={<Skeleton />}
+							/>
+						</div>
+						<p className="titleProduct">{productName}</p>
+						<hr />
+						{discount === "yes" && 
+						<p className="price"> <strike>{price} ₴ </strike></p>
+						}
+						{discount === "yes" ?  <p className="price">{priceNew} ₴ </p> :  <p className="price">{price} ₴ </p>  }
+						
+						<div className="wrapper-show ">
+							<div className="wrapper-show-main">
+								<Link
+									to={`/product/${productName}`}
+									className="btn-product"
+									onClick={() => getData(documentId)}
+								>
+									Переглянути подробиці
+								</Link>
+								{!disable && (
+									<button
 										className="btn-product"
-										onClick={() => getData(documentId)}
+										onClick={() => handleAddToCart(product)}
 									>
-										Переглянути подробиці
-									</Link>
-									{!disable && (
-										<button
-											className="btn-product"
-											onClick={() => handleAddToCart(product)}
-										>
-											Добавити до кошика
-										</button>
-									)}
-								</div>
+										Добавити до кошика
+									</button>
+								)}
 							</div>
 						</div>
 					</div>
+				</div>
 			) : (
 				<Skeleton />
 			)}
