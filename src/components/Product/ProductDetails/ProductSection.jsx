@@ -19,13 +19,18 @@ const ProductSection = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { productName, price, productThumbnail } = product || [];
+	const { productName, price, productThumbnail, discount, discountPersentage } =
+		product || [];
 
 	const handleAddToCart = (product) => {
 		if (!product) return;
 		dispatch(addProduct(product));
 		navigate("/cart");
 	};
+	let priceNew = 0;
+	if (discount === "true") {
+		priceNew = price - (price * discountPersentage) / 100;
+	}
 	const [state, setstate] = useState();
 	const [stateStyle, setstateStyle] = useState({ fade: false });
 	const getLink = (link) => {
@@ -54,7 +59,6 @@ const ProductSection = (product) => {
 													useIntersectionObserver={true}
 													src={link}
 													width="180px"
-								
 													wrapperClassName="text-center"
 													onClick={(e) => getLink(link)}
 												/>
@@ -76,8 +80,13 @@ const ProductSection = (product) => {
 
 							<div className="wrapper-addToCart__info">
 								<h1>{productName}</h1>
-								<strike>{price} грн.</strike>
-								<h2>{price} грн. </h2>
+								{discount === "true" && <strike>{price} ₴ </strike>}
+								{discount === "true" ? (
+									<h2>{priceNew} ₴ </h2>
+								) : (
+									<p className="price">{price} ₴ </p>
+								)}
+
 								<div className="block-add">
 									<a
 										className="btn-read"
