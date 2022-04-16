@@ -54,6 +54,7 @@ const ProductRender = (product) => {
 		if(discount==="false") return "hide"
 	}
 
+
 	const handleDisable = () => {
 		if (availability === "outOfStock") setDisable(true);
 		if (availability === "availableSoon") setDisable(true);

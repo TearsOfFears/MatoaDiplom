@@ -33,6 +33,8 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const [discount, setDiscount] = useState(false);
 	const [discountPersentage, setDiscountPersentage] = useState(0);
 
+	const [priceOld, setPriceOld] = useState(0);
+
 	const [price, setPrice] = useState(0);
 	const [productDesc, setProductDesc] = useState([]);
 
@@ -111,7 +113,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 				if (arrOfLinks[0] !== product.productThumbnail[0]) {
 					deleteImage(product.productThumbnail);
 					setProductThumbnail(arrOfLinks);
-					console.log("trueone");
 				}
 			}
 		}
@@ -123,9 +124,10 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			setProductCategory(product.productCategory);
 			setAvailability(product.availability);
 			setProductName(product.productName);
-			setDiscount(product.discount);
-			setDiscountPersentage(product.discountPersentage);
-			setPrice(product.price);
+			//setDiscount(product.discount);
+			//setPriceOld(product.priceOld)
+			//setDiscountPersentage(product.discountPersentage);
+			//setPrice(product.price);
 			setProductThumbnail(product.productThumbnail);
 			setProductDesc(product.productDesc);
 		} else {
@@ -134,8 +136,20 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	};
 
 	useEffect(() => {
+		if (discount === "true") {
+			let priceNew = price - (price * discountPersentage) / 100;
+			console.log(priceNew);
+			setPrice(priceNew);
+			setPriceOld(price);
+			setEditValue();
+		} else {
+			setPrice(price);
+			setPriceOld(priceOld);
+			setEditValue();
+		}
+
 		setEditValue();
-	}, [product]);
+	}, [product, discountPersentage]);
 
 	//console.log(product.productThumbnail1);
 
@@ -145,6 +159,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		setProductName("");
 		setDiscount(false);
 		setDiscountPersentage(0);
+		setPriceOld(0);
 		setProductThumbnail([]);
 		setPrice(0);
 		setProductDesc([]);
@@ -159,6 +174,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 				productName,
 				productThumbnail,
 				discount,
+				priceOld,
 				discountPersentage,
 				price,
 				productDesc,
@@ -179,6 +195,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			productThumbnail,
 			discount,
 			discountPersentage,
+			priceOld,
 			price,
 			productDesc,
 		};
@@ -200,7 +217,8 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const setVal = (e) => {
 		const { value } = e.target;
 		setDiscount(value);
-		setAvailability( "inStock");
+		setAvailability("inStock");
+
 		if (value === "false") setDiscountPersentage(0);
 	};
 
@@ -281,6 +299,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								disabled
 								handleChange={(e) => setProductName(e.target.value)}
 							/>
+
 							{arrLabel.map((label, key) => {
 								return (
 									<FormInput
@@ -300,6 +319,18 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={price}
 								handleChange={(e) => setPrice(e.target.value)}
 							/>
+							{discount === "true" && (
+								<FormInput
+									Label="Стара ціна"
+									type="number"
+									min="0.00"
+									max="10000.00"
+									step="0.01"
+									value={priceOld}
+									handleChange={(e) => setPriceOld(e.target.value)}
+								/>
+							)}
+
 							<CKEditor
 								onChange={(evt) => setProductDesc(evt.editor.getData())}
 							/>

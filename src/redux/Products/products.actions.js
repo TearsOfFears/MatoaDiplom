@@ -26,12 +26,10 @@ export const fetchCurrentProductStart = productID =>({
     payload:productID
 })
 
-
 export const setCurrentProduct = product =>({
     type:productsTypes.SET_CURRENT_PRODUCT,
     payload:product
 })
-
 
 
 export const setEditContentMain= product =>({
