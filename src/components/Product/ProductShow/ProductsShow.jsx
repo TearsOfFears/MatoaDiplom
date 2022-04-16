@@ -346,7 +346,7 @@ const ProductsShow = () => {
 							/>
 						</div>
 
-						<div style={{ width: "165px" }}>
+						<div style={{ width: "135px" }}>
 							<SelectCustom
 								placeholder="Ціна"
 								options={optionsVal}

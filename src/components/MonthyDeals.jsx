@@ -74,7 +74,7 @@ function MonthyDeals() {
 										<strike>{price} грн.</strike>
 										<h1>{priceNew} грн.</h1>
 										<Buttons style="btn-checkout animate__animated animate__fadeIn" onClick={e=>getData(documentId)}>
-											Check this out!
+											Переглянути
 										</Buttons>
 									</div>
 								</div>

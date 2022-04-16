@@ -45,6 +45,15 @@ const ProductRender = (product) => {
 		if (availability === "availableSoon") return "availableSoon";
 		if (availability === "inStock") return "inStock";
 	};
+
+
+	console.log(discount);
+
+	const discountHandle = ()=>{
+		if(discount==="true") return "discount"
+		if(discount==="false") return "hide"
+	}
+
 	const handleDisable = () => {
 		if (availability === "outOfStock") setDisable(true);
 		if (availability === "availableSoon") setDisable(true);
@@ -53,7 +62,8 @@ const ProductRender = (product) => {
 
 	useEffect(() => {
 		handleDisable();
-	}, [availability]);
+		discountHandle();
+	}, [availability,discount]);
 
 	if (
 		!productThumbnail ||
@@ -68,9 +78,10 @@ const ProductRender = (product) => {
 	return (
 		<div>
 			{product ? (
-				<div className="wrapper-main-product">
+				<div className={`wrapper-main-product `}>
 					<div className="wrapper-products__item" key={ind}>
-						<div className={`${handleAvailability()}`} />
+					<div className={`${discountHandle()}`}> -{discountPersentage}% </div>
+						<div className={`${handleAvailability() }`} />
 						<div className="img-border">
 							<LazyLoadImage
 								effect="blur"
@@ -87,7 +98,7 @@ const ProductRender = (product) => {
 						{discount === "true" && 
 						<p className="price"> <strike>{price} ₴ </strike></p>
 						}
-						{discount === "true" ?  <p className="price">{priceNew} ₴ </p> :  <p className="price">{price} ₴ </p>  }
+						{discount === "true" ?  <p className="price price-new">{priceNew} ₴ </p> :  <p className="price">{price} ₴ </p>  }
 						
 						<div className="wrapper-show ">
 							<div className="wrapper-show-main">
