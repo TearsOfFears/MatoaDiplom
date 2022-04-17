@@ -1,92 +1,121 @@
 @import "./../../../scss/componentstyles/utils/variables.scss";
 
-.products{
+.products {
     width: 100%;
-    .sort-wrapper{
+
+    .sort-wrapper {
         height: 80px;
     }
-    .wrapper-products{
+
+    .wrapper-products {
         display: grid;
-        grid-template-columns: repeat(4,1fr);
+        grid-template-columns: repeat(4, 1fr);
         width: 100%;
-        grid-gap:30px;
+        grid-gap: 30px;
         justify-items: space-around;
         align-items: flex-end;
 
-        &__item{
+        &__item {
             display: flex;
             flex-direction: column;
             align-items: center;
-            justify-content: center;
+            justify-content: flex-end;
             transition: .3s;
-            padding: 15px;
+            padding: 5px;
             position: relative;
             height: 100%;
-            border:2px solid $accent;
+            border: 2px solid $accent;
             border-radius: 10px;
-            &:hover{
-                background-color:$secondAccent ;
+
+            &:hover {
+                background-color: $secondAccent;
                 border-radius: 10px;
                 transition: .3s;
                 backdrop-filter: blur(2px);
-              
-                .btn-product{
+
+                .btn-product {
                     border: 2px solid $accent;
-                    &:hover{
+
+                    &:hover {
                         border: 2px solid $white;
-                        color:$white;
+                        color: $white;
                     }
                 }
-                hr{
+
+                hr {
                     color: $accent;
                     border-top: 1px solid $accent;
                 }
-                .wrapper-show{
+
+                .wrapper-show {
                     border-radius: 10px;
                     z-index: 3;
                     opacity: 1;
                     backdrop-filter: blur(10px);
-                    background: rgb(216,71,39);
-                    background: linear-gradient(60deg, rgba(216,71,39,0.55) 3%, rgba(218,94,66,0.55) 49%, rgba(0,0,0,0.45) 90%);
+                    background: rgb(216, 71, 39);
+                    background: linear-gradient(60deg, rgba(216, 71, 39, 0.55) 3%, rgba(218, 94, 66, 0.55) 49%, rgba(0, 0, 0, 0.45) 90%);
                 }
             }
 
-            .img-border{
+            .img-border {
                 display: flex;
                 flex-direction: row;
                 align-items: center;
                 justify-content: center;
-                img{
-                    width: 70%;
-                    margin-bottom: 20px;
+                height: 220px;
+
+                .img-lazy {
+                    display: block;
+                    text-align: center;
+                    margin: auto;
+
+                    img {
+                        min-width: 70%;
+                        max-width: 80%;
+                        max-height: 100%;
+                        margin-bottom: 20px;
+                        margin-top: 20px;
+                        display: block;
+                        margin-left: auto;
+                        margin-right: auto;
+                    }
                 }
+
             }
 
-            strike{
-                font-size:23px;
-                font-weight: 500;
-                color:$black;
-                margin-bottom: 5px;
-                margin-top: 5px;
-            }
-            .titleProduct{
-                font-size:29px;
+
+            .titleProduct {
+                font-size: 25px;
                 font-weight: 600;
-                color:$blackTrue;
-                margin-bottom: 10px;
+                color: $blackTrue;
                 font-family: "Nunito";
+                margin-bottom: 5px;
             }
-            .price{
-                font-size:23px;
-                font-weight: 500;
-                color:$black;
-                margin-top: 10px;
-                margin-bottom: 10px;
+            .price-discount{
+                width: 100%;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                height: 70px;
+                .price {
+                    font-size: 23px;
+                    font-weight: 500;
+                    color: $black;
+                    margin-bottom: 0;
+                }
+                strike{
+                    font-size: 20px;
+                    font-weight: 500;
+                    color: $black;
+                }
             }
-            .discount{
-                font-size:23px;
+          
+           
+            .discount {
+                font-size: 23px;
                 font-weight: 500;
-                color:$black;
+                color: $black;
             }
             hr {
                 border: none;
@@ -95,13 +124,13 @@
                 border-top: 1px solid $accent;
                 width: 150px;
                 margin: 0;
-              }
-            
+            }
+
         }
     }
 }
 
-.btn-product{
+.btn-product {
     border: 0;
     outline: none;
     box-shadow: none;
@@ -112,22 +141,23 @@
     margin-top: 8px;
     transition: .3s;
     border-radius: 10px;
-    font-size:16px;
+    font-size: 16px;
     font-weight: 500;
     text-decoration: none;
-    color:$grey; 
+    color: $grey;
     text-align: center;
-    &:hover{
-        background-color:$accent;
+
+    &:hover {
+        background-color: $accent;
         border-color: $secondAccent;
         transition: .3s;
-        color:$black;
+        color: $black;
         box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
 
     }
 }
 
-.btn-Category{
+.btn-Category {
     border: 0;
     outline: none;
     box-shadow: none;
@@ -136,17 +166,18 @@
     padding: 6px 8px;
     transition: .3s;
     border-radius: 7px;
-    font-size:16px;
+    font-size: 16px;
     font-weight: 500;
     text-decoration: none;
-    color:inherit; 
+    color: inherit;
     text-align: center;
     width: 200px;
-    &:hover{
-        background-color:$accent;
+
+    &:hover {
+        background-color: $accent;
         border-color: $secondAccent;
         transition: .3s;
-        color:$white;
+        color: $white;
         box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
 
     }
@@ -155,55 +186,58 @@
 
 
 .activeCat {
-    background-color:$accent;
+    background-color: $accent;
     border-color: $secondAccent;
     transition: .3s;
-    color:$white;
+    color: $white;
     box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
 }
 
 
-.wrapper-main-product{
+.wrapper-main-product {
     margin-top: 30px;
     position: relative;
 }
 
 
-.outOfStock{
+.outOfStock {
     position: absolute;
-    top:2%;
+    top: 2%;
     right: 2%;
-    border-radius:10px;
+    border-radius: 10px;
     z-index: 1;
     background: $accent;
-    &::before{
+
+    &::before {
         content: "Немає";
         padding: 15px;
-        font-size:16px;
+        font-size: 16px;
         font-weight: 500;
-        color:$white;
+        color: $white;
     }
 }
-.availableSoon{
+
+.availableSoon {
     position: absolute;
-    top:2%;
+    top: 2%;
     right: 2%;
-    border-radius:10px;
+    border-radius: 10px;
     z-index: 1;
     opacity: 1;
     backdrop-filter: blur(1px);
     background: $accent;
-    &::before{
+
+    &::before {
         content: "Скоро";
         padding: 15px;
-        font-size:16px;
+        font-size: 16px;
         text-align: center;
         font-weight: 500;
-        color:$white;
+        color: $white;
     }
 }
 
-.wrapper-show{
+.wrapper-show {
     width: 100%;
     opacity: 0;
     transition: .3s;
@@ -211,11 +245,11 @@
     width: 100%;
     height: 100%;
     left: 0;
-    top:0;
+    top: 0;
 }
 
 
-.wrapper-show-main{
+.wrapper-show-main {
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -223,20 +257,20 @@
     height: 100%;
 }
 
-.price-new{
-    color:red !important;
+.price-new {
+    color: red !important;
 }
 
-.discount{
+.discount {
     position: absolute;
-    top:-5%;
+    top: -5%;
     right: -8%;
-    border-radius:100%;
+    border-radius: 100%;
     width: 44px;
     height: 44px;
     z-index: 4;
     background: $accent;
-    color:$white !important;
+    color: $white !important;
     font-size: 16px !important;
     display: flex;
     align-items: center;

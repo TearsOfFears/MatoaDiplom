@@ -25,11 +25,11 @@ const ProductRender = (product) => {
 		discount,
 		discountPersentage,
 	} = product;
-	
-	let priceOLd=0;
-	
-	if(discount==="true"){
-	 priceOLd = ( price * 100) / (100-discountPersentage);
+
+	let priceOLd = 0;
+
+	if (discount === "true") {
+		priceOLd = (price * 100) / (100 - discountPersentage);
 	}
 
 	const handleAddToCart = (product) => {
@@ -38,7 +38,7 @@ const ProductRender = (product) => {
 		navigate("/cart");
 	};
 	const getData = (productID) => {
-		dispatch(fetchCurrentProductStart({productID,productName}));
+		dispatch(fetchCurrentProductStart({ productID, productName }));
 	};
 
 	const handleAvailability = () => {
@@ -47,11 +47,10 @@ const ProductRender = (product) => {
 		if (availability === "inStock") return "inStock";
 	};
 
-	const discountHandle = ()=>{
-		if(discount==="true") return "discount"
-		if(discount==="false") return "hide"
-	}
-
+	const discountHandle = () => {
+		if (discount === "true") return "discount";
+		if (discount === "false") return "hide";
+	};
 
 	const handleDisable = () => {
 		if (availability === "outOfStock") setDisable(true);
@@ -62,7 +61,7 @@ const ProductRender = (product) => {
 	useEffect(() => {
 		handleDisable();
 		discountHandle();
-	}, [availability,discount]);
+	}, [availability, discount]);
 
 	if (
 		!productThumbnail ||
@@ -73,32 +72,39 @@ const ProductRender = (product) => {
 	)
 		return null;
 
-
 	return (
 		<div>
 			{product ? (
 				<div className={`wrapper-main-product `}>
 					<div className="wrapper-products__item" key={ind}>
-					<div className={`${discountHandle()}`}> -{discountPersentage}% </div>
-						<div className={`${handleAvailability() }`} />
+						<div className={`${discountHandle()}`}>
+							{" "}
+							-{discountPersentage}%{" "}
+						</div>
+						<div className={`${handleAvailability()}`} />
 						<div className="img-border">
 							<LazyLoadImage
 								effect="blur"
 								useIntersectionObserver={true}
 								placeholder={<Loader />}
 								src={productThumbnail[0]}
-								width="250px"
-								wrapperClassName="text-center"
+								//width="250px"
+								wrapperClassName="img-lazy"
 								placeholderSrc={<Skeleton />}
 							/>
 						</div>
 						<p className="titleProduct">{productName}</p>
 						<hr />
-						{discount === "true" && 
-						<p className="price"> <strike>{priceOLd} ₴ </strike></p>
-						}
-						{discount === "true" ?  <p className="price price-new">{price} ₴ </p> :  <p className="price">{price} ₴ </p>  }
 						
+						<div className="price-discount">
+							{discount === "true" && <strike>{priceOLd} ₴ </strike>}
+							{discount === "true" ? (
+								<p className="price price-new">{price} ₴ </p>
+							) : (
+								<p className="price">{price} ₴ </p>
+							)}
+						</div>
+
 						<div className="wrapper-show ">
 							<div className="wrapper-show-main">
 								<Link
