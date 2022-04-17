@@ -20,16 +20,16 @@ const ProductSection = (product) => {
 	const navigate = useNavigate();
 
 	const { productName, price, productThumbnail, discount, discountPersentage } =
-		product || [];
+		product || {};
 
 	const handleAddToCart = (product) => {
 		if (!product) return;
 		dispatch(addProduct(product));
 		navigate("/cart");
 	};
-	let priceNew = 0;
-	if (discount === "true") {
-		priceNew = price - (price * discountPersentage) / 100;
+	let priceOLd = 0;
+	if(discount==="true"){
+		priceOLd = ( price * 100) / (100-discountPersentage);
 	}
 	const [state, setstate] = useState();
 	const [stateStyle, setstateStyle] = useState({ fade: false });
@@ -80,9 +80,9 @@ const ProductSection = (product) => {
 
 							<div className="wrapper-addToCart__info">
 								<h1>{productName}</h1>
-								{discount === "true" && <strike>{price} ₴ </strike>}
+								{discount === "true" && <strike>{priceOLd} ₴ </strike>}
 								{discount === "true" ? (
-									<h2>{priceNew} ₴ </h2>
+									<h2>{price} ₴ </h2>
 								) : (
 									<p className="price">{price} ₴ </p>
 								)}

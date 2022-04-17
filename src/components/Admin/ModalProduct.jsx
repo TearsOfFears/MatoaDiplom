@@ -33,8 +33,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const [discount, setDiscount] = useState(false);
 	const [discountPersentage, setDiscountPersentage] = useState(0);
 
-	const [priceOld, setPriceOld] = useState(0);
-
 	const [price, setPrice] = useState(0);
 	const [productDesc, setProductDesc] = useState([]);
 
@@ -124,10 +122,9 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			setProductCategory(product.productCategory);
 			setAvailability(product.availability);
 			setProductName(product.productName);
-			//setDiscount(product.discount);
-			//setPriceOld(product.priceOld)
-			//setDiscountPersentage(product.discountPersentage);
-			//setPrice(product.price);
+			setDiscount(product.discount);
+			setDiscountPersentage(product.discountPersentage);
+			setPrice(product.price);
 			setProductThumbnail(product.productThumbnail);
 			setProductDesc(product.productDesc);
 		} else {
@@ -136,22 +133,8 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	};
 
 	useEffect(() => {
-		if (discount === "true") {
-			let priceNew = price - (price * discountPersentage) / 100;
-			console.log(priceNew);
-			setPrice(priceNew);
-			setPriceOld(price);
-			setEditValue();
-		} else {
-			setPrice(price);
-			setPriceOld(priceOld);
-			setEditValue();
-		}
-
 		setEditValue();
-	}, [product, discountPersentage]);
-
-	//console.log(product.productThumbnail1);
+	}, [product]);
 
 	const resetForm = () => {
 		setProductCategory("watches");
@@ -159,7 +142,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		setProductName("");
 		setDiscount(false);
 		setDiscountPersentage(0);
-		setPriceOld(0);
+		//setPriceOld(0);
 		setProductThumbnail([]);
 		setPrice(0);
 		setProductDesc([]);
@@ -174,7 +157,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 				productName,
 				productThumbnail,
 				discount,
-				priceOld,
 				discountPersentage,
 				price,
 				productDesc,
@@ -187,7 +169,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const handleSubmitEdit = (e) => {
 		e.preventDefault();
 		const id = product.documentID;
-
 		const updateData = {
 			productCategory,
 			availability,
@@ -195,8 +176,10 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			productThumbnail,
 			discount,
 			discountPersentage,
-			priceOld,
-			price,
+			price:
+				discount === "true"
+					? price - (price * discountPersentage) / 100
+					: price,
 			productDesc,
 		};
 		dispatch(updateContentMainProduct({ updateData, id }));
@@ -220,6 +203,12 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		setAvailability("inStock");
 
 		if (value === "false") setDiscountPersentage(0);
+	};
+
+	const setDiscountVal = (e) => {
+		const { value } = e.target;
+
+		setDiscountPersentage(value);
 	};
 
 	return [
@@ -248,32 +237,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								handleChange={(e) => setProductCategory(e.target.value)}
 							/>
 							<FormSelect
-								label="Знижка"
-								options={[
-									{
-										value: true,
-										name: "На знижці",
-									},
-									{
-										value: false,
-										name: "Без знижки",
-									},
-								]}
-								value={discount}
-								handleChange={(e) => setVal(e)}
-							/>
-							{discount === "true" && (
-								<FormInput
-									Label="Відсток знижки"
-									type="number"
-									min="0.00"
-									max="10000.00"
-									step="0.01"
-									value={discountPersentage}
-									handleChange={(e) => setDiscountPersentage(e.target.value)}
-								/>
-							)}
-							<FormSelect
 								label="Наявність"
 								options={[
 									{
@@ -292,6 +255,42 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={availability}
 								handleChange={(e) => setAvailability(e.target.value)}
 							/>
+							<FormSelect
+								label="Знижка"
+								options={[
+									{
+										value: "true",
+										name: "На знижці",
+									},
+									{
+										value: "false",
+										name: "Без знижки",
+									},
+								]}
+								value={discount}
+								handleChange={(e) => setVal(e)}
+							/>
+							<FormInput
+								Label="Ціна"
+								type="number"
+								min="0.00"
+								max="10000.00"
+								step="0.01"
+								value={price}
+								handleChange={(e) => setPrice(e.target.value)}
+							/>
+							{discount === "true" && (
+								<FormInput
+									Label="Відсток знижки"
+									type="number"
+									min="0.00"
+									max="10000.00"
+									step="0.01"
+									value={discountPersentage}
+									handleChange={(e) => setDiscountVal(e)}
+								/>
+							)}
+
 							<FormInput
 								Label="Назва"
 								type="text"
@@ -310,16 +309,8 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 									/>
 								);
 							})}
-							<FormInput
-								Label="Ціна"
-								type="number"
-								min="0.00"
-								max="10000.00"
-								step="0.01"
-								value={price}
-								handleChange={(e) => setPrice(e.target.value)}
-							/>
-							{discount === "true" && (
+
+							{/* {discount === "true" && (
 								<FormInput
 									Label="Стара ціна"
 									type="number"
@@ -329,7 +320,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 									value={priceOld}
 									handleChange={(e) => setPriceOld(e.target.value)}
 								/>
-							)}
+							)} */}
 
 							<CKEditor
 								onChange={(evt) => setProductDesc(evt.editor.getData())}

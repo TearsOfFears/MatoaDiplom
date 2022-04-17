@@ -110,7 +110,7 @@ const ItemRender = (product) => {
 					<LazyLoadImage
 						effect="blur"
 						useIntersectionObserver={true}
-						src={productThumbnail[0]}
+						src={productThumbnail}
 						wrapperClassName="text-center"
 					/>
 				</div>

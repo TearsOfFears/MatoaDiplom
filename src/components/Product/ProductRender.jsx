@@ -26,9 +26,10 @@ const ProductRender = (product) => {
 		discountPersentage,
 	} = product;
 	
-	let priceNew=0;
+	let priceOLd=0;
+	
 	if(discount==="true"){
-	 priceNew = price - (price * discountPersentage) / 100;
+	 priceOLd = ( price * 100) / (100-discountPersentage);
 	}
 
 	const handleAddToCart = (product) => {
@@ -37,7 +38,7 @@ const ProductRender = (product) => {
 		navigate("/cart");
 	};
 	const getData = (productID) => {
-		dispatch(fetchCurrentProductStart(productID));
+		dispatch(fetchCurrentProductStart({productID,productName}));
 	};
 
 	const handleAvailability = () => {
@@ -45,9 +46,6 @@ const ProductRender = (product) => {
 		if (availability === "availableSoon") return "availableSoon";
 		if (availability === "inStock") return "inStock";
 	};
-
-
-	console.log(discount);
 
 	const discountHandle = ()=>{
 		if(discount==="true") return "discount"
@@ -97,9 +95,9 @@ const ProductRender = (product) => {
 						<p className="titleProduct">{productName}</p>
 						<hr />
 						{discount === "true" && 
-						<p className="price"> <strike>{price} ₴ </strike></p>
+						<p className="price"> <strike>{priceOLd} ₴ </strike></p>
 						}
-						{discount === "true" ?  <p className="price price-new">{priceNew} ₴ </p> :  <p className="price">{price} ₴ </p>  }
+						{discount === "true" ?  <p className="price price-new">{price} ₴ </p> :  <p className="price">{price} ₴ </p>  }
 						
 						<div className="wrapper-show ">
 							<div className="wrapper-show-main">

@@ -60,7 +60,7 @@ export function * fetchCurrentProduct({payload}) {
     // }
 
   } catch (err) {
-    //console.log(err);
+    console.log(err);
   }
 }
 

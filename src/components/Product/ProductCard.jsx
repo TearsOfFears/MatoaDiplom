@@ -17,18 +17,21 @@ const mapState = (state) => ({
 const ProductCard = ({ renderState }) => {
 	const dispatch = useDispatch();
 	const { product } = useSelector(mapState);
-	const {productName, productID } = useParams();
+	const { productName, productID } = useParams();
+
+	// const getProduct = ()=>{
+	// 	return product.reduce((data,key)=>{
+	// 		return data;
+	// 	})
+	// }
 
 	useEffect(() => {
-		//dispatch(fetchCurrentProductStart(productID));
-		return () => {
-			dispatch(setCurrentProduct({}));
-		};
+		dispatch(fetchCurrentProductStart({ productID, productName }));
 	}, []);
 
 	return (
 		<div>
-			<ProductCardRender {...product} />
+			<ProductCardRender {...Array.isArray(product) ? product[0] : null  } />
 		</div>
 	);
 };

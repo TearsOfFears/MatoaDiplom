@@ -91,27 +91,46 @@ export const handleDeleteProduct = documentID => {
 }
 
 
-export const handleFetchCurrentProduct = productID => {
+export const handleFetchCurrentProduct = ({productID,productName}) => {
+
   return new Promise((resolve, reject) => {
-    firestore
-      .collection('products')
-      .doc(productID)
+
+
+  let ref = firestore
+    .collection('products')
+
+  if(productName)
+     ref = ref.where('productName', "==", productName)
+
+    ref
       .get()
       .then(snapShot => {
-        if (snapShot.exists) {
-          resolve({
-            ...snapShot.data(),
-            documentID: productID
-          });
-        }   
-
+        const data = [
+          ...snapShot
+            .docs
+            .map(doc => {
+              return {
+                ...doc.data(),
+                documentId: doc.id
+              }
+            })
+        ];
+        resolve(data)
       })
       .catch(err => {
         reject(err);
         console.log(err);
       })
-  });
-}
+
+})}
+// .map(doc => {
+//   return {
+//     ...doc.data(),
+//     documentID:doc.id
+//   }
+// })
+
+
 
 
 
