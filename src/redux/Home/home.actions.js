@@ -51,6 +51,7 @@ export const updateContent = contentId =>({
     payload:contentId
 })
 
+
 export const editContentProduct = contentID =>({
     type:homeTypes.FETCH_CONTENT_EDIT_PRODUCT,
     payload:contentID
@@ -74,17 +75,34 @@ export const loadingToggleAction = (status) =>({
 
 
 
-// export const getCurrentDocumentId = documentID =>({
-//     type:homeTypes.GET_CURRENT_DOCUMENTID,
-//     payload:documentID
-// })
-// export const fetchCurrentProductStart = productID =>({
-//     type:productsTypes.FETCH_CURRENT_PRODUCT_START,
-//     payload:productID
-// })
+
+export const addHomeContentInstagramStart = img =>({
+    type:homeTypes.ADD_NEW_HOME_CONTENT_INSTAGRAM,
+    payload:img
+})
+
+export const fetchHomeContentInstagramStart = (data) =>({
+    type:homeTypes.FETCH_CONTENT_START_INSTAGRAM,
+    payload:data
+})
+
+export const setHomeInstagramContent = contentProduct =>({
+    type:homeTypes.SET_CONTENT_INSTAGRAM,
+    payload:contentProduct
+})
+
+export const deleteHomeContentInstagramStart = sliderID =>({
+    type:homeTypes.DELETE_CONTENT_INSTAGRAM_START,
+    payload:sliderID
+})
 
 
-// export const setCurrentProduct = product =>({
-//     type:productsTypes.SET_CURRENT_PRODUCT,
-//     payload:product
-// })
+export const editContentInstagram = contentID =>({
+    type:homeTypes.FETCH_CONTENT_EDIT_INSTAGRAM,
+    payload:contentID
+})
+
+export const updateContentInstagram  = contentId =>({
+    type:homeTypes.UPDATE_CONTENT_INSTAGRAM,
+    payload:contentId
+})

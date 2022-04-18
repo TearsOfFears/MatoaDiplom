@@ -1,9 +1,9 @@
 import React from "react";
 
-import productsEyes from "../assets/img/home/productsEyes.png";
-import productsWatch from "../assets/img/home/productsWatch.png";
-
-import { Buttons } from "./index";
+import productsEyes from "./../../assets/img/home/productsEyes.png";
+import productsWatch from "./../../assets/img/home/productsWatch.png";
+import "./style.scss";
+import { Buttons } from "./../index";
 
 function OurProducts() {
 	return (

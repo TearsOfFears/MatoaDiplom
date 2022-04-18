@@ -1,7 +1,7 @@
 import {takeLatest, put, call, all, take} from "redux-saga/effects";
 import homeTypes from "./home.types";
-import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals,handleDeleteHomeContentTestimonals, handleEditHomeContentTestimonals,handleUpdateContentHomeTestimonals, handleEditHomeContentProduct, handleUpdateContentHomeProduct} from "./home.helpers";
-import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent, getCurrentDocumentId, loadingToggleAction,} from "./home.actions";
+import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals,handleDeleteHomeContentTestimonals, handleEditHomeContentTestimonals,handleUpdateContentHomeTestimonals, handleEditHomeContentProduct, handleUpdateContentHomeProduct, handleAddContentHomeInstagram, handleFetchContentHomeInstagram, handleDeleteHomeContentInstagram, handleEditHomeContentInstagram, handleUpdateContentHomeInstagram} from "./home.helpers";
+import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent, getCurrentDocumentId, loadingToggleAction, setHomeInstagramContent, fetchHomeContentInstagramStart,} from "./home.actions";
 import {auth} from "../../firebase/utils";
 
 export function * addNewContentHome({payload}) {
@@ -143,6 +143,90 @@ export function * onEditContent() {
 }
 
 
+
+
+
+export function * addNewContentInstagramHome({payload}) {
+  try {
+    const timestamp = new Date();
+    yield handleAddContentHomeInstagram({
+      ...payload,
+      productAdminUID: auth.currentUser.uid,
+      createdDate: timestamp
+    });
+    yield put(fetchHomeContentInstagramStart());
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function * fetchHomeContentInstagram(payload) {
+  try {
+    const content = yield handleFetchContentHomeInstagram(payload);
+    yield put(setHomeInstagramContent(content))
+  } catch (err) {
+    //console.log(err);
+  }
+}
+
+
+export function * deleteHomeContentInstagram({payload}) {
+  try {
+    yield handleDeleteHomeContentInstagram(payload);
+    yield put(fetchHomeContentInstagramStart());
+  } catch (err) {
+    //console.log(err);
+  }
+}
+
+export function * editContentInstagram({payload}) {
+  try {
+    const content =  yield handleEditHomeContentInstagram(payload);
+    yield put(setHomeInstagramContent(content))
+  } catch (err) {
+    //console.log(err);
+  }
+}
+
+export function * updateContentInstagram({
+  payload: {
+    editData, id
+  }
+}) {
+  try {
+    const content =  yield put(handleUpdateContentHomeInstagram(editData, id))
+    yield put(setHomeInstagramContent(content))
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+
+
+
+
+
+export function * onUpdateContentInstagram() {
+  yield takeLatest(homeTypes.UPDATE_CONTENT_INSTAGRAM, updateContentInstagram)
+}
+
+export function * onEditContentInstagram() {
+  yield takeLatest(homeTypes.FETCH_CONTENT_START_INSTAGRAM, editContentInstagram)
+}
+
+export function * onDeleteContentInstagramStart() {
+  yield takeLatest(homeTypes.DELETE_CONTENT_INSTAGRAM_START, deleteHomeContentInstagram)
+}
+
+export function * onFetchContentInstagramStart() {
+  yield takeLatest(homeTypes.FETCH_CONTENT_START_INSTAGRAM, fetchHomeContentInstagram)
+}
+export function * onAddHomeContentInstagramStart() {
+  yield takeLatest(homeTypes.ADD_NEW_HOME_CONTENT_INSTAGRAM, addNewContentInstagramHome)
+}
+
+
+
 export function * onDeleteContentTestimonalsStart() {
   yield takeLatest(homeTypes.DELETE_CONTENT_TESTIMONALS_START, deleteHomeContentTestimonals)
 }
@@ -165,6 +249,8 @@ export function * onAddHomeContentStart() {
   yield takeLatest(homeTypes.ADD_NEW_HOME_CONTENT, addNewContentHome)
 }
 
+
+
 export default function * homeSagas() {
   yield all([
     call(onAddHomeContentStart),
@@ -173,10 +259,14 @@ export default function * homeSagas() {
     call(onAddHomeContentTestimonalsStart),
     call(onFetchContentTestimonalsStart),
     call(onDeleteContentTestimonalsStart),
+    call(onAddHomeContentInstagramStart),
+    call(onFetchContentInstagramStart),
+    call(onDeleteContentInstagramStart),
     call(onEditContent),
     call(onUpdateContent),
     call(onEditContentProduct),
     call(onUpdateContentProduct),
-    //call(onGetCurrentDocumentID)
+    call(onEditContentInstagram),
+    call(onUpdateContentInstagram),
   ])
 }

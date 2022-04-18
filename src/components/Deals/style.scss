@@ -1,4 +1,4 @@
-@import "../utils/variables.scss";
+@import "./../../scss/componentstyles/utils/variables.scss";
 
 .ourProducts {
   margin-top: 80px;
@@ -123,7 +123,7 @@
   }
 
   .wrapper-ourProducts-Deals {
-    margin-top: 180px;
+    margin-top: 130px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
     grid-column-gap: 30px;
@@ -209,10 +209,18 @@
 
       &:hover {
         animation: 0.5s fade;
-
+       
+        position: relative;
+        .block-text{
+          transform: translateY(-10px);
+          transition: .5s;
+        }
         .btn-checkout {
           display: block;
-
+       width: 70%;
+       text-align: center;
+       margin-bottom: 30px;
+       margin-top: 0px;
         }
       }
 
@@ -235,11 +243,17 @@
 
       .block-text {
         width: 90%;
-        padding-top: 20px;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
-        padding-bottom: 30px;
+        align-items: center;
+        background-color: transparent;
+        transform: translateY(0px);
+        transition: .5s;
+        .wrapper-text{
+          width: 100%;
+          margin-top: 10px;
+          padding-bottom: 10px;
+        }
       }
     }
   }

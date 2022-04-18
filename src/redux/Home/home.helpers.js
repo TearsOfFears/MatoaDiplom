@@ -236,3 +236,122 @@ export const handleUpdateContentHomeProduct = (content,contentID) => {
       })
   })
 }
+
+
+
+
+
+
+
+export const handleAddContentHomeInstagram= homeInstagram => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeInstagram')
+      .doc()
+      .set(homeInstagram)
+      .then(() => {
+        resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  })
+}
+
+export const handleFetchContentHomeInstagram = ({
+  startAfterDoc,
+  persistProducts = []
+}) => {
+  return new Promise((resolve, reject) => {
+
+    const pageSize = 5;
+
+    let ref = firestore
+      .collection('homeInstagram')
+      .orderBy('createdDate')
+      .limit(pageSize);
+
+    if (startAfterDoc) 
+      ref = ref.startAfter(startAfterDoc)
+    ref
+      .get()
+      .then((snapShot) => {
+        const totalCount = snapShot.size;
+        const dataInstagram = [
+          ...persistProducts,
+          ...snapShot
+            .docs
+            .map(doc => {
+              return {
+                ...doc.data(),
+                documentId: doc.id
+              }
+            })
+        ];
+        resolve({
+          dataInstagram,
+          queryDocInstagram: snapShot.docs[totalCount - 1],
+          isLastPageInstagram: totalCount < pageSize
+        })
+      })
+      .catch(err => {
+        reject(err);
+      
+      })
+  })
+}
+
+
+export const handleDeleteHomeContentInstagram = instagramID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeInstagram')
+      .doc(instagramID)
+      .delete()
+      .then(() => {
+        resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+
+export const handleEditHomeContentInstagram= instagramID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeInstagram')
+      .doc(instagramID)
+      .get()
+      .then(snap=>{
+        if(snap.exists){
+          resolve({
+            ...snap.data(),
+            documentID:instagramID
+          })
+        }
+      })
+      .catch(err=>{
+        reject(err);
+      })
+  });
+}
+
+
+export const handleUpdateContentHomeInstagram = (content,instagramID) => {
+
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('homeProduct')
+      .doc(instagramID)
+      .update(content)
+      .then(()=>{
+        resolve()
+        }
+      )
+      .catch(err => {
+        reject(err);
+      })
+  })
+}

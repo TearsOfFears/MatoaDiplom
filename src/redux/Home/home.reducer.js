@@ -3,6 +3,7 @@ import homeTypes from "./home.types";
 const INITIAL_STATE = {
   contentProduct: [],
   contentTestimonals: [],
+  contentInstagram:[],
   contentEdit: [],
   showLoading: true
 }
@@ -19,6 +20,11 @@ const homeReducer = (state = INITIAL_STATE, action) => {
         ...state,
         contentTestimonals: action.payload
       }
+      case homeTypes.SET_CONTENT_INSTAGRAM:
+        return {
+          ...state,
+          contentInstagram: action.payload
+        }
     case homeTypes.SET_EDIT_CONTENT:
       return {
         ...state,
