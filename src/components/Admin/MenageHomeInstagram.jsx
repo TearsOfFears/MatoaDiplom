@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { CKEditor } from "ckeditor4-react";
 import ReadMoreReact from "read-more-react";
 import {
-    addHomeContentInstagramStart,
+	addHomeContentInstagramStart,
 	addHomeContentStart,
 	editContent,
 	fetchHomeContentStart,
@@ -59,14 +59,8 @@ const MenageHomeInstagram = (props) => {
 			const fileName = `thumb_${file.name}`;
 			const thumbRef = ref(storage, `home/Instagram/${fileName}`);
 			const thumbSnapshot = await uploadString(thumbRef, uri, "data_url");
-
 			const linkPut = String(await getDownloadURL(thumbSnapshot.ref));
-			console.log(linkPut);
-			if (linkPut !== props.contentEdit.sliderThumbnail) {
-				console.log(true);
-				deleteImage(props.contentEdit.sliderThumbnail);
-				setSliderThumbnail(linkPut);
-			}
+            setSliderThumbnail(linkPut);
 		} catch (err) {
 			console.log(err);
 		}
@@ -76,20 +70,7 @@ const MenageHomeInstagram = (props) => {
 		setSliderThumbnail("");
 	};
 
-	const setEditValueProduct = () => {
-		if (
-			typeof props.contentEdit === "object" &&
-			Object.keys(content).length > 0
-		) {
-			setSliderThumbnail(props.contentEdit.sliderThumbnail);
-		} else {
-			resetForm();
-		}
-	};
-	useEffect(() => {
-		setEditValueProduct();
-	}, [content]);
-    console.log(sliderThumbnail);
+
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(
@@ -101,43 +82,18 @@ const MenageHomeInstagram = (props) => {
 		dispatch(setEditContent({ some: 1 }, { some: 1 }, { some: 1 }));
 		//setHideModal(true);
 	};
-
-	const handleSubmitEdit = (e) => {
-		const id = props.contentEdit.documentID;
-		e.preventDefault();
-		const editData = {
-			sliderThumbnail,
-		};
-		dispatch(updateContentInstagram({ editData, id }));
-		dispatch(setEditContent({ some: 1 }, { some: 1 }));
-		dispatch(fetchHomeContentStart());
-		resetForm();
-	};
 	return (
 		<div>
-			{typeof content !== "undefined" && Object.keys(content).length > 0 ? (
-				<form onSubmit={handleSubmitEdit}>
-					<FormInput
-						Label="Зображення слайдера"
-						type="file"
-						handleChange={(e) => onHandleFile(e.target.files)}
-					/>
-					<Buttons type="submit" style="btn-read">
-						Редагувати слайдер
-					</Buttons>
-				</form>
-			) : (
-				<form onSubmit={handleSubmit}>
-					<FormInput
-						Label="Зображення слайдера"
-						type="file"
-						handleChange={(e) => onHandleFile(e.target.files)}
-					/>
-					<Buttons type="submit" style="btn-read">
-						Добавити новий слайдер
-					</Buttons>
-				</form>
-			)}
+			<form onSubmit={handleSubmit}>
+				<FormInput
+					Label="Зображення слайдера"
+					type="file"
+					handleChange={(e) => onHandleFile(e.target.files)}
+				/>
+				<Buttons type="submit" style="btn-read">
+					Добавити новий слайдер
+				</Buttons>
+			</form>
 		</div>
 	);
 };

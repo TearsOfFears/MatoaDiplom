@@ -337,21 +337,3 @@ export const handleEditHomeContentInstagram= instagramID => {
       })
   });
 }
-
-
-export const handleUpdateContentHomeInstagram = (content,instagramID) => {
-
-  return new Promise((resolve, reject) => {
-    firestore
-      .collection('homeProduct')
-      .doc(instagramID)
-      .update(content)
-      .then(()=>{
-        resolve()
-        }
-      )
-      .catch(err => {
-        reject(err);
-      })
-  })
-}

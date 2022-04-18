@@ -188,27 +188,11 @@ export function * editContentInstagram({payload}) {
   }
 }
 
-export function * updateContentInstagram({
-  payload: {
-    editData, id
-  }
-}) {
-  try {
-    const content =  yield put(handleUpdateContentHomeInstagram(editData, id))
-    yield put(setHomeInstagramContent(content))
-  } catch (err) {
-    console.log(err);
-  }
-}
 
 
 
 
 
-
-export function * onUpdateContentInstagram() {
-  yield takeLatest(homeTypes.UPDATE_CONTENT_INSTAGRAM, updateContentInstagram)
-}
 
 export function * onEditContentInstagram() {
   yield takeLatest(homeTypes.FETCH_CONTENT_START_INSTAGRAM, editContentInstagram)
@@ -267,6 +251,5 @@ export default function * homeSagas() {
     call(onEditContentProduct),
     call(onUpdateContentProduct),
     call(onEditContentInstagram),
-    call(onUpdateContentInstagram),
   ])
 }
