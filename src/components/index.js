@@ -1,5 +1,5 @@
-export {default as Swiper1} from "./Swiper1";
-export {default as Header} from "./Header";
+export {default as Swiper1} from "./SwiperProduct/Swiper1";
+export {default as Header} from "./Header/Header";
 export {default as OurProducts} from "./Deals/OurProducts";
 export {default as MonthyDeals} from "./Deals/MonthyDeals";
 export {default as News} from "./News";

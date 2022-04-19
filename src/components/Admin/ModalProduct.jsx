@@ -310,18 +310,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								);
 							})}
 
-							{/* {discount === "true" && (
-								<FormInput
-									Label="Стара ціна"
-									type="number"
-									min="0.00"
-									max="10000.00"
-									step="0.01"
-									value={priceOld}
-									handleChange={(e) => setPriceOld(e.target.value)}
-								/>
-							)} */}
-
 							<CKEditor
 								onChange={(evt) => setProductDesc(evt.editor.getData())}
 							/>

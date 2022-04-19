@@ -116,7 +116,7 @@ const ItemRender = (product) => {
 				</div>
 				<div className="title-price-wrapper">
 					<h1>{productName}</h1>
-					<p> {price} грн.</p>
+					<p> {price} ₴</p>
 				</div>
 			</div>
 
@@ -171,7 +171,7 @@ const ItemRender = (product) => {
 								</svg>
 							</button>
 						</div>
-						<p> {price * quantity} грн.</p>
+						<p> {price * quantity} ₴</p>
 
 						<button
 							className="delete"

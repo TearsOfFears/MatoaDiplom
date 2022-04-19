@@ -1,4 +1,5 @@
 import React, { useEffect } from "react";
+import "./caraousel.scss";
 import {
 	Navigation,
 	Pagination,
@@ -8,9 +9,9 @@ import {
 	Lazy,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import caraousel1 from "../assets/img/home/caraousel1.png";
-import caraousel2 from "../assets/img/home/maple-1.png";
-import { Buttons } from "./index";
+import caraousel1 from "./../../assets/img/home/caraousel1.png";
+import caraousel2 from "./../../assets/img/home/maple-1.png";
+import { Buttons } from "../index";
 import {
 	faInfoCircle,
 	faChevronLeft,
@@ -19,7 +20,7 @@ import {
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useDispatch, useSelector } from "react-redux";
 import { Link } from "react-router-dom";
-import { fetchHomeContentStart } from "./../redux/Home/home.actions";
+import { fetchHomeContentStart } from "../../redux/Home/home.actions";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
 

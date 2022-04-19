@@ -1,7 +1,13 @@
-
+@import "./../../scss//componentstyles/utils/variables.scss";
 nav {
   background-color:$grey;
   z-index: 2;
+  a{
+    text-decoration: none;
+    &:hover{
+      text-decoration: none;
+    }
+  }
   .btn-cart {
     width: 46px;
     height: 46px;
@@ -9,7 +15,7 @@ nav {
     background-color: $grey;
     border: none;
     outline: 0;
-    margin-left: 40px;
+    margin-left: 20px;
     position: relative;
     transition: .5s;
     span {
@@ -28,6 +34,16 @@ nav {
       background-color: $secondAccent;
       transition: .5s;
     }
+  }
+  .dropdown{
+    display: none;
+    transition: .5s;
+    position: absolute;
+    right:0px;
+    top: 50px;
+    width: 100px;
+    height: 100px;
+    background-color: $white;
   }
 
   .btn-login {
@@ -62,19 +78,27 @@ nav {
     display: flex;
     flex-direction: row;
     align-items: center;
+    justify-content: space-between;
+    position: relative;
+    &:hover{
+      cursor: pointer;
+    }
+    .block{
+      display: block;
+    }
     .photoborder{
       width: 45px;
       height: 45px;
      border-radius: 50%;
-     margin-right: 5px;
      display: flex;
      flex-direction: row;
      align-items: center;
      justify-content: center;
-      img{
-        width: 100%;
-        border-radius: 100%;
-      }
+     img{
+      width: 100%;
+      border-radius: 100%;
+    }
+  
     }
   }
   

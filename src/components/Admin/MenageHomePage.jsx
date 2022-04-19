@@ -183,6 +183,12 @@ const MenageHomePage = () => {
 		width: "15%",
 	};
 
+	const stylesInstagram = {
+		fontSize: "16px",
+		cursor: "cursor",
+		width: "5%",
+	};
+
 	useEffect(() => {
 		dispatch(setEditContent({}));
 		dispatch(fetchHomeContentStart());
@@ -548,13 +554,14 @@ const MenageHomePage = () => {
 								} = data;
 
 								return (
-									<TableRow key={documentId} style={styles}>
+									<TableRow key={documentId} style={stylesInstagram}>
 										<TableCell align="left">{pos + 1}</TableCell>
 										<TableCell align="left">
 											<LazyLoadImage
 												effect="blur"
 												useIntersectionObserver={true}
 												src={sliderThumbnail}
+												width="100px"
 												wrapperClassName="text-center"
 											/>
 										</TableCell>

@@ -21,15 +21,6 @@ function Cart() {
 	const { cartItems, total } = useSelector(mapState);
 	const [state, setState] = useState(false);
 
-	// useEffect(() => {
-	// 	if (JSON.stringify(cartItems).indexOf("packageType") > -1) {
-	// 		setState(true);
-	// 	} else {
-	// 		setState(false);
-	// 	}
-	// }, [cartItems]);
-
-	// console.log(JSON.stringify(cartItems));
 
 	return (
 		<section className="cart ">
@@ -41,7 +32,7 @@ function Cart() {
 					<div className="wrapper-checkout mt-4" key={0}>
 						<div className="total">
 							<h1>Підсумок:</h1>
-							<p>{total} грн.</p>
+							<p>{total} ₴</p>
 						</div>
 						<div
 							style={{
