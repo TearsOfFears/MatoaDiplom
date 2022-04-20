@@ -15,13 +15,11 @@ const Dashboard = (props) => {
 
 	const { currentUser, orderData } = useSelector(mapState);
 	
-	const { price, ordersHistory } = orderData || [];
 	useEffect(() => {
 		dispatch(getUserOrderHistory(currentUser.id));
 	}, []);
 	return (
 		<div>
-			
 			<RenderOrderHistory orders={orderData}/>
 		</div>
 	);

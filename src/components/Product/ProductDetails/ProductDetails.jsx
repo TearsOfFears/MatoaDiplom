@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./details.scss";
 import classnames from "classnames";
+import SplineTest from "../../SplineTest";
 const ProductDetails = (product) => {
 	const { productDesc } = product;
 	const details = [
@@ -56,6 +57,7 @@ const ProductDetails = (product) => {
 							}
 							dangerouslySetInnerHTML={{ __html: detailsRender[active] }}
 						/>
+						<SplineTest/>
 					</div>
 				</div>
 			</div>

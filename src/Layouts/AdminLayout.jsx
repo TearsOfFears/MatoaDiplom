@@ -11,30 +11,12 @@ import MenageHomePage from "../components/Admin/MenageHomePage";
 
 import "./Layouts.scss";
 const AdminLayout = (props) => {
-	const dispatch = useDispatch();
-	// const [hideModal, setHideModal] = useState(true);
-	// const toggleModalAddProductPage = () => setHideModal(!hideModal);
-	// const toggleModalHome = () => setHideModal(!hideModal);
-	//onClick={() => toggleModalAddProductPage()}
-	// const configModalProductPage = {
-	// 	hideModal,
-	// 	toggleModalAddProductPage,
-	// 	setHideModal,
-	// };
-	// const configModalHome = {
-	// 	hideModal,
-	// 	toggleModal,
-	// 	setHideModal,
-
-	// };
 	const [active, setActive] = useState(0);
-	const signOut = () => {
-		dispatch(signOutUserStart());
-	};
+
 	const arrMenage = [<Admin />, <MenageHomePage />];
 	const arrButtons = [
 		"Переглянути продукти",
-		"Переглянути контент головного екрану",
+		"Переглянути контент",
 	];
 	const getIndex = (index) => {
 		setActive(index);
@@ -42,7 +24,7 @@ const AdminLayout = (props) => {
 	return (
 		<div className="adminLayout">
 			<Header {...props} />
-			<div className="container d-flex flex-row mt-5">
+			<div className="container d-flex flex-row mt-5 justify-content-between">
 				<div className="contorlPanel">
 					<div className="sideBar">
 						<VerticalNav>
@@ -56,11 +38,6 @@ const AdminLayout = (props) => {
 										</li>
 									);
 								})}
-								<li>
-								 	<span className="btn" onClick={() => signOut()}>
-										Вийти
-								 	</span>
-								 </li>
 							</ul>
 						</VerticalNav>
 					</div>

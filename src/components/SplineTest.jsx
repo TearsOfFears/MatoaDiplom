@@ -5,7 +5,7 @@ import React from "react";
 function SplineTest() {
 	return (
 		<div>
-	<Spline scene="https://draft.spline.design/ZGw7zNfAzaeSxO2r/scene.spline" />
+ 		  <Spline scene="https://draft.spline.design/j5RZ6mGbpvXvEeJx/scene.spline" />
 		</div>
 	);
 }

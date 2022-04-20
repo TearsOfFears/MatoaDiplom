@@ -70,36 +70,36 @@ const SignUp = (props) => {
 			<div className="formWrapper">
 				{errors.length > 0 && alert(errors)}
 
-				<form onSubmit={handleFormSubmit}>
+				<form onSubmit={handleFormSubmit} className="formStyle">
 					<FormInput
 						type="text"
 						name="displayName"
 						value={displayName}
-						placeholder="full name"
+						placeholder="Ім`я"
 						onChange={handleChange}
 					/>
 					<FormInput
 						type="email"
 						name="email"
 						value={email}
-						placeholder="Email"
+						placeholder="Пошта"
 						onChange={handleChange}
 					/>
 					<FormInput
 						type="password"
 						name="password"
 						value={password}
-						placeholder="Password"
+						placeholder="Пароль"
 						onChange={handleChange}
 					/>
 					<FormInput
 						type="password"
 						name="confirmPassword"
 						value={confirmPassword}
-						placeholder="confirmPassword"
+						placeholder="Повторіть пароль"
 						onChange={handleChange}
 					/>
-					<ButtonForm type="submit"> Зареєструватись</ButtonForm>
+					<ButtonForm type="submit" style="mb-5 mt-5"> Зареєструватись</ButtonForm>
 				</form>
 			</div>
 		</AuthWrapper>

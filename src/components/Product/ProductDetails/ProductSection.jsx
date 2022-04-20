@@ -69,7 +69,6 @@ const ProductSection = (product) => {
 									<LazyLoadImage
 										effect="blur"
 										useIntersectionObserver={true}
-										//placeholder={<Loader />}
 										src={state}
 										width="250px"
 										onAnimationEnd={() => setstateStyle({ fade: false })}
@@ -84,7 +83,7 @@ const ProductSection = (product) => {
 								{discount === "true" ? (
 									<h2>{price} ₴ </h2>
 								) : (
-									<p className="price">{price} ₴ </p>
+									<h2>{price} ₴ </h2>
 								)}
 
 								<div className="block-add">

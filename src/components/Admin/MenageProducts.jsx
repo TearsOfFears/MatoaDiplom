@@ -61,32 +61,32 @@ const MenageProducts = () => {
 		},
 		{
 			id: "productName",
-			lable: "Назва продукту",
+			lable: "Назва",
 		},
 		{
 			id: "productThumbnail",
-			lable: "Зображення головного екрану",
+			lable: "Головне зображення",
 		},
 		{
 			id: "documentId",
-			lable: "ID - продукту",
+			lable: "ID",
 		},
 		{
 			id: "productDesc",
-			lable: "Опис продукту",
+			lable: "Опис",
 		},
 
 		{
 			id: "price",
-			lable: "Ціна продукту",
+			lable: "Ціна",
 		},
 		{
 			id: "documentId",
-			lable: "Редагувати продукт",
+			lable: "Редагувати",
 		},
 		{
 			id: "documentId",
-			lable: "Видалити продукт",
+			lable: "Видалити",
 		},
 	];
 
@@ -129,7 +129,7 @@ const MenageProducts = () => {
 	};
 	return (
 		<div className="menageProducts">
-			<div className="d-flex flex-row align-items-center justify-content-between">
+			<div className="d-flex flex-row align-items-flex-start justify-content-between">
 				<h1>Управління продукцією</h1>
 				<ButtonForm onClick={() => toggleModal()}>Додати продукт</ButtonForm>
 			</div>
@@ -190,7 +190,7 @@ const MenageProducts = () => {
 												/>
 											) : null}
 										</TableCell>
-										<TableCell align="left">{price} грн.</TableCell>
+										<TableCell align="left">{price} ₴</TableCell>
 										<TableCell align="left">
 											<button
 												className="delete"

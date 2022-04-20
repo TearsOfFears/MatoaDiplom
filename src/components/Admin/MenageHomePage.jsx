@@ -86,36 +86,36 @@ const MenageHomePage = () => {
 		},
 		{
 			id: "title",
-			lable: "Назва продукту",
+			lable: "Заголовок ",
 		},
 		{
 			id: "sliderThumbnail",
-			lable: "Зображення слайдера",
+			lable: "Зображення",
 		},
 		{
 			id: "documentId",
-			lable: "ID - продукту",
+			lable: "ID",
 		},
 		{
 			id: "linkDiscover",
-			lable: " Посилання на інформацію",
+			lable: "Посилання інформацію",
 		},
 		{
 			id: "linkDetail",
-			lable: "Посиланян на продукт",
+			lable: "Посилання на продукт",
 		},
 
 		{
 			id: "descText",
-			lable: "Опис слайдера",
+			lable: "Опис",
 		},
 		{
 			id: "documentId",
-			lable: "Редагувати продукт",
+			lable: "Редагувати",
 		},
 		{
 			id: "documentId",
-			lable: "Видалити продукт",
+			lable: "Видалити",
 		},
 	];
 
@@ -130,11 +130,11 @@ const MenageHomePage = () => {
 		},
 		{
 			id: "testimonalsThumbnail",
-			lable: "Зображення слайдера",
+			lable: "Зображення",
 		},
 		{
 			id: "documentId",
-			lable: "ID - слайдера",
+			lable: "ID ",
 		},
 		{
 			id: "textAuthor",
@@ -147,15 +147,15 @@ const MenageHomePage = () => {
 
 		{
 			id: "descTextTestimonals",
-			lable: "Опис слайдера",
+			lable: "Опис",
 		},
 		{
 			id: "documentId",
-			lable: "Редагувати продукт",
+			lable: "Редагувати",
 		},
 		{
 			id: "documentId",
-			lable: "Видалити продукт",
+			lable: "Видалити",
 		},
 	];
 
@@ -174,7 +174,7 @@ const MenageHomePage = () => {
 		},
 		{
 			id: "documentId",
-			lable: "Видалити зображення",
+			lable: "Видалити",
 		},
 	];
 	const styles = {
@@ -184,9 +184,9 @@ const MenageHomePage = () => {
 	};
 
 	const stylesInstagram = {
-		fontSize: "16px",
+		fontSize: "15px",
 		cursor: "cursor",
-		width: "5%",
+		width: "70px",
 	};
 
 	useEffect(() => {
@@ -253,7 +253,7 @@ const MenageHomePage = () => {
 
 	return (
 		<div className="menageProducts">
-			<th className="d-flex flex-row align-items-center justify-content-between">
+			<th className="d-flex flex-row align-items-start justify-content-between">
 				<h1>Управління контентом головної сторінки</h1>
 				<ButtonForm onClick={() => toggleModal()}>Додати контент</ButtonForm>
 			</th>
@@ -289,8 +289,8 @@ const MenageHomePage = () => {
 					)}
 				</div>
 			</Modal>
-			<TableContainer>
-				<h1>Слайди продукції</h1>
+			<TableContainer style={{width:"95%",overflow:"hidden"}} >
+				<h1>Головний слайдер</h1>
 				<Table>
 					<TableHead>
 						<TableRow>
@@ -408,7 +408,7 @@ const MenageHomePage = () => {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<TableContainer>
+			<TableContainer  style={{width:"90%",overflow:"hidden"}}>
 				<h1>Слайди відгуків</h1>
 				<Table>
 					<TableHead>
@@ -529,7 +529,7 @@ const MenageHomePage = () => {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<TableContainer>
+			<TableContainer style={{width:"90%"}}>
 				<h1>Фотографії  Instagram</h1>
 				<Table>
 					<TableHead>
@@ -537,7 +537,7 @@ const MenageHomePage = () => {
 							{columsInstagram.map((column, pos) => {
 								const { lable } = column;
 								return (
-									<TableCell key={pos} style={styles}>
+									<TableCell key={pos} style={stylesInstagram}>
 										{lable}
 									</TableCell>
 								);
@@ -561,7 +561,7 @@ const MenageHomePage = () => {
 												effect="blur"
 												useIntersectionObserver={true}
 												src={sliderThumbnail}
-												width="100px"
+												width="60px"
 												wrapperClassName="text-center"
 											/>
 										</TableCell>

@@ -122,13 +122,14 @@ function Payment({ handleChangeState, stage }) {
 				shippingAddress: stage.shippingAddress,
 				billingAddress: stage.billingAddress,
 				orderItems: cartItems.map((item) => {
-					const { documentId, productName, productThumbnail, price, quantity } =
+					const { documentId, productName, productThumbnail, price, quantity,packageType } =
 						item;
 					return {
 						documentId,
 						productThumbnail,
 						productName,
 						price,
+						packageType,
 						quantity,
 					};
 				}),

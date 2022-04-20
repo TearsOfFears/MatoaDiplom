@@ -30,7 +30,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const [productName, setProductName] = useState("");
 	const [productThumbnail, setProductThumbnail] = useState([]);
 
-	const [discount, setDiscount] = useState(false);
+	const [discount, setDiscount] = useState("false");
 	const [discountPersentage, setDiscountPersentage] = useState(0);
 
 	const [price, setPrice] = useState(0);
@@ -336,32 +336,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								handleChange={(e) => setProductCategory(e.target.value)}
 							/>
 							<FormSelect
-								label="Знижка"
-								options={[
-									{
-										value: "yes",
-										name: "На знижці",
-									},
-									{
-										value: "no",
-										name: "Без знижки",
-									},
-								]}
-								value={discount}
-								handleChange={(e) => setDiscount(e.target.value)}
-							/>
-							{discount === true && (
-								<FormInput
-									Label="Відсток знижки"
-									type="number"
-									min="0.00"
-									max="10000.00"
-									step="0.01"
-									value={discountPersentage}
-									handleChange={(e) => setDiscountPersentage(e.target.value)}
-								/>
-							)}
-							<FormSelect
 								label="Наявність"
 								options={[
 									{
@@ -380,22 +354,21 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={availability}
 								handleChange={(e) => setAvailability(e.target.value)}
 							/>
-							<FormInput
-								Label="Назва"
-								type="text"
-								value={productName}
-								handleChange={(e) => setProductName(e.target.value)}
+							<FormSelect
+								label="Знижка"
+								options={[
+									{
+										value: "true",
+										name: "На знижці",
+									},
+									{
+										value: "false",
+										name: "Без знижки",
+									},
+								]}
+								value={discount}
+								handleChange={(e) => setVal(e)}
 							/>
-							{arrLabel.map((label, key) => {
-								return (
-									<FormInput
-										key={key}
-										Label={label}
-										type="file"
-										handleChange={(e) => onHandleFiles(e.target.files, key)}
-									/>
-								);
-							})}
 							<FormInput
 								Label="Ціна"
 								type="number"
@@ -405,6 +378,36 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={price}
 								handleChange={(e) => setPrice(e.target.value)}
 							/>
+							{discount === "true" && (
+								<FormInput
+									Label="Відсток знижки"
+									type="number"
+									min="0.00"
+									max="10000.00"
+									step="0.01"
+									value={discountPersentage}
+									handleChange={(e) => setDiscountVal(e)}
+								/>
+							)}
+
+							<FormInput
+								Label="Назва"
+								type="text"
+								value={productName}
+								handleChange={(e) => setProductName(e.target.value)}
+							/>
+
+							{arrLabel.map((label, key) => {
+								return (
+									<FormInput
+										key={key}
+										Label={label}
+										type="file"
+										handleChange={(e) => onHandleFileEdit(e.target.files, key)}
+									/>
+								);
+							})}
+
 							<CKEditor
 								onChange={(evt) => setProductDesc(evt.editor.getData())}
 							/>

@@ -11,6 +11,7 @@ import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
 import "./style.scss";
+import Emptycart from "../EmptyCart/Emptycart";
 
 const mapState = createStructuredSelector({
 	cartItems: selectCartItems,
@@ -20,7 +21,6 @@ function Cart() {
 	const navigate = useNavigate();
 	const { cartItems, total } = useSelector(mapState);
 	const [state, setState] = useState(false);
-
 
 	return (
 		<section className="cart ">
@@ -55,7 +55,7 @@ function Cart() {
 					</div>,
 				]
 			) : (
-				<p key={1}>Немає нічого у вашій корзині</p>
+				<Emptycart/>
 			)}
 		</section>
 	);

@@ -1,7 +1,8 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
 import { ButtonForm, Buttons, AuthWrapper } from "./index";
-
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faGoogle } from "@fortawesome/free-brands-svg-icons";
 import FormInput from "./Forms/FormInput";
 import { Link } from "react-router-dom";
 
@@ -45,36 +46,41 @@ const SignIn = (props) => {
 	return (
 		<AuthWrapper {...configAuthWrapper}>
 			<div className="formWrapper">
-				<form onSubmit={handleSubmit}>
+				<form onSubmit={handleSubmit} className="formStyle">
 					<FormInput
 						type="email"
 						name="email"
 						value={email}
-						placeholder="Email"
+						placeholder="Пошта"
 						onChange={(e) => setEmail(e.target.value)}
 					/>
 					<FormInput
 						type="password"
 						name="password"
 						value={password}
-						placeholder="Password"
+						placeholder="Пароль"
 						onChange={(e) => setPassword(e.target.value)}
 					/>
 					<Buttons type="submit" style="btn-read">
-						Зайти
+						Увійти
 					</Buttons>
 
 					<div className="socialSignIn">
 						<ButtonForm
 							onClick={handleSignInWithGoogle}
-							className="btn-read mb-5 mt-3"
+							className="btn-read mb-1 mt-3"
 						>
-							Sign In with Google
+							Увійти з  <FontAwesomeIcon icon={faGoogle} />
 						</ButtonForm>
 					</div>
 					<div className="links">
-						<Link to="/recovery" className="btn-read mb-5 mt-3">
-							Відновити ваш пароль
+						<Link to="/recovery" className="btn-read mb-1">
+							Відновити пароль
+						</Link>
+					</div>
+					<div className="links">
+						<Link to="/registration" className="btn-read mb-5">
+							Зареєструватись
 						</Link>
 					</div>
 				</form>

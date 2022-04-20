@@ -55,7 +55,7 @@ const RenderOrderHistory = ({ orders }) => {
 							})}
 						</TableRow>
 					</TableHead>
-					<TableBody>
+					<TableBody style={styles}>
 						{Array.isArray(orders) &&
 							orders.length > 0 &&
 							orders.map((row, pos) => {
@@ -68,7 +68,7 @@ const RenderOrderHistory = ({ orders }) => {
 									>
 										<TableCell align="left">{formatDate(orderCreated)}</TableCell>
 										<TableCell align="left">{documentID}</TableCell>
-										<TableCell align="left">{grandTotal} грн.</TableCell>
+										<TableCell align="left">{grandTotal} ₴</TableCell>
 									</TableRow>
 								);
 							})}

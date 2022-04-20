@@ -9,8 +9,6 @@ import {
 	Lazy,
 } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import caraousel1 from "./../../assets/img/home/caraousel1.png";
-import caraousel2 from "./../../assets/img/home/maple-1.png";
 import { Buttons } from "../index";
 import {
 	faInfoCircle,
@@ -108,11 +106,11 @@ function Swiper1() {
 														Discover
 													</Link>
 
-													<Link to={linkDetail}>
-														<Buttons style="btn-read">
-															<FontAwesomeIcon icon={faInfoCircle} />
+													<Link to={linkDetail} className="btn-read">
+													
+															<FontAwesomeIcon icon={faInfoCircle}/>
 															Read details
-														</Buttons>
+													
 													</Link>
 												</div>
 											</div>

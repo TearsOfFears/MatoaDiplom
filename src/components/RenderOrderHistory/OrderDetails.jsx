@@ -13,9 +13,10 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import moment from "moment";
 import { useDispatch } from "react-redux";
 import { useEffect } from "react";
-import { setOrderDetailsStart } from "../../redux/Orders/orders.actions";
+import { getOrderDetailsStart, setOrderDetailsStart } from "../../redux/Orders/orders.actions";
 import { useNavigate, Link } from "react-router-dom";
 import Buttons from "../Buttons";
+import { useParams } from "react-router";
 const columns = [
 	{
 		id: "productName",
@@ -23,7 +24,7 @@ const columns = [
 	},
 	{
 		id: "productThumbnail",
-		lable: "Зображення замовлення ",
+		lable: "Зображення ",
 	},
 
 	{
@@ -34,6 +35,9 @@ const columns = [
 		id: "price",
 		lable: "Ціна",
 	},
+	{
+		lable: "Упаковка",
+	},
 ];
 
 const styles = {
@@ -42,14 +46,16 @@ const styles = {
 };
 
 const OrderDetails = ({ order }) => {
+	const { orderID } = useParams();
 	const navigate = useNavigate();
 	const dispatch = useDispatch();
 	const orderItems = order && order.orderItems;
 	useEffect(() => {
 		return () => {
-			dispatch(setOrderDetailsStart({}));
+			dispatch(getOrderDetailsStart(orderID));
 		};
 	}, []);
+	
 	const handleBack = () => {
 		navigate("/dashboard");
 	};
@@ -72,22 +78,28 @@ const OrderDetails = ({ order }) => {
 						{Array.isArray(orderItems) &&
 							orderItems.length > 0 &&
 							orderItems.map((row, pos) => {
-								const { documentID, productThumbnail } = row;
+								const { documentID, productThumbnail,productName,quantity,price,packageType } = row;
 								return (
 									<TableRow key={pos}>
-										<TableCell>			<LazyLoadImage
+											<TableCell>{productName}	</TableCell>
+										<TableCell>			
+											<LazyLoadImage
 												effect="blur"
 												useIntersectionObserver={true}
 												src={productThumbnail[0]}
 												wrapperClassName="text-center"
-											/></TableCell>
+												width="150px"
+											/>
+											</TableCell>
+											<TableCell>	{quantity} од.	</TableCell>
+											<TableCell>{price} ₴</TableCell>
+											<TableCell>{packageType.label} - {packageType.price} ₴</TableCell>
 									</TableRow>
 								);
 							})}
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<Buttons onClick={handleBack}>Назад</Buttons>
 		</div>
 	);
 };
