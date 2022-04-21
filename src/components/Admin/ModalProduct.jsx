@@ -37,7 +37,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const [productDesc, setProductDesc] = useState([]);
 
 	const deleteImage = async (deleteLinks) => {
-		console.log("deleteLinks", deleteLinks);
 		for (let i = 0; i < deleteLinks.length; i++) {
 			if (typeof deleteLinks[i] === "string") {
 				const ref = storage.refFromURL(deleteLinks[i]);
@@ -179,7 +178,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			price:
 				discount === "true"
 					? price - (price * discountPersentage) / 100
-					: price,
+					: null,
 			productDesc,
 		};
 		dispatch(updateContentMainProduct({ updateData, id }));
@@ -201,13 +200,11 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		const { value } = e.target;
 		setDiscount(value);
 		setAvailability("inStock");
-
 		if (value === "false") setDiscountPersentage(0);
 	};
 
 	const setDiscountVal = (e) => {
 		const { value } = e.target;
-
 		setDiscountPersentage(value);
 	};
 
@@ -403,7 +400,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 										key={key}
 										Label={label}
 										type="file"
-										handleChange={(e) => onHandleFileEdit(e.target.files, key)}
+										handleChange={(e) => onHandleFiles(e.target.files, key)}
 									/>
 								);
 							})}

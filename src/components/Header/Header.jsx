@@ -87,14 +87,20 @@ const Header = (props) => {
 									</span>
 									{open ? (
 										<Box className="box">
-											<Link to="/dashboard" className="btn-login">
-												Акаунт
-											</Link>
-											<Buttons
-												style="btn-login"
-												text="Вийти"
-												onClick={() => signOut()}
-											/>
+											<ul>
+												<li>
+													<Link to="/dashboard" className="btn-login">
+														Акаунт
+													</Link>
+												</li>
+												<li>
+													<Buttons
+														style="btn-login"
+														text="Вийти"
+														onClick={() => signOut()}
+													/>
+												</li>
+											</ul>
 										</Box>
 									) : null}
 								</Box>

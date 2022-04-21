@@ -29,6 +29,7 @@
     "firebase-admin": "^10.0.2",
     "moment": "^2.29.1",
     "normalize.css": "^8.0.1",
+    "postcode-validator": "^1.2.1",
     "react": "^17.0.2",
     "react-bootstrap": "^2.1.1",
     "react-content-loader": "^6.2.0",

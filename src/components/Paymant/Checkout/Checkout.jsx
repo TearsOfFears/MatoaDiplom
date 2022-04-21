@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from "react";
 import "./style.scss";
-import { ButtonForm, FormInput } from "./../../index";
+import { ButtonForm } from "./../../index";
 import {
 	CardElement,
 	useElements,
@@ -14,14 +14,11 @@ import {
 } from "./../../../redux/Carts/cart.selectors";
 import { createStructuredSelector } from "reselect";
 import { useSelector, useDispatch } from "react-redux";
-import { apiInstance } from "./../../../utils/utils";
-import { clearCart } from "./../../../redux/Carts/cart.actions";
 import { useNavigate } from "react-router-dom";
 import FormInputPayment from "./../FormInputPayment";
-import { saveOrderHistory } from "./../../../redux/Orders/orders.actions";
 import PhoneInput from "react-phone-input-2";
 import "react-phone-input-2/lib/style.css";
-import { getCode } from "country-list";
+import postcode from "postcode-validator";
 
 import {
 	CountryDropdown,
@@ -71,34 +68,24 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	const [nameOnCard, setnameOnCard] = useState("");
 	const [phone, setPhone] = useState("");
 
-	// useEffect(() => {
-	// 	if (itemCount < 1) {
-	// 		navigate("/dashboard");
-	// 	}
-	// }, [itemCount]);
-
 	const handleFormSubmit = async (e) => {
 		e.preventDefault();
 		const cardElement = elements.getElement("card");
+
 		if (
-			!shippingAddress.line1 ||
-			!shippingAddress.city ||
-			!shippingAddress.postal_code ||
-			!shippingAddress.country ||
-			!shippingAddress.phoneNumber ||
-			!billingAddress.city ||
-			!billingAddress.state ||
-			!billingAddress.postal_code ||
-			!billingAddress.country ||
-			!recipientName ||
-			!phone ||
-			!nameOnCard
+			!postcode.validate(
+				shippingAddress.postal_code,
+				shippingAddress.country
+			) ||
+			!postcode.validate(billingAddress.postal_code, billingAddress.country)
 		) {
-			return;
+			alert("Перевірте коректність введеної пошти");
+			handleChangeState(0, billingAddress, shippingAddress, pasteInfo);
 		}
 	};
 	const handleShipping = (evt) => {
 		const { name, value } = evt.target;
+
 		setShippingAddress({
 			...shippingAddress,
 			[name]: value,
@@ -117,7 +104,6 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 		setShippingAddress({
 			...shippingAddress,
 			country: val,
-			//country_code: getCode(val).toUpperCase(),
 		});
 	};
 	const selectState = (val) => {
@@ -164,42 +150,42 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 			setShow(false);
 		}
 	}, [shippingAddress, billingAddress]);
-
+	//console.log(postcode.validate('4602', 'UA'));
 	return (
 		<div>
 			<form onSubmit={handleFormSubmit}>
 				<div className="col-12">
 					<div className="col-6">
-						<h2>Shipping address</h2>
+						<h2>Адреса відправки</h2>
 						<div className="group">
 							<FormInputPayment
 								required
 								type="text"
-								placeholder="Ex: Rasyidin Arsyad Nasution"
+								placeholder="Напр: Хмельницький Назар Іванович"
 								value={pasteInfo.recipientName}
 								name="recipientName"
-								Label="Pecipient Name"
+								Label="Повне ім`я отримувача"
 								handleChange={(e) => handlePasteInfo(e)}
 							/>
 							<FormInputPayment
 								required
 								type="text"
-								placeholder="Line 1"
+								placeholder="Адреса 1"
 								value={shippingAddress.line1}
 								name="line1"
-								Label="Line 1"
+								Label="Адреса 1"
 								handleChange={(evt) => handleShipping(evt)}
 							/>
 							<FormInputPayment
 								required
 								type="text"
-								placeholder="Line 2"
+								placeholder="Адреса 1"
 								value={shippingAddress.line2}
 								name="line2"
-								Label="Line 2"
+								Label="Адреса 2"
 								handleChange={(evt) => handleShipping(evt)}
 							/>
-							<CountrySelect name="Country">
+							<CountrySelect name="Країна">
 								<CountryDropdown
 									required
 									name="country"
@@ -209,7 +195,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								/>
 							</CountrySelect>
 
-							<CountrySelect name="State">
+							<CountrySelect name="Область">
 								<RegionDropdown
 									required
 									name="state"
@@ -224,27 +210,28 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 									<FormInputPayment
 										required
 										type="text"
-										placeholder="City"
+										placeholder="Місто"
 										value={shippingAddress.city}
 										name="city"
-										Label="City"
+										Label="Місто"
 										handleChange={(evt) => handleShipping(evt)}
 									/>
 								</div>
 								<div className="w-45">
 									<FormInputPayment
 										required
-										type="number"
-										placeholder="PostalCode"
+										type="text"
+										placeholder="46042"
+										maxlengthVal="5"
 										value={shippingAddress.postal_code}
 										name="postal_code"
-										Label="Postal Code"
+										Label="Поштовий індекс"
 										handleChange={(evt) => handleShipping(evt)}
 									/>
 								</div>
 							</div>
 
-							<CountrySelect name="Phone">
+							<CountrySelect name="Номер телефону">
 								<PhoneInput
 									required
 									country={shippingAddress.country.toLowerCase()}
@@ -262,38 +249,37 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 							</CountrySelect>
 						</div>
 					</div>
-
 					<div className="col-6">
-						<h2>Billing address</h2>
+						<h2>Адреса оплати</h2>
 						<div className="group">
 							<FormInputPayment
 								required
 								type="text"
-								placeholder="Name on card"
+								placeholder="Напр: Косар Дмитро"
 								value={pasteInfo.nameOnCard}
 								name="nameOnCard"
-								Label="Name on card"
+								Label="Ім`я на карті"
 								handleChange={(e) => handlePasteInfo(e)}
 							/>
 							<FormInputPayment
 								required
 								type="text"
-								placeholder="Line 1"
+								placeholder="Адреса 1"
 								value={billingAddress.line1}
 								name="line1"
-								Label="Line 1"
+								Label="Адреса 1"
 								handleChange={(evt) => handleBilling(evt)}
 							/>
 							<FormInputPayment
 								required
 								type="text"
-								placeholder="Line 2"
+								placeholder="Адреса 2"
 								value={billingAddress.line2}
 								name="line2"
-								Label="Line 2"
+								Label="Адреса 2"
 								handleChange={(evt) => handleBilling(evt)}
 							/>
-							<CountrySelect name="Country">
+							<CountrySelect name="Країна">
 								<CountryDropdown
 									required
 									name="country"
@@ -303,7 +289,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 								/>
 							</CountrySelect>
 
-							<CountrySelect name="State">
+							<CountrySelect name="Область">
 								<RegionDropdown
 									required
 									name="state"
@@ -317,19 +303,20 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 							<FormInputPayment
 								required
 								type="text"
-								placeholder="City"
+								placeholder="Місто"
 								value={billingAddress.city}
 								name="city"
-								Label="City"
+								Label="Місто"
 								handleChange={(evt) => handleBilling(evt)}
 							/>
 							<FormInputPayment
 								required
-								type="number"
-								placeholder="PostalCode"
+								type="text"
+								placeholder="45603"
 								value={billingAddress.postal_code}
 								name="postal_code"
-								Label="Postal Code"
+								Label="Поштовий індекс"
+								maxlengthVal="5"
 								handleChange={(evt) => handleBilling(evt)}
 							/>
 						</div>
