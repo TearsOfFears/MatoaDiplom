@@ -44,7 +44,7 @@ const Header = (props) => {
 						<img src={logo} alt="" />
 					</Link>
 				</Navbar.Brand>
-				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
+			
 				<Navbar.Collapse
 					id="responsive-navbar-nav"
 					className="justify-content-end"
@@ -121,6 +121,7 @@ const Header = (props) => {
 						</Buttons>
 					</Link>
 				</div>
+				<Navbar.Toggle aria-controls="responsive-navbar-nav" />
 			</Container>
 		</Navbar>
 	);

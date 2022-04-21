@@ -76,8 +76,8 @@ function Swiper1() {
 												<LazyLoadImage
 													effect="blur"
 													src={sliderThumbnail}
-													width="400px"
-													height="400px"
+													width="350px"
+												
 												/>
 											</div>
 											<div className="swiper-slide-wrapper__content">
@@ -106,7 +106,7 @@ function Swiper1() {
 														Discover
 													</Link>
 
-													<Link to={linkDetail} className="btn-read">
+													<Link to={linkDetail} className="btn-read mt-2">
 													
 															<FontAwesomeIcon icon={faInfoCircle}/>
 															Read details

@@ -1,7 +1,7 @@
 import React from "react";
 
-import logoWhite from "../assets/img/home/logo-white.png";
-import { Buttons } from "./index";
+import logoWhite from "./../../assets/img/home/logo-white.png";
+import { Buttons } from "./../index";
 
 import {
 	faInstagram,
@@ -10,11 +10,11 @@ import {
 	faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-
+import "./footer.scss"
 function Footer() {
 	return (
 		<footer className="footer nopadding">
-			<div className="container nopadding">
+			<div className="container">
 				<div className="row pt-5">
 					<div className="wrapper-footer">
 						<div className="wrapper-info">

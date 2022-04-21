@@ -28,7 +28,7 @@ function MonthyDeals() {
 	};
 	return (
 		<section className="monthlyDeals">
-			<div className="container nopadding">
+			<div className="container">
 				<h1>Monthly Deals</h1>
 				<hr />
 				<div className="row">
@@ -49,7 +49,10 @@ function MonthyDeals() {
 								return (
 									<div key={index}>
 										<div className="block-text">
-											<img src={productThumbnail[0]} alt="" />
+											<div className="wrapper-img">
+												<img src={productThumbnail[0]} alt="" />
+											</div>
+
 											<div className="wrapper-text">
 												<h1>{productName}</h1>
 												<p>-{discountPersentage}% знижка</p>

@@ -7,7 +7,7 @@ export {default as Series1} from "./Series1";
 export {default as Testimonals} from "./Testimonals";
 export {default as InstagramPosts} from "./InstagramPosts";
 export {default as Bils} from "./Bils";
-export {default as Footer} from "./Footer";
+export {default as Footer} from "./Footer/Footer";
 
 export {default as Cart} from "./Cart/Cart";
 export {default as ItemRender} from "./Cart/ItemRender";

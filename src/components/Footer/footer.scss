@@ -1,3 +1,4 @@
+@import "./../../scss/componentstyles/utils/variables.scss";
 .footer {
   background-color: $accent;
 
@@ -36,6 +37,10 @@
 
     @media screen and (max-width: 720px) {
       grid-template-columns: repeat(2, 1fr);
+      justify-content: center;
+    }
+    @media screen and (max-width: 480px) {
+      grid-template-columns: repeat(1, 1fr);
       justify-content: center;
     }
   }
@@ -89,9 +94,6 @@
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     align-items: flex-start;
-    @media screen and (max-width: 720px) {
-      grid-template-columns: repeat(1, 1fr);
-    }
   }
 
   .contacts {
