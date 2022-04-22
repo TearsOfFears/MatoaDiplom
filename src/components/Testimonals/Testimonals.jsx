@@ -1,14 +1,15 @@
 import React, { useEffect } from "react";
+import "./testimonals.scss";
 import { Navigation, Pagination, Scrollbar, Parallax, A11y } from "swiper";
 import { Swiper, SwiperSlide } from "swiper/react";
-import testimonials1 from "../assets/img/home/testimonials.png";
+import testimonials1 from "./../../assets/img/home/testimonials.png";
 import { useSelector, useDispatch } from "react-redux";
 import {
 	faChevronLeft,
 	faChevronRight,
 } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { fetchHomeContentTestimonalsStart } from "../redux/Home/home.actions";
+import { fetchHomeContentTestimonalsStart } from "./../../redux/Home/home.actions";
 
 const mapState = ({ contentHome }) => ({
 	content: contentHome.contentTestimonals.dataTestimonals,
@@ -16,7 +17,6 @@ const mapState = ({ contentHome }) => ({
 
 function Testimonals() {
 	const { content } = useSelector(mapState);
-	console.log(content);
 	const dispatch = useDispatch();
 	useEffect(() => {
 		dispatch(fetchHomeContentTestimonalsStart());
@@ -25,7 +25,7 @@ function Testimonals() {
 	const navigationNextRef = React.useRef(null);
 	
 	return (
-		<div className="container nopadding ">
+		<div className="container ">
 			<div className="row">
 				<Swiper
 					modules={[Navigation, Pagination, Scrollbar, Parallax, A11y]}

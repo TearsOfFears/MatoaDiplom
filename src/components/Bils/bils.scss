@@ -1,3 +1,4 @@
+@import "./../../scss/componentstyles/utils/variables.scss";
 .bils{
     background-color:$secondAccentLight;
     text-align: center;
@@ -23,13 +24,16 @@
             grid-template-columns: repeat(5, 70px);
             grid-column-gap: 80px;
         }
-        @media screen and (max-width: 768px) {
+        @media screen and (max-width: 760px) {
             grid-template-columns: repeat(5, 60px);
-            grid-column-gap: 60px;
+            grid-column-gap: 30px;
+            img{
+                width: 100%;
+            }
         }
         @media screen and (max-width: 480px) {
             grid-template-columns: repeat(5, 1fr);
-            grid-column-gap: 10px;
+            grid-column-gap: 5px;
             img{
                 width: 100%;
             }

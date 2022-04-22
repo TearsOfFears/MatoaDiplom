@@ -1,3 +1,4 @@
+@import "./../../scss/componentstyles/utils/variables.scss";
 .testimonals {
   margin-top: 150px;
   position: relative;
@@ -24,7 +25,9 @@
       img {
         width: 60%;
       }
-
+      @media screen and (max-width: 1400px) {
+        top: -30px;
+      }
       @media screen and (max-width: 1140px) {
 
         top: -20px;
@@ -63,12 +66,17 @@
         height: 390px;
       }
       @media screen and (max-width: 480px) {
-        height: 400px;
+        height: 280px;
       }
       &__img {
         margin-top: 80px;
         width: 50%;
-
+        @media screen and (max-width: 1320px) {
+          width: 70%;
+          img {
+            width: 100%;
+          }
+        }
         @media screen and (max-width: 960px) {
           width: 100%;
         }
@@ -139,14 +147,15 @@
           margin: 35px 0px;
 
           @media screen and (max-width: 960px) {
-            font-size: 17px;
+            font-size: calc(14px + (16 - 14) * (100vw - 720px) / (960 - 720));
           }
-
           @media screen and (max-width: 720px) {
-            font-size: 14px;
+            font-size: calc(12px + (14 - 12) * (100vw - 480px) / (720 - 480));
+            margin: 25px 0px;
           }
           @media screen and (max-width:480px) {
-            font-size:calc( 12px + (15 - 12) * (100vw - 320px) / (480 - 320) ) ;
+            font-size:calc( 6px + (10 - 6) * (100vw - 320px) / (480 - 320) ) ;
+            margin: 10px 0px;
           }
         }
 
@@ -167,6 +176,7 @@
           }
           @media screen and (max-width: 480px) {
             font-size: 16px;
+            margin-bottom: 5px;
           }
         }
 
@@ -212,7 +222,7 @@
     }
 
     .prev-testimonals {
-      background-image: url('../../../assets/img/home/arrow.svg');
+      background-image: url('./../../assets/img/home/arrow.svg');
       background-repeat: no-repeat;
       background-size: cover;
       width: 40px;
@@ -233,7 +243,7 @@
 
     .next-testimonals {
       z-index: 10;
-      background-image: url('../../../assets/img/home/arrow.svg');
+      background-image: url('./../../assets/img/home/arrow.svg');
       background-repeat: no-repeat;
       background-size: cover;
       transform: rotate(180deg);
@@ -264,52 +274,3 @@
 }
 
 
-.instagram-posts {
-  margin-top: 160px;
-  @media screen and (max-width: 720px) {
-    margin-top: 60px;
-  }
-  h1 {
-    font-family: Taviraj;
-    font-size: 40px;
-    font-weight: 600;
-    line-height: 1.11;
-    letter-spacing: 0.72px;
-    color: $black;
-    padding: 0;
-  }
-
-  hr {
-
-    border: none;
-    color: black;
-    opacity: 1;
-    border-top: 1px solid black;
-    width: 105px;
-  }
-
-  .posts {
-    margin-top: 55px;
-    margin-bottom: 95px;
-    display: grid;
-    grid-template-columns: repeat(5, 1fr);
-    grid-gap: 0px;
-
-  
-    img {
-      margin: 0;
-      padding: 0;
-      width: 100%;
-      transition: .5s;
-      @media screen and (max-width: 480px) {
-        grid-template-columns: repeat(3, 1fr);
-      
-      }
-      &:hover {
-        transform: scale(1.3);
-        transition: .5s;
-        cursor: pointer;
-      }
-    }
-  }
-}

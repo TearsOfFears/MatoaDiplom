@@ -31,8 +31,8 @@ function Home() {
 				<TestimonalsLines />
 				<Testimonals />
 			</section>
-			{/* <InstagramPosts /> */}
-			{/* <Bils /> */}
+			<InstagramPosts />
+			<Bils />
 		</div>
 	);
 }

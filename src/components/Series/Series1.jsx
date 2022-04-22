@@ -1,10 +1,10 @@
 import React from "react";
+import "./series.scss";
+import { Buttons } from "./../index";
 
-import { Buttons } from "./index";
-
-import ebony1 from "../assets/img/home/ebony-1.png";
-import ebony2 from "../assets/img/home/ebony-2.png";
-import ebony3 from "../assets/img/home/ebony-3.png";
+import ebony1 from "./../../assets/img/home/ebony-1.png";
+import ebony2 from "./../../assets/img/home/ebony-2.png";
+import ebony3 from "./../../assets/img/home/ebony-3.png";
 
 const seriesArray = [
 	{

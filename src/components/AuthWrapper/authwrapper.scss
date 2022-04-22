@@ -6,4 +6,11 @@
     width: 50%;
     align-items: center;
     justify-content: center;
+    .wrap{
+        text-align: center;
+        .btn-read{
+            width: 100%;
+            justify-content: center;
+        }
+    }
 }

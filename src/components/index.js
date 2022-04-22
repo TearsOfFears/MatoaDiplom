@@ -2,11 +2,11 @@ export {default as Swiper1} from "./SwiperProduct/Swiper1";
 export {default as Header} from "./Header/Header";
 export {default as OurProducts} from "./Deals/OurProducts";
 export {default as MonthyDeals} from "./Deals/MonthyDeals";
-export {default as News} from "./News";
-export {default as Series1} from "./Series1";
-export {default as Testimonals} from "./Testimonals";
-export {default as InstagramPosts} from "./InstagramPosts";
-export {default as Bils} from "./Bils";
+export {default as News} from "./News/News";
+export {default as Series1} from "./Series/Series1";
+export {default as Testimonals} from "./Testimonals/Testimonals";
+export {default as InstagramPosts} from "./InstagramPost/InstagramPosts";
+export {default as Bils} from "./Bils/Bils";
 export {default as Footer} from "./Footer/Footer";
 
 export {default as Cart} from "./Cart/Cart";
@@ -29,7 +29,7 @@ export {default as ButtonForm} from "./Forms/ButtonForm";
 export {default as FormInput} from "./Forms/FormInput";
 export {default as FormSelect} from "./Forms/FormSelect";
 
-export {default as AuthWrapper} from "./AuthWrapper";
+export {default as AuthWrapper} from "./AuthWrapper/AuthWrapper";
 export {default as AdminToolBar} from "./Admin/AdminToolBar";
 
 export {default as EmailPassword} from "./Forms/EmailPassword";

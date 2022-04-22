@@ -1,3 +1,5 @@
+@import "./../../scss/componentstyles/utils/variables.scss";
+
 .news {
   margin-top: 150px;
   position: relative;
@@ -200,6 +202,10 @@
 
   .lines {
     position: absolute;
+
+    @media screen and (max-width:1140px) {
+    display: none;
+    }
 
     @media screen and (max-width: 960px) {
       margin-top: 100px;

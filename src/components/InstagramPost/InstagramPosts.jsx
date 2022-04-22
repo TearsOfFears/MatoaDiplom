@@ -1,9 +1,8 @@
 import React,{useEffect} from "react";
 import { useDispatch,useSelector } from "react-redux";
+import "./style.scss";
 
-import SplineTest from "./SplineTest";
-
-import { fetchHomeContentInstagramStart } from "../redux/Home/home.actions";
+import { fetchHomeContentInstagramStart } from "../../redux/Home/home.actions";
 
 
 const mapState = ({contentHome})=>({content:contentHome.contentInstagram.dataInstagram})
@@ -18,11 +17,11 @@ function InstagramPosts() {
 
 	return (
 		<section className="instagram-posts ">
-			<div className="container nopadding">
+			<div className="container">
 				<div className="row">
 					<h1>Instagram </h1>
 					<hr />
-					<div className="posts nopadding">
+					<div className="posts">
 						{Array.isArray(content) &&
 							content.length > 0 && content.map((data, index) => {
 							const {sliderThumbnail,documentId} =  data;

@@ -1,3 +1,4 @@
+@import "./../../scss/componentstyles/utils/variables.scss";
 .series {
   .wrapper-series {
     display: grid;
@@ -159,6 +160,9 @@
     @media screen and (max-width: 720px) {
       width: 23%;
     }
+    @media screen and (max-width: 480px) {
+      width: 16%;
+    }
   }
 
   &::after {
@@ -183,6 +187,9 @@
 
     @media screen and (max-width: 720px) {
       width: 23%;
+    }
+    @media screen and (max-width: 480px) {
+      width: 16%;
     }
   }
 }

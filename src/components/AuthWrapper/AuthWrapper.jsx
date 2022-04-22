@@ -1,5 +1,5 @@
 import React from "react";
-
+import "./authwrapper.scss";
 const AuthWrapper = ({ headline, children }) => {
 	return (
 		<div className="authWrapper">

@@ -55,7 +55,7 @@ const EmailPassword = (props) => {
 
 	return (
 		<AuthWrapper {...configAuthWrapper}>
-			<div className="formWrap">
+			<div className="formWrap mb-5">
 				{errors.length > 0 && (
 					<ul>
 						{errors.map((e, index) => {

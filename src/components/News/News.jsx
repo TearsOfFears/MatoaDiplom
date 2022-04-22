@@ -1,11 +1,11 @@
 import React from "react";
-import { Buttons } from "./index";
-
-import newsImage from "../assets/img/home/newsImage.png";
+import { Buttons } from "./../index";
+import "./news.scss";
+import newsImage from "./../../assets/img/home/newsImage.png";
 
 function News() {
 	return (
-		<div className="container nopadding">
+		<div className="container">
 			<h1>Recent News</h1>
 			<hr />
 			<div className="row">

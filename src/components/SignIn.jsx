@@ -37,7 +37,7 @@ const SignIn = (props) => {
 	};
 
 	const configAuthWrapper = {
-		headline: "Зайти",
+		headline: "Увійти",
 	};
 	const handleSignInWithGoogle = () => {
 		dispatch(googleSignIn());
@@ -64,25 +64,18 @@ const SignIn = (props) => {
 					<Buttons type="submit" style="btn-read">
 						Увійти
 					</Buttons>
-
-					<div className="socialSignIn">
 						<ButtonForm
 							onClick={handleSignInWithGoogle}
 							className="btn-read mb-1 mt-3"
 						>
 							Увійти з  <FontAwesomeIcon icon={faGoogle} />
 						</ButtonForm>
-					</div>
-					<div className="links">
 						<Link to="/recovery" className="btn-read mb-1">
 							Відновити пароль
 						</Link>
-					</div>
-					<div className="links">
 						<Link to="/registration" className="btn-read mb-5">
 							Зареєструватись
 						</Link>
-					</div>
 				</form>
 			</div>
 		</AuthWrapper>
