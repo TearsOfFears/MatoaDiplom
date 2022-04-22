@@ -309,8 +309,8 @@ const ProductsShow = () => {
 						? changeFilterTitle(filterType)
 						: null}
 				</h1>
-				<div className="col-12 d-flex flex-row w-100 justify-content-between align-items-center sort-wrapper">
-					<div className="d-flex flex-row w-50 justify-content-between">
+				<div className="sort-wrapper">
+					<div className="category-wrapper">
 						{categoryArr.map((data, key) => {
 							const { label, value } = data;
 							return (
@@ -328,13 +328,13 @@ const ProductsShow = () => {
 							);
 						})}
 					</div>
-					<div className="d-flex flex-row w-50 justify-content-end align-items-center">
+					<div className="sort-wrapper-sec ">
 						<FormControlLabel
 							control={<Checkbox onChange={handleChangeDiscount} checked={discountQ}/>}
 							
 							label="Акційні"
 						/>
-						<div style={{ width: "225px", paddingRight: "16px" }}>
+						<div className="selectAvai">
 							<SelectCustom
 								isMulti
 								options={Avaibility}

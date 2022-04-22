@@ -1,20 +1,13 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
 	addProduct,
-	reduceCartItem,
 } from "./../../../redux/Carts/cart.actions";
-import { createStructuredSelector } from "reselect";
-import {
-	selectCartTotal,
-	selectCartItemsCount,
-} from "./../../../redux/Carts/cart.selectors";
+
 import "./addToCart.scss";
 import { useNavigate } from "react-router-dom";
-import Animate from "animate";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import classnames from "classnames";
 const ProductSection = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -58,7 +51,7 @@ const ProductSection = (product) => {
 													effect="blur"
 													useIntersectionObserver={true}
 													src={link}
-													width="180px"
+													// width="180px"
 													wrapperClassName="text-center"
 													onClick={(e) => getLink(link)}
 												/>
@@ -70,7 +63,7 @@ const ProductSection = (product) => {
 										effect="blur"
 										useIntersectionObserver={true}
 										src={state}
-										width="250px"
+										
 										onAnimationEnd={() => setstateStyle({ fade: false })}
 										className={stateStyle.fade ? "imgAnimate" : ""}
 									/>

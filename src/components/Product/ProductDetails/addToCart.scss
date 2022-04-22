@@ -4,7 +4,9 @@
   position: relative;
   margin-bottom: 75px;
   margin-top: 75px;
-
+  @media screen and (max-width: 768px) {
+    margin-top: 135px;
+  }
   .bg-second-accent {
     width: 40%;
     height: 100%;
@@ -67,6 +69,7 @@
 
         @media screen and (max-width: 576px) {
           font-size: calc(15px + (30 - 15) * (100vw - 0px) / (576 - 0));
+          margin: 0;
         }
       }
 
@@ -78,6 +81,10 @@
         color: $thirdGrey;
         margin-top: 15px;
         margin-bottom: 25px;
+        @media screen and (max-width: 576px) {
+          margin-top: 5px;
+          margin-bottom: 5px;
+        }
       }
 
       h2 {
@@ -133,8 +140,8 @@
           }
 
           @media screen and (max-width: 576px) {
-            font-size: calc(10px + (18 - 10) * (100vw - 0px) / (576 - 0));
-            padding: 10px 20px;
+            font-size: calc(13px + (18 - 13) * (100vw - 576px) / (576 - 0));
+            padding: 10px 15px;
             margin-top: 20px;
           }
         }
@@ -158,6 +165,7 @@
 
     @media screen and (max-width: 768px) {
       grid-column-gap: 20px;
+      grid-auto-rows:  calc(400px + (100 - 85) * (100vw - 768px) / (768 - 576));
     }
 
     @media screen and (max-width: 576px) {
@@ -171,6 +179,9 @@
       justify-content: space-around;
       img{
         width: 55%;
+        @media screen and (max-width: 768px) {
+       width: 40%;
+        }
       }
       &__hover {
         display: flex;
@@ -181,9 +192,15 @@
 
         img {
           transition: .5s;
-
+          width: 75%;
           &:hover {
             cursor: pointer;
+          }
+          @media screen and (max-width: 768px) {
+            width: 60%;
+          }
+          @media screen and (max-width: 576px) {
+            width: 60%;
           }
         }
       }
@@ -195,7 +212,13 @@
         flex-direction: row;
         align-items: center;
         justify-content: center;
-
+        @media screen and (max-width: 768px) {
+          width:  calc(240px + (100 - 25) * (100vw - 768px) / (768 - 576));
+        }
+        @media screen and (max-width: 576px) {
+          width:  calc(200px + (100 - 55) * (100vw - 576px) / (576 - 0));
+          margin-right: 10px;
+        }
         img {
           width: 100%;
 
@@ -208,11 +231,11 @@
           }
 
           @media screen and (max-width: 768px) {
-            width: 90%;
+            width: 100%;
           }
 
           @media screen and (max-width: 576px) {
-            width: 90%;
+            width:100%;
           }
         }
       }
