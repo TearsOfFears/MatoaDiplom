@@ -289,7 +289,7 @@ const MenageHomePage = () => {
 					)}
 				</div>
 			</Modal>
-			<TableContainer style={{width:"95%",overflow:"hidden"}} >
+			<TableContainer >
 				<h1>Головний слайдер</h1>
 				<Table>
 					<TableHead>
@@ -408,7 +408,7 @@ const MenageHomePage = () => {
 					</TableBody>
 				</Table>
 			</TableContainer>
-			<TableContainer  style={{width:"90%",overflow:"hidden"}}>
+			<TableContainer>
 				<h1>Слайди відгуків</h1>
 				<Table>
 					<TableHead>
