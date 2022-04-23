@@ -166,47 +166,39 @@ function Payment({ handleChangeState, stage }) {
 		<div className="container payment">
 			<ModalError {...configModal} />
 
-			<div className="col-12 d-flex flex-row">
+			<div className="col-12">
 				<div className="col-6 bg-white">
-					<h1>Detail Order</h1>
+					<h1>Замовлення</h1>
 					<div className="wrapper-detail">
 						<div className="wrapper-detail__headers_1">
-							<h3>Subtotal</h3>
-							<h3>Shipping Cost</h3>
+							<h3>Проміжна сума</h3>
+							<h3>Вартість доставки</h3>
 
-							<h3>Packaging</h3>
+							<h3>Упаковка</h3>
 						</div>
 						<div className="wrapper-detail__headers_2">
-							<h3>{total} грн.</h3>
-							<h3> 500 грн.</h3>
+							<h3>{total} ₴</h3>
+							<h3> 500 ₴</h3>
 
-							<h3>{pricePackage} грн.</h3>
+							<h3>{pricePackage} ₴</h3>
 						</div>
 					</div>
 					<div className="wrapper-detail-total">
 						<div className="wrapper-detail__headers_1">
-							<h3>Grand Total</h3>
+							<h3>Загальна сума</h3>
 						</div>
 						<div className="wrapper-detail__headers_2">
-							<h2>{grandTotal} грн.</h2>
+							<h2>{grandTotal} ₴</h2>
 						</div>
 					</div>
 				</div>
 				<div className="col-6">
-					<h1>Order Detail</h1>
+					<h1>Деталі замовлення</h1>
 					<form onSubmit={sutmitPayment}>
 						<div className="wrapper-detail-order">
-							{/* <div className="wrapper-detail__headers_1">
-								<div className="title">
-									<h4>Purchase Date</h4>
-								</div>
-								<div className="infoOrder">
-									<h4>2019-11-07 14:01:48</h4>
-								</div>
-							</div> */}
 							<div className="wrapper-detail__headers_1">
 								<div className="title">
-									<h4>Items</h4>
+									<h4>Предмети</h4>
 								</div>
 								<div className="infoOrder">
 									<ul>
@@ -216,7 +208,7 @@ function Payment({ handleChangeState, stage }) {
 												<li key={key}>
 													<h4>{productName}</h4>
 													<p>
-														{quantity} од. x {price} грн.
+														{quantity} од. x {price} ₴
 													</p>
 												</li>
 											);
@@ -226,7 +218,7 @@ function Payment({ handleChangeState, stage }) {
 							</div>
 							<div className="wrapper-detail__headers_1">
 								<div className="title">
-									<h4>Name</h4>
+									<h4>Ім`я</h4>
 								</div>
 								<div className="infoOrder">
 									<h4>{line1}</h4>
@@ -234,7 +226,7 @@ function Payment({ handleChangeState, stage }) {
 							</div>
 							<div className="wrapper-detail__headers_1">
 								<div className="title">
-									<h4>Phone</h4>
+									<h4>Телефон</h4>
 								</div>
 								<div className="infoOrder">
 									<h4>{stage.pasteInfo.phone}</h4>
@@ -242,7 +234,7 @@ function Payment({ handleChangeState, stage }) {
 							</div>
 							<div className="wrapper-detail__headers_1">
 								<div className="title">
-									<h4>Email</h4>
+									<h4>Е-пошта</h4>
 								</div>
 								<div className="infoOrder">
 									<h4>{email}</h4>
@@ -250,7 +242,7 @@ function Payment({ handleChangeState, stage }) {
 							</div>
 							<div className="wrapper-detail__headers_1">
 								<div className="title">
-									<h4>Shipping Address</h4>
+									<h4>Адреса відправки</h4>
 								</div>
 								<div className="infoOrder">
 									<h4>

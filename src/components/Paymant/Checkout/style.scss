@@ -44,4 +44,22 @@
 }
 .w-45{
 width: 45%;
+@media screen and (max-width: 768px) {
+    width: 40% !important;
+}
+}
+form{
+    .col-12{
+        @media screen and (max-width: 768px) {
+            display: flex;
+            flex-direction: column !important;
+            div{
+                width: 100%;
+                margin-left: 0px !important;
+              
+            }
+
+        }
+        
+    }
 }

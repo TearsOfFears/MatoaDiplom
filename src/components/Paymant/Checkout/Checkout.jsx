@@ -154,7 +154,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 	return (
 		<div>
 			<form onSubmit={handleFormSubmit}>
-				<div className="col-12">
+				<div className="col-12 ">
 					<div className="col-6">
 						<h2>Адреса відправки</h2>
 						<div className="group">
@@ -205,7 +205,7 @@ const Checkout = ({ handleChangeState, stage, setStage }) => {
 									onChange={(val) => selectState(val)}
 								/>
 							</CountrySelect>
-							<div className="d-flex flex-row justify-content-between">
+							<div className="d-flex flex-row justify-content-between align-items-center">
 								<div className="w-45">
 									<FormInputPayment
 										required

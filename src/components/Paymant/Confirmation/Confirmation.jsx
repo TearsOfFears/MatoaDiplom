@@ -38,10 +38,8 @@ const Confirmation = ({ handleChangeState, stage, setStage }) => {
 	const dispatch = useDispatch();
 	const [lastElement, setLastElement] = useState({ ...objDefault });
 
-	//console.log(orderHistoryLast);
 	const { currentUser, cartDataAll, orderHistoryLast } = useSelector(mapState);
 	const { total, itemCount, cartItems, calcPrice } = useSelector(mapStateItems);
-	console.log(stage.index);
 
 	useEffect(() => {
 		if (stage.index === 2) {
@@ -52,28 +50,21 @@ const Confirmation = ({ handleChangeState, stage, setStage }) => {
 		}
 	}, [orderHistoryLast]);
 
-	const {
-		phoneNumber,
-		line1,
-		line2,
-		country,
-		country_code,
-		city,
-		state,
-		postal_code,
-	} = stage.shippingAddress || {};
+	const { line1, line2, country, country_code, city, state, postal_code } =
+		stage.shippingAddress || {};
 	return (
 		<div className="container confirmation">
 			<div className="col-12 d-flex flex-row justify-content-center">
-				<div className="col-5 bg-white d-flex flex-column align-items-center justify-content-evenly mr-5">
+				<div className="col-5 bg-white d-flex flex-column align-items-center text-center justify-content-evenly mr-5">
 					<img src={Confirm} alt="" />
-					<h2>Order Confirmed</h2>
+					<h2 className="mt-3">Замовлення підтверджено</h2>
 					<h3>
-						Your order have been confirmed, please wait and track your order
+						Ваше замовлення підтверджено, перейдіть за посиланням щоб перевірити
+						його
 					</h3>
 					<ButtonForm
 						onClick={(e) => {
-							navigate("/dashboard");
+							navigate(`/order/${lastElement.documentID}`);
 						}}
 					>
 						Перейти до замовлення
@@ -99,7 +90,7 @@ const Confirmation = ({ handleChangeState, stage, setStage }) => {
 												<li key={key}>
 													<h4>{productName}</h4>
 													<p>
-														{quantity} од. x {price} грн.
+														{quantity} од. x {price} ₴
 													</p>
 												</li>
 											);
@@ -110,32 +101,35 @@ const Confirmation = ({ handleChangeState, stage, setStage }) => {
 
 						<div className="wrapper-detail mt-4 mb-4">
 							<div className="wrapper-detail__headers_1">
-								<h3>Subtotal</h3>
-								<h3>Shipping Cost</h3>
-								<h3>Packaging</h3>
+								<h3>Проміжна сума</h3>
+								<h3>Вартість доставки</h3>
+								<h3>Упаковка</h3>
 							</div>
 							<div className="wrapper-detail__headers_2">
-								<h3>{lastElement.subtotal} грн.</h3>
-								<h3> 500 грн.</h3>
-								<h3>{lastElement.packagingPrice} грн.</h3>
+								<h3>{lastElement.subtotal} ₴</h3>
+								<h3> 500 ₴</h3>
+								<h3>{lastElement.packagingPrice} ₴</h3>
 							</div>
 						</div>
 
 						<div className="wrapper-detail border-top border-bottom pt-3 pb-3">
 							<div className="wrapper-detail__headers_1">
-								<h2>Grand Total</h2>
+								<h2>Загальна сума</h2>
 							</div>
 							<div className="wrapper-detail__headers_2">
-								<h1>{lastElement.grandTotal} грн.</h1>
+								<h1>{lastElement.grandTotal} ₴</h1>
 							</div>
 						</div>
-						<div className="wrapper-detail mt-3">
+						<div className="wrapper-detail wrapper-detail-address mt-3">
 							<div className="wrapper-detail__headers_1">
 								<h4>Адреса відправки</h4>
 							</div>
 							<div className="wrapper-detail__headers_2">
-								<p>	{line1} {line2} {country}, {state}, {city} {country_code}
-										{postal_code}</p>
+								<p>
+									{" "}
+									{line1} {line2} {country}, {state}, {city} {country_code}
+									{postal_code}
+								</p>
 							</div>
 						</div>
 					</div>

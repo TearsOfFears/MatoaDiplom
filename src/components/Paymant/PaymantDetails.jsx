@@ -43,15 +43,15 @@ const PaymantDetails = () => {
 	const stageArr = [
 		{
 			icon: <CheckoutIcon />,
-			name: "1. Checkout",
+			name: "1. Перевірка",
 		},
 		{
 			icon: <PaymentIcon />,
-			name: "2. Payment",
+			name: "2. Оплата",
 		},
 		{
 			icon: <ConfirmIcon />,
-			name: "3. Confirmation",
+			name: "3. Підтвердження",
 		},
 	];
 
@@ -65,21 +65,21 @@ const PaymantDetails = () => {
 	const [stage, setStage] = useState({ ...configStage });
 
 	const handleChangeState = (key, objBiling, objShipping, pasteInfo) => {
-		if (
-			Object.keys(objBiling).length === 0 &&
-			Object.keys(objShipping).length === 0 &&
-			Object.keys(pasteInfo).length === 0
-		) {
-			setStage({
-				...configStage,
-				index: 0,
-				billingAddress: objBiling,
-				shippingAddress: objShipping,
-				pasteInfo: pasteInfo,
-			});
-		}
-		else 
-		{
+		// if (
+		// 	Object.keys(objBiling).length === 0 &&
+		// 	Object.keys(objShipping).length === 0 &&
+		// 	Object.keys(pasteInfo).length === 0
+		// ) {
+		// 	setStage({
+		// 		...configStage,
+		// 		index: 0,
+		// 		billingAddress: objBiling,
+		// 		shippingAddress: objShipping,
+		// 		pasteInfo: pasteInfo,
+		// 	});
+		// }
+		// else 
+		// {
 			setStage({
 				...configStage,
 				index: key,
@@ -87,7 +87,7 @@ const PaymantDetails = () => {
 				shippingAddress: objShipping,
 				pasteInfo: pasteInfo,
 			});
-		}
+		//}
 	};
 
 	const configDetails = {
@@ -109,7 +109,7 @@ const PaymantDetails = () => {
 
 	return (
 		<div className="paymantDetails d-flex flex-column align-items-center">
-			<div className=" paymentStages col-7 d-flex flex-row justify-content-between">
+			<div className=" paymentStages col-8 d-flex flex-row justify-content-between">
 				{stageArr.map((obj, key) => {
 					const { icon, name } = obj;
 					return (

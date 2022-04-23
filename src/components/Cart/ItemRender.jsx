@@ -49,7 +49,7 @@ const ItemRender = (product) => {
 		control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
 			...styles,
 			backgroundColor: "white",
-			width: "250px",
+			width:"100%",
 			borderColor: isFocused ? "#d84727" : "#f7f6f4 ",
 			borderColor: isSelected ? "#d84727" : "#d84727",
 			boxShadow: "none",
@@ -60,7 +60,6 @@ const ItemRender = (product) => {
 		menubar: (styles, { data, isDisabled, isFocused, isSelected,isHovered }) => {
 			return {
 				...styles,
-				width: "250px",
 			    borderColor: isFocused ? "#d84727" : "#f7f6f4",
 				borderColor: isSelected ? "#d84727" : "#f7f6f4",
 			};
@@ -68,7 +67,7 @@ const ItemRender = (product) => {
 		option: (styles, { data, isDisabled, isFocused, isSelected }) => {
 			return {
 				...styles,
-				width: "250px",
+
 				backgroundColor: isDisabled ? "#d84727" : "#f7f6f4",
 				color: isDisabled ? "#f7f6f4" : "#333",
 
@@ -83,15 +82,15 @@ const ItemRender = (product) => {
 
 	const options = [
 		{
-			label: "Безплатна упаковка",
+			label: "Безплатна упаковка (0₴)",
 			price: 0,
 		},
 		{
-			label: "Деревяна упаковка",
+			label: "Деревяна упаковка (300₴)",
 			price: 300,
 		},
 		{
-			label: "Подарункова упаковка",
+			label: "Подарункова упаковка (500₴)",
 			price: 500,
 		},
 	];
@@ -128,6 +127,7 @@ const ItemRender = (product) => {
 							styles={colourStyles}
 							clearable={false}
 							isSearchable={false}
+							className="selectPackageSelect"
 							defaultValue={{ label: "Виберіть упаковку", value: 0 }}
 							value={packageType}
 							onChange={(evt) => {

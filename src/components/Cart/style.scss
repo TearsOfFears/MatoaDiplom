@@ -4,7 +4,7 @@
   display: flex;
   font-family: Taviraj;
   flex-direction: column;
- 
+
   h1 {
     font-size: 20px;
     letter-spacing: 0.4px;
@@ -33,6 +33,12 @@
   border-bottom: 1px solid $secondGrey;
   padding-bottom: 30px;
   margin-top: 40px;
+  @media screen and (max-width:576px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-between;
+  }
 }
 
 .img-title {
@@ -41,7 +47,11 @@
   align-items: center;
   justify-content: flex-start;
   width: 40%;
- 
+  @media screen and (max-width:576px) {
+    width: 80%;
+    justify-content: space-between;
+    margin-bottom: 20px;
+  }
 }
 
 .img-wrapper {
@@ -52,10 +62,42 @@
   align-items: center;
   justify-content: center;
   margin-right: 35px;
+  @media screen and (max-width: 768px) {
+    height: 120px;
+  }
+  @media screen and (max-width: 576px) {
+    width:  120px;
+    text-align: center;
+  }
   img {
-    width: 60%;
+    width: 65%;
   }
 }
+
+// @media screen and (max-width: 1400px) {
+//   width: 80%;
+//   font-size: calc( 18px + (20 - 18) * (100vw - 1200px) / (1400 - 1200) ); 
+// }
+
+// @media screen and (max-width: 1200px) {
+//   width: 80%;
+//   font-size: calc( 16px + (17 - 16) * (100vw - 992px) / (1200 - 992) ); 
+// }
+// @media screen and (max-width: 992px) {
+//   width: 100%;
+
+//   font-size: calc( 14px + (15 - 14) * (100vw - 768px) / (992 - 768) ); 
+// }
+// @media screen and (max-width: 768px) {
+//   width: 100%;
+//   flex-direction: column;
+//   font-size: calc( 19px + (25 - 19) * (100vw - 576px) / (768 - 576) ); 
+
+// }
+// @media screen and (max-width: 576px) {
+//   flex-direction: column;
+//   font-size: calc( 16px + (22 - 16) * (100vw - 0px) / (576 - 0 ) ); 
+// }
 
 .plus-minus-delete {
   width: 40%;
@@ -63,15 +105,21 @@
   flex-direction: column;
   align-items: center;
   justify-content: space-around;
-
-  // .wrapper-block {
-  //   display: flex;
-  //   flex-direction: row;
-  //   align-items: center;
-  //   justify-content: space-around;
-  //   width: 100%;
-  // }
-
+  @media screen and (max-width: 1400px) {
+    width: 45%;
+  }
+  @media screen and (max-width: 1200px) {
+    width: 45%;
+  }
+  @media screen and (max-width: 992px) {
+    width: 50%;
+  }
+  @media screen and (max-width: 768px) {
+    width: 50%;
+  }
+  @media screen and (max-width:576px) {
+    width: 90%;
+   }
   .minus {
     background-color: transparent;
   }
@@ -79,14 +127,43 @@
   .plus {
     background-color: transparent;
   }
-  .selectPackage{
+
+  .selectPackage {
     display: flex;
     flex-direction: column;
     align-items: flex-end;
     justify-content: flex-end;
-  width: 100%;
-  margin-bottom: 20px;
+    width: 100%;
+    margin-bottom: 20px;
+    @media screen and (max-width:576px) {
+      flex-direction: row;
+      justify-content: space-between;
+      align-items: center;
+      h4{
+        padding-bottom: 0 !important;
+        font-size: calc(18px + (20 - 10) * (100vw - 576px) / (576 - 0) ); 
+      }
+     }
+
+    .selectPackageSelect{
+      width: 58%;
+      @media screen and (max-width: 1200px) {
+        width: 70%;
+      }
+      @media screen and (max-width: 992px) {
+        width: 84%;
+      }
+      @media screen and (max-width:768px) {
+        width: 100%;
+        font-size: 13px;
+      }
+      @media screen and (max-width:576px) {
+        width: calc(225px + (150 - 50) * (100vw - 576px) / (576 - 0) ); 
+        font-size: 11px;
+       }
+    }
   }
+ 
 }
 
 .wrapper-checkout {
@@ -102,10 +179,38 @@
     justify-content: space-between;
     width: 21%;
     margin-right: 25px;
+
+    @media screen and (max-width: 992px) {
+      width: 30%;
+    }
+    @media screen and (max-width: 768px) {
+      width: 40%;
+    }
+    @media screen and (max-width: 576px) {
+      width: 60%;
+    }
+  }
+  .btn-read{
+    @media screen and (max-width:768px) {
+      width: 40%;
+      font-size: 15px;
+      text-align: center;
+    }
   }
 }
-
-.block-increase-price{
+.title-price-wrapper{
+  @media screen and (max-width:576px) {
+   height: auto;
+   display: flex;
+   flex-direction: column;
+   align-items: flex-end;
+   justify-content: flex-end;
+   h1{
+     text-align: right;
+   }
+  }
+}
+.block-increase-price {
   display: flex;
   flex-direction: row;
   align-items: center;
