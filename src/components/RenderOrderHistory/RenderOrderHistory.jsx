@@ -37,11 +37,11 @@ const RenderOrderHistory = ({ orders }) => {
 	const navigate = useNavigate();
 	console.log(orders);
 	return (
-		<div className="d-flex flex-row mt-5 mb-5">
+		<div className="dashboard mb-5">
 			<VerticalNav />
 
 			<TableContainer>
-				<h1>Замовлення</h1>
+				<h1 className="mt-0">Замовлення</h1>
 				<Table>
 					<TableHead>
 						<TableRow>

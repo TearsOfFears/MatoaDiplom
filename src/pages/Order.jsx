@@ -20,7 +20,7 @@ const Order = () => {
 		<div className="order">
 			<h2>ID - замовлення : {orderID}</h2>
 			<OrderDetails order={orderDetails} />
-			<div className="w-100 d-flex flex-row align-items-center justify-content-center">
+			<div className="orderDetails">
 				<div className="col-6 d-flex justify-content-center mt-0">
 					<Buttons style="btn-read" onClick={(e) => navigate("/dashboard")}>
 						Назад
