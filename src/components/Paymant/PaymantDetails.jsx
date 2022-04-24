@@ -65,21 +65,21 @@ const PaymantDetails = () => {
 	const [stage, setStage] = useState({ ...configStage });
 
 	const handleChangeState = (key, objBiling, objShipping, pasteInfo) => {
-		// if (
-		// 	Object.keys(objBiling).length === 0 &&
-		// 	Object.keys(objShipping).length === 0 &&
-		// 	Object.keys(pasteInfo).length === 0
-		// ) {
-		// 	setStage({
-		// 		...configStage,
-		// 		index: 0,
-		// 		billingAddress: objBiling,
-		// 		shippingAddress: objShipping,
-		// 		pasteInfo: pasteInfo,
-		// 	});
-		// }
-		// else 
-		// {
+		if (
+			Object.keys(objBiling).length === 0 &&
+			Object.keys(objShipping).length === 0 &&
+			Object.keys(pasteInfo).length === 0
+		) {
+			setStage({
+				...configStage,
+				index: 0,
+				billingAddress: objBiling,
+				shippingAddress: objShipping,
+				pasteInfo: pasteInfo,
+			});
+		}
+		else 
+		{
 			setStage({
 				...configStage,
 				index: key,
@@ -87,7 +87,7 @@ const PaymantDetails = () => {
 				shippingAddress: objShipping,
 				pasteInfo: pasteInfo,
 			});
-		//}
+		}
 	};
 
 	const configDetails = {
