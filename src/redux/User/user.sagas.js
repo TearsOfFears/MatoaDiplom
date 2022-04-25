@@ -1,4 +1,4 @@
-import {takeLatest, call, all, put} from "redux-saga/effects"
+import {takeLatest,take,call, all, put} from "redux-saga/effects"
 import userTypes from "./user.types";
 
 import {auth, handleUserProfile, getCurrentUser, GoogleProvider} from "../../firebase/utils";
@@ -6,6 +6,18 @@ import {auth, handleUserProfile, getCurrentUser, GoogleProvider} from "../../fir
 import {signInSuccess, signOutUserSuccess, userError, resetPasswordSuccess} from './user.actions';
 
 import {handleResetPasswordAPI} from "./user.helpers";
+
+export function * isUserAuthent() {
+  try {
+    const userAuth = yield getCurrentUser();
+    console.log(getCurrentUser());
+    if (!userAuth) 
+      return;
+    yield getSnapshotFromUserAuth(userAuth);
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 export function * getSnapshotFromUserAuth(user, additionalData = {}) {
   try {
@@ -36,20 +48,13 @@ export function * emailSignIn({
     const {user} = yield auth.signInWithEmailAndPassword(email, password);
     yield getSnapshotFromUserAuth(user);
   } catch (err) {
-    console.log(err);
+  
+      yield put(userError(["Перевірте коректність даних"]));
+  
   }
 }
 
-export function * isUserAuthent() {
-  try {
-    const userAuth = yield getCurrentUser();
-    if (!userAuth) 
-      return;
-    yield getSnapshotFromUserAuth(userAuth);
-  } catch (err) {
-    console.log(err);
-  }
-}
+
 
 export function * signOutUser() {
 

@@ -13,13 +13,15 @@ import {
 
 const mapState = ({ user }) => ({
 	currentUser: user.currentUser,
+	userErrors: user.userErrors,
 });
 
 const SignIn = (props) => {
-	const { currentUser } = useSelector(mapState);
+	const { currentUser,userErrors } = useSelector(mapState);
 	const dispatch = useDispatch();
 	const [email, setEmail] = useState("");
 	const [password, setPassword] = useState("");
+	const [errors, setErrors] = useState([]);
 	useEffect(() => {
 		if (currentUser) {
 			resetForm();
@@ -30,7 +32,11 @@ const SignIn = (props) => {
 		setEmail("");
 		setPassword("");
 	};
-
+	useEffect(() => {
+		if (Array.isArray(userErrors) && userErrors.length > 0) {
+			setErrors(userErrors);
+		}
+	}, [userErrors]);
 	const handleSubmit = (e) => {
 		e.preventDefault();
 		dispatch(emailSigInStart({ email, password }));
@@ -46,6 +52,13 @@ const SignIn = (props) => {
 	return (
 		<AuthWrapper {...configAuthWrapper}>
 			<div className="formWrapper">
+			{errors.length > 0 && (
+					<ul style={{listStyleType:"none", margin:0, padding:0,}}>
+						{errors.map((e, index) => {
+							return <li key={index}>{e}</li>;
+						})}
+					</ul>
+				)}
 				<form onSubmit={handleSubmit} className="formStyle">
 					<FormInput
 						type="email"

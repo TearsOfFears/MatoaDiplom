@@ -3,7 +3,8 @@ import userTypes from "./user.types";
 const INITIAL_STATE = {
   currentUser: null,
   resetPasswordSuccess: false,
-  userErrors: []
+  userErrors: [],
+  loading:false,
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -12,7 +13,8 @@ const userReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         currentUser: action.payload,
-        userErrors: []
+        userErrors: [],
+        loading:true,
       }
     case userTypes.RESET_USER_STATE:
     case userTypes.SIGN_OUT_USER_SUCCESS:

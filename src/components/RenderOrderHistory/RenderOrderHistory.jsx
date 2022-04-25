@@ -11,6 +11,12 @@ import {
 import { Order } from "../../pages";
 import { Link, useNavigate } from "react-router-dom";
 import { formatDate } from "../../utils/utils";
+import { useDispatch } from "react-redux";
+import { useEffect } from "react";
+import { checkUserSession } from "../../redux/User/user.actions";
+import { getUserOrderHistory } from "../../redux/Orders/orders.actions";
+import { useSelector } from "react-redux";
+import { useState } from "react";
 const colums = [
 	{
 		id: "orderCreated",
@@ -32,10 +38,22 @@ const styles = {
 	width: "10%",
 };
 
+const mapState = ({ user, ordersData }) => ({
+	currentUser: user.currentUser,
+	orderData: ordersData.ordersHistory.data,
+});
 
-const RenderOrderHistory = ({ orders }) => {
+const RenderOrderHistory = (currentUser) => {
 	const navigate = useNavigate();
-	console.log(orders);
+	const dispatch = useDispatch();
+
+	const { orderData } = useSelector(mapState);
+	useEffect(() => {
+		if (typeof currentUser === "object") {
+			dispatch(getUserOrderHistory(currentUser.id));
+		}
+	}, [currentUser.id]);
+	
 	return (
 		<div className="dashboard mb-5">
 			<VerticalNav />
@@ -56,9 +74,9 @@ const RenderOrderHistory = ({ orders }) => {
 						</TableRow>
 					</TableHead>
 					<TableBody style={styles}>
-						{Array.isArray(orders) &&
-							orders.length > 0 &&
-							orders.map((row, pos) => {
+						{Array.isArray(orderData) &&
+							orderData.length > 0 && currentUser.id.length>0 &&
+							orderData.map((row, pos) => {
 								const { documentID, grandTotal, orderCreated } = row;
 
 								return (
@@ -66,7 +84,9 @@ const RenderOrderHistory = ({ orders }) => {
 										key={pos}
 										onClick={() => navigate(`/order/${documentID}`)}
 									>
-										<TableCell align="left">{formatDate(orderCreated)}</TableCell>
+										<TableCell align="left">
+											{formatDate(orderCreated)}
+										</TableCell>
 										<TableCell align="left">{documentID}</TableCell>
 										<TableCell align="left">{grandTotal} ₴</TableCell>
 									</TableRow>

@@ -18,6 +18,7 @@ import WithAuth from './hoc/WithAuth';
 import WithAdminAuth from './hoc/WithAdminAuth';
 import Loader from './components/Loader/Loader';
 import { fetchHomeContentStart } from './redux/Home/home.actions';
+import { fetchProductsStart } from './redux/Products/products.actions';
 
 const App = (props)=> {
 
@@ -35,6 +36,7 @@ const {currentUser,contentHomeLoading,contentProductLoading}= useSelector(mapSta
 useEffect(()=>{
 dispatch(checkUserSession());
 dispatch(fetchHomeContentStart())
+dispatch(fetchProductsStart())
 if(!currentUser){
   setstate(true)
 }
@@ -44,9 +46,7 @@ setstate(true);
     return (
       <div className='app'>
         <AdminToolBar/>
-    
         <Routes>
-       
           <Route exact path="/" element={
               contentHomeLoading  ?  <Loader/> :
           (  <MainLayout>
@@ -98,19 +98,15 @@ setstate(true);
 
           }/>
             <Route  exact path="/products" element={
-            //      contentProductLoading  ?  <Loader/> : (    <SecondLayout>
-            //       <Products/>
-            // </SecondLayout>)
-        
-<SecondLayout>
+                 contentProductLoading  ?  <Loader/> : (    <SecondLayout>
                   <Products/>
-            </SecondLayout>
+            </SecondLayout>)
+
           }/>
                  <Route  path="/products" element={
             <SecondLayout>
                   <Products/>
             </SecondLayout>
-///:sortType
           }/>
             <Route  path="/product/:productName" element={
             <SecondLayout>
@@ -119,11 +115,11 @@ setstate(true);
 
           }/>
            <Route  path="/payment" element={
-              // <WithAuth> </WithAuth>
+              <WithAuth> 
               <SecondLayout>
                   <Paymant/>
             </SecondLayout>
-             
+            </WithAuth>
           }/>
              <Route  path="/order/:orderID" element={
               <WithAuth>

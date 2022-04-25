@@ -11,7 +11,7 @@ export const handleResetPasswordAPI = (email) => {
         resolve();
       })
       .catch(() => {
-        const err = ["Пошта не знайдена.Попробуйте ще раз"];
+        const err = ["Пошта не знайдена. Попробуйте ще раз"];
         reject(err);
       });
   });

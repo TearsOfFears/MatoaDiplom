@@ -24,6 +24,7 @@ export {default as SignIn} from "./SignIn";
 export {default as SignUp} from "./SignUp";
 
 export {default as Modal} from "./Modal"; 
+export {default as ModalError} from "./ModalError/ModalError"; 
 
 export {default as ButtonForm} from "./Forms/ButtonForm";
 export {default as FormInput} from "./Forms/FormInput";

@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from "react";
 
-import { AuthWrapper } from "../index";
+import { AuthWrapper,ModalError } from "../index";
 
 import FormInput from "./FormInput";
 import ButtonForm from "./ButtonForm";
-
-
 import { Navigate } from "react-router-dom";
 import { Login } from "../../pages";
 
@@ -52,12 +50,12 @@ const EmailPassword = (props) => {
 	if (redirect) {
 		return <Navigate to="/login" />;
 	}
-
+	
 	return (
 		<AuthWrapper {...configAuthWrapper}>
 			<div className="formWrap mb-5">
 				{errors.length > 0 && (
-					<ul>
+					<ul style={{listStyleType:"none", margin:0, padding:0,}}>
 						{errors.map((e, index) => {
 							return <li key={index}>{e}</li>;
 						})}
@@ -68,10 +66,10 @@ const EmailPassword = (props) => {
 						type="email"
 						name="email"
 						value={email}
-						placeholder="Email"
+						placeholder="E-пошта"
 						onChange={(e) => setEmail(e.target.value)}
 					/>
-					<ButtonForm type="submit">Надіслати</ButtonForm>
+					<ButtonForm type="submit">Відновити</ButtonForm>
 				</form>
 			</div>
 		</AuthWrapper>

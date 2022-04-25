@@ -4,6 +4,7 @@ import { getUserOrderHistory } from "../redux/Orders/orders.actions";
 import { selectCartItems } from "../redux/Carts/cart.selectors";
 
 import { RenderOrderHistory } from "../components";
+import { checkUserSession } from "../redux/User/user.actions";
 
 const mapState = ({ user, ordersData }) => ({
 	currentUser: user.currentUser,
@@ -12,15 +13,13 @@ const mapState = ({ user, ordersData }) => ({
 
 const Dashboard = (props) => {
 	const dispatch = useDispatch();
-
 	const { currentUser, orderData } = useSelector(mapState);
-	
 	useEffect(() => {
-		dispatch(getUserOrderHistory(currentUser.id));
+		dispatch(checkUserSession());
 	}, []);
 	return (
 		<div>
-			<RenderOrderHistory orders={orderData}/>
+			<RenderOrderHistory  {...currentUser}/>
 		</div>
 	);
 };
