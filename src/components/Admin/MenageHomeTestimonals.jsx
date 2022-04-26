@@ -62,14 +62,6 @@ const MenageHomeTestimonals = (props) => {
 		}
 	};
 	const onHandleFileTestimonals = async (files) => {
-		// const file = files[0];
-		// const storageRef = storage.ref();
-		// const fileRef = storageRef.child(`home/testimonals/${file.name}`);
-		// await fileRef.put(file);
-		// if (fileRef.getDownloadURL !== props.contentEdit.testimonalsThumbnail) {
-		// 	deleteImage(props.contentEdit.testimonalsThumbnail);
-		// 	setTestimonalsThumbnail(await fileRef.getDownloadURL());
-		// }
 		try {
 			const storage = getStorage();
 			const file = files[0];

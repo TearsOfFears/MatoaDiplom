@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import { Footer, Header, Bils, ButtonForm, Buttons } from "../components";
+import { Footer, Header, Bils, ButtonForm, Buttons, Orders } from "../components";
 
 import { useDispatch } from "react-redux";
 import { Admin } from "../pages";
@@ -13,10 +13,11 @@ import "./Layouts.scss";
 const AdminLayout = (props) => {
 	const [active, setActive] = useState(0);
 
-	const arrMenage = [<Admin />, <MenageHomePage />];
+	const arrMenage = [<Admin />, <MenageHomePage />, <Orders/>];
 	const arrButtons = [
 		"Переглянути продукти",
 		"Переглянути контент",
+		"Переглянути замовлення",
 	];
 	const getIndex = (index) => {
 		setActive(index);

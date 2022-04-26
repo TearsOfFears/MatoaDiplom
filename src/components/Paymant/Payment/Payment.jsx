@@ -121,6 +121,10 @@ function Payment({ handleChangeState, stage }) {
 				grandTotal: grandTotal,
 				shippingAddress: stage.shippingAddress,
 				billingAddress: stage.billingAddress,
+				name: stage.pasteInfo.nameOnCard,
+				email: currentUser.email,
+				phone: stage.pasteInfo.phone,
+				activity:{value:"Processing",label:"В обробці"},
 				orderItems: cartItems.map((item) => {
 					const { documentId, productName, productThumbnail, price, quantity,packageType } =
 						item;
@@ -161,7 +165,6 @@ function Payment({ handleChangeState, stage }) {
 		checkoutError,
 		setCheckoutError,
 	};
-	console.log(checkoutError);
 	return (
 		<div className="container payment">
 			<ModalError {...configModal} />

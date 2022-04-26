@@ -15,8 +15,8 @@ const AdminToolBar = () => {
 	return (
 		<div className="adminToolBar">
 			<div className="container">
-				AdminToolBar
-				<Link to="/admin">My Admin</Link>
+				Панель Адміністратора
+				<Link to="/admin">Адмінка</Link>
 			</div>
 		</div>
 	);

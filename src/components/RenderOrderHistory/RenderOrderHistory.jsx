@@ -28,6 +28,10 @@ const colums = [
 	},
 	{
 		id: "orderTotal",
+		lable: "Стан",
+	},
+	{
+		id: "orderTotal",
 		lable: "Сума",
 	},
 ];
@@ -77,7 +81,7 @@ const RenderOrderHistory = (currentUser) => {
 						{Array.isArray(orderData) &&
 							orderData.length > 0 && currentUser.id.length>0 &&
 							orderData.map((row, pos) => {
-								const { documentID, grandTotal, orderCreated } = row;
+								const { documentID, grandTotal, orderCreated,activity } = row;
 
 								return (
 									<TableRow
@@ -88,6 +92,7 @@ const RenderOrderHistory = (currentUser) => {
 											{formatDate(orderCreated)}
 										</TableCell>
 										<TableCell align="left">{documentID}</TableCell>
+										<TableCell align="left">{activity.label}</TableCell>
 										<TableCell align="left">{grandTotal} ₴</TableCell>
 									</TableRow>
 								);

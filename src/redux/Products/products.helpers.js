@@ -123,14 +123,6 @@ export const handleFetchCurrentProduct = ({productID,productName}) => {
       })
 
 })}
-// .map(doc => {
-//   return {
-//     ...doc.data(),
-//     documentID:doc.id
-//   }
-// })
-
-
 
 
 

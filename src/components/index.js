@@ -32,7 +32,7 @@ export {default as FormSelect} from "./Forms/FormSelect";
 
 export {default as AuthWrapper} from "./AuthWrapper/AuthWrapper";
 export {default as AdminToolBar} from "./Admin/AdminToolBar";
-
+export {default as Orders} from "./Admin/Orders";
 export {default as EmailPassword} from "./Forms/EmailPassword";
 
 

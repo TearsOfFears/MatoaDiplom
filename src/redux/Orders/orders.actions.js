@@ -26,3 +26,18 @@ export const setOrderDetailsStart = order =>({
     type:ordersTypes.SET_ORDER_DETAILS,
     payload:order
 })
+
+export const fetchOrdersHistory = orders =>({
+    type:ordersTypes.FETCH_ORDERS_HISTORY,
+    payload:orders
+})
+
+export const deleteOrder = orderID =>({
+    type:ordersTypes.DELETE_ORDER,
+    payload:orderID
+})
+
+export const setActivity = (activity)=>({
+    type:ordersTypes.SET_ACTIVITY,
+    payload:activity
+})

@@ -110,6 +110,7 @@ const MenageProducts = () => {
 			})
 		);
 	};
+	
 	const configLoadMore = {
 		onLoadMoreEvt: handleLoadMore,
 	};

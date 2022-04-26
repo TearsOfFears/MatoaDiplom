@@ -2,7 +2,6 @@ import {firestore} from "../../firebase/utils";
 
 export const handleSaveOrder = order => {
   return new Promise((resolve, reject) => {
-    console.log(order);
     firestore
       .collection('orders')
       .doc()
@@ -63,4 +62,80 @@ export const handleGetOrder = orderID =>{
         reject(err);
       })
   })
+}
+
+
+export const handleFetchOrderHistory = ({
+  startAfterDoc,
+  persistOrderHistory=[]
+}) => {
+  return new Promise((resolve, reject) => {
+
+    const pageSize = 5;
+
+    let ref = firestore
+      .collection('orders')
+      .orderBy('orderCreated')
+      .limit(pageSize);
+
+    if (startAfterDoc) 
+      ref = ref.startAfter(startAfterDoc)
+    ref
+      .get()
+      .then((snapShot) => {
+        const totalCount = snapShot.size;
+        const dataOrders = [
+          ...persistOrderHistory,
+          ...snapShot
+            .docs
+            .map(doc => {
+              return {
+                ...doc.data(),
+                documentID:doc.id,
+              }
+            })
+        ];
+        resolve({
+          dataOrders,
+          queryDocOrders: snapShot.docs[totalCount - 1],
+          isLastPageOrders: totalCount < pageSize
+        })
+      })
+      .catch(err => {
+        reject(err);
+        console.log(err);
+      })
+  })
+}
+
+export const handleDeleteOrder = orderID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('orders')
+      .doc(orderID)
+      .delete()
+      .then(() => {
+        resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
+}
+
+export const handleSetActivity = (activityData, documentId) => {
+  console.log(activityData);
+  console.log(documentId);
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('orders')
+      .doc(documentId)
+      .update(activityData)
+      .then(() => {
+        resolve();
+      })
+      .catch(err => {
+        reject(err);
+      })
+  });
 }

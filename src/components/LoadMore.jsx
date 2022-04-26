@@ -3,9 +3,9 @@ import { ButtonForm } from './index'
 
 
 
-const LoadMore= ({onLoadMoreEvt = ()=>{}})=> {
+const LoadMore= ({onLoadMoreEvt = ()=>{},style } )=> {
   return (
-    <ButtonForm onClick={()=>onLoadMoreEvt()}>Завантажити більше </ButtonForm>
+    <ButtonForm style={style} onClick={()=>onLoadMoreEvt()}>Завантажити більше </ButtonForm>
   )
 }
 

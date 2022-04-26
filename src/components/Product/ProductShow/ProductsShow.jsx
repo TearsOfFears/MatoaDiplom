@@ -46,7 +46,7 @@ const ProductsShow = () => {
 		sort: value,
 		order: valueSecSort,
 		available: tempArr,
-		discount:discount,
+		discount: discount,
 	});
 
 	let filterType = searchParams.get("sort");
@@ -108,10 +108,14 @@ const ProductsShow = () => {
 		setSelectedCat({ value: filterType });
 		if (sortAvailableP[0] === "") {
 			sortAvailableP = "";
-			dispatch(fetchProductsStart({ filterType, sortType, tempArr,discountQ }));
+			dispatch(
+				fetchProductsStart({ filterType, sortType, tempArr, discountQ })
+			);
 		}
 
-		dispatch(fetchProductsStart({ filterType, sortType, sortAvailableP,discountQ }));
+		dispatch(
+			fetchProductsStart({ filterType, sortType, sortAvailableP, discountQ })
+		);
 	}, [searchParams]);
 
 	if (!Array.isArray(data)) {
@@ -127,26 +131,6 @@ const ProductsShow = () => {
 			</section>
 		);
 	}
-
-	const configFilters = {
-		defaultValue: filterType,
-	};
-
-	const handleLoadMore = () => {
-		dispatch(
-			fetchProductsStart({
-				filterType,
-				sortType,
-				sortAvailable,
-				startAfterDoc: queryDoc,
-				persistProducts: data,
-			})
-		);
-	};
-
-	const configLoadMore = {
-		onLoadMoreEvt: handleLoadMore,
-	};
 
 	const colourStyles = {
 		control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
@@ -230,7 +214,7 @@ const ProductsShow = () => {
 			sort: value,
 			order: valueSecSort,
 			available: sortAvailableP,
-			discount:discount,
+			discount: discount,
 		});
 	};
 	const handleSelectSort = (data) => {
@@ -240,7 +224,7 @@ const ProductsShow = () => {
 			sort: value,
 			order: valueSecSort,
 			available: sortAvailableP,
-			discount:discount,
+			discount: discount,
 		});
 	};
 
@@ -276,30 +260,46 @@ const ProductsShow = () => {
 			sort: value,
 			order: valueSecSort,
 			available: arr,
-			discount:discount,
+			discount: discount,
 		});
 	};
 	const handleChangeDiscount = (e) => {
 		let val = e.target.checked.toString();
-		if(val==="false"){
+		if (val === "false") {
 			setSearchParams({
 				sort: value,
 				order: valueSecSort,
 				available: sortAvailableP,
-				discount:""
+				discount: "",
 			});
-			setDiscount("")
+			setDiscount("");
 		}
-		if(val==="true"){
+		if (val === "true") {
 			setSearchParams({
 				sort: value,
 				order: valueSecSort,
 				available: sortAvailableP,
-				discount:"true"
+				discount: "true",
 			});
-			setDiscount("true")
+			setDiscount("true");
 		}
-		
+	};
+	const handleLoadMore = () => {
+		dispatch(
+			fetchProductsStart({
+				filterType,
+				sortType,
+				sortAvailable,
+				discountQ,
+				startAfterDoc: queryDoc,
+				persistProducts: data,
+			})
+		);
+	};
+
+	const configLoadMore = {
+		style: "text-center mt-5 w-25 d-block",
+		onLoadMoreEvt: handleLoadMore,
 	};
 	return (
 		<section className="products">
@@ -330,8 +330,9 @@ const ProductsShow = () => {
 					</div>
 					<div className="sort-wrapper-sec ">
 						<FormControlLabel
-							control={<Checkbox onChange={handleChangeDiscount} checked={discountQ}/>}
-							
+							control={
+								<Checkbox onChange={handleChangeDiscount} checked={discountQ} />
+							}
 							label="Акційні"
 						/>
 						<div className="selectAvai">
@@ -360,7 +361,7 @@ const ProductsShow = () => {
 					</div>
 				</div>
 
-				<div className="row mt-3 mb-5">
+				<div className="row mt-3 mb-5 d-flex align-items-center justify-content-center">
 					<div className="wrapper-products">
 						{data.map((product, ind) => {
 							const { productThumbnail, productName, price, availability } =
