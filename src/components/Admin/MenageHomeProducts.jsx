@@ -100,6 +100,11 @@ const MenageHomeProducts = (props) => {
 	};
 	useEffect(() => {
 		setEditValueProduct();
+		new Promise((resolve, reject) => {
+			resolve()
+			}).then(() => {
+				setDescText(props.contentEdit.descText);
+			});
 	}, [content]);
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -159,7 +164,13 @@ const MenageHomeProducts = (props) => {
 						type="file"
 						handleChange={(e) => onHandleFile(e.target.files)}
 					/>
-					<CKEditor onChange={(evt) => setDescText(evt.editor.getData())} />
+					{descText && (
+									<CKEditor
+									data={descText}
+									initData={descText}
+									onChange={(evt) => setDescText(evt.editor.getData())}
+								/>
+							)}
 					<Buttons type="submit" style="btn-read">
 						Редагувати слайдер
 					</Buttons>

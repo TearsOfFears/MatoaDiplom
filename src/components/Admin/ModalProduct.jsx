@@ -133,7 +133,12 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 
 	useEffect(() => {
 		setEditValue();
-	}, [product, productDesc]);
+		new Promise((resolve, reject) => {
+		resolve()
+		}).then(() => {
+			setProductDesc(product.productDesc);
+		});
+	}, [product]);
 
 	const resetForm = () => {
 		setProductCategory("watches");
@@ -181,9 +186,10 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			productDesc,
 		};
 		dispatch(updateContentMainProduct({ updateData, id }));
-		resetForm();
 		dispatch(setCurrentProduct({}));
 		dispatch(fetchProductsStart());
+		resetForm();
+
 		setHideModal(!hideModal);
 	};
 
@@ -305,11 +311,14 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 									/>
 								);
 							})}
-
-							<CKEditor
-								initData={productDesc}
-								onChange={(evt) => setProductDesc(evt.editor.getData())}
-							/>
+							{productDesc && (
+									<CKEditor
+									data={productDesc}
+									initData={productDesc}
+									onChange={(evt) => setProductDesc(evt.editor.getData())}
+								/>
+							)}
+						
 
 							<Buttons type="submit" style="btn-read">
 								Редагувати продукт

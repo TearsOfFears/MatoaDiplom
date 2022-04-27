@@ -95,12 +95,12 @@ const MenageProducts = () => {
 		width: "15%",
 	};
 
+
+	const { data, queryDoc, isLastPage } = products;
 	useEffect(() => {
 		dispatch(fetchProductsStart());
 		dispatch(setCurrentProduct({}));
-	}, []);
-	const { data, queryDoc, isLastPage } = products;
-
+	}, [hideModal]);
 	const handleLoadMore = () => {
 		dispatch(
 			fetchProductsStart({

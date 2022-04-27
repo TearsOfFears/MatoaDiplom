@@ -106,6 +106,11 @@ const MenageHomeTestimonals = (props) => {
 	};
 	useEffect(() => {
 		setEditValue();
+		new Promise((resolve, reject) => {
+			resolve()
+			}).then(() => {
+				setDescTextTestimonals(props.contentEdit.descTextTestimonals);
+			});
 	}, [content]);
 	const handleSubmitTestimonals = (e) => {
 		e.preventDefault();
@@ -169,9 +174,13 @@ const MenageHomeTestimonals = (props) => {
 						type="file"
 						handleChange={(e) => onHandleFileTestimonals(e.target.files)}
 					/>
-					<CKEditor
-						onChange={(evt) => setDescTextTestimonals(evt.editor.getData())}
-					/>
+						{descTextTestimonals && (
+									<CKEditor
+									data={descTextTestimonals}
+									initData={descTextTestimonals}
+									onChange={(evt) => setDescTextTestimonals(evt.editor.getData())}
+								/>
+							)}
 					<Buttons type="submit" style="btn-read">
 						Редагувати слайдер
 					</Buttons>
