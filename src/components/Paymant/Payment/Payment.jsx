@@ -68,7 +68,7 @@ function Payment({ handleChangeState, stage }) {
 	const handleCardDetailsChange = (ev) => {
 		ev.error ? setCheckoutError(ev.error.message) : setCheckoutError();
 	};
-	let grandTotal = total + 500 + pricePackage;
+	let grandTotal = total + 100 + pricePackage;
 
 	const { email } = currentUser || {};
 

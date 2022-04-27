@@ -22,6 +22,9 @@
     color: #333;
     margin: 0;
     padding: 0;
+    @media screen and (max-width:768px) {
+      font-size: 20px;
+    }
   }
 }
 
@@ -47,8 +50,14 @@
   align-items: center;
   justify-content: flex-start;
   width: 40%;
+  .title-price-wrapper{
+    @media screen and (max-width:768px) {
+      width: 50%;
+    }
+  }
+
   @media screen and (max-width:576px) {
-    width: 80%;
+    width: 85%;
     justify-content: space-between;
     margin-bottom: 20px;
   }
@@ -73,31 +82,6 @@
     width: 65%;
   }
 }
-
-// @media screen and (max-width: 1400px) {
-//   width: 80%;
-//   font-size: calc( 18px + (20 - 18) * (100vw - 1200px) / (1400 - 1200) ); 
-// }
-
-// @media screen and (max-width: 1200px) {
-//   width: 80%;
-//   font-size: calc( 16px + (17 - 16) * (100vw - 992px) / (1200 - 992) ); 
-// }
-// @media screen and (max-width: 992px) {
-//   width: 100%;
-
-//   font-size: calc( 14px + (15 - 14) * (100vw - 768px) / (992 - 768) ); 
-// }
-// @media screen and (max-width: 768px) {
-//   width: 100%;
-//   flex-direction: column;
-//   font-size: calc( 19px + (25 - 19) * (100vw - 576px) / (768 - 576) ); 
-
-// }
-// @media screen and (max-width: 576px) {
-//   flex-direction: column;
-//   font-size: calc( 16px + (22 - 16) * (100vw - 0px) / (576 - 0 ) ); 
-// }
 
 .plus-minus-delete {
   width: 40%;
@@ -146,19 +130,19 @@
      }
 
     .selectPackageSelect{
-      width: 58%;
+      width: 48%;
       @media screen and (max-width: 1200px) {
-        width: 70%;
+        width: 55%;
       }
       @media screen and (max-width: 992px) {
-        width: 84%;
+        width: 64%;
       }
       @media screen and (max-width:768px) {
-        width: 100%;
+        width: 80%;
         font-size: 13px;
       }
       @media screen and (max-width:576px) {
-        width: calc(225px + (150 - 50) * (100vw - 576px) / (576 - 0) ); 
+        width: calc(175px + (150 - 50) * (100vw - 576px) / (576 - 0) ); 
         font-size: 11px;
        }
     }

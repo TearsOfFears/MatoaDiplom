@@ -107,7 +107,7 @@ const Confirmation = ({ handleChangeState, stage, setStage }) => {
 							</div>
 							<div className="wrapper-detail__headers_2">
 								<h3>{lastElement.subtotal} ₴</h3>
-								<h3> 500 ₴</h3>
+								<h3> ~100 ₴</h3>
 								<h3>{lastElement.packagingPrice} ₴</h3>
 							</div>
 						</div>

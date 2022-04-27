@@ -133,7 +133,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 
 	useEffect(() => {
 		setEditValue();
-	}, [product]);
+	}, [product, productDesc]);
 
 	const resetForm = () => {
 		setProductCategory("watches");
@@ -141,7 +141,6 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		setProductName("");
 		setDiscount(false);
 		setDiscountPersentage(0);
-		//setPriceOld(0);
 		setProductThumbnail([]);
 		setPrice(0);
 		setProductDesc([]);
@@ -178,7 +177,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			price:
 				discount === "true"
 					? price - (price * discountPersentage) / 100
-					: null,
+					: price,
 			productDesc,
 		};
 		dispatch(updateContentMainProduct({ updateData, id }));
@@ -207,7 +206,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		const { value } = e.target;
 		setDiscountPersentage(value);
 	};
-
+	console.log(productDesc);
 	return [
 		<div className="modalOverlay" onClick={() => toggleModal()} key={1} />,
 		<div className="modalWrap" key={2}>
@@ -308,8 +307,10 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 							})}
 
 							<CKEditor
+								initData={productDesc}
 								onChange={(evt) => setProductDesc(evt.editor.getData())}
 							/>
+
 							<Buttons type="submit" style="btn-read">
 								Редагувати продукт
 							</Buttons>

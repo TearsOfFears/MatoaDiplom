@@ -31,12 +31,11 @@ import {
 	updateContentMainProduct,
 } from "../../redux/Products/products.actions";
 import { storage } from "./../../firebase/utils";
-//import MenageProductEdit from "./MenageProductEdit";
+
 
 const mapState = ({ productsData }) => ({ products: productsData.products });
 const MenageProducts = () => {
 	const [hideModal, setHideModal] = useState(false);
-	//const [hideModalEdit, setHideModalEdit] = useState(true);
 	const { products } = useSelector(mapState);
 	const dispatch = useDispatch();
 

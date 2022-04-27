@@ -67,3 +67,53 @@
         }
     }
 }
+
+.modalOverlayDetails {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0,0,0,0.3);
+    z-index: 1100;
+  
+}
+  .modalWrapDetails {
+    position: fixed;
+    top: 0; left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 10000;
+  
+    .modalDetails {
+      position: absolute;
+      top: 50%; left: 50%;
+      z-index: 10000;
+      -webkit-transform: translate(-50%, -50%);
+      -moz-transform: translate(-50%, -50%);
+      transform: translate(-50%, -50%);
+      background-color: white;
+      width: 100%;
+      padding: 2rem;
+      max-width: 60rem;
+      height: auto;
+      min-height: 20.0rem;
+      pointer-events: all;
+      max-height: 100vh;
+      overflow: auto;
+      display: block;
+    }
+  }
+
+
+  .react-select {
+    width: 10rem;
+  }
+  
+  .react-select
+    .react-select__menu {
+
+    position: absolute;
+ 
+    z-index: 20000;
+  }
