@@ -228,20 +228,15 @@ const MenageHomePage = () => {
 	const handleGetContent = (documentId) => {
 		dispatch(editContent(documentId));
 		toggleModal();
+		setActive(2)
 	};
 
 	const handleGetContentProduct = (documentId) => {
 		dispatch(editContentProduct(documentId));
+		setActive(1)
 		toggleModal();
 	};
-	const handleGetContentTestimonals = (documentId) => {
-		dispatch(editContentProduct(documentId));
-		toggleModal();
-	};
-	const handleGetContentInstagram = (documentId) => {
-		dispatch(editContentInstagram(documentId));
-		toggleModal();
-	};
+
 	const configModal = {
 		hideModalEdit,
 		toggleModal,

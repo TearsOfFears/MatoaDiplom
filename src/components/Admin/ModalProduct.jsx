@@ -27,6 +27,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const { product } = useSelector(mapState);
 	const [productCategory, setProductCategory] = useState("watches");
 	const [availability, setAvailability] = useState("inStock");
+	const [series, setSeries] = useState("");
 	const [productName, setProductName] = useState("");
 	const [productThumbnail, setProductThumbnail] = useState([]);
 
@@ -122,6 +123,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			setAvailability(product.availability);
 			setProductName(product.productName);
 			setDiscount(product.discount);
+			setSeries(product.series);
 			setDiscountPersentage(product.discountPersentage);
 			setPrice(product.price);
 			setProductThumbnail(product.productThumbnail);
@@ -134,9 +136,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	useEffect(() => {
 		setEditValue();
 		new Promise((resolve, reject) => {
-		resolve()
-		}).then(() => {
-			setProductDesc(product.productDesc);
+			resolve(setProductDesc(product.productDesc));
 		});
 	}, [product]);
 
@@ -179,6 +179,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			productThumbnail,
 			discount,
 			discountPersentage,
+			series,
 			price:
 				discount === "true"
 					? price - (price * discountPersentage) / 100
@@ -212,7 +213,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		const { value } = e.target;
 		setDiscountPersentage(value);
 	};
-	console.log(productDesc);
+
 	return [
 		<div className="modalOverlay" onClick={() => toggleModal()} key={1} />,
 		<div className="modalWrap" key={2}>
@@ -237,6 +238,29 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								]}
 								value={productCategory}
 								handleChange={(e) => setProductCategory(e.target.value)}
+							/>
+							<FormSelect
+								label="Колекція"
+								options={[
+									{
+										value: "",
+										name: "Без колекції",
+									},
+									{
+										value: "maple",
+										name: "Кленова колекція",
+									},
+									{
+										value: "ebony ",
+										name: "Чорна колекція",
+									},
+									{
+										value: "skeleton ",
+										name: "Скелетон колекція",
+									},
+								]}
+								value={series}
+								handleChange={(e) => setSeries(e.target.value)}
 							/>
 							<FormSelect
 								label="Наявність"
@@ -312,13 +336,12 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								);
 							})}
 							{productDesc && (
-									<CKEditor
+								<CKEditor
 									data={productDesc}
 									initData={productDesc}
 									onChange={(evt) => setProductDesc(evt.editor.getData())}
 								/>
 							)}
-						
 
 							<Buttons type="submit" style="btn-read">
 								Редагувати продукт
@@ -341,6 +364,29 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								]}
 								value={productCategory}
 								handleChange={(e) => setProductCategory(e.target.value)}
+							/>
+							<FormSelect
+								label="Колекція"
+								options={[
+									{
+										value: "none",
+										name: "Без колекції",
+									},
+									{
+										value: "maple",
+										name: "Кленова колекція",
+									},
+									{
+										value: "Ebony ",
+										name: "Чорна колекція",
+									},
+									{
+										value: "Ebony ",
+										name: "Скелетон колекція",
+									},
+								]}
+								value={series}
+								handleChange={(e) => setSeries(e.target.value)}
 							/>
 							<FormSelect
 								label="Наявність"

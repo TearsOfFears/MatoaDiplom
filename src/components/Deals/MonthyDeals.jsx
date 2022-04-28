@@ -20,10 +20,10 @@ function MonthyDeals() {
 
 	useEffect(() => {
 		const discountQ = "true";
-		dispatch(fetchProductsStart({ discountQ }));
+		const pageSize = 4;
+		dispatch(fetchProductsStart({ discountQ,pageSize }));
 	}, []);
 	const getData = (productName) => {
-		//dispatch(fetchCurrentProductStart(productID));
 		navigate(`/product/${productName}`);
 	};
 	return (

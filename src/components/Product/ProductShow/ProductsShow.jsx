@@ -20,9 +20,12 @@ const initialCat = {
 };
 const initialSort = {
 	valueSecSort: "",
-	label: "",
+	label: "Ціна",
 };
-
+const initialSortSeries = {
+	label: "Без колекції",
+	valueSecSeries: "",
+};
 const mapState = ({ productsData }) => ({ products: productsData.products });
 
 const ProductsShow = () => {
@@ -32,13 +35,14 @@ const ProductsShow = () => {
 	const navigation = useNavigate();
 
 	const [sortAvailable, setSortAvailable] = useState();
-
+	const [seriesState, setSeries] = useState({ ...initialSortSeries });
 	const [selectedCat, setSelectedCat] = useState({ ...initialCat });
 	const [discount, setDiscount] = useState("");
 	let newArr = [""];
 	const [tempArr, setTempArr] = useState([...newArr]);
 
 	const { value, valueSec, label } = selectedCat;
+	const { valueSecSeries } = seriesState;
 	const [sortTypes, setSortTypes] = useState({ ...initialSort });
 	const { valueSecSort } = sortTypes;
 
@@ -47,22 +51,64 @@ const ProductsShow = () => {
 		order: valueSecSort,
 		available: tempArr,
 		discount: discount,
+		series: valueSecSeries,
 	});
 
 	let filterType = searchParams.get("sort");
 	let sortType = searchParams.get("order");
 	let sortAvailableP = searchParams.getAll("available");
 	let discountQ = searchParams.get("discount");
+	let series = searchParams.get("series");
+
+	const optionsSeries = [
+		{
+			label: "Без колекції",
+			value: "",
+			valueSecSeries: "",
+		},
+		{
+			label: "Скелетон колекція",
+			value: "skeleton",
+			valueSecSeries: "skeleton",
+		},
+		{
+			label: "Кленова колекція",
+			value: "maple",
+			valueSecSeries: "maple",
+		},
+		{
+			label: "Чорна колекція",
+			value: "ebony",
+			valueSecSeries: "ebony",
+		},
+	];
+	const optionsVal = [
+		{
+			label: "Ціна",
+			value: "",
+			valueSecSort: "",
+		},
+		{
+			label: "По зростанню",
+			value: "asc",
+			valueSecSort: "asc",
+		},
+		{
+			label: "По спаданню",
+			value: "desc",
+			valueSecSort: "desc",
+		},
+	];
 	useEffect(() => {
-		if (sortType === "asc") {
-			setSortTypes({ valueSecSort: sortType, label: "По зростанню" });
-		}
-		if (sortType === "desc") {
-			setSortTypes({ valueSecSort: sortType, label: "По спаданню" });
-		}
-		if (sortType === "") {
-			setSortTypes({ valueSecSort: sortType, label: "Ціна" });
-		}
+		// if (sortType === "asc") {
+		// 	setSortTypes({ valueSecSort: sortType, label: "По зростанню" });
+		// }
+		// if (sortType === "desc") {
+		// 	setSortTypes({ valueSecSort: sortType, label: "По спаданню" });
+		// }
+		// if (sortType === "") {
+		// 	setSortTypes({ valueSecSort: sortType, label: "Ціна" });
+		// }
 		const avail = searchParams.getAll("available");
 
 		if (avail.length > 0) {
@@ -102,19 +148,43 @@ const ProductsShow = () => {
 			);
 			setTempArr(...newArr);
 			setSortAvailable(newArr);
-			dispatch(fetchProductsStart({ filterType, sortType, newArr }));
+			dispatch(
+				fetchProductsStart({ filterType, sortType, newArr, discountQ, series })
+			);
+		}
+
+		if(sortType){
+			let tempSort = optionsVal.filter(
+				(data) => data.value === sortType
+			)
+			.reduce((data) => data.label)
+			setSortTypes(tempSort);
+		}
+
+		if(series){
+			let temp = optionsSeries.filter(
+				(data) => data.value === series
+			)
+			.reduce((data) => data.label)
+			setSeries(temp);
 		}
 
 		setSelectedCat({ value: filterType });
 		if (sortAvailableP[0] === "") {
 			sortAvailableP = "";
 			dispatch(
-				fetchProductsStart({ filterType, sortType, tempArr, discountQ })
+				fetchProductsStart({ filterType, sortType, tempArr, discountQ, series })
 			);
 		}
-
+		
 		dispatch(
-			fetchProductsStart({ filterType, sortType, sortAvailableP, discountQ })
+			fetchProductsStart({
+				filterType,
+				sortType,
+				sortAvailableP,
+				discountQ,
+				series,
+			})
 		);
 	}, [searchParams]);
 
@@ -171,23 +241,9 @@ const ProductsShow = () => {
 		},
 	};
 
-	const optionsVal = [
-		{
-			label: "Ціна",
-			value: "",
-			valueSecSort: "",
-		},
-		{
-			label: "По зростанню",
-			value: "asc",
-			valueSecSort: "asc",
-		},
-		{
-			label: "По спаданню",
-			value: "desc",
-			valueSecSort: "desc",
-		},
-	];
+	
+
+
 
 	const categoryArr = [
 		{
@@ -215,6 +271,7 @@ const ProductsShow = () => {
 			order: valueSecSort,
 			available: sortAvailableP,
 			discount: discount,
+			series: series,
 		});
 	};
 	const handleSelectSort = (data) => {
@@ -225,6 +282,20 @@ const ProductsShow = () => {
 			order: valueSecSort,
 			available: sortAvailableP,
 			discount: discount,
+			series: series,
+		});
+	};
+
+	const handleSelectSeries = (data) => {
+		const { valueSecSeries, label, value } = data;
+		setSeries({ value, valueSecSeries, label });
+
+		setSearchParams({
+			sort: filterType,
+			order: valueSecSort,
+			available: sortAvailableP,
+			discount: discount,
+			series: valueSecSeries,
 		});
 	};
 
@@ -239,6 +310,7 @@ const ProductsShow = () => {
 			return "Всі продукти";
 		}
 	};
+
 
 	const Avaibility = [
 		{ label: "В наявності", value: "inStock", valueAvailable: "inStock" },
@@ -261,8 +333,10 @@ const ProductsShow = () => {
 			order: valueSecSort,
 			available: arr,
 			discount: discount,
+			series: series,
 		});
 	};
+
 	const handleChangeDiscount = (e) => {
 		let val = e.target.checked.toString();
 		if (val === "false") {
@@ -270,6 +344,7 @@ const ProductsShow = () => {
 				sort: value,
 				order: valueSecSort,
 				available: sortAvailableP,
+				series: series,
 				discount: "",
 			});
 			setDiscount("");
@@ -279,11 +354,13 @@ const ProductsShow = () => {
 				sort: value,
 				order: valueSecSort,
 				available: sortAvailableP,
+				series: series,
 				discount: "true",
 			});
 			setDiscount("true");
 		}
 	};
+
 	const handleLoadMore = () => {
 		dispatch(
 			fetchProductsStart({
@@ -291,6 +368,7 @@ const ProductsShow = () => {
 				sortType,
 				sortAvailable,
 				discountQ,
+				series,
 				startAfterDoc: queryDoc,
 				persistProducts: data,
 			})
@@ -346,7 +424,16 @@ const ProductsShow = () => {
 								value={sortAvailable}
 							/>
 						</div>
-
+						<div style={{ width: "135px", marginRight: "10px" }}>
+							<SelectCustom
+								placeholder="Колекція"
+								options={optionsSeries}
+								styles={colourStyles}
+								isSearchable={false}
+								onChange={(e) => handleSelectSeries(e)}
+								value={seriesState}
+							/>
+						</div>
 						<div style={{ width: "135px" }}>
 							<SelectCustom
 								placeholder="Ціна"

@@ -96,20 +96,22 @@ const ShowOrderDetail = ({
 							</TableRow>
 						</TableHead>
 						<TableBody>
-							<TableRow>
-								<TableCell>{orderDetailsAddress.country} </TableCell>
-								<TableCell>{orderDetailsAddress.city} </TableCell>
-								<TableCell>{orderDetailsAddress.state} </TableCell>
-								<TableCell>{orderDetailsAddress.line1} </TableCell>
-								<TableCell>{orderDetailsAddress.line2} </TableCell>
-								<TableCell>{orderDetailsAddress.postal_code} </TableCell>
-							</TableRow>
+							{orderDetailsAddress && (
+								<TableRow>
+									<TableCell>{orderDetailsAddress.country} </TableCell>
+									<TableCell>{orderDetailsAddress.city} </TableCell>
+									<TableCell>{orderDetailsAddress.state} </TableCell>
+									<TableCell>{orderDetailsAddress.line1} </TableCell>
+									<TableCell>{orderDetailsAddress.line2} </TableCell>
+									<TableCell>{orderDetailsAddress.postal_code} </TableCell>
+								</TableRow>
+							)}
 						</TableBody>
 					</Table>
 				</TableContainer>
 
 				<TableContainer>
-				<h3>Предмети</h3>
+					<h3>Предмети</h3>
 					<Table>
 						<TableHead>
 							<TableRow>

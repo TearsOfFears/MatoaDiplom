@@ -23,15 +23,18 @@ export const handleFetchProducts = ({
   sortAvailableP,
   startAfterDoc,
   discountQ,
+  pageSize,
+  series,
   persistProducts = []
 }) => {
   return new Promise((resolve, reject) => {
 
-    const pageSize = 8;
-    
+    const pageSizeDef = 8;
     let ref = firestore
-      .collection('products')
-      .limit(pageSize);
+    .collection('products')
+    .limit(pageSizeDef);
+    if(pageSize)
+      ref= ref.limit(pageSize);
 
     if(sortType)
       ref = ref.orderBy("price", sortType)
@@ -44,7 +47,9 @@ export const handleFetchProducts = ({
   
     if(filterType)
       ref = ref.where('productCategory', "==", filterType)
-   
+    if(series)
+      ref = ref.where('series', "==", series)
+
     if (startAfterDoc) 
       ref = ref.startAfter(startAfterDoc)
 
@@ -66,7 +71,7 @@ export const handleFetchProducts = ({
         resolve({
           data,
           queryDoc: snapShot.docs[totalCount - 1],
-          isLastPage: totalCount < pageSize
+          isLastPage: totalCount < pageSizeDef
         })
       })
       .catch(err => {
