@@ -4,6 +4,7 @@ const INITIAL_STATE = {
   contentProduct: [],
   contentTestimonals: [],
   contentInstagram:[],
+  contentSeries:[],
   contentEdit: [],
   showLoading: true
 }
@@ -24,6 +25,11 @@ const homeReducer = (state = INITIAL_STATE, action) => {
         return {
           ...state,
           contentInstagram: action.payload
+        }
+      case homeTypes.SET_CONTENT_SERIES:
+        return {
+          ...state,
+          contentSeries: action.payload
         }
     case homeTypes.SET_EDIT_CONTENT:
       return {

@@ -337,3 +337,49 @@ export const handleEditHomeContentInstagram= instagramID => {
       })
   });
 }
+
+export const handleFetchSeries = ({
+
+  //startAfterDoc,
+  series,
+  //persistProducts = []
+}) => {
+  return new Promise((resolve, reject) => {
+
+    const pageSizeDef = 9;
+    let ref = firestore
+    .collection('products')
+    .limit(pageSizeDef);
+
+    if(series)
+      ref = ref.where('series', "in", series)
+
+    // if (startAfterDoc) 
+    //   ref = ref.startAfter(startAfterDoc)
+
+    ref
+      .get()
+      .then((snapShot) => {
+        //const totalCount = snapShot.size;
+        const data = [
+          //...persistProducts,
+          ...snapShot
+            .docs
+            .map(doc => {
+              return {
+                ...doc.data(),
+                documentId: doc.id
+              }
+            })
+        ];
+        resolve({
+          data,
+          // queryDoc: snapShot.docs[totalCount - 1],
+          // isLastPage: totalCount < pageSizeDef
+        })
+      })
+      .catch(err => {
+        reject(err);
+      })
+  })
+}

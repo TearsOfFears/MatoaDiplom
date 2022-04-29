@@ -100,15 +100,6 @@ const ProductsShow = () => {
 		},
 	];
 	useEffect(() => {
-		// if (sortType === "asc") {
-		// 	setSortTypes({ valueSecSort: sortType, label: "По зростанню" });
-		// }
-		// if (sortType === "desc") {
-		// 	setSortTypes({ valueSecSort: sortType, label: "По спаданню" });
-		// }
-		// if (sortType === "") {
-		// 	setSortTypes({ valueSecSort: sortType, label: "Ціна" });
-		// }
 		const avail = searchParams.getAll("available");
 
 		if (avail.length > 0) {

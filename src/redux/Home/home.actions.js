@@ -91,6 +91,9 @@ export const setHomeInstagramContent = contentProduct =>({
     payload:contentProduct
 })
 
+
+
+
 export const deleteHomeContentInstagramStart = sliderID =>({
     type:homeTypes.DELETE_CONTENT_INSTAGRAM_START,
     payload:sliderID
@@ -105,4 +108,15 @@ export const editContentInstagram = contentID =>({
 export const updateContentInstagram  = contentId =>({
     type:homeTypes.UPDATE_CONTENT_INSTAGRAM,
     payload:contentId
+})
+
+export const fetchHomeSeries= (filters={}) =>({
+    type:homeTypes.FETCH_CONTENT_SERIES,
+    payload:filters
+})
+
+
+export const setHomeSeries= series =>({
+    type:homeTypes.SET_CONTENT_SERIES,
+    payload:series
 })

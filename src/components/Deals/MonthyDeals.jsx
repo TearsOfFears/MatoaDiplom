@@ -43,7 +43,6 @@ function MonthyDeals() {
 									documentId,
 								} = data;
 								let priceOLd = 0;
-
 								priceOLd = (price * 100) / (100 - discountPersentage);
 
 								return (

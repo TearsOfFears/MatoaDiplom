@@ -251,11 +251,11 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 										name: "Кленова колекція",
 									},
 									{
-										value: "ebony ",
+										value: "ebony",
 										name: "Чорна колекція",
 									},
 									{
-										value: "skeleton ",
+										value: "skeleton",
 										name: "Скелетон колекція",
 									},
 								]}

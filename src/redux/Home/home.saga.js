@@ -1,7 +1,7 @@
 import {takeLatest, put, call, all, take} from "redux-saga/effects";
 import homeTypes from "./home.types";
-import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals,handleDeleteHomeContentTestimonals, handleEditHomeContentTestimonals,handleUpdateContentHomeTestimonals, handleEditHomeContentProduct, handleUpdateContentHomeProduct, handleAddContentHomeInstagram, handleFetchContentHomeInstagram, handleDeleteHomeContentInstagram, handleEditHomeContentInstagram, handleUpdateContentHomeInstagram} from "./home.helpers";
-import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent, getCurrentDocumentId, loadingToggleAction, setHomeInstagramContent, fetchHomeContentInstagramStart,} from "./home.actions";
+import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals,handleDeleteHomeContentTestimonals, handleEditHomeContentTestimonals,handleUpdateContentHomeTestimonals, handleEditHomeContentProduct, handleUpdateContentHomeProduct, handleAddContentHomeInstagram, handleFetchContentHomeInstagram, handleDeleteHomeContentInstagram, handleEditHomeContentInstagram, handleUpdateContentHomeInstagram, handleFetchSeries} from "./home.helpers";
+import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent, getCurrentDocumentId, loadingToggleAction, setHomeInstagramContent, fetchHomeContentInstagramStart, setHomeSeries,} from "./home.actions";
 import {auth} from "../../firebase/utils";
 
 export function * addNewContentHome({payload}) {
@@ -30,6 +30,8 @@ export function * fetchHomeContent(payload) {
     //console.log(err);
   }
 }
+
+
 
 export function * deleteHomeContent({payload}) {
   try {
@@ -189,6 +191,18 @@ export function * editContentInstagram({payload}) {
 }
 
 
+export function * fetchContentSeries({payload}) {
+  try {
+    const content = yield handleFetchSeries(payload);
+    yield put(setHomeSeries(content))
+    // if(content.lenght!==0){
+    //   yield put(loadingToggleAction(false))
+    // }
+
+  } catch (err) {
+    console.log(err);
+  }
+}
 
 
 
@@ -234,6 +248,9 @@ export function * onAddHomeContentStart() {
 }
 
 
+export function * onFetchContenSeriesStart() {
+  yield takeLatest(homeTypes.FETCH_CONTENT_SERIES, fetchContentSeries)
+}
 
 export default function * homeSagas() {
   yield all([
@@ -251,5 +268,6 @@ export default function * homeSagas() {
     call(onEditContentProduct),
     call(onUpdateContentProduct),
     call(onEditContentInstagram),
+    call(onFetchContenSeriesStart)
   ])
 }
