@@ -13,12 +13,6 @@
       grid-row-gap: 40px;
     }
 
-    @media screen and (max-width: 960px) {}
-
-    @media screen and (max-width: 480px) {
-
-    }
-
     .block {
       display: grid;
       grid-row-gap: 30px;
@@ -56,16 +50,23 @@
     display: flex;
     flex-direction: row;
     justify-content: flex-start;
-
+    &:hover{
+      cursor: pointer;
+    }
     &__block-img {
       background-color: $secondAccent;
       max-width: 160px;
       min-width: 160px;
-      height: 160px;
+      min-height: 150px;
+      max-height: 155px;
       display: flex;
       flex-direction: row;
       align-items: center;
       justify-content: center;
+      padding: 5px;
+      img{
+        width: 95%;
+      }
     }
 
     &__block-title-price {

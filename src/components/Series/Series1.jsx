@@ -10,6 +10,7 @@ import { useEffect } from "react";
 import { fetchHomeSeries } from "../../redux/Home/home.actions";
 import { useSelector } from "react-redux";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
+import { Link,useNavigate } from "react-router-dom";
 
 const seriesArray = [
 	{
@@ -27,13 +28,16 @@ const mapState = ({ contentHome }) => ({
 });
 function Series1() {
 	const dispatch = useDispatch();
+	const navigate = useNavigate()
 	const { productsSeries } = useSelector(mapState);
 	console.log(productsSeries);
 	useEffect(() => {
 		const series = ["maple", "ebony", "skeleton"];
 		dispatch(fetchHomeSeries({ series }));
 	}, []);
-
+	const getData = (productName) => {
+		navigate(`/product/${productName}`);
+	};
 	return (
 		<section className="series">
 			<div className="container text-center position-relative">
@@ -46,7 +50,7 @@ function Series1() {
 								const { productName, price, productThumbnail,series } = data;
 								if(series === "maple"){
 									return (
-										<div className="wrapper-series-product" key={index}>
+										<div className="wrapper-series-product" key={index} onClick={(e) => navigate(`/product/${productName}`)}>
 											<div className="wrapper-series-product__block-img">
 												<img src={productThumbnail[0]} alt="" />
 											</div>
@@ -67,7 +71,7 @@ function Series1() {
 								const { productName, price, productThumbnail,series } = data;
 								if(series === "ebony"){
 								return (
-									<div className="wrapper-series-product" key={index}>
+									<div className="wrapper-series-product" key={index} onClick={(e) => navigate(`/product/${productName}`)}>
 										<div className="wrapper-series-product__block-img">
 											<img src={productThumbnail[0]} alt="" />
 										</div>
@@ -91,7 +95,7 @@ function Series1() {
 										<div className="wrapper-series-product__block-img">
 											<img src={productThumbnail[0]} alt="" />
 										</div>
-										<div className="wrapper-series-product__block-title-price">
+										<div className="wrapper-series-product__block-title-price" onClick={(e) => navigate(`/product/${productName}`)}>
 											<h1>{productName}</h1>
 											<p>{price} ₴</p>
 										</div>
@@ -103,7 +107,7 @@ function Series1() {
 					</div>
 				</div>
 				<div className="col-12 position-relative mb-5">
-					<Buttons style="btn-withoutBg seemore"> See more </Buttons>
+					<Link to="/products?sort=&order=&available=&discount=&series=" className="btn-withoutBg seemore"> Побачити більше </Link>
 				</div>
 			</div>
 		</section>

@@ -4,6 +4,7 @@ import productsEyes from "./../../assets/img/home/productsEyes.png";
 import productsWatch from "./../../assets/img/home/productsWatch.png";
 import "./style.scss";
 import { Buttons } from "./../index";
+import { Link } from "react-router-dom";
 
 function OurProducts() {
 	return (
@@ -13,20 +14,21 @@ function OurProducts() {
 					<div className="wrapper-ourProducts">
 						<div>
 							<h1>
-								Luxurious <span> Eyewear</span>
+							Розкішні <span> окуляри</span>
 							</h1>
-							<p>See the beauty of exotic world with the luxurious glasses</p>
-							<Buttons style="btn-discover"> Discover Now </Buttons>
+							<p>Подивіться на красу екзотичного світу в розкішних окулярах</p>
+							<Link to="/products?sort=glasses&order=&available=&discount=&series=" className="btn-discover">Перегляньте зараз</Link>
+						
 							<img src={productsEyes} alt="" />
 						</div>
 						<div>
 							<h1>
-								Comfortable <span> Watches</span>
+							Зручні  <span> годинники</span>
 							</h1>
 							<p>
-								Feels the balancing function and beauty in our wooden watches
+							Відчуйте балансову функцію та красу в наших дерев’яних годинниках
 							</p>
-							<Buttons style="btn-discover"> Discover Now </Buttons>
+							<Link to="/products?sort=watches&order=&available=&discount=&series=" className="btn-discover">Перегляньте зараз</Link>
 							<img src={productsWatch} alt="" className="size-big" />
 						</div>
 					</div>
