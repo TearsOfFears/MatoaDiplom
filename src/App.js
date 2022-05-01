@@ -1,6 +1,6 @@
 
 import React, {useState,useEffect} from 'react';
-import { Home,CartPage,Details,Registration,Login,Recovery,Dashboard,Admin,Products ,ProductsDeatails, Paymant,Order} from './pages';
+import { Home,CartPage,Details,Registration,Login,Recovery,Dashboard,Admin,Products ,ProductsDeatails, Paymant,Order, News, NewsRenderDetails} from './pages';
 import 'animate';
 import { Route,Routes,Navigate } from 'react-router';
 
@@ -19,6 +19,8 @@ import WithAdminAuth from './hoc/WithAdminAuth';
 import Loader from './components/Loader/Loader';
 import { fetchHomeContentStart } from './redux/Home/home.actions';
 import { fetchProductsStart } from './redux/Products/products.actions';
+import NewsMain from './components/News/NewsMain';
+import NewsLayout from './Layouts/NewsLayout';
 
 const App = (props)=> {
 
@@ -128,6 +130,16 @@ setstate(true);
                   </SecondLayout>
               </WithAuth>
             }/> 
+             <Route  path="/news" element={
+              <NewsLayout>
+                  <News/>
+            </NewsLayout>
+             }/> 
+             <Route  path="/news/:newsLink" element={
+             <NewsLayout>
+                  <NewsRenderDetails/>
+            </NewsLayout>
+          }/>
         </Routes>
       </div>
     );

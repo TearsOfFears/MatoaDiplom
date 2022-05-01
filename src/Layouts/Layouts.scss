@@ -7,8 +7,8 @@
         width: 90%;
     }
 }
-.ItemLayout{
-    margin-top:100px;
+.ItemLayout,.NewsLayout{
+    margin-top:110px;
     @media screen and (max-width:480px) {
         margin-top: 140px;
     }

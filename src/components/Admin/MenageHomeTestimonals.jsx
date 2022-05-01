@@ -36,7 +36,7 @@ const MenageHomeTestimonals = (props) => {
 	const [testimonalsThumbnail, setTestimonalsThumbnail] = useState("");
 
 	const [hideModal, setHideModal] = useState(true);
-
+	const [edit, setEdit] = useState(false);
 	const toggleModal = () => {
 		setHideModal(!hideModal);
 	};
@@ -89,6 +89,7 @@ const MenageHomeTestimonals = (props) => {
 		setTestimonalsThumbnail("");
 	};
 
+
 	const setEditValue = () => {
 		if (
 			typeof props.contentEdit === "object" &&
@@ -108,8 +109,10 @@ const MenageHomeTestimonals = (props) => {
 		setEditValue();
 		new Promise((resolve, reject) => {
 			resolve()
+			setEdit(false);
 			}).then(() => {
 				setDescTextTestimonals(props.contentEdit.descTextTestimonals);
+				setEdit(true);
 			});
 	}, [content]);
 	const handleSubmitTestimonals = (e) => {
@@ -174,7 +177,7 @@ const MenageHomeTestimonals = (props) => {
 						type="file"
 						handleChange={(e) => onHandleFileTestimonals(e.target.files)}
 					/>
-						{descTextTestimonals && (
+						{editContent && (
 									<CKEditor
 									data={descTextTestimonals}
 									initData={descTextTestimonals}

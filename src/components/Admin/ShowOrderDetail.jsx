@@ -71,7 +71,7 @@ const ShowOrderDetail = ({
 	children,
 }) => {
 	const { orderDetailsAddress } = useSelector(mapState);
-	console.log(orderDetailsAddress);
+
 	if (!hideModal) return null;
 	return [
 		<div

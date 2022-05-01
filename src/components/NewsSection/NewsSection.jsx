@@ -1,9 +1,10 @@
 import React from "react";
-import { Buttons } from "./../index";
+import { Buttons } from "../index";
 import "./news.scss";
 import newsImage from "./../../assets/img/home/newsImage.png";
+import { Link } from "react-router-dom";
 
-function News() {
+function NewsSection() {
 	return (
 		<div className="container">
 			<h1>Recent News</h1>
@@ -13,7 +14,7 @@ function News() {
 					<div>
 						<h3>Where To Travel</h3>
 						<h1>Matoa Where To Travel? Yogyakarta</h1>
-						<Buttons style="btn-withoutBg">Discover </Buttons>
+						<Link to="/news" className="btn-withoutBg">Discover</Link>
 					</div>
 					<div>
 						<img src={newsImage} alt="" />
@@ -24,4 +25,4 @@ function News() {
 	);
 }
 
-export default News;
+export default NewsSection;

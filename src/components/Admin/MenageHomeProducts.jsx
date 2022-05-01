@@ -25,6 +25,7 @@ const mapState = ({ contentHome }) => ({ content: contentHome.contentEdit });
 const MenageHomeProducts = (props) => {
 	const { content } = useSelector(mapState);
 	const dispatch = useDispatch();
+	const [edit, setEdit] = useState(false);
 	const [activeEdit, setActiveEdit] = useState(true);
 	const [title, setTitle] = useState("");
 	const [descText, setDescText] = useState([]);
@@ -102,8 +103,10 @@ const MenageHomeProducts = (props) => {
 		setEditValueProduct();
 		new Promise((resolve, reject) => {
 			resolve()
+			setEdit(false)
 			}).then(() => {
 				setDescText(props.contentEdit.descText);
+				setEdit(true);
 			});
 	}, [content]);
 	const handleSubmit = (e) => {
@@ -164,7 +167,7 @@ const MenageHomeProducts = (props) => {
 						type="file"
 						handleChange={(e) => onHandleFile(e.target.files)}
 					/>
-					{descText && (
+					{edit && (
 									<CKEditor
 									data={descText}
 									initData={descText}

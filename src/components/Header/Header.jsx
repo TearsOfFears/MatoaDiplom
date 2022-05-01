@@ -52,22 +52,17 @@ const Header = (props) => {
 					<Nav className="justify-content-center w-100">
 						<Nav.Item>
 							<Link to="/products" className="nav-link">
-								Products
+								Продукти
 							</Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Link to="/products" className="nav-link">
-								Eyewear
+							<Link to="/news" className="nav-link">
+							Новини
 							</Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Link to="/products" className="nav-link">
-								Accessories
-							</Link>
-						</Nav.Item>
-						<Nav.Item>
-							<Link to="/products" className="nav-link">
-								Eyewear
+							<Link to="/news" className="nav-link">
+								Про нас
 							</Link>
 						</Nav.Item>
 					</Nav>

@@ -17,3 +17,6 @@ export  {default as Paymant} from './Paymant';
 export  {default as ProductsDeatails} from './ProductsDeatails';
 
 export  {default as Order} from './Order';
+
+export  {default as News} from './News';
+export  {default as NewsRenderDetails} from './NewsRenderDetails';

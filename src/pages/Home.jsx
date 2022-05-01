@@ -4,7 +4,7 @@ import {
 	Header,
 	OurProducts,
 	MonthyDeals,
-	News,
+	NewsSection,
 	LinesBg,
 	LinesBottom,
 	Series1,
@@ -12,7 +12,6 @@ import {
 	TestimonalsLines,
 	InstagramPosts,
 	Bils,
-	Footer,
 } from "../components";
 
 function Home() {
@@ -23,7 +22,7 @@ function Home() {
 			<MonthyDeals />
 			<section className="news">
 				<LinesBg />
-				<News />
+				<NewsSection />
 				<LinesBottom />
 			</section>
 			<Series1 />

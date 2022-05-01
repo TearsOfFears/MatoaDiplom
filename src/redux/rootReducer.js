@@ -5,6 +5,7 @@ import userReducer from './User/user.reducer';
 import productsReducer  from './Products/products.reducer'
 import cartReducer from './Carts/cart.reducer';
 import homeReducer from './Home/home.reducer';
+import newsReducer from './News/news.reducer';
 import {persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
 
@@ -15,6 +16,7 @@ export const rootReducer =  combineReducers({
     cartData:cartReducer,
     ordersData:ordersReducer,
     contentHome:homeReducer,
+    newsData:newsReducer,
 })
 
 
