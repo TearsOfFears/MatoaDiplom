@@ -31,7 +31,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 	const [productName, setProductName] = useState("");
 	const [productThumbnail, setProductThumbnail] = useState([]);
 
-	const [discount, setDiscount] = useState("false");
+	const [discount, setDiscount] = useState("no");
 	const [discountPersentage, setDiscountPersentage] = useState(0);
 
 	const [price, setPrice] = useState(0);
@@ -181,7 +181,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			discountPersentage,
 			series,
 			price:
-				discount === "true"
+				discount==="yes"
 					? price - (price * discountPersentage) / 100
 					: price,
 			productDesc,
@@ -206,7 +206,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		const { value } = e.target;
 		setDiscount(value);
 		setAvailability("inStock");
-		if (value === "false") setDiscountPersentage(0);
+		if (value === "no") setDiscountPersentage(0);
 	};
 
 	const setDiscountVal = (e) => {
@@ -285,11 +285,11 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								label="Знижка"
 								options={[
 									{
-										value: "true",
+										value: "yes",
 										name: "На знижці",
 									},
 									{
-										value: "false",
+										value: "no",
 										name: "Без знижки",
 									},
 								]}
@@ -305,7 +305,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={price}
 								handleChange={(e) => setPrice(e.target.value)}
 							/>
-							{discount === "true" && (
+							{discount==="yes" && (
 								<FormInput
 									Label="Відсток знижки"
 									type="number"
@@ -369,7 +369,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								label="Колекція"
 								options={[
 									{
-										value: "none",
+										value: "",
 										name: "Без колекції",
 									},
 									{
@@ -377,11 +377,11 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 										name: "Кленова колекція",
 									},
 									{
-										value: "Ebony ",
+										value: "Ebony",
 										name: "Чорна колекція",
 									},
 									{
-										value: "Ebony ",
+										value: "Skeleton",
 										name: "Скелетон колекція",
 									},
 								]}
@@ -411,11 +411,11 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								label="Знижка"
 								options={[
 									{
-										value: "true",
+										value: "yes",
 										name: "На знижці",
 									},
 									{
-										value: "false",
+										value: "no",
 										name: "Без знижки",
 									},
 								]}
@@ -431,7 +431,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 								value={price}
 								handleChange={(e) => setPrice(e.target.value)}
 							/>
-							{discount === "true" && (
+							{discount === "yes" && (
 								<FormInput
 									Label="Відсток знижки"
 									type="number"

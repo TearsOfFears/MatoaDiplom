@@ -48,8 +48,8 @@ const ProductRender = (product) => {
 	};
 
 	const discountHandle = () => {
-		if (discount === "true") return "discount";
-		if (discount === "false") return "hide";
+		if (discount === "yes") return "discount";
+		if (discount === "no") return "hide";
 	};
 
 	const handleDisable = () => {
