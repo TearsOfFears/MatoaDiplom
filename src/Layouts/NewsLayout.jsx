@@ -1,5 +1,6 @@
 import React from "react";
 import { Footer, Header } from "../components";
+import RenderRandomProducts from "../components/News/RenderRandomProducts";
 import "./Layouts.scss";
 function NewsLayout(props) {
 	return (
@@ -8,7 +9,9 @@ function NewsLayout(props) {
 			<div className="container">
 				<section className="newsMain">
 					<div className="col-9 main-block">{props.children}</div>
-					<div className="col-3 suggest-block">ff</div>
+					<div className="col-3 suggest-block">
+						<RenderRandomProducts />
+					</div>
 				</section>
 			</div>
 			<Footer />

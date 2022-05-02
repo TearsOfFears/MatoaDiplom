@@ -15,9 +15,11 @@ import {
     handleDeleteNews,
     handleEditNews,
     handleUpdateNews,
+    handleGetCurrentNews,
 } from "./news.helpers";
 import {
     setNews,
+    setNewsDetailsStart,
     setNewsEdit
 } from "./news.actions";
 
@@ -115,6 +117,25 @@ export function* onfetchNewsEditStart() {
 }
 
 
+export function * fetchCurrentNews({payload}) {
+    try {
+      const product = yield handleGetCurrentNews(payload);
+      yield put(setNewsDetailsStart(product));
+  
+      // if(product.lenght!==0){
+      //   yield put(loadingToggleAction(true))
+      // }
+  
+    } catch (err) {
+      console.log(err);
+    }
+  }
+export function * onFetchCurrentNews() {
+    yield takeLatest(newsTypes.FETCH_NEWS_DETAILS_START, fetchCurrentNews)
+  }
+  
+
+
 export default function* newsSagas() {
-    yield all([call(onSaveNewsStart), call(onFetchNewsStart), call(onDeleteNews), call(onfetchNewsEditStart), call(onUpdateNewsStart)])
+    yield all([call(onSaveNewsStart), call(onFetchNewsStart), call(onDeleteNews), call(onfetchNewsEditStart), call(onUpdateNewsStart),call(onFetchCurrentNews)])
 }

@@ -1,36 +1,44 @@
 @import "./../../scss/componentstyles/utils/variables.scss";
 
-.newsMain{
-display: flex;
-flex-direction: row;
-justify-content: space-between;
-width: 100%;
-
-.main-block{
-    padding: 5px;
-    border:1px solid black;
-}
-.suggest-block{
-    padding: 5px;
-    border:1px solid black;
-}
-.wrapper-post{
+.newsMain {
     display: flex;
-    flex-direction: column;
-    align-items: flex-start;
-    justify-content: center;
-    .wrapper-content{
-        display: flex;
-        flex-direction:row;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
+    flex-direction: row;
+    justify-content: space-between;
+    width: 100%;
+
+    .main-block {
+        padding: 5px;
+        border: 1px solid black;
     }
-    .wrapper-text-img{
+
+    .suggest-block {
+        padding: 5px;
+        border: 1px solid black;
+    }
+
+    .wrapper-post {
         display: flex;
-        flex-direction: row;
-        align-items: center;
+        flex-direction: column;
+        align-items: flex-start;
         justify-content: center;
+
+        .wrapper-content {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: space-between;
+            width: 100%;
+        }
+
+        .wrapper-text-img {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+           &__img{
+               
+           }
+
+        }
     }
-}
 }

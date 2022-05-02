@@ -1,13 +1,14 @@
 import {takeLatest, put, call, all} from "redux-saga/effects";
 import productsTypes from "./products.types";
-import {setProducts, fetchProductsStart, setCurrentProduct, loadingToggleAction} from "./products.actions";
+import {setProducts, fetchProductsStart, setCurrentProduct, loadingToggleAction, setRandomProducts} from "./products.actions";
 import {
   handleAddProduct,
   handleFetchProducts,
   handleDeleteProduct,
   handleFetchCurrentProduct,
   handleEditContent,
-  handleUpdateContent
+  handleUpdateContent,
+  handleFetchRandomProducts
 } from "./products.helpers";
 
 import {auth} from "../../firebase/utils";
@@ -32,6 +33,22 @@ export function * fetchProducts({payload}) {
     yield put(setProducts(products))
     const {data} = products;
      if(data.length!==0){
+      yield put(loadingToggleAction(false));
+     }
+ 
+    //yield put(setProducts(products))
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function * fetchRandomProducts({payload}) {
+  try {
+    const products = yield handleFetchRandomProducts(payload);
+    yield put(setRandomProducts(products))
+    const {data} = products;
+    console.log();
+     if(products.data.length!==0){
       yield put(loadingToggleAction(false));
      }
  
@@ -111,6 +128,11 @@ export function * onAddProductsStart() {
   yield takeLatest(productsTypes.ADD_NEW_PRODUCT_START, addNewProducts)
 }
 
+export function * onFetchRandomProductsStart() {
+  yield takeLatest(productsTypes.FETCH_RANDOMS_PRODUCTS, fetchRandomProducts)
+}
+
+
 export default function * productsSagas() {
   yield all([
     call(onAddProductsStart),
@@ -118,6 +140,7 @@ export default function * productsSagas() {
     call(onDeleteProductStart),
     call(onFetchCurrentProduct),
     call(onEditContent),
-    call(onUpdateContent)
+    call(onUpdateContent),
+    call(onFetchRandomProductsStart)
   ])
 }

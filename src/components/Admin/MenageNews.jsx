@@ -193,23 +193,23 @@ const MenageProducts = () => {
 										</TableCell>
 										<TableCell align="left">{documentID}</TableCell>
 										<TableCell align="left">
-											{typeof descLong === "string" && descLong.length > 0 ? (
-												<ReadMoreReact
-													text={descLong}
-													min={5}
-													ideal={10}
-													max={descLong.length}
-													readMoreText="click "
-												/>
-											) : null}
-										</TableCell>
-										<TableCell align="left">
 											{typeof descShort === "string" && descShort.length > 0 ? (
 												<ReadMoreReact
 													text={descShort}
 													min={5}
 													ideal={10}
 													max={descShort.length}
+													readMoreText="click "
+												/>
+											) : null}
+										</TableCell>
+										<TableCell align="left">
+											{typeof descLong === "string" && descLong.length > 0 ? (
+												<ReadMoreReact
+													text={descLong}
+													min={5}
+													ideal={10}
+													max={descLong.length}
 													readMoreText="click "
 												/>
 											) : null}

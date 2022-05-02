@@ -11,13 +11,13 @@ export const setNews = news =>({
     payload:news
 })
 
-export const getNewsDetailsStart = newsID =>({
-    type:newsTypes.GET_NEWS_DETAILS_START,
+export const fetchNewsDetailsStart = newsID =>({
+    type:newsTypes.FETCH_NEWS_DETAILS_START,
     payload:newsID
 })
 
 export const setNewsDetailsStart = order =>({
-    type:newsTypes.SET_ORDER_DETAILS,
+    type:newsTypes.SET_NEWS_DETAILS,
     payload:order
 })
 

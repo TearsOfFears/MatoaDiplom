@@ -112,3 +112,38 @@ export const handleUpdateNews= (news,newsID) => {
       })
   })
 }
+
+
+
+export const handleGetCurrentNews = ({newsLink}) => {
+
+  return new Promise((resolve, reject) => {
+
+
+  let ref = firestore
+    .collection('news')
+
+  if(newsLink)
+     ref = ref.where('newsLink', "==", newsLink)
+
+    ref
+      .get()
+      .then(snapShot => {
+        const data = [
+          ...snapShot
+            .docs
+            .map(doc => {
+              return {
+                ...doc.data(),
+                documentId: doc.id
+              }
+            })
+        ];
+        resolve(data)
+      })
+      .catch(err => {
+        reject(err);
+        console.log(err);
+      })
+
+})}

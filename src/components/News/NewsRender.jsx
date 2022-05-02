@@ -23,10 +23,16 @@ function NewsRender() {
 	};
 	return (
 		<div className="container">
+			<h1>Останні новини</h1>
 			{Array.isArray(news) &&
 				news.map((data, key) => {
-					const { newsThumbnail, titleNews, descShort, newsCreated, newsLink } =
-						data;
+					const {
+						newsThumbnail,
+						titleNews,
+						descShort,
+						newsCreated,
+						newsLink,
+					} = data;
 					return (
 						<div className="wrapper-post" key={key}>
 							<div className="wrapper-content">

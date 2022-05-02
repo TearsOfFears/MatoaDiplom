@@ -37,6 +37,11 @@ export const setEditContentMain= product =>({
     payload:product
 })
 
+export const setRandomProducts= products =>({
+    type:productsTypes.SET_RANDOM_PRODUCTS,
+    payload:products
+})
+
 
 export const editContentMainProduct = contentID =>({
     type:productsTypes.FETCH_CONTENT_EDIT_MAIN_PRODUCT,
@@ -56,3 +61,8 @@ export const loadingToggleAction = (status) =>({
 })
 
 
+
+export const fetchRandomProductsStart = (filters={}) =>({
+    type:productsTypes.FETCH_RANDOMS_PRODUCTS,
+    payload:filters 
+})
