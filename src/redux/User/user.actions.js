@@ -59,3 +59,9 @@ export const googleSignIn = () =>({
 export const  resetAllAuthForm = () =>({
     type:userTypes.RESET_AUTH_FORM
 })
+
+
+export const toggleLoading = (status) =>({
+    type:userTypes.LOADING,
+    payload:status
+})

@@ -15,6 +15,8 @@ const userTypes ={
     RESET_USER_STATE:"RESET_USER_STATE",
 
     RESET_AUTH_FORM:"RESET_AUTH_FORM",
+
+    LOADING:"LOADING"
 }
 
 export default userTypes;

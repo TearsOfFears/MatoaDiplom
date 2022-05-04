@@ -11,7 +11,7 @@ import AdminLayout from './Layouts/AdminLayout';
 import { AdminToolBar } from './components';
 
 import {useDispatch,useSelector} from 'react-redux'
-import {setCurrentUser,checkUserSession} from './redux/User/user.actions';
+import {checkUserSession} from './redux/User/user.actions';
 
 import WithAuth from './hoc/WithAuth';
 
@@ -19,21 +19,22 @@ import WithAdminAuth from './hoc/WithAdminAuth';
 import Loader from './components/Loader/Loader';
 import { fetchHomeContentStart } from './redux/Home/home.actions';
 import { fetchProductsStart } from './redux/Products/products.actions';
-import NewsMain from './components/News/NewsMain';
 import NewsLayout from './Layouts/NewsLayout';
 
 const App = (props)=> {
 
 const [state, setstate] = useState(false);
+const [hide, setIsHide] = useState(true);
 const dispatch = useDispatch();
 
 const mapState = ({user,contentHome,productsData})=>({
   currentUser:user.currentUser,
+  userLoading:user.loading,
   contentHomeLoading:contentHome.showLoading,
   contentProductLoading:productsData.showLoading
 })
 
-const {currentUser,contentHomeLoading,contentProductLoading}= useSelector(mapState);
+const {currentUser,userLoading,contentHomeLoading,contentProductLoading}= useSelector(mapState);
 
 useEffect(()=>{
 dispatch(checkUserSession());
@@ -45,12 +46,17 @@ if(!currentUser){
 setstate(true);
 },[])
 
+if(!contentHomeLoading && !userLoading){
+  setTimeout(() => setIsHide(false), 1000);
+}
+
+
     return (
       <div className='app'>
         <AdminToolBar/>
         <Routes>
           <Route exact path="/" element={
-              contentHomeLoading  ?  <Loader/> :
+              hide  ?  <Loader/> :
           (  <MainLayout>
                   <Home/>
             </MainLayout>)

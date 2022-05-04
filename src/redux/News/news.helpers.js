@@ -119,7 +119,6 @@ export const handleGetCurrentNews = ({newsLink}) => {
 
   return new Promise((resolve, reject) => {
 
-
   let ref = firestore
     .collection('news')
 

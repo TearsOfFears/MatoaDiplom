@@ -163,6 +163,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 				discountPersentage,
 				price,
 				productDesc,
+				series,
 			})
 		);
 		resetForm();

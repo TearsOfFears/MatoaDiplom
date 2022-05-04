@@ -35,3 +35,13 @@ export const formatDate = (data) => {
 	let test = moment(localDate).format("DD.MM.YYYY, HH:mm:ss ");
 	return test;
 };
+
+export const formatOnlyDate = (data) => {
+	let myDate = new Date(
+		data.seconds * 1000 + data.nanoseconds / 1000000
+	);
+	let formatedTime = myDate.toJSON();
+	let localDate = new Date(formatedTime);
+	let test = moment(localDate).format("DD.MM.YYYY");
+	return test;
+};

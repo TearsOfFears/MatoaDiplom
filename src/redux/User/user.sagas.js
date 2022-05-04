@@ -3,7 +3,7 @@ import userTypes from "./user.types";
 
 import {auth, handleUserProfile, getCurrentUser, GoogleProvider} from "../../firebase/utils";
 
-import {signInSuccess, signOutUserSuccess, userError, resetPasswordSuccess} from './user.actions';
+import {signInSuccess, signOutUserSuccess, userError, resetPasswordSuccess, toggleLoading} from './user.actions';
 
 import {handleResetPasswordAPI} from "./user.helpers";
 
@@ -11,6 +11,11 @@ export function * isUserAuthent() {
   try {
     const userAuth = yield getCurrentUser();
     console.log(getCurrentUser());
+
+     if(userAuth){
+      yield put(toggleLoading(false));
+     }
+
     if (!userAuth) 
       return;
     yield getSnapshotFromUserAuth(userAuth);

@@ -32,7 +32,7 @@ export function * fetchProducts({payload}) {
     const products = yield handleFetchProducts(payload);
     yield put(setProducts(products))
     const {data} = products;
-     if(data.length!==0){
+     if(data.length !==0){
       yield put(loadingToggleAction(false));
      }
  

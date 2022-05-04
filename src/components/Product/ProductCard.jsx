@@ -6,9 +6,9 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	setCurrentProduct,
 	fetchCurrentProductStart,
-} from "./../../redux/Products/products.actions";
+} from "../../redux/Products/products.actions";
 
-import { ProductCardRender } from "./../index";
+import { ProductCardRender } from "../index";
 
 const mapState = (state) => ({
 	product: state.productsData.product,
@@ -17,16 +17,10 @@ const mapState = (state) => ({
 const ProductCard = ({ renderState }) => {
 	const dispatch = useDispatch();
 	const { product } = useSelector(mapState);
-	const { productName, productID } = useParams();
-
-	// const getProduct = ()=>{
-	// 	return product.reduce((data,key)=>{
-	// 		return data;
-	// 	})
-	// }
+	const { productName } = useParams();
 
 	useEffect(() => {
-		dispatch(fetchCurrentProductStart({ productID, productName }));
+		dispatch(fetchCurrentProductStart({ productName }));
 	}, []);
 
 	return (

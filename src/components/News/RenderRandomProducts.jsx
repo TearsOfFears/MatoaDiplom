@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
+import { ProductRender } from "..";
 import { fetchRandomProductsStart } from "../../redux/Products/products.actions";
 const mapState = ({ productsData }) => ({
 	products: productsData.randomProducts.data,
@@ -37,11 +38,15 @@ function RenderRandomProducts() {
 	}, []);
 	return (
 		<div>
+			<h1>Може зацікавити</h1>
+			<hr />
 			{Array.isArray(array) && array.length > 0
 				? array.map((data, key) => {
-						const { productName, createdDate } = data;
-
-						return <h1>{productName}</h1>;
+						return (
+							<div className="wrapper-products">
+								<ProductRender {...data} key={key} />
+							</div>
+						);
 				  })
 				: shuffle(products)}
 		</div>

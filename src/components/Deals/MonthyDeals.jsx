@@ -19,7 +19,7 @@ function MonthyDeals() {
 	const { products } = useSelector(mapState);
 
 	useEffect(() => {
-		const discountQ = "true";
+		const discountQ = "yes";
 		const pageSize = 4;
 		dispatch(fetchProductsStart({ discountQ,pageSize }));
 	}, []);

@@ -99,7 +99,6 @@ export const handleDeleteProduct = documentID => {
 
 
 export const handleFetchCurrentProduct = ({
-  productID,
   productName
 }) => {
 

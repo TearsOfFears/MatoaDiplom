@@ -144,22 +144,20 @@ const ProductsShow = () => {
 			);
 		}
 
-		if(sortType){
-			let tempSort = optionsVal.filter(
-				(data) => data.value === sortType
-			)
-			.reduce((data) => data.label)
+		if (sortType) {
+			let tempSort = optionsVal
+				.filter((data) => data.value === sortType)
+				.reduce((data) => data.label);
 			setSortTypes(tempSort);
 		}
 
-		if(series){
-			let temp = optionsSeries.filter(
-				(data) => data.value === series
-			)
-			.reduce((data) => data.label)
+		if (series) {
+			let temp = optionsSeries
+				.filter((data) => data.value === series)
+				.reduce((data) => data.label);
 			setSeries(temp);
 		}
-
+		
 		setSelectedCat({ value: filterType });
 		if (sortAvailableP[0] === "") {
 			sortAvailableP = "";
@@ -167,7 +165,7 @@ const ProductsShow = () => {
 				fetchProductsStart({ filterType, sortType, tempArr, discountQ, series })
 			);
 		}
-		
+
 		dispatch(
 			fetchProductsStart({
 				filterType,
@@ -231,10 +229,6 @@ const ProductsShow = () => {
 			};
 		},
 	};
-
-	
-
-
 
 	const categoryArr = [
 		{
@@ -302,7 +296,6 @@ const ProductsShow = () => {
 		}
 	};
 
-
 	const Avaibility = [
 		{ label: "В наявності", value: "inStock", valueAvailable: "inStock" },
 		{
@@ -346,9 +339,9 @@ const ProductsShow = () => {
 				order: valueSecSort,
 				available: sortAvailableP,
 				series: series,
-				discount: "true",
+				discount: "yes",
 			});
-			setDiscount("true");
+			setDiscount("yes");
 		}
 	};
 

@@ -1,20 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import { useDispatch } from "react-redux";
-import { addProduct } from "./../../redux/Carts/cart.actions";
-import Skeleton from "./Skeleton";
+import { addProduct } from "../../../redux/Carts/cart.actions";
+import Skeleton from "../Skeleton";
 import { useNavigate } from "react-router";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
-import Loader from "../Loader/Loader";
-import { fetchCurrentProductStart } from "../../redux/Products/products.actions";
-import "./ProductShow/style.scss";
+import Loader from "../../Loader/Loader";
+import { fetchCurrentProductStart } from "../../../redux/Products/products.actions";
+import "./style.scss";
 
 const ProductRender = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [disable, setDisable] = useState();
-	//const [style, setStyle] = useState("");
+	
 	const {
 		ind,
 		productThumbnail,
