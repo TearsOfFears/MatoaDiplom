@@ -16,6 +16,9 @@
             justify-content: flex-start;
             align-items: flex-start;
             margin-bottom: 50px;
+            @media screen and (max-width: 576px) {
+              margin-bottom: 70px;
+            }
           }
         .category-wrapper{
             display: flex;
@@ -40,15 +43,31 @@
             flex-direction: row;
             justify-content: flex-end;
             align-items: center;
+            .MuiCheckbox-colorSecondary.Mui-checked {
+              color:$accent;
+            }
             @media screen and (max-width: 960px) {
                 width: 100%;
                 justify-content: space-between;
+              }
+              @media screen and (max-width: 576px) {
+                width: 100%;
+                flex-wrap: wrap;
+                flex-direction: row-reverse;
+                height: 100px;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
               }
         }
     }
     .selectAvai{
         width: 30%;
         padding-right: 15px;
+        @media screen and (max-width: 576px) {
+          width: 60%;
+          padding-right: 0;
+        }
     }
     
 

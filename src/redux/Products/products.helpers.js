@@ -176,11 +176,12 @@ export const handleUpdateContent = (content, contentID) => {
 
 
 
-export const handleFetchRandomProducts = () => {
+export const handleFetchRandomProducts = ({limit}) => {
   return new Promise((resolve, reject) => {
     let ref = firestore
       .collection('products')
-     
+     if(limit)
+      ref = ref.limit(limit)
 
     ref
       .get()

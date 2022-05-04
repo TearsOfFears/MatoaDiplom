@@ -14,7 +14,7 @@ const ProductRender = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 	const [disable, setDisable] = useState();
-	
+
 	const {
 		ind,
 		productThumbnail,
@@ -28,7 +28,7 @@ const ProductRender = (product) => {
 
 	let priceOLd = 0;
 
-	if (discount === "true") {
+	if (discount === "yes") {
 		priceOLd = (price * 100) / (100 - discountPersentage);
 	}
 
@@ -97,8 +97,8 @@ const ProductRender = (product) => {
 						<hr />
 						
 						<div className="price-discount">
-							{discount === "true" && <strike>{priceOLd} ₴ </strike>}
-							{discount === "true" ? (
+							{discount === "yes" && <strike>{priceOLd} ₴ </strike>}
+							{discount === "yes" ? (
 								<p className="price price-new">{price} ₴ </p>
 							) : (
 								<p className="price">{price} ₴ </p>

@@ -84,7 +84,7 @@ const ProductSection = (product) => {
 										className="btn-read"
 										onClick={() => handleAddToCart(product)}
 									>
-										Add to cart
+										Добавити в корзину
 									</a>
 								</div>
 							</div>

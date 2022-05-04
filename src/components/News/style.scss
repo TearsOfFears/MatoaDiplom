@@ -15,7 +15,7 @@
     }
     .main-block,
     .suggest-block {
-        padding: 5px;
+        padding: 10px;
     }
 
 
@@ -28,6 +28,7 @@
         border:2px solid $accent;
         padding: 10px;
         background: $white;
+        border-radius: 10px;
         h1{
             font-size: 22px;
             margin-top: 5px;
@@ -58,9 +59,11 @@
 
       
     }
-}
-
+    
 .wrapper-news{
+    background-color:$white;
+    padding: 10px;
+    border-radius: 10px;
     .wrapper-title{
        display: flex;
        flex-direction: column;
@@ -80,4 +83,5 @@
             font-size: 25px;
         }
     }
+}
 }

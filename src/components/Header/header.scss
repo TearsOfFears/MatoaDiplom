@@ -44,6 +44,7 @@ nav {
     width: 100px;
     height: 100px;
     background-color: $white;
+   
   }
 
   .btn-login {
@@ -210,6 +211,12 @@ nav {
   z-index: 1;
   border-radius:5px;
   font-size: 20px;
+  @media screen and (max-width: 968px) {
+    right:-50px;
+  }
+  @media screen and (max-width: 576px) {
+    right:-50px;
+  }
   ul{
     list-style-type: none;
     margin: 0;
