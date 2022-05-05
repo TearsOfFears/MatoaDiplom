@@ -24,7 +24,7 @@
         font-size: calc(14px + (18 - 16) * (100vw - 320px) / (480 - 320));
         font-size: 19px;
         grid-template-columns: repeat(1, 1fr);
-        grid-gap: 10px;
+        grid-gap: 20px;
         padding: 0 30px;
       }
    
@@ -231,5 +231,14 @@
     .wrapper-products{
         grid-template-columns: none;
         margin-top: 15px;
+        grid-row-gap: 30px;
+        @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(2, 1fr)
+        }
+        @media screen and (max-width: 576px) {
+            grid-template-columns: repeat(1, 1fr);
+            align-items:center;
+            justify-content: center;
+        }
     }
 }

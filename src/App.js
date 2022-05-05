@@ -49,8 +49,6 @@ setstate(true);
 if(!contentHomeLoading && !userLoading){
   setTimeout(() => setIsHide(false), 1000);
 }
-
-
     return (
       <div className='app'>
         <AdminToolBar/>

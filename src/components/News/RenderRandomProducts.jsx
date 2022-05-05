@@ -37,18 +37,19 @@ function RenderRandomProducts() {
 		shuffle(products);
 	}, []);
 	return (
-		<div>
-			<h1>Може зацікавити</h1>
-			<hr />
-			{Array.isArray(array) && array.length > 0
-				? array.map((data, key) => {
-						return (
-							<div className="wrapper-products">
-								<ProductRender {...data} key={key} />
-							</div>
-						);
-				  })
-				: shuffle(products)}
+		<div className="container">
+			<div className="w-100">
+				<h1>Може зацікавити</h1>
+				<hr />
+			</div>
+
+			<div className="wrapper-products">
+				{Array.isArray(array) && array.length > 0
+					? array.map((data, key) => {
+							return <ProductRender {...data} key={key} />;
+					  })
+					: shuffle(products)}
+			</div>
 		</div>
 	);
 }

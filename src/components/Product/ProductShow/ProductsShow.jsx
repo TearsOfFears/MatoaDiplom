@@ -408,7 +408,7 @@ const ProductsShow = () => {
 								value={sortAvailable}
 							/>
 						</div>
-						<div style={{ width: "135px", marginRight: "10px" }}>
+						<div className="selectColection">
 							<SelectCustom
 								placeholder="Колекція"
 								options={optionsSeries}
@@ -418,7 +418,7 @@ const ProductsShow = () => {
 								value={seriesState}
 							/>
 						</div>
-						<div style={{ width: "135px" }}>
+						<div className="selectPrice">
 							<SelectCustom
 								placeholder="Ціна"
 								options={optionsVal}

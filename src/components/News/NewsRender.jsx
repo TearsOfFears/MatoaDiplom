@@ -33,7 +33,7 @@ function NewsRender() {
 					return (
 						<div className="wrapper-post" key={key}>
 							<div className="date">{formatOnlyDate(newsCreated)}</div>
-							<h1>{titleNews}</h1>
+							<h2>{titleNews}</h2>
 							<div className="wrapper-content">
 								<div className="wrapper-content__img">
 									<LazyLoadImage

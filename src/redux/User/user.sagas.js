@@ -15,7 +15,8 @@ export function * isUserAuthent() {
      if(userAuth){
       yield put(toggleLoading(false));
      }
-
+     if (!userAuth) 
+     yield put(toggleLoading(false));
     if (!userAuth) 
       return;
     yield getSnapshotFromUserAuth(userAuth);
