@@ -20,6 +20,8 @@ import Loader from './components/Loader/Loader';
 import { fetchHomeContentStart } from './redux/Home/home.actions';
 import { fetchProductsStart } from './redux/Products/products.actions';
 import NewsLayout from './Layouts/NewsLayout';
+import AboutUS from './pages/AboutUS';
+import Business from './pages/Business';
 
 const App = (props)=> {
 
@@ -138,6 +140,18 @@ if(!contentHomeLoading && !userLoading){
               <NewsLayout>
                   <News/>
             </NewsLayout>
+             }/> 
+              <Route  path="/aboutUs" element={
+                   hide  ?  <Loader/> :
+                   (   <SecondLayout>
+                    <AboutUS/>
+              </SecondLayout>)
+             }/> 
+             <Route  path="/forBusiness" element={
+              hide  ?  <Loader/> :
+              (     <SecondLayout>
+                <Business/>
+          </SecondLayout>)
              }/> 
              <Route  path="/news/:newsLink" element={
              <NewsLayout>

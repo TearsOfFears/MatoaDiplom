@@ -19,15 +19,17 @@ export const handleSaveNews = news => {
 
 export const handleFetchNews = ({
   startAfterDoc,
-  persistNews = []
+  persistNews = [],
+  limit
 }) => {
   return new Promise((resolve, reject) => {
     const pageSize = 6;
     let ref = firestore
       .collection('news')
-      .orderBy('newsCreated')
+      .orderBy('newsCreated', "desc")
       .limit(pageSize);
-
+    if(limit)
+      ref = ref.limit(limit)
     if (startAfterDoc)
       ref = ref.startAfter(startAfterDoc)
     ref

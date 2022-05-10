@@ -61,10 +61,16 @@ const Header = (props) => {
 							</Link>
 						</Nav.Item>
 						<Nav.Item>
-							<Link to="/news" className="nav-link">
+							<Link to="/forBusiness" className="nav-link">
+								Для бізнесу
+							</Link>
+						</Nav.Item>
+						<Nav.Item>
+							<Link to="/aboutUs" className="nav-link">
 								Про нас
 							</Link>
 						</Nav.Item>
+					
 					</Nav>
 				</Navbar.Collapse>
 

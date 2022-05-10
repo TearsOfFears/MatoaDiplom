@@ -19,39 +19,40 @@ function NewsSection() {
 
 
 	useEffect(() => {
-		dispatch(fetchNewsHistory());
-		
-		if (Array.isArray(news) && news.length > 0) {
-			const lastItem = news[news.length - 1];
-			setArray(lastItem);
-		}
+		const limit = 1;
+		dispatch(fetchNewsHistory({limit}));
 	}, [array]);
 
 	const handleGetDetails = (newsLink) => {
 		navigate(`/news/${newsLink}`);
 	};
-
-
+console.log(news);
+console.log(array);
 	return (
 		<div className="container">
 			<h1>Останні новини</h1>
 			<hr />
 			<div className="row">
-				<div className="wrapper-news">
-					<div>
-						<h3>{array.titleNews}</h3>
-						<h1>{array.titleNews}</h1>
-						<ButtonForm
-							onClick={(e) => handleGetDetails(array.newsLink)}
-							className="btn-withoutBg"
-						>
-							Більше
-						</ButtonForm>
+				{Array.isArray(news) && news.map((data,key)=>{
+					return (
+						<div className="wrapper-news" key={key}>
+						<div>
+							<h3>{data.titleNews}</h3>
+							<h1>{data.titleNews}</h1>
+							<ButtonForm
+								onClick={(e) => handleGetDetails(data.newsLink)}
+								className="btn-withoutBg"
+							>
+								Більше
+							</ButtonForm>
+						</div>
+						<div>
+							<img src={data.newsThumbnail} alt="" />
+						</div>
 					</div>
-					<div>
-						<img src={array.newsThumbnail} alt="" />
-					</div>
-				</div>
+					)
+				})}
+
 			</div>
 		</div>
 	);
