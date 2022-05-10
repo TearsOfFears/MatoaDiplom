@@ -3,7 +3,7 @@ import commentsTypes from "./comments.types";
 const INITIAL_STATE = {
     comments: [],
 }
-const newsReducer =(state=INITIAL_STATE,action)=>{
+const commentReducer =(state=INITIAL_STATE,action)=>{
     switch(action.type){
         case commentsTypes.SET_COMMENT_START:
             return{
@@ -26,4 +26,4 @@ const newsReducer =(state=INITIAL_STATE,action)=>{
 }
 
 
-export default newsReducer
+export default commentReducer
