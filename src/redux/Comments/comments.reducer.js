@@ -8,7 +8,7 @@ const commentReducer =(state=INITIAL_STATE,action)=>{
         case commentsTypes.SET_COMMENT_START:
             return{
                 ...state,
-                newsRender:action.payload
+                comments:action.payload
             }
             // case newsTypes.SET_NEWS_DETAILS:
             // return{

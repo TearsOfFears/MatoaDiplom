@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import Feedback from "./Feedback";
+import Feedback from "../../Feedbacks/Feedback";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { createStructuredSelector } from "reselect";
@@ -96,7 +96,7 @@ const ProductDetails = (product) => {
 							}
 						>
 							{active === 2 ? (
-								<Feedback />
+								<Feedback {...product}/>
 							) : (
 								<div
 									dangerouslySetInnerHTML={{ __html: detailsRender[active] }}

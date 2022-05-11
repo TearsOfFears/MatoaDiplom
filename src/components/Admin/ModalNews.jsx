@@ -178,14 +178,14 @@ const ModalNews = ({ toggleModal, hideModal, setHideModal }) => {
 								value={newsLink}
 								handleChange={(e) => setNewsLink(e.target.value)}
 							/>
-							{edit  && (
+							{edit && (
 								<CKEditor
 									data={descShort}
 									initData={descShort}
 									onChange={(evt) => setDescShort(evt.editor.getData())}
 								/>
 							)}
-							{edit  && (
+							{edit && (
 								<CKEditor
 									data={descLong}
 									initData={descLong}

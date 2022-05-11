@@ -13,9 +13,7 @@ import { setComments } from "./comments.actions";
 
 
 
-export function* saveCommentStart({
-    payload
-}) {
+export function* saveCommentStart({payload}) {
     try {
         const timestamp = new Date();
         yield handleSaveComment({
@@ -39,12 +37,6 @@ export function* fetchComments({
         const news = yield handleFetchComments(payload);
         yield put(setComments(news))
 
-        //   const {data} = products;
-        //    if(data.length!==0){
-        //     yield put(loadingToggleAction(false));
-        //    }
-
-        //yield put(setProducts(products))
     } catch (err) {
         console.log(err);
     }

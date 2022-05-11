@@ -2,17 +2,27 @@ import React, { useState } from "react";
 import { CKEditor } from "ckeditor4-react";
 
 import "./feedback.scss";
-import { Buttons } from "../..";
+import { Buttons } from "..";
 import { useDispatch } from "react-redux";
-import { addComment } from "../../../redux/Comments/comments.actions";
-function Feedback() {
+import {
+	addComment,
+	fetchComments,
+} from "../../redux/Comments/comments.actions";
+import { useEffect } from "react";
+import FeedbackRender from "./FeedbackRender";
+
+function Feedback(product) {
 	const dispatch = useDispatch();
 	const [comment, setComment] = useState([]);
+	const { documentId } = product;
 	const handleSend = () => {
 		//setComment([]);
-		dispatch(addComment({ comment }));
+		dispatch(addComment({ comment, documentId }));
 	};
-	return (
+	useEffect(() => {
+		dispatch(fetchComments({ documentId }));
+	}, []);
+	return [
 		<section className="feedback">
 			<CKEditor
 				config={{
@@ -28,8 +38,9 @@ function Feedback() {
 			<Buttons style="btn-read" onClick={() => handleSend()}>
 				Підтверидти
 			</Buttons>
-		</section>
-	);
+		</section>,
+		<FeedbackRender />,
+	];
 }
 
 export default Feedback;

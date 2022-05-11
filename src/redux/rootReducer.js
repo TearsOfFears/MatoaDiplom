@@ -6,10 +6,10 @@ import productsReducer  from './Products/products.reducer'
 import cartReducer from './Carts/cart.reducer';
 import homeReducer from './Home/home.reducer';
 import newsReducer from './News/news.reducer';
-
+import commentReducer from './Comments/comments.reducer';
 import {persistReducer} from 'redux-persist';
 import storage from 'redux-persist/lib/storage';
-import commentReducer from './Comments/comments.reducer';
+
 
 
 export const rootReducer =  combineReducers({
