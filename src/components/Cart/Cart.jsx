@@ -17,6 +17,7 @@ const mapState = createStructuredSelector({
 	cartItems: selectCartItems,
 	total: selectCartTotal,
 });
+
 function Cart() {
 	const navigate = useNavigate();
 	const { cartItems, total } = useSelector(mapState);

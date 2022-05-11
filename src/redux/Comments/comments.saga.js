@@ -20,11 +20,11 @@ export function* saveCommentStart({
         const timestamp = new Date();
         yield handleSaveComment({
             ...payload,
-            commentCreatedID: `${auth.currentUser.displayName}-${auth.currentUser.uid}`,
+            commentCreatedUserID: `${auth.currentUser.displayName}-${auth.currentUser.uid}`,
             commentCreated: timestamp
         });
     } catch (err) {
-        //console.log(err);
+        console.log(err);
     }
 }
 

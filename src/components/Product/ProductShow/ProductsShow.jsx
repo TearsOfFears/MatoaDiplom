@@ -2,7 +2,10 @@ import React, { useEffect, useState } from "react";
 import { ButtonForm, ProductRender } from "../../index";
 import "./style.scss";
 import { useDispatch, useSelector } from "react-redux";
-import { fetchProductsStart } from "../../../redux/Products/products.actions";
+import {
+	fetchCurrentProductStart,
+	fetchProductsStart,
+} from "../../../redux/Products/products.actions";
 import SelectedItems from "../SelectedItems";
 import SelectCustom, { StylesConfig } from "react-select";
 import { FormSelect, LoadMore } from "../../index";
@@ -12,6 +15,7 @@ import { useSearchParams, createSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
 import Buttons from "../../Buttons";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
+import { getUserOrderHistory } from "../../../redux/Orders/orders.actions";
 const initialCat = {
 	key: 0,
 	value: "",
@@ -100,6 +104,10 @@ const ProductsShow = () => {
 		},
 	];
 	useEffect(() => {
+		const id = "";
+		const productName = "";
+		dispatch(getUserOrderHistory(id));
+		dispatch(fetchCurrentProductStart({ productName }));
 		const avail = searchParams.getAll("available");
 
 		if (avail.length > 0) {
@@ -157,7 +165,7 @@ const ProductsShow = () => {
 				.reduce((data) => data.label);
 			setSeries(temp);
 		}
-		
+
 		setSelectedCat({ value: filterType });
 		if (sortAvailableP[0] === "") {
 			sortAvailableP = "";

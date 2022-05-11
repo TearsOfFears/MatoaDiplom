@@ -1,32 +1,72 @@
 import React, { useState, useEffect } from "react";
+import Feedback from "./Feedback";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { createStructuredSelector } from "reselect";
+import {
+	fetchOrdersHistory,
+	getUserOrderHistory,
+} from "../../../redux/Orders/orders.actions";
+import { selectOrderItems } from "../../../utils/utils";
 import "./details.scss";
-import SplineTest from "../../SplineTest";
+const mapState = ({ ordersData, user }) => ({
+	orders: ordersData.ordersHistory.data,
+	currentUser: user.currentUser,
+});
+const mapStateSelector = createStructuredSelector({
+	dataOrders: selectOrderItems,
+});
+
 const ProductDetails = (product) => {
-	const { productDesc } = product;
+	const dispatch = useDispatch();
+	const { productDesc, documentId } = product;
+	const { dataOrders } = useSelector(mapStateSelector);
+	const { orders, currentUser } = useSelector(mapState);
+	const { id } = currentUser || [];
+	const [allow, setAllow] = useState(false);
+	const [arr, setArr] = useState();
+	const [active, setActive] = useState(0);
+	const [stateStyle, setstateStyle] = useState({ fade: false });
+	const [state, setstate] = useState();
+	const handleAllow = () => {
+		if (Array.isArray(dataOrders) && dataOrders.length > 0) {
+			const items = dataOrders.map((data) => {
+				return data.orderItems.map((data) => {
+					return data.documentId;
+				});
+			});
+
+			setAllow(items[0].includes(documentId));
+		}
+		console.log(documentId);
+	};
+	useEffect(() => {
+		setstate();
+		dispatch(getUserOrderHistory(id));
+	}, [allow]);
 	const details = [
 		"Деталі",
 		"Гарантія",
-		"На замовлення",
+		"Відгуки",
 		"Як налаштовувати",
 		"Догляд",
 	];
+	//console.log(documentId);
+	//console.log(orderItems);
+	//console.log(dataOrders);
+
 	const detailsRender = [
 		productDesc,
 		"<h2>Warranty 2</h2> ",
-		"<h2>Custom Engrave 3</h2> ",
 		"<h2>How to Adjust 4</h2> ",
 		"<h2>How to Care 5</h2> ",
 	];
-	const [active, setActive] = useState(0);
-	const [stateStyle, setstateStyle] = useState({ fade: false });
+
 	const handleActive = (index) => {
 		setActive(index);
 		setstateStyle({ fade: true });
+		handleAllow();
 	};
-	const [state, setstate] = useState();
-	useEffect(() => {
-		setstate();
-	}, [product]);
 
 	return (
 		<section className="details">
@@ -54,9 +94,15 @@ const ProductDetails = (product) => {
 							className={
 								stateStyle.fade ? "imgAnimate header-info" : "header-info"
 							}
-							dangerouslySetInnerHTML={{ __html: detailsRender[active] }}
-						/>
-						{/* <SplineTest/> */}
+						>
+							{active === 2 ? (
+								<Feedback />
+							) : (
+								<div
+									dangerouslySetInnerHTML={{ __html: detailsRender[active] }}
+								/>
+							)}
+						</div>
 					</div>
 				</div>
 			</div>

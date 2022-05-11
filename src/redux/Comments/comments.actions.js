@@ -1,7 +1,7 @@
 import commentsTypes from "./comments.types";
 
 
-export const saveComment = comment =>({
+export const addComment = comment =>({
     type:commentsTypes.SAVE_COMMENT_START,
     payload:comment
 })

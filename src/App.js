@@ -117,9 +117,10 @@ if(!contentHomeLoading && !userLoading){
             </SecondLayout>
           }/>
             <Route  path="/product/:productName" element={
-            <SecondLayout>
-                  <ProductsDeatails/>
-            </SecondLayout>
+         
+            contentProductLoading  ?  <Loader/> : (      <SecondLayout>
+              <ProductsDeatails/>
+        </SecondLayout>)
 
           }/>
            <Route  path="/payment" element={

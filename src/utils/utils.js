@@ -1,5 +1,6 @@
 import axios from "axios";
 import moment from "moment";
+import {createSelector} from "reselect"
 
 export const checkUserIsAdmin = currentUser =>{
     if(!currentUser || !Array.isArray(currentUser.userRoles))
@@ -45,3 +46,15 @@ export const formatOnlyDate = (data) => {
 	let test = moment(localDate).format("DD.MM.YYYY");
 	return test;
 };
+
+
+
+
+export const selectOrders = state => state.ordersData;
+
+export const selectOrderItems = createSelector(
+    [selectOrders],
+    ordersData => ordersData.ordersHistory.data
+);
+
+

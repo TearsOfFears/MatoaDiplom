@@ -34,8 +34,11 @@ export function * fetchProducts({payload}) {
     const {data} = products;
      if(data.length !==0){
       yield put(loadingToggleAction(false));
+     }else{
+      yield put(setProducts())
+      yield put(loadingToggleAction(true))
      }
- 
+   
     //yield put(setProducts(products))
   } catch (err) {
     console.log(err);
@@ -47,7 +50,7 @@ export function * fetchRandomProducts({payload}) {
     const products = yield handleFetchRandomProducts(payload);
     yield put(setRandomProducts(products))
     const {data} = products;
-    console.log();
+    
      if(products.data.length!==0){
       yield put(loadingToggleAction(false));
      }
@@ -70,11 +73,15 @@ export function * deleteProduct({payload}) {
 export function * fetchCurrentProduct({payload}) {
   try {
     const product = yield handleFetchCurrentProduct(payload);
-    yield put(setCurrentProduct(product));
+   
 
-    // if(product.lenght!==0){
-    //   yield put(loadingToggleAction(true))
-    // }
+    if(product.lenght){
+      yield put(setCurrentProduct(product));
+      yield put(loadingToggleAction(true))
+    }else{
+      yield put(loadingToggleAction(false))
+      yield put(setCurrentProduct(product));
+    }
 
   } catch (err) {
     console.log(err);
