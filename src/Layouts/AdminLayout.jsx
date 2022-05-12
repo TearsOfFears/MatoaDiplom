@@ -11,15 +11,17 @@ import MenageHomePage from "../components/Admin/MenageHomePage";
 
 import "./Layouts.scss";
 import MenageNews from "../components/Admin/MenageNews";
+import MenageFeedbacks from "../components/Admin/MenageFeedbacks";
 const AdminLayout = (props) => {
 	const [active, setActive] = useState(0);
 
-	const arrMenage = [<Admin />, <MenageHomePage />, <Orders/>,<MenageNews/>];
+	const arrMenage = [<Admin />, <MenageHomePage />, <Orders/>,<MenageNews/>,<MenageFeedbacks/>];
 	const arrButtons = [
 		"Переглянути продукти",
 		"Переглянути контент",
 		"Переглянути замовлення",
 		"Переглянути новини",
+		"Переглянути відгуки",
 	];
 	const getIndex = (index) => {
 		setActive(index);

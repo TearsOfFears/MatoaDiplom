@@ -33,7 +33,7 @@ export const formatDate = (data) => {
 	);
 	let formatedTime = myDate.toJSON();
 	let localDate = new Date(formatedTime);
-	let test = moment(localDate).format("DD.MM.YYYY, HH:mm:ss ");
+	let test = moment(localDate).format("DD.MM.YYYY,HH:mm ");
 	return test;
 };
 

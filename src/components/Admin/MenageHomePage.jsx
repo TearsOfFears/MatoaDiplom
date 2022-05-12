@@ -20,19 +20,15 @@ import {
 	LoadMore,
 } from "./../../components";
 import {
-	addHomeContentStart,
 	deleteHomeContentStart,
 	fetchHomeContentStart,
-	addHomeContentTestimonalsStart,
 	deleteHomeContentTestimonalsStart,
 	fetchHomeContentTestimonalsStart,
 	editContent,
 	setEditContent,
-	getCurrentDocumentId,
 	editContentProduct,
 	fetchHomeContentInstagramStart,
 	deleteHomeContentInstagramStart,
-	editContentInstagram,
 } from "../../redux/Home/home.actions";
 import { storage } from "./../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";

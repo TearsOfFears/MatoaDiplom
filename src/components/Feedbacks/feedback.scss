@@ -1,4 +1,33 @@
+@import "./../../scss/componentstyles/utils/variables.scss";
 .feedback{
     margin-top: 20px;
-    width: 50%;
+    width: 100%;
+    display: grid;
+   grid-template-columns: repeat(2,1fr);
+   grid-gap: 30px;
+   .makePost{
+       min-height: 250px;
+    max-height: 450px;
+    }
+    .wrapper-post{
+        display:grid;
+        grid-gap: 20px;
+        .post{
+            padding: 10px 20px;
+            border:1px solid $accent;
+            border-radius: 15px;
+            min-height: 80px;
+            max-height: auto;
+            .img-name{
+                display: flex;
+                flex-direction: row;
+                align-items: center;
+                justify-content: flex-start;
+                h3{
+                    margin-left: 5px;
+                }
+            }
+        }
+    }
+   
 }

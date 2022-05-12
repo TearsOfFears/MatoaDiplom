@@ -19,13 +19,14 @@ export const handleSaveComment = comment => {
 
 export const handleFetchComments = ({
   startAfterDoc,
-  persistNews = [],
+  persistComments = [],
   documentId
 }) => {
   return new Promise((resolve, reject) => {
-    const pageSize = 6;
+    const pageSize = 5;
     let ref = firestore
       .collection('comments')
+      .orderBy("commentCreated", "desc")
       .limit(pageSize);
     if (documentId)
       ref = ref.where('documentId', "==", documentId)
@@ -37,7 +38,7 @@ export const handleFetchComments = ({
       .then((snapShot) => {
         const totalCount = snapShot.size;
         const dataComments = [
-          ...persistNews,
+          ...persistComments,
           ...snapShot
           .docs
           .map(doc => {
@@ -49,8 +50,8 @@ export const handleFetchComments = ({
         ];
         resolve({
           dataComments,
-          queryDocNews: snapShot.docs[totalCount - 1],
-          isLastPageNews: totalCount < pageSize
+          queryDocComments: snapShot.docs[totalCount - 1],
+          isLastPageComments: totalCount < pageSize
         })
       })
       .catch(err => {
@@ -64,7 +65,7 @@ export const handleFetchComments = ({
 export const handleDeleteComment = commentID => {
   return new Promise((resolve, reject) => {
     firestore
-      .collection('commentі')
+      .collection('comments')
       .doc(commentID)
       .delete()
       .then(() => {

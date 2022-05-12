@@ -4,7 +4,6 @@ import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { createStructuredSelector } from "reselect";
 import {
-	fetchOrdersHistory,
 	getUserOrderHistory,
 } from "../../../redux/Orders/orders.actions";
 import { selectOrderItems } from "../../../utils/utils";
@@ -28,6 +27,7 @@ const ProductDetails = (product) => {
 	const [active, setActive] = useState(0);
 	const [stateStyle, setstateStyle] = useState({ fade: false });
 	const [state, setstate] = useState();
+
 	const handleAllow = () => {
 		if (Array.isArray(dataOrders) && dataOrders.length > 0) {
 			const items = dataOrders.map((data) => {
@@ -35,15 +35,15 @@ const ProductDetails = (product) => {
 					return data.documentId;
 				});
 			});
-
 			setAllow(items[0].includes(documentId));
 		}
-		console.log(documentId);
 	};
 	useEffect(() => {
 		setstate();
+		handleAllow();
 		dispatch(getUserOrderHistory(id));
 	}, [allow]);
+	console.log(allow);
 	const details = [
 		"Деталі",
 		"Гарантія",
@@ -67,7 +67,11 @@ const ProductDetails = (product) => {
 		setstateStyle({ fade: true });
 		handleAllow();
 	};
-
+	const configFeedback = {
+		currentUser,
+		product,
+		allow,
+	};
 	return (
 		<section className="details">
 			<div className="container">
@@ -96,7 +100,7 @@ const ProductDetails = (product) => {
 							}
 						>
 							{active === 2 ? (
-								<Feedback {...product}/>
+								<Feedback {...configFeedback} />
 							) : (
 								<div
 									dangerouslySetInnerHTML={{ __html: detailsRender[active] }}
