@@ -14,8 +14,9 @@ import {useDispatch,useSelector} from 'react-redux'
 import {checkUserSession} from './redux/User/user.actions';
 
 import WithAuth from './hoc/WithAuth';
-
+import WithLoader from "./hoc/WithLoader"
 import WithAdminAuth from './hoc/WithAdminAuth';
+import WithProductLoader from './hoc/WithProductLoader';
 import Loader from './components/Loader/Loader';
 import { fetchHomeContentStart } from './redux/Home/home.actions';
 import { fetchProductsStart } from './redux/Products/products.actions';
@@ -56,14 +57,14 @@ if(!contentHomeLoading && !userLoading){
         <AdminToolBar/>
         <Routes>
           <Route exact path="/" element={
-              hide  ?  <Loader/> :
-          (  <MainLayout>
+              <WithLoader>
+              <MainLayout>
                   <Home/>
-            </MainLayout>)
+            </MainLayout>
+              </WithLoader>
           }/>
            <Route exact path="/login" element={ 
            currentUser && state ? <Navigate to="/" /> :
-           
            ( <SecondLayout >
                   <Login/>
             </SecondLayout>)
@@ -80,7 +81,6 @@ if(!contentHomeLoading && !userLoading){
                   <Admin/>
             </AdminLayout>
              </WithAdminAuth>
-       
           }/>
            <Route  path="/details" element={
             <SecondLayout>
@@ -88,11 +88,9 @@ if(!contentHomeLoading && !userLoading){
             </SecondLayout>
           }/>
            <Route  path="/cart" element={
-                 //<WithAuth>
             <SecondLayout >
                   <CartPage/>
             </SecondLayout>
-            //</WithAuth>
           }/>
             <Route  path="/recovery" element={
             <SecondLayout>
@@ -106,12 +104,15 @@ if(!contentHomeLoading && !userLoading){
 
           }/>
             <Route  exact path="/products" element={
-                 contentProductLoading  ?  <Loader/> : (    <SecondLayout>
+              <WithProductLoader>
+ <SecondLayout>
                   <Products/>
-            </SecondLayout>)
+            </SecondLayout>
+              </WithProductLoader>
+                   
 
           }/>
-                 <Route  path="/products" element={
+            <Route  path="/products" element={
             <SecondLayout>
                   <Products/>
             </SecondLayout>
@@ -143,16 +144,19 @@ if(!contentHomeLoading && !userLoading){
             </NewsLayout>
              }/> 
               <Route  path="/aboutUs" element={
-                   hide  ?  <Loader/> :
-                   (   <SecondLayout>
+                <WithLoader>
+         <SecondLayout>
                     <AboutUS/>
-              </SecondLayout>)
+              </SecondLayout>
+                </WithLoader>
+           
              }/> 
              <Route  path="/forBusiness" element={
-              hide  ?  <Loader/> :
-              (     <SecondLayout>
+             <WithLoader>
+              <SecondLayout>
                 <Business/>
-          </SecondLayout>)
+          </SecondLayout>
+          </WithLoader>
              }/> 
              <Route  path="/news/:newsLink" element={
              <NewsLayout>
