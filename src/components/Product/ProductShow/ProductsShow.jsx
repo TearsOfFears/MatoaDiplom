@@ -442,21 +442,23 @@ const ProductsShow = () => {
 
 				<div className="row mt-3 mb-5 d-flex align-items-center justify-content-center">
 					<div className="wrapper-products">
-						{data.map((product, ind) => {
-							const { productThumbnail, productName, price, availability } =
-								product;
-							if (
-								!productThumbnail ||
-								!productName ||
-								!availability ||
-								typeof price === "undefined"
-							)
-								return null;
-							const configProduct = {
-								...product,
-							};
-							return <ProductRender {...configProduct} key={ind} />;
-						})}
+						{Array.isArray(data) &&
+							data.length > 0 &&
+							data.map((product, ind) => {
+								const { productThumbnail, productName, price, availability } =
+									product;
+								if (
+									!productThumbnail ||
+									!productName ||
+									!availability ||
+									typeof price === "undefined"
+								)
+									return null;
+								const configProduct = {
+									...product,
+								};
+								return <ProductRender {...configProduct} key={ind} />;
+							})}
 					</div>
 					{Array.isArray(data) && data.length > 0 ? null : (
 						<div className="d-flex flex-row align-center w-100 h-100 text-center">

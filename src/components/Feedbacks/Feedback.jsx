@@ -28,10 +28,10 @@ function Feedback({ product, currentUser, allow }) {
 		dispatch(fetchComments({ documentId }));
 	}, []);
 	return [
-		<section className="feedback">
+		<section className="feedback" key={1}>
 			{allow && (
 				<div className="makePost">
-					<h1>Залишіть відгук</h1>
+					<h1 className="mt-0 ">Залишіть відгук</h1>
 					<CKEditor
 						config={{
 							toolbar: [
@@ -52,15 +52,20 @@ function Feedback({ product, currentUser, allow }) {
 				</div>
 			)}
 
-			{comments.length === 0 ? (
-				<div className="col-12 justify-content-center w-100">
-					<h1>Немає відгуку</h1>
-					<h2>Зробіть замовлення та станьте першим !!!</h2>
-				</div>
-			) : (
-				<FeedbackRender />
-			)}
+			{Array.isArray(comments) && comments.length > 0 && <FeedbackRender />}
 		</section>,
+		<div key={2}>
+			{Array.isArray(comments) && comments.length === 0 && (
+				<div className="col-12 justify-content-center w-100 text-center">
+					<h1>Немає відгуків</h1>
+					<h2>
+						<span style={{ color: "#d84727" }}>
+							Зробіть замовлення та станьте першим !!!
+						</span>
+					</h2>
+				</div>
+			)}
+		</div>,
 	];
 }
 

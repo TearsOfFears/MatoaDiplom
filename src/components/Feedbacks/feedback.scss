@@ -27,6 +27,15 @@
                     margin-left: 5px;
                 }
             }
+            hr {
+                border: none;
+                color: $accent;
+                opacity: 1;
+                border-top: 1px solid $accent;
+                width: 30%;
+                margin: 5px 0px;
+            }
+        
         }
     }
    

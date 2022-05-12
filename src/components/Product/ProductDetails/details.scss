@@ -63,8 +63,8 @@
   }
 
   .header-info {
-    padding-right: 130px;
     padding-left: 32px;
+    margin-top: 20px;
     @media screen and (max-width: 1200px) {
         padding-right: calc( 10px + (20 - 10) * (100vw - 576px) / (768 - 576) ); 
        }

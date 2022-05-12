@@ -42,7 +42,7 @@ const ProductDetails = (product) => {
 		setstate();
 		handleAllow();
 		dispatch(getUserOrderHistory(id));
-	}, [allow]);
+	}, [allow,active]);
 	console.log(allow);
 	const details = [
 		"Деталі",
@@ -51,10 +51,7 @@ const ProductDetails = (product) => {
 		"Як налаштовувати",
 		"Догляд",
 	];
-	//console.log(documentId);
-	//console.log(orderItems);
-	//console.log(dataOrders);
-
+	
 	const detailsRender = [
 		productDesc,
 		"<h2>Warranty 2</h2> ",

@@ -28,6 +28,7 @@ const FeedbackRender = () => {
 
 	return (
 		<div className="wrapper-post">
+			<h1 className="mt-0 mb-0">Останні відгуки</h1>
 			{Array.isArray(dataComments) &&
 				dataComments.map((data, key) => {
 					const { comment, displayName, commentCreated, photoURL } = data;
@@ -42,17 +43,18 @@ const FeedbackRender = () => {
 									)}
 									<h3>{displayName}</h3>
 								</div>
-								{formatDate(commentCreated)}
+								<hr />
 							</div>
 
-						
 							<div dangerouslySetInnerHTML={{ __html: comment }} />
+							{formatDate(commentCreated)}
+							
 						</div>
 					);
 				})}
 
 			<div className="col-12">
-			{!isLastPageComments && <LoadMore {...configLoadMore} />}
+				{!isLastPageComments && <LoadMore {...configLoadMore} />}
 			</div>
 		</div>
 	);

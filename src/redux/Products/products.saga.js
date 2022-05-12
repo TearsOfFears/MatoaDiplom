@@ -34,11 +34,7 @@ export function * fetchProducts({payload}) {
     const {data} = products;
      if(data.length !==0){
       yield put(loadingToggleAction(false));
-     }else{
-      yield put(setProducts())
-      yield put(loadingToggleAction(true))
      }
-   
     //yield put(setProducts(products))
   } catch (err) {
     console.log(err);
