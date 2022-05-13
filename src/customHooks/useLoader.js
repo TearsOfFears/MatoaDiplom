@@ -23,8 +23,11 @@ const useLoader = props => {
     } = useSelector(mapState);
     const [hide, setIsHide] = useState(false);
 
-    if (!contentHomeLoading && !userLoading)
+    if (!contentHomeLoading && !userLoading){
+        window.scrollTo(0, 0);
         setTimeout(() => setIsHide(true), 1000);
+    }
+      
     return hide;
 }
 

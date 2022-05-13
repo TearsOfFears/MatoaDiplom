@@ -48,8 +48,6 @@ export function * fetchRandomProducts({payload}) {
     
      if(products.data.length!==0)
         yield put(loadingToggleAction(false));
-     
- 
     //yield put(setProducts(products))
   } catch (err) {
     console.log(err);

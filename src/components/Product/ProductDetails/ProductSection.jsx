@@ -51,8 +51,7 @@ const ProductSection = (product) => {
 													effect="blur"
 													useIntersectionObserver={true}
 													src={link}
-													// width="180px"
-													wrapperClassName="text-center"
+													wrapperClassName="lazy-img"
 													onClick={(e) => getLink(link)}
 												/>
 											);

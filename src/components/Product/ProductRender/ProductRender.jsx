@@ -38,6 +38,7 @@ const ProductRender = (product) => {
 		navigate("/cart");
 	};
 	const getData = (productID) => {
+		window.scrollTo(0, 0);
 		dispatch(fetchCurrentProductStart({ productID, productName }));
 	};
 

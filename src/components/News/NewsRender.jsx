@@ -17,6 +17,7 @@ function NewsRender() {
 	useEffect(() => {
 		dispatch(setNewsDetailsStart([]));
 		dispatch(fetchNewsHistory());
+		window.scrollTo(0, 0);
 	}, []);
 
 	const handleGetDetails = (newsLink) => {

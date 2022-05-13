@@ -12,6 +12,7 @@ const useAuth = props => {
   useEffect(() => {
     if (!checkUserIsSimple(currentUser)) {
         navigate('/login');
+        window.scrollTo(0, 0);
     }
   }, [currentUser])
   return currentUser;

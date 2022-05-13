@@ -1,4 +1,5 @@
 import { useAuth } from "../customHooks"
-const WithAuth = props => useAuth(props) && props.children;
+import Loader from '../components/Loader/Loader';
+const WithAuth = props => useAuth(props) ? props.children : <Loader/> ;
 
 export default WithAuth;

@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import ProductDetails from "./ProductDetails/ProductDetails";
 import ProductSection from "./ProductDetails/ProductSection";
 import { ProductRender } from "..";
-import { fetchRandomProductsStart } from "../../redux/Products/products.actions";
+import { fetchRandomProductsStart, loadingToggleActionCurrentProducts } from "../../redux/Products/products.actions";
 import { useSelector } from "react-redux";
 
 import {
@@ -21,10 +21,9 @@ const mapState = ({ productsData }) => ({
 	product:productsData.product
 });
 
-const ProductCard = () => {
+const ProductCard = ({productName}) => {
 	const dispatch = useDispatch();
 	const { products,product } = useSelector(mapState);
-	const { productName } = useParams("");
 	const [array, setArray] = useState([]);
 	useEffect(() => {
 		const limit = 4;
@@ -32,6 +31,7 @@ const ProductCard = () => {
 		dispatch(fetchRandomProductsStart({ limit }));
 		shuffle(products);
 	}, []);
+
 	const shuffle = (array) => {
 		if (Array.isArray(products) && products.length > 0) {
 			let currentIndex = array.length,
@@ -48,7 +48,6 @@ const ProductCard = () => {
 		}
 	};
 	
-
 	return (
 		<div>
 			<ProductSection {...product} />

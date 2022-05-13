@@ -23,7 +23,6 @@ import { fetchProductsStart } from './redux/Products/products.actions';
 import NewsLayout from './Layouts/NewsLayout';
 import AboutUS from './pages/AboutUS';
 import Business from './pages/Business';
-import WithCurrentProductLoader from './hoc/WithCurrentProductLoader';
 
 const App = (props)=> {
 
@@ -99,9 +98,12 @@ if(!contentHomeLoading && !userLoading){
             </SecondLayout>
           }/>
            <Route  path="/dashboard" element={
-            <SecondLayout>
+             <WithAuth>
+              <SecondLayout>
                   <Dashboard/>
             </SecondLayout>
+             </WithAuth>
+           
 
           }/>
             <Route  exact path="/products" element={
@@ -114,11 +116,11 @@ if(!contentHomeLoading && !userLoading){
 
           }/>
             <Route  path="/product/:productName" element={
-              <WithCurrentProductLoader>
+              <WithProductLoader>
        <SecondLayout>
               <ProductsDeatails/>
         </SecondLayout>
-              </WithCurrentProductLoader>
+              </WithProductLoader>
       
 
           }/>

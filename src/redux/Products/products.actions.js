@@ -60,9 +60,9 @@ export const loadingToggleAction = (status) =>({
     payload:status
 })
 
-export const loadingToggleActionCurrentProducts = (status) =>({
+export const loadingToggleActionCurrentProducts = (statusLoader) =>({
     type:productsTypes.LOADING_TOGGLE_ACTION_CURRENT_PRODUCTS,
-    payload:status
+    payload:statusLoader
 })
 
 

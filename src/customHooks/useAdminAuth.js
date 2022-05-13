@@ -18,6 +18,7 @@ const useAdminAuth = props =>{
     useEffect(()=>{
         if(!checkUserIsAdmin(currentUser)){
             navigate('/login');
+            window.scrollTo(0, 0);
         }
     },[currentUser])
 

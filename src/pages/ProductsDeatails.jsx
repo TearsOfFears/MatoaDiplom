@@ -11,10 +11,11 @@ const ProductsDeatails = () => {
 	const dispatch = useDispatch()
 	useEffect(() => {
 		dispatch(fetchCurrentProductStart({ productName }));
+		window.scrollTo(0, 0);
 	}, []);
 	return (
 		<div>
-			<ProductCard />
+			<ProductCard productName = {productName}/>
 		</div>
 	);
 };
