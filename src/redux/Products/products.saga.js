@@ -1,6 +1,6 @@
-import {takeLatest, put, call, all} from "redux-saga/effects";
+import {takeLatest, put, call, all,delay} from "redux-saga/effects";
 import productsTypes from "./products.types";
-import {setProducts, fetchProductsStart, setCurrentProduct, loadingToggleAction, setRandomProducts, loadingToggleActionCurrentProducts} from "./products.actions";
+import {setProducts, fetchProductsStart, setCurrentProduct, loadingToggleAction, setRandomProducts, loadingToggleActionCurrentProducts, setLoadedProducts} from "./products.actions";
 import {
   handleAddProduct,
   handleFetchProducts,
@@ -29,10 +29,17 @@ export function * addNewProducts({payload}) {
 
 export function * fetchProducts({payload}) {
   try {
+ 
     const products = yield handleFetchProducts(payload);
+
     yield put(setProducts(products))
+    yield delay(1000);
+    yield put(setLoadedProducts(false))
+
+
     const {data} = products;
-     if(data.length !==0)
+    
+    if(data.length !==0)
         yield put(loadingToggleAction(false));
   
     //yield put(setProducts(products))

@@ -5,7 +5,7 @@ const INITIAL_STATE = {
   products: [],
   randomProducts:[],
   showLoading:true,
-  showLoadingCurrentProduct:true,
+  isLoaded: false,
 }
 
 const productsReducer = (state = INITIAL_STATE, action) => {
@@ -13,7 +13,8 @@ const productsReducer = (state = INITIAL_STATE, action) => {
     case productsTypes.SET_PRODUCTS:
       return {
         ...state,
-        products: action.payload
+        products: action.payload,
+        isLoaded: true,
       }
     case productsTypes.SET_CURRENT_PRODUCT:
       return {
@@ -30,11 +31,11 @@ const productsReducer = (state = INITIAL_STATE, action) => {
         ...state,
         showLoading: action.payload
       }
-      case productsTypes.LOADING_TOGGLE_ACTION_CURRENT_PRODUCTS:
-      return {
-        ...state,
-        showLoadingCurrentProduct: action.payload
-      }
+      case productsTypes.SET_LOADED_PRODUCTS:
+        return {
+          ...state,
+          isLoaded: action.payload
+        }
     default:
       return state;
   }

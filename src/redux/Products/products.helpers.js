@@ -70,11 +70,14 @@ export const handleFetchProducts = ({
             }
           })
         ];
-        resolve({
-          data,
-          queryDoc: snapShot.docs[totalCount - 1],
-          isLastPage: totalCount < pageSizeDef
-        })
+        setTimeout(()=>{
+          resolve({
+            data,
+            queryDoc: snapShot.docs[totalCount - 1],
+            isLastPage: totalCount < pageSizeDef,
+          })
+        } , 100);
+      
       })
       .catch(err => {
         reject(err);

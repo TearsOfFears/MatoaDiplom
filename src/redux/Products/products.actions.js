@@ -70,3 +70,9 @@ export const fetchRandomProductsStart = (filters={}) =>({
     type:productsTypes.FETCH_RANDOMS_PRODUCTS,
     payload:filters 
 })
+
+
+export const setLoadedProducts = (payload) => ({
+    type:productsTypes.SET_LOADED_PRODUCTS,
+    payload,
+  });

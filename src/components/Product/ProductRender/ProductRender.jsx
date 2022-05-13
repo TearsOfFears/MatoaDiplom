@@ -9,11 +9,16 @@ import "react-lazy-load-image-component/src/effects/blur.css";
 import Loader from "../../Loader/Loader";
 import { fetchCurrentProductStart } from "../../../redux/Products/products.actions";
 import "./style.scss";
-
+import { useSelector } from "react-redux";
+const mapState = ({ productsData }) => ({
+	isLoaded: productsData.isLoaded,
+});
 const ProductRender = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
+	const { isLoaded } = useSelector(mapState);
 	const [disable, setDisable] = useState();
+	const [loading, setLoading] = useState(false);
 
 	const {
 		ind,
@@ -58,12 +63,11 @@ const ProductRender = (product) => {
 		if (availability === "availableSoon") setDisable(true);
 		if (availability === "inStock") setDisable(false);
 	};
-
 	useEffect(() => {
 		handleDisable();
 		discountHandle();
 	}, [availability, discount]);
-
+	console.log();
 	if (
 		!productThumbnail ||
 		!documentId ||
@@ -75,7 +79,9 @@ const ProductRender = (product) => {
 
 	return (
 		<div>
-			{product ? (
+			{isLoaded ? (
+				<Skeleton />
+			) : (
 				<div className={`wrapper-main-product `}>
 					<div className="wrapper-products__item" key={ind}>
 						<div className={`${discountHandle()}`}>
@@ -96,7 +102,7 @@ const ProductRender = (product) => {
 						</div>
 						<p className="titleProduct">{productName}</p>
 						<hr />
-						
+
 						<div className="price-discount">
 							{discount === "yes" && <strike>{priceOLd} ₴ </strike>}
 							{discount === "yes" ? (
@@ -127,8 +133,6 @@ const ProductRender = (product) => {
 						</div>
 					</div>
 				</div>
-			) : (
-				<Skeleton />
 			)}
 		</div>
 	);

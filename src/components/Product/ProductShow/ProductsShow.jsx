@@ -6,6 +6,7 @@ import {
 	fetchCurrentProductStart,
 	fetchProductsStart,
 	setCurrentProduct,
+	setProducts,
 } from "../../../redux/Products/products.actions";
 import SelectedItems from "../SelectedItems";
 import SelectCustom, { StylesConfig } from "react-select";
@@ -31,10 +32,13 @@ const initialSortSeries = {
 	label: "Без колекції",
 	valueSecSeries: "",
 };
-const mapState = ({ productsData }) => ({ products: productsData.products });
+const mapState = ({ productsData }) => ({
+	products: productsData.products,
+	productsLoader: productsData.showLoading,
+});
 
 const ProductsShow = () => {
-	const { products } = useSelector(mapState);
+	const { products, productsLoader } = useSelector(mapState);
 	const { data, queryDoc, isLastPage } = products;
 	const dispatch = useDispatch();
 	const navigation = useNavigate();
@@ -108,6 +112,7 @@ const ProductsShow = () => {
 		const id = "";
 		dispatch(getUserOrderHistory(id));
 		dispatch(setCurrentProduct({}));
+		// dispatch(setProducts([]))
 		const avail = searchParams.getAll("available");
 
 		if (avail.length > 0) {
@@ -183,6 +188,7 @@ const ProductsShow = () => {
 				series,
 			})
 		);
+	
 	}, [searchParams]);
 
 	if (!Array.isArray(data)) {
@@ -440,35 +446,38 @@ const ProductsShow = () => {
 					</div>
 				</div>
 
-				<div className="row mt-3 mb-5 d-flex align-items-center justify-content-center">
-					<div className="wrapper-products">
-						{Array.isArray(data) &&
-							data.length > 0 &&
-							data.map((product, ind) => {
-								const { productThumbnail, productName, price, availability } =
-									product;
-								if (
-									!productThumbnail ||
-									!productName ||
-									!availability ||
-									typeof price === "undefined"
-								)
-									return null;
-								const configProduct = {
-									...product,
-								};
-								return <ProductRender {...configProduct} key={ind} />;
-							})}
-					</div>
-					{Array.isArray(data) && data.length > 0 ? null : (
-						<div className="d-flex flex-row align-center w-100 h-100 text-center">
-							<div>
-								<h1 className="text-center">Немає продуктів</h1>
-							</div>
+				{Array.isArray(data) && data.length > 0 && (
+					<div className="row mt-3 mb-5 d-flex align-items-center justify-content-center">
+						<div className="wrapper-products">
+							{Array.isArray(data) &&
+								data.length > 0 &&
+								data.map((product, ind) => {
+									const { productThumbnail, productName, price, availability } =
+										product;
+									if (
+										!productThumbnail ||
+										!productName ||
+										!availability ||
+										typeof price === "undefined"
+									)
+										return null;
+									const configProduct = {
+										...product,
+									};
+									return <ProductRender {...configProduct} key={ind} />;
+								})}
+				
 						</div>
-					)}
-					{!isLastPage && <LoadMore {...configLoadMore} />}
-				</div>
+						{Array.isArray(data) && data.length > 0 ? null : (
+							<div className="d-flex flex-row align-center w-100 h-100 text-center">
+								<div>
+									<h1 className="text-center">Немає продуктів</h1>
+								</div>
+							</div>
+						)}
+						{!isLastPage && <LoadMore {...configLoadMore} />}
+					</div>
+				)}
 			</div>
 		</section>
 	);

@@ -1,8 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import {
-	addProduct,
-} from "./../../../redux/Carts/cart.actions";
+import { addProduct } from "./../../../redux/Carts/cart.actions";
 
 import "./addToCart.scss";
 import { useNavigate } from "react-router-dom";
@@ -12,8 +10,14 @@ const ProductSection = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
 
-	const { productName, price, productThumbnail, discount, discountPersentage } =
-		product || {};
+	const {
+		productName,
+		price,
+		productThumbnail,
+		discount,
+		discountPersentage,
+		availability,
+	} = product || {};
 
 	const handleAddToCart = (product) => {
 		if (!product) return;
@@ -21,8 +25,8 @@ const ProductSection = (product) => {
 		navigate("/cart");
 	};
 	let priceOLd = 0;
-	if(discount==="true"){
-		priceOLd = ( price * 100) / (100-discountPersentage);
+	if (discount === "true") {
+		priceOLd = (price * 100) / (100 - discountPersentage);
 	}
 	const [state, setstate] = useState();
 	const [stateStyle, setstateStyle] = useState({ fade: false });
@@ -62,13 +66,11 @@ const ProductSection = (product) => {
 										effect="blur"
 										useIntersectionObserver={true}
 										src={state}
-										
 										onAnimationEnd={() => setstateStyle({ fade: false })}
 										className={stateStyle.fade ? "imgAnimate" : ""}
 									/>
 								</div>
 							</div>
-
 							<div className="wrapper-addToCart__info">
 								<h1>{productName}</h1>
 								{discount === "true" && <strike>{priceOLd} ₴ </strike>}
@@ -77,15 +79,24 @@ const ProductSection = (product) => {
 								) : (
 									<h2>{price} ₴ </h2>
 								)}
-
-								<div className="block-add">
-									<a
-										className="btn-read"
-										onClick={() => handleAddToCart(product)}
-									>
-										Добавити в корзину
-									</a>
-								</div>
+								{availability === "outOfStock" && (
+									<div className="block-add">Товару немає ((</div>
+								)}
+								{availability === "availableSoon" && (
+									<div className="block-add">
+										Як тілкьи товар появиться ми вас одразу сповістимо
+									</div>
+								)}
+								{availability === "inStock" && (
+									<div className="block-add">
+										<a
+											className="btn-read"
+											onClick={() => handleAddToCart(product)}
+										>
+											Добавити в корзину
+										</a>
+									</div>
+								)}
 							</div>
 						</div>
 					</div>
