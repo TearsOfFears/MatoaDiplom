@@ -42,7 +42,6 @@ export {default as EmailPassword} from "./Forms/EmailPassword";
 export {default as LoadMore} from "./LoadMore"; 
 
 export {default as ProductCard} from "./Product/ProductCard"; 
-export {default as ProductCardRender} from "./Product/ProductCardRender"; 
 export {default as ProductsShow} from "./Product/ProductShow/ProductsShow"; 
 export {default as ProductRender} from "./Product/ProductRender/ProductRender"; 
 

@@ -1,6 +1,6 @@
 import {takeLatest, put, call, all} from "redux-saga/effects";
 import productsTypes from "./products.types";
-import {setProducts, fetchProductsStart, setCurrentProduct, loadingToggleAction, setRandomProducts} from "./products.actions";
+import {setProducts, fetchProductsStart, setCurrentProduct, loadingToggleAction, setRandomProducts, loadingToggleActionCurrentProducts} from "./products.actions";
 import {
   handleAddProduct,
   handleFetchProducts,
@@ -32,9 +32,9 @@ export function * fetchProducts({payload}) {
     const products = yield handleFetchProducts(payload);
     yield put(setProducts(products))
     const {data} = products;
-     if(data.length !==0){
-      yield put(loadingToggleAction(false));
-     }
+     if(data.length !==0)
+        yield put(loadingToggleAction(false));
+  
     //yield put(setProducts(products))
   } catch (err) {
     console.log(err);
@@ -45,11 +45,10 @@ export function * fetchRandomProducts({payload}) {
   try {
     const products = yield handleFetchRandomProducts(payload);
     yield put(setRandomProducts(products))
-    const {data} = products;
     
-     if(products.data.length!==0){
-      yield put(loadingToggleAction(false));
-     }
+     if(products.data.length!==0)
+        yield put(loadingToggleAction(false));
+     
  
     //yield put(setProducts(products))
   } catch (err) {
@@ -69,16 +68,9 @@ export function * deleteProduct({payload}) {
 export function * fetchCurrentProduct({payload}) {
   try {
     const product = yield handleFetchCurrentProduct(payload);
-   
-
-    if(product.lenght){
-      yield put(setCurrentProduct(product));
-      yield put(loadingToggleAction(true))
-    }else{
-      yield put(loadingToggleAction(false))
-      yield put(setCurrentProduct(product));
-    }
-
+    yield put(setCurrentProduct(product));
+    if(product)
+      yield put(loadingToggleActionCurrentProducts(false));
   } catch (err) {
     console.log(err);
   }

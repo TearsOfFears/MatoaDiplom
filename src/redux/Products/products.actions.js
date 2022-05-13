@@ -60,6 +60,10 @@ export const loadingToggleAction = (status) =>({
     payload:status
 })
 
+export const loadingToggleActionCurrentProducts = (status) =>({
+    type:productsTypes.LOADING_TOGGLE_ACTION_CURRENT_PRODUCTS,
+    payload:status
+})
 
 
 export const fetchRandomProductsStart = (filters={}) =>({

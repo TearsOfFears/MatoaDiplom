@@ -1,9 +1,11 @@
 import productsTypes from "./products.types";
 
 const INITIAL_STATE = {
+  product:{},
   products: [],
   randomProducts:[],
   showLoading:true,
+  showLoadingCurrentProduct:true,
 }
 
 const productsReducer = (state = INITIAL_STATE, action) => {
@@ -27,6 +29,11 @@ const productsReducer = (state = INITIAL_STATE, action) => {
       return {
         ...state,
         showLoading: action.payload
+      }
+      case productsTypes.LOADING_TOGGLE_ACTION_CURRENT_PRODUCTS:
+      return {
+        ...state,
+        showLoadingCurrentProduct: action.payload
       }
     default:
       return state;

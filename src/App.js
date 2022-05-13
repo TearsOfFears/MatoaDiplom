@@ -23,6 +23,7 @@ import { fetchProductsStart } from './redux/Products/products.actions';
 import NewsLayout from './Layouts/NewsLayout';
 import AboutUS from './pages/AboutUS';
 import Business from './pages/Business';
+import WithCurrentProductLoader from './hoc/WithCurrentProductLoader';
 
 const App = (props)=> {
 
@@ -34,10 +35,11 @@ const mapState = ({user,contentHome,productsData})=>({
   currentUser:user.currentUser,
   userLoading:user.loading,
   contentHomeLoading:contentHome.showLoading,
-  contentProductLoading:productsData.showLoading
+  contentProductLoading:productsData.showLoading,
+  contentLoadingCurrentProduct:productsData.showLoadingCurrentProduct
 })
 
-const {currentUser,userLoading,contentHomeLoading,contentProductLoading}= useSelector(mapState);
+const {currentUser,userLoading,contentHomeLoading,contentLoadingCurrentProduct}= useSelector(mapState);
 
 useEffect(()=>{
 dispatch(checkUserSession());
@@ -48,7 +50,6 @@ if(!currentUser){
 }
 setstate(true);
 },[])
-
 if(!contentHomeLoading && !userLoading){
   setTimeout(() => setIsHide(false), 1000);
 }
@@ -112,16 +113,13 @@ if(!contentHomeLoading && !userLoading){
                    
 
           }/>
-            <Route  path="/products" element={
-            <SecondLayout>
-                  <Products/>
-            </SecondLayout>
-          }/>
             <Route  path="/product/:productName" element={
-         
-            contentProductLoading  ?  <Loader/> : (      <SecondLayout>
+              <WithCurrentProductLoader>
+       <SecondLayout>
               <ProductsDeatails/>
-        </SecondLayout>)
+        </SecondLayout>
+              </WithCurrentProductLoader>
+      
 
           }/>
            <Route  path="/payment" element={
@@ -139,9 +137,13 @@ if(!contentHomeLoading && !userLoading){
               </WithAuth>
             }/> 
              <Route  path="/news" element={
+                 <WithLoader>
+                     <WithProductLoader>
               <NewsLayout>
                   <News/>
             </NewsLayout>
+            </WithProductLoader>
+            </WithLoader>
              }/> 
               <Route  path="/aboutUs" element={
                 <WithLoader>

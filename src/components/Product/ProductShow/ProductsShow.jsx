@@ -5,6 +5,7 @@ import { useDispatch, useSelector } from "react-redux";
 import {
 	fetchCurrentProductStart,
 	fetchProductsStart,
+	setCurrentProduct,
 } from "../../../redux/Products/products.actions";
 import SelectedItems from "../SelectedItems";
 import SelectCustom, { StylesConfig } from "react-select";
@@ -105,9 +106,8 @@ const ProductsShow = () => {
 	];
 	useEffect(() => {
 		const id = "";
-		const productName = "";
 		dispatch(getUserOrderHistory(id));
-		dispatch(fetchCurrentProductStart({ productName }));
+		dispatch(setCurrentProduct({}));
 		const avail = searchParams.getAll("available");
 
 		if (avail.length > 0) {

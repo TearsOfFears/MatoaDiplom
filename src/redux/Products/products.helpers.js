@@ -103,8 +103,6 @@ export const handleFetchCurrentProduct = ({
 }) => {
 
   return new Promise((resolve, reject) => {
-
-
     let ref = firestore
       .collection('products')
 
@@ -114,7 +112,7 @@ export const handleFetchCurrentProduct = ({
     ref
       .get()
       .then(snapShot => {
-        const data = [
+        resolve( 
           ...snapShot
           .docs
           .map(doc => {
@@ -122,9 +120,7 @@ export const handleFetchCurrentProduct = ({
               ...doc.data(),
               documentId: doc.id
             }
-          })
-        ];
-        resolve(data)
+          }))
       })
       .catch(err => {
         reject(err);
