@@ -41,3 +41,8 @@ export const setActivity = (activity)=>({
     type:ordersTypes.SET_ACTIVITY,
     payload:activity
 })
+
+export const setLoadedOrders = (payload) => ({
+    type:ordersTypes.SET_LOADED_ORDERS,
+    payload,
+  });

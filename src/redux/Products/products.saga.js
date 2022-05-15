@@ -73,6 +73,7 @@ export function * deleteProduct({payload}) {
 export function * fetchCurrentProduct({payload}) {
   try {
     const product = yield handleFetchCurrentProduct(payload);
+    yield delay(1000);
     yield put(setCurrentProduct(product));
     if(product)
       yield put(loadingToggleActionCurrentProducts(false));

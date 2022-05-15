@@ -6,6 +6,7 @@ import "./addToCart.scss";
 import { useNavigate } from "react-router-dom";
 import { LazyLoadImage } from "react-lazy-load-image-component";
 import "react-lazy-load-image-component/src/effects/blur.css";
+import Loader from "../../Loader/Loader";
 const ProductSection = (product) => {
 	const dispatch = useDispatch();
 	const navigate = useNavigate();
@@ -38,6 +39,8 @@ const ProductSection = (product) => {
 		setstate(productThumbnail);
 	}, [product]);
 
+	if(!productName && !productThumbnail)
+	 	return <Loader/>
 	return (
 		<section className="addToCart">
 			<div className="bg-second-accent"></div>

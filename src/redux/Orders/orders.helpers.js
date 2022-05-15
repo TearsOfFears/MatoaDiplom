@@ -32,8 +32,8 @@ export const handleGetUserOrderHistory = uid => {
             }
           })
         ];
-
-        resolve({ data });
+        setTimeout(()=>{ resolve({ data })},1000)
+      
       })
       .catch(err => {
         reject(err);
@@ -52,10 +52,12 @@ export const handleGetOrder = orderID =>{
       .get()
       .then(snap=>{
         if(snap.exists){
-          resolve({
-            ...snap.data(),
-            documentID:orderID
-          })
+          setTimeout(()=>{
+            resolve({
+              ...snap.data(),
+              documentID:orderID
+            })
+          },1000)
         }
       })
       .catch(err=>{

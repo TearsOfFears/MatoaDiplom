@@ -6,6 +6,7 @@ import {
 	fetchCurrentProductStart,
 	fetchProductsStart,
 	setCurrentProduct,
+	setLoadedProducts,
 	setProducts,
 } from "../../../redux/Products/products.actions";
 import SelectedItems from "../SelectedItems";
@@ -109,6 +110,7 @@ const ProductsShow = () => {
 		},
 	];
 	useEffect(() => {
+		dispatch(setLoadedProducts(true))
 		const id = "";
 		dispatch(getUserOrderHistory(id));
 		dispatch(setCurrentProduct({}));

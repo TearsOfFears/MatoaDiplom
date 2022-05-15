@@ -4,7 +4,7 @@ import {
     put,
     all,
     call,
-    take
+    delay
 } from 'redux-saga/effects'
 import {
     handleSaveOrder,
@@ -22,6 +22,7 @@ import {
     clearCart,
 } from "./../Carts/cart.actions";
 import {
+    setLoadedOrders,
     setOrderDetailsStart,
     setUserOrderHistory
 } from "./orders.actions";
@@ -34,6 +35,8 @@ export function* getOrderDetailsStart({
     try {
         const order = yield handleGetOrder(payload);
         yield put(setOrderDetailsStart(order));
+        yield delay(1000);
+        yield put(setLoadedOrders(false))
     } catch (err) {
         //console.log(err);
     }
@@ -51,7 +54,8 @@ export function* getUserOrderHistoryStart({
     try {
         const history = yield handleGetUserOrderHistory(payload)
         yield put(setUserOrderHistory(history));
-
+        yield delay(1000);
+        yield put(setLoadedOrders(false))
     } catch (err) {
         console.log(err);
     }
