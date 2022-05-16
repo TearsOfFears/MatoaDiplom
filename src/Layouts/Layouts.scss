@@ -1,0 +1,35 @@
+.MainLayout{
+    margin-top: 40px;
+   
+}
+.adminLayout{
+    margin-top: 100px;
+    .content{
+        width: 90%;
+    }
+}
+.ItemLayout,
+.NewsLayout{
+    margin-top:110px;
+    .aboutUs{
+        min-height: 49vh;
+    }
+    @media screen and (max-width:480px) {
+        margin-top: 140px;
+    }
+}
+
+.contorlPanel{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: flex-start;
+    width: 300px;
+    padding: 20px;
+    .verticalNav{
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+    }
+}

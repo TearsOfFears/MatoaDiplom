@@ -1,0 +1,133 @@
+@import "./../../../scss/componentstyles/utils/variables";
+.details {
+  margin-top: 100px;
+
+
+  .header-details {
+    font-family: Taviraj;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+    border-bottom: 1px solid $secondGrey;
+    padding-bottom: 13px;
+
+    &__list {
+      width: 70%;
+      font-family: Taviraj;
+      font-size: 20px;
+      font-weight: 600;
+      display: flex;
+      flex-direction: row;
+      align-items: flex-start;
+      justify-content: space-between;
+      @media screen and (max-width: 1400px) {
+        width: 80%;
+        font-size: calc( 18px + (20 - 18) * (100vw - 1200px) / (1400 - 1200) ); 
+      }
+
+      @media screen and (max-width: 1200px) {
+        width: 80%;
+        font-size: calc( 16px + (17 - 16) * (100vw - 992px) / (1200 - 992) ); 
+      }
+      @media screen and (max-width: 992px) {
+        width: 100%;
+        
+        font-size: calc( 14px + (15 - 14) * (100vw - 768px) / (992 - 768) ); 
+      }
+      @media screen and (max-width: 768px) {
+        width: 100%;
+        flex-direction: column;
+        font-size: calc( 19px + (25 - 19) * (100vw - 576px) / (768 - 576) ); 
+   
+      }
+      @media screen and (max-width: 576px) {
+        flex-direction: column;
+        font-size: calc( 16px + (22 - 16) * (100vw - 0px) / (576 - 0 ) ); 
+      }
+      .nav-link {
+        color: $secondGrey;
+        @media screen and (max-width: 768px) {
+            padding: 5px 0px;
+          }
+        @media screen and (max-width: 576px) {
+            padding: 5px 0px;
+          }
+        &:hover {
+          cursor: pointer;
+          color: $accent;
+        }
+      }
+    }
+  }
+
+  .header-info {
+    padding-left: 32px;
+    margin-top: 20px;
+    @media screen and (max-width: 1200px) {
+        padding-right: calc( 10px + (20 - 10) * (100vw - 576px) / (768 - 576) ); 
+       }
+    @media screen and (max-width: 992px) {
+        width: 100%;
+        justify-content: space-around;
+        padding-right: calc( 10px + (30 - 10) * (100vw - 576px) / (768 - 576) ); 
+   
+      }
+    @media screen and (max-width: 768px) {
+        width: 100%;
+        justify-content: space-around;
+        padding-right: calc( 20px + (40 - 20) * (100vw - 576px) / (768 - 576) ); 
+   
+      }
+    @media screen and (max-width: 576px) {
+        flex-direction: column;
+        padding-right: calc( 16px + (22 - 16) * (100vw - 0px) / (576 - 0 ) ); 
+      }
+    h2 {
+        margin-top: 24px;
+      font-family: Taviraj;
+      font-size: 24px;
+      line-height: 1.33;
+      letter-spacing: 0.48px;
+      color: $black;
+    }
+
+    p {
+      font-family: Nunito;
+      font-size: 17px;
+      line-height: 1.75;
+      letter-spacing: 0.32px;
+      color: #555;
+      @media screen and (max-width: 1200px) {
+       font-size: calc( 15px + (19 - 15) * (100vw - 992px) / (1200 - 992) ); 
+      }
+      @media screen and (max-width: 992px) {
+        font-size: calc( 12px + (15 - 12) * (100vw - 576px) / (768 - 576) ); 
+      }
+      @media screen and (max-width: 768px) {
+        font-size: calc( 12px + (14 - 12) * (100vw - 576px) / (768 - 576) ); 
+   
+      }
+    @media screen and (max-width: 576px) {
+        font-size: calc( 11px + (13 - 11) * (100vw - 0px) / (576 - 0 ) ); 
+      }
+    }
+  }
+  .block-img{
+      width: 100%;
+      text-align: center;
+      margin-top: 15px;
+      margin-bottom: 80px;
+      img{
+          width: 50%;
+          @media screen and (max-width: 768px) {
+            width: 80%;
+           
+          }
+        @media screen and (max-width: 576px) {
+            width: 90%;
+          }
+      }
+  }
+}

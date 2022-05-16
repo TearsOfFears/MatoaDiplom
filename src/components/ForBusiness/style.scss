@@ -1,0 +1,23 @@
+@import "./../../scss/componentstyles/utils/variables.scss";
+.business{
+    margin-top: 20px;
+    p{
+        font-size: 19px;
+        letter-spacing: 1;
+        color: $black;
+    }
+    span{
+        color:$accent; 
+        font-weight: 600;
+    }
+    ol{
+        margin: 0;
+        padding: 0;
+        margin-bottom: 10px;
+        li{
+            margin-left:40px;
+        }
+        
+    }
+ 
+}

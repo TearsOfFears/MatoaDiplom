@@ -1,0 +1,244 @@
+@import "./../../../scss/componentstyles/utils/variables.scss";
+
+.wrapper-products {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    width: 100%;
+    grid-gap: 30px;
+    justify-items: space-around;
+    align-items: flex-end;
+
+    @media screen and (max-width: 1140px) {
+        font-size: 21px;
+      }
+
+      @media screen and (max-width: 960px) {
+        font-size: 19px;
+        grid-template-columns: repeat(2, 1fr);
+        grid-gap: 30px;
+      }
+      @media screen and (max-width: 720px) {
+        font-size: calc(12px + (16 - 12 * (100vw - 480px) / (720 - 480)));
+      }
+      @media screen and (max-width: 480px) {
+        font-size: calc(14px + (18 - 16) * (100vw - 320px) / (480 - 320));
+        font-size: 19px;
+        grid-template-columns: repeat(1, 1fr);
+        grid-gap: 20px;
+        padding: 0 30px;
+      }
+   
+
+    &__item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: flex-end;
+        transition: .3s;
+        padding: 5px;
+        position: relative;
+        height: 100%;
+        border: 2px solid $accent;
+        border-radius: 10px;
+
+        &:hover {
+            background-color: $secondAccent;
+            border-radius: 10px;
+            transition: .3s;
+            backdrop-filter: blur(2px);
+
+            .btn-product {
+                border: 2px solid $accent;
+
+                &:hover {
+                    border: 2px solid $white;
+                    color: $white;
+                }
+            }
+
+            hr {
+                color: $accent;
+                border-top: 1px solid $accent;
+            }
+
+            .wrapper-show {
+                border-radius: 10px;
+                z-index: 3;
+                opacity: 1;
+                backdrop-filter: blur(10px);
+                background: rgb(216, 71, 39);
+                background: linear-gradient(60deg, rgba(216, 71, 39, 0.55) 3%, rgba(218, 94, 66, 0.55) 49%, rgba(0, 0, 0, 0.45) 90%);
+            }
+        }
+
+        .img-border {
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content: center;
+            height: 220px;
+
+            .img-lazy {
+                display: block;
+                text-align: center;
+                margin: auto;
+
+                img {
+                    min-width: 70%;
+                    max-width: 80%;
+                    max-height: 100%;
+                    margin-bottom: 20px;
+                    margin-top: 20px;
+                    display: block;
+                    margin-left: auto;
+                    margin-right: auto;
+                }
+            }
+
+        }
+
+
+        .titleProduct {
+            font-size: 25px;
+            font-weight: 600;
+            color: $blackTrue;
+            font-family: "Nunito";
+            margin-bottom: 5px;
+            text-align: center;
+            @media screen and (max-width: 960px) {
+              
+              }
+        }
+        .price-discount{
+            width: 100%;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 70px;
+            .price {
+                font-size: 23px;
+                font-weight: 500;
+                color: $black;
+                margin-bottom: 0;
+            }
+            strike{
+                font-size: 20px;
+                font-weight: 500;
+                color: $black;
+            }
+        }
+      
+      
+
+        .discount {
+            font-size: 23px;
+            font-weight: 500;
+            color: $black;
+        }
+        hr {
+            border: none;
+            color: $accent;
+            opacity: 1;
+            border-top: 1px solid $accent;
+            width: 150px;
+            margin: 0;
+        }
+
+    }
+    
+
+
+.outOfStock {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    border-radius: 10px;
+    z-index: 1;
+    background: $accent;
+
+    &::before {
+        content: "Немає";
+        padding: 15px;
+        font-size: 16px;
+        font-weight: 500;
+        color: $white;
+    }
+}
+
+.availableSoon {
+    position: absolute;
+    top: 2%;
+    right: 2%;
+    border-radius: 10px;
+    z-index: 1;
+    opacity: 1;
+    backdrop-filter: blur(1px);
+    background: $accent;
+
+    &::before {
+        content: "Скоро";
+        padding: 15px;
+        font-size: 16px;
+        text-align: center;
+        font-weight: 500;
+        color: $white;
+    }
+}
+
+.wrapper-show {
+    width: 100%;
+    opacity: 0;
+    transition: .3s;
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    left: 0;
+    top: 0;
+}
+
+
+.wrapper-show-main {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100%;
+}
+
+.price-new {
+    color: red !important;
+}
+
+.discount {
+    position: absolute;
+    top: -5%;
+    right: -8%;
+    border-radius: 100%;
+    width: 44px;
+    height: 44px;
+    z-index: 4;
+    background: $accent;
+    color: $white !important;
+    font-size: 16px !important;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+}
+
+.newsMain {
+    .wrapper-products{
+        grid-template-columns: none;
+        margin-top: 15px;
+        grid-row-gap: 30px;
+        @media screen and (max-width: 768px) {
+            grid-template-columns: repeat(2, 1fr)
+        }
+        @media screen and (max-width: 576px) {
+            grid-template-columns: repeat(1, 1fr);
+            align-items:center;
+            justify-content: center;
+        }
+    }
+}

@@ -1,0 +1,157 @@
+@import "./../../libs.scss";
+@import "../utils/variables";
+
+*,
+*::before,
+*::after {
+  box-sizing: inherit;
+}
+
+html {
+  box-sizing: border-box;
+  background: $grey !important;
+}
+
+body {
+  margin: 0;
+  background: $grey !important;
+
+}
+
+img {
+  max-width: 100%;
+}
+
+a {
+  text-decoration: none;
+}
+
+body {
+  font-family: 'Taviraj', 'Nunito';
+}
+
+.btn-discover {
+  font-family: "Taviraj";
+  font-size: 22px;
+  font-weight: 600;
+  color: $black;
+  padding: 0px;
+  margin-bottom: 10px;
+  line-height: 1.2;
+  outline: none;
+  box-shadow:none;
+  border:none;
+  text-decoration: none;
+  border-bottom: 1px solid #000;
+  background-color: transparent;
+
+  &:hover {
+    cursor: pointer;
+    color: $accent;
+    transition: .4s;
+    border-bottom: 1px solid $accent;
+  }
+}
+
+.nopadding {
+  padding: 0 !important;
+  @media screen and (max-width: 480px) {
+    padding-left: 15px !important ;
+    padding-right: 15px !important;
+  }
+}
+
+
+.lines {
+  width: 100%;
+  z-index: 2;
+  top: -20px;
+  position: relative;
+  text-align: right;
+  height: 1px;
+
+  .block-top-lines {
+    width: inherit;
+    position: absolute;
+
+    img {
+      width: 51%;
+    }
+  }
+
+  .block-middle-lines {
+    width: inherit;
+    position: absolute;
+    margin-top: 35px;
+    opacity: 0.7;
+ 
+    img {
+      width: 51%;
+    }
+  }
+
+  .block-bottom-lines {
+    width: inherit;
+    position: absolute;
+    margin-top: 80px;
+    opacity: 0.4;
+
+    img {
+      width: 51%;
+    }
+  }
+}
+.links{
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+a{
+  text-decoration: none;
+}
+.btn-read {
+  font-family: Taviraj;
+  font-size: 23px;
+  letter-spacing: 0.4px;
+  color: $white;
+  background-color: $accent;
+  text-decoration: none !important;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 20px;
+  border-radius:5px;
+  margin-top: 20px;
+  border: 2px solid $accent;
+  cursor: pointer;
+outline: 0;
+transition: .5s;
+  svg{
+    margin-right: 15px;
+    margin-left: 5px;
+  }
+  @media screen and (max-width: 1140px) {
+    padding: 10px 20px;
+  }
+
+  @media screen and (max-width: 960px) {
+    padding: 10px 20px;
+  }
+
+  @media screen and (max-width: 720px) {
+    padding: 10px 15px;
+  }
+
+  @media screen and (max-width: 480px) {
+    padding: 10px 15px;
+    font-size: 17px;
+  }
+
+  &:hover {
+    background-color: $secondAccent;
+    color: $black;
+    transition: .5s;
+    border: 2px solid $accent;
+  }
+}
