@@ -1,0 +1,54 @@
+@import "./../../scss/componentstyles/utils/variables.scss";
+.bils{
+    background-color:$secondAccentLight;
+    text-align: center;
+    height: 30vh;
+    .row{
+        margin: auto;
+        display: flex;
+        align-items: center ;
+    }
+    .wrapper-img-bils{
+        margin:0 auto;
+        display: grid;
+        width: auto;
+        grid-template-columns: repeat(5, 120px);
+        grid-auto-flow: row;
+        grid-column-gap: 100px;
+        @media screen and (max-width: 1140px) {
+            grid-template-columns: repeat(5, 90px);
+            grid-column-gap: 100px;
+        }
+      
+        @media screen and (max-width: 960px) {
+            grid-template-columns: repeat(5, 70px);
+            grid-column-gap: 80px;
+        }
+        @media screen and (max-width: 760px) {
+            grid-template-columns: repeat(5, 60px);
+            grid-column-gap: 30px;
+            img{
+                width: 100%;
+            }
+        }
+        @media screen and (max-width: 480px) {
+            grid-template-columns: repeat(5, 1fr);
+            grid-column-gap: 5px;
+            img{
+                width: 100%;
+            }
+        }
+        @media screen and (max-width: 320px) {
+            grid-template-columns: repeat(5, 1fr);
+            grid-column-gap: 10px;
+            img{
+                width: 80%;
+            }
+        }
+        img{
+            width: 80%;
+        }
+    }
+}
+
+

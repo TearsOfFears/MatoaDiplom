@@ -1,0 +1,159 @@
+@import "./../../../scss/componentstyles/utils/variables.scss";
+
+.products {
+    width: 100%;
+
+    .sort-wrapper {
+        height: 90px;
+        width: 100%;
+        display: flex;
+        flex-direction: row;
+        justify-content: space-between;
+        align-items: center;
+          @media screen and (max-width: 960px) {
+            width: 100%;
+            flex-direction: column;
+            justify-content: flex-start;
+            align-items: flex-start;
+            margin-bottom: 50px;
+           
+          }
+          @media screen and (max-width: 576px) {
+            height: auto;
+            margin-bottom: 0;
+          }
+        .category-wrapper{
+            display: flex;
+            flex-direction: row;
+            align-items: center;
+            justify-content:space-between;
+            width: 50%;
+            @media screen and (max-width: 1400px) {
+                width: 60% ;
+              }
+              @media screen and (max-width: 1200px) {
+                width:50%;
+              }
+              @media screen and (max-width: 960px) {
+                width: 100%;
+                margin-bottom: 20px;
+              }
+        }
+        .sort-wrapper-sec{
+            width: 50%;
+            display: flex;
+            flex-direction: row;
+            justify-content: flex-end;
+            align-items: center;
+            .MuiCheckbox-colorSecondary.Mui-checked {
+              color:$accent;
+            }
+            @media screen and (max-width: 960px) {
+                width: 100%;
+                justify-content: space-between;
+              }
+              @media screen and (max-width: 576px) {
+                width: 100%;
+                flex-wrap: wrap;
+                flex-direction: row-reverse;
+                height: 120px;
+                justify-content: space-between;
+                align-items: center;
+                margin-bottom: 20px;
+                :nth-child(3) { order: 1; }
+              }
+        }
+    }
+    .selectAvai{
+        width: 30%;
+        padding-right: 15px;
+        @media screen and (max-width: 576px) {
+          width: 50%;
+          padding-right: 0;
+        }
+    }
+    .selectColection{
+      width: 135px;
+      margin-right: 10px;
+      @media screen and (max-width: 576px) {
+        width: 50%;
+        padding-right: 0;
+      }
+    }
+    .selectPrice{
+      width: 130px;
+    }
+
+}
+
+.btn-product {
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    background-color: transparent;
+    border: 2px solid $secondGrey;
+    width: 75%;
+    padding: 10px 10px;
+    margin-top: 8px;
+    transition: .3s;
+    border-radius: 10px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: $grey;
+    text-align: center;
+
+    &:hover {
+        background-color: $accent;
+        border-color: $secondAccent;
+        transition: .3s;
+        color: $black;
+        box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
+
+    }
+}
+
+.btn-Category {
+    border: 0;
+    outline: none;
+    box-shadow: none;
+    background-color: $white;
+    border: 2px solid $secondGrey;
+    padding: 6px 8px;
+    transition: .3s;
+    border-radius: 7px;
+    font-size: 16px;
+    font-weight: 500;
+    text-decoration: none;
+    color: inherit;
+    text-align: center;
+    width: 32%;
+    @media screen and (max-width: 1400px) {
+        width:32%;
+      }
+      @media screen and (max-width: 1200px) {
+        width:30%;
+      }
+      @media screen and (max-width: 480px) {
+        font-size: calc(13px + (15 - 12) * (100vw - 480px) / (480 - 320));
+      }
+    &:hover {
+        background-color: $accent;
+        border-color: $secondAccent;
+        transition: .3s;
+        color: $white;
+        box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
+
+    }
+}
+
+.activeCat {
+    background-color: $accent;
+    border-color: $secondAccent;
+    transition: .3s;
+    color: $white;
+    box-shadow: 6px 3px 3px 0px rgba(0, 0, 0, 0.2);
+}
+
+
+
