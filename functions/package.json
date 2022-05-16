@@ -23,6 +23,7 @@
   "devDependencies": {
     "eslint": "^7.6.0",
     "eslint-config-google": "^0.14.0",
+    "eslint-plugin-react": "^7.29.4",
     "firebase-functions-test": "^0.2.0"
   },
   "private": true

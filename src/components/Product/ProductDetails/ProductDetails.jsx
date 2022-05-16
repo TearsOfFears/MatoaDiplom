@@ -3,9 +3,7 @@ import Feedback from "../../Feedbacks/Feedback";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
 import { createStructuredSelector } from "reselect";
-import {
-	getUserOrderHistory,
-} from "../../../redux/Orders/orders.actions";
+import { getUserOrderHistory } from "../../../redux/Orders/orders.actions";
 import { selectOrderItems } from "../../../utils/utils";
 import "./details.scss";
 const mapState = ({ ordersData, user }) => ({
@@ -42,7 +40,7 @@ const ProductDetails = (product) => {
 		setstate();
 		handleAllow();
 		dispatch(getUserOrderHistory(id));
-	}, [allow,active]);
+	}, [allow, active]);
 	console.log(allow);
 	const details = [
 		"Деталі",
@@ -51,7 +49,7 @@ const ProductDetails = (product) => {
 		"Як налаштовувати",
 		"Догляд",
 	];
-	
+
 	const detailsRender = [
 		productDesc,
 		"<h2>Warranty 2</h2> ",

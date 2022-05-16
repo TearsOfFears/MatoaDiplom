@@ -85,7 +85,7 @@ const ProductSection = (product) => {
 								)}
 								{availability === "availableSoon" && (
 									<div className="block-add">
-										Як тілкьи товар появиться ми вас одразу сповістимо
+										Як тільки товар появиться ми вас одразу сповістимо
 									</div>
 								)}
 								{availability === "inStock" && (
