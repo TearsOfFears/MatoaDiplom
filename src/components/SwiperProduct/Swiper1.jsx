@@ -106,7 +106,7 @@ function Swiper1() {
 														Discover
 													</Link>
 
-													<Link to={linkDetail} className="btn-read mt-2">
+													<Link to={`/product/${linkDetail}`} className="btn-read mt-2">
 													
 															<FontAwesomeIcon icon={faInfoCircle}/>
 															Read details
