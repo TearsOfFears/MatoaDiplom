@@ -6,7 +6,7 @@ import { useNavigate, useParams } from "react-router";
 import ProductDetails from "./ProductDetails/ProductDetails";
 import ProductSection from "./ProductDetails/ProductSection";
 import { ProductRender } from "..";
-import { fetchRandomProductsStart, loadingToggleActionCurrentProducts } from "../../redux/Products/products.actions";
+import { fetchRandomProductsStart, loadingToggleActionCurrentProducts, setLoadedProducts } from "../../redux/Products/products.actions";
 import { useSelector } from "react-redux";
 
 import {
@@ -15,18 +15,21 @@ import {
 } from "../../redux/Products/products.actions";
 
 import { ProductCardRender } from "../index";
+import Loader from "../Loader/Loader";
 
 const mapState = ({ productsData }) => ({
 	products: productsData.randomProducts.data,
-	product:productsData.product
+	product:productsData.product,
+	loading:productsData.isLoaded,
 });
 
 const ProductCard = ({productName}) => {
 	const dispatch = useDispatch();
-	const { products,product } = useSelector(mapState);
+	const { products,product,loading } = useSelector(mapState);
 	const [array, setArray] = useState([]);
 	useEffect(() => {
 		const limit = 4;
+		dispatch(setLoadedProducts(true));
 		dispatch(fetchCurrentProductStart({ productName }));
 		dispatch(fetchRandomProductsStart({ limit }));
 		shuffle(products);
@@ -47,7 +50,8 @@ const ProductCard = ({productName}) => {
 			setArray(array);
 		}
 	};
-	
+	if(loading)
+		return <Loader/>
 	return (
 		<div>
 			<ProductSection {...product} />

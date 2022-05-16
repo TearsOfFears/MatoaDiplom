@@ -39,8 +39,6 @@ const ProductSection = (product) => {
 		setstate(productThumbnail);
 	}, [product]);
 
-	if(!productName && !productThumbnail)
-	 	return <Loader/>
 	return (
 		<section className="addToCart">
 			<div className="bg-second-accent"></div>

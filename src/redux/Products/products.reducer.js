@@ -19,7 +19,8 @@ const productsReducer = (state = INITIAL_STATE, action) => {
     case productsTypes.SET_CURRENT_PRODUCT:
       return {
         ...state,
-        product: action.payload
+        product: action.payload,
+        isLoaded: true,
       }
       case productsTypes.SET_RANDOM_PRODUCTS:
         return {

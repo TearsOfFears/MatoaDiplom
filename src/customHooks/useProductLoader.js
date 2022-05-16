@@ -8,7 +8,7 @@ import {
 const mapState = ({
     productsData
 }) => ({
-    contentProductLoading: productsData.showLoading
+    contentProductLoading: productsData.isLoaded
 })
 
 const useProductLoader = props => {
