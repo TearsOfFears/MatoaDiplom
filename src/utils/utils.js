@@ -23,7 +23,8 @@ export const checkUserIsSimple= currentUser =>{
 }
 
 export const apiInstance = axios.create({
-    baseURL:'http://localhost:5001/matoa-diplom/us-central1/api'
+    //baseURL:'http://localhost:5001/matoa-diplom/us-central1/api' 
+    baseURL:'https://us-central1-matoa-diplom.cloudfunctions.net/api'
 });
 
 
