@@ -78,7 +78,7 @@ export function* saveOrderHistoryStart({
         });
         yield put(clearCart())
     } catch (err) {
-        //console.log(err);
+        console.log(err);
     }
 }
 

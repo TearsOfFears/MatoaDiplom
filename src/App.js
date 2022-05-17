@@ -86,9 +86,11 @@ setstate(true);
             </SecondLayout>
           }/>
            <Route  path="/cart" element={
-            <SecondLayout >
+             <WithAuth>
+              <SecondLayout >
                   <CartPage/>
             </SecondLayout>
+             </WithAuth>
           }/>
             <Route  path="/recovery" element={
             <SecondLayout>
