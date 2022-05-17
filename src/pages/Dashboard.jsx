@@ -18,7 +18,7 @@ const Dashboard = (props) => {
 		dispatch(checkUserSession());
 	}, []);
 	return (
-		<div>
+		<div className="wrapper">
 			<RenderOrderHistory  {...currentUser}/>
 		</div>
 	);

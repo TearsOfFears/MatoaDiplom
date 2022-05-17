@@ -28,7 +28,7 @@
     }
     @media screen and (max-width: 576px) {
         font-size: calc(13px + (17 - 10) * (100vw - 480px) / (576 - 0));
-        width: 80px;
+        width: 40px;
     }
     h1{
         margin: 0;
@@ -53,6 +53,7 @@
     align-items: center;
     justify-content: center;
     width: 100%;
+    margin-bottom: 10px;
     @media screen and (max-width: 768px) {
         .col-6 h3{
             font-weight: 700;

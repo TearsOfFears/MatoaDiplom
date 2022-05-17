@@ -10,14 +10,17 @@
 html {
   box-sizing: border-box;
   background: $grey !important;
+  height: 100% !important;
 }
 
 body {
   margin: 0;
   background: $grey !important;
-
+  display: flex;
+  flex-direction: column;
+  font-family: 'Taviraj', 'Nunito';
+  height: 100% !important;
 }
-
 img {
   max-width: 100%;
 }
@@ -26,9 +29,6 @@ a {
   text-decoration: none;
 }
 
-body {
-  font-family: 'Taviraj', 'Nunito';
-}
 
 .btn-discover {
   font-family: "Taviraj";

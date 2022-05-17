@@ -80,7 +80,9 @@ const ProductRender = (product) => {
 	return (
 		<div>
 			{isLoaded ? (
-				<Skeleton />
+				<div className="skeleton d-flex flex-row align-items-center justify-content-center">
+					<Skeleton />
+				</div>
 			) : (
 				<div className={`wrapper-main-product `}>
 					<div className="wrapper-products__item" key={ind}>

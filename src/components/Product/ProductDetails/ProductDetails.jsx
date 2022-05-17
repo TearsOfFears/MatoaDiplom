@@ -21,7 +21,6 @@ const ProductDetails = (product) => {
 	const { orders, currentUser } = useSelector(mapState);
 	const { id } = currentUser || [];
 	const [allow, setAllow] = useState(false);
-	const [arr, setArr] = useState();
 	const [active, setActive] = useState(0);
 	const [stateStyle, setstateStyle] = useState({ fade: false });
 	const [state, setstate] = useState();
@@ -33,7 +32,9 @@ const ProductDetails = (product) => {
 					return data.documentId;
 				});
 			});
-			setAllow(items[0].includes(documentId));
+			const arrItems = [].concat.apply([], items);
+
+			setAllow(arrItems.includes(documentId));
 		}
 	};
 	useEffect(() => {
