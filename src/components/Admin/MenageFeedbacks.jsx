@@ -57,7 +57,9 @@ function MenageFeedbacks() {
 	};
 
 	useEffect(() => {
-		dispatch(fetchComments());
+		dispatch(
+			fetchComments()
+		);
 	}, []);
 
 	const { dataComments, queryDocComments, isLastPageComments } = comments;
@@ -77,7 +79,7 @@ function MenageFeedbacks() {
 	return (
 		<div>
 			<TableContainer>
-				<h1>Головний слайдер</h1>
+				<h1>Відгуки</h1>
 				<Table>
 					<TableHead>
 						<TableRow>
@@ -140,7 +142,9 @@ function MenageFeedbacks() {
 												className="delete"
 												onClick={() => {
 													dispatch(deleteComment(documentID));
-													dispatch(fetchComments());
+													dispatch(
+														fetchComments()
+													);
 												}}
 											>
 												<svg

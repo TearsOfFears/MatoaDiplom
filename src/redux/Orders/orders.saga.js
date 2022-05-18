@@ -87,10 +87,10 @@ export function* onSaveOrderHistoryStart() {
 }
 
 
-export function* fetchOrders(payload) {
+export function* fetchOrders({payload}) {
     try {
-        const content = yield handleFetchOrderHistory(payload);
-        yield put(setUserOrderHistory(content))
+        const orders = yield handleFetchOrderHistory(payload);
+        yield put(setUserOrderHistory(orders))
     } catch (err) {
         console.log(err);
     }

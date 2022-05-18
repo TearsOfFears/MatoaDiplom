@@ -31,7 +31,7 @@ export const handleFetchProducts = ({
 }) => {
   return new Promise((resolve, reject) => {
 
-    const pageSizeDef = 8;
+    const pageSizeDef = 9;
     let ref = firestore
       .collection('products')
       .limit(pageSizeDef);

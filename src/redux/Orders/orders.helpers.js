@@ -68,7 +68,6 @@ export const handleGetOrder = orderID =>{
 
 
 export const handleFetchOrderHistory = ({
-  
   startAfterDoc,
   persistOrderHistory=[]
 }) => {
@@ -78,11 +77,12 @@ export const handleFetchOrderHistory = ({
 
     let ref = firestore
       .collection('orders')
-      .orderBy('orderCreated')
+      .orderBy('orderCreated',"desc")
       .limit(pageSize);
 
-    if (startAfterDoc) 
+    if (startAfterDoc)
       ref = ref.startAfter(startAfterDoc)
+
     ref
       .get()
       .then((snapShot) => {
@@ -106,7 +106,6 @@ export const handleFetchOrderHistory = ({
       })
       .catch(err => {
         reject(err);
-        console.log(err);
       })
   })
 }
@@ -127,8 +126,6 @@ export const handleDeleteOrder = orderID => {
 }
 
 export const handleSetActivity = (activityData, documentId) => {
-  console.log(activityData);
-  console.log(documentId);
   return new Promise((resolve, reject) => {
     firestore
       .collection('orders')

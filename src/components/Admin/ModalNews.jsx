@@ -165,7 +165,7 @@ const ModalNews = ({ toggleModal, hideModal, setHideModal }) => {
 					Object.keys(newsDataEdit).length > 0 &&
 					Object.keys(newsDataEdit).length !== 1 ? (
 						<form onSubmit={handleSubmitEdit}>
-							<h2>Редагувати продукт</h2>
+							<h2>Редагувати новину</h2>
 							<FormInput
 								Label="Заголовок"
 								type="text"
@@ -203,7 +203,7 @@ const ModalNews = ({ toggleModal, hideModal, setHideModal }) => {
 						</form>
 					) : (
 						<form onSubmit={handleSubmit}>
-							<h2>Добавити новий продукт</h2>
+							<h2>Добавити нову новину </h2>
 							<FormInput
 								Label="Заголовок"
 								type="text"

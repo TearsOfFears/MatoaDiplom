@@ -30,9 +30,13 @@ const Orders = () => {
 	const dispatch = useDispatch();
 	const { orders, orderDetails } = useSelector(mapState);
 	const [hideModal, setHideModal] = useState(false);
+	const { dataOrders, queryDocOrders, isLastPageOrders } = orders;
 
 	useEffect(() => {
-		dispatch(fetchOrdersHistory());
+		dispatch(fetchOrdersHistory({
+			startAfterDoc: queryDocOrders,
+			persistOrderHistory: dataOrders,
+		}));
 	}, []);
 
 	const colums = [
@@ -72,7 +76,7 @@ const Orders = () => {
 		cursor: "cursor",
 	};
 
-	const { dataOrders, queryDocOrders, isLastPageOrders } = orders;
+
 
 	const colourStyles = {
 		control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
@@ -134,7 +138,7 @@ const Orders = () => {
 			value: "succesfull",
 		},
 	];
-
+console.log(queryDocOrders);
 	const handleSetPackaging = (e, documentId) => {
 		const { value } = e.target;
 		const name  = e.target.options[e.target.selectedIndex].text
@@ -148,7 +152,10 @@ const Orders = () => {
 
 	const handleDelete = (documentID) => {
 		dispatch(deleteOrder(documentID));
-		dispatch(fetchOrdersHistory());
+		dispatch(fetchOrdersHistory({
+			startAfterDoc: queryDocOrders,
+			persistOrderHistory: dataOrders,
+		}));
 	};
 	const handleLoadMore = () => {
 		dispatch(
@@ -158,9 +165,8 @@ const Orders = () => {
 			})
 		);
 	};
-
 	const configLoadMore = {
-		style: "text-center mt-5 d-block",
+		style: "text-center mt-5 mb-5 d-block",
 		onLoadMoreEvt: handleLoadMore,
 	};
 
@@ -177,8 +183,6 @@ const Orders = () => {
 		setHideModal,
 		orderDetails,
 	};
-
-	console.log(orderDetails);
 	return (
 		<div>
 			<TableContainer>
@@ -228,7 +232,7 @@ const Orders = () => {
 										<TableCell align="left">{packagingPrice}₴</TableCell>
 										<TableCell align="left">{grandTotal}₴</TableCell>
 		
-										<TableCell>
+										<TableCell style={{width:"300px"}}>
 											<FormSelect
 												options={options}
 												value={activity.value}
