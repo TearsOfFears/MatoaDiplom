@@ -123,8 +123,6 @@ setstate(true);
               <ProductsDeatails/>
         </SecondLayout>
               </WithProductLoader>
-      
-
           }/>
            <Route  path="/payment" element={
               <WithAuth> 
