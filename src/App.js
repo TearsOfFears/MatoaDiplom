@@ -17,7 +17,6 @@ import WithAuth from './hoc/WithAuth';
 import WithLoader from "./hoc/WithLoader"
 import WithAdminAuth from './hoc/WithAdminAuth';
 import WithProductLoader from './hoc/WithProductLoader';
-import Loader from './components/Loader/Loader';
 import { fetchHomeContentStart } from './redux/Home/home.actions';
 import { fetchProductsStart } from './redux/Products/products.actions';
 import NewsLayout from './Layouts/NewsLayout';
@@ -38,7 +37,7 @@ const mapState = ({user,contentHome,productsData})=>({
   contentLoadingCurrentProduct:productsData.showLoadingCurrentProduct
 })
 
-const {currentUser,userLoading,contentHomeLoading,contentLoadingCurrentProduct}= useSelector(mapState);
+const {currentUser}= useSelector(mapState);
 
 useEffect(()=>{
 dispatch(checkUserSession());
