@@ -79,7 +79,6 @@ const ItemRender = (product) => {
 			};
 		},
 	};
-
 	const options = [
 		{
 			label: "Звичайна (0₴)",
@@ -123,12 +122,10 @@ const ItemRender = (product) => {
 						
 						<Select
 							options={options}
-							defaultOptions
 							styles={colourStyles}
 							clearable={false}
 							isSearchable={false}
 							className="selectPackageSelect"
-							defaultValue={{ label: "Виберіть упаковку", value: 0 }}
 							value={packageType}
 							onChange={(evt) => {
 								handleSetPackaging(evt, documentId);

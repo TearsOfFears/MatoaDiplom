@@ -1,7 +1,34 @@
 @import "./../../scss/componentstyles/utils/variables.scss";
-
+.formWrapper{
+    .formRow {
+        width:100%;
+    }
+}
+.MuiTableCell-root{
+    .formRow 
+    {
+        width:100%;
+        .wrapper-input 
+        {
+            width:100%;
+            .formSelect{
+                width:100%;
+            }
+        }
+    }
+   
+   
+}
 .formRow {
-
+    width:70%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
+    .wrapper-input{
+        width: 70%;
+        margin: 5px 0px;
+    }
     input,
     &.chekoutInput select {
         outline: none;
@@ -10,11 +37,11 @@
         font-size: 23px;
         font-weight: 500;
         color: $black;
-        margin-top: 30px;
+        margin-top: 0px;
         padding: 5px;
         border: none;
         border-bottom: 1px solid $accent;
-
+      
         option {
             border-bottom: 1px solid $grey;
             background-color: $grey;
@@ -32,8 +59,9 @@
         border: 1px solid transparent;
         background-color: transparent;
         border-bottom: 1px solid $accent;
-        padding: 5px;
-
+        padding: 5px 0px;
+        width: 40%;
+        text-align: left;
         option {
             border-bottom: 1px solid $accent;
             &:focus,

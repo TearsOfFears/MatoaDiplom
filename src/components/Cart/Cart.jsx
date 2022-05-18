@@ -19,9 +19,7 @@ const mapState = createStructuredSelector({
 });
 
 function Cart() {
-	const navigate = useNavigate();
 	const { cartItems, total } = useSelector(mapState);
-	const [state, setState] = useState(false);
 
 	return (
 		<section className="cart ">

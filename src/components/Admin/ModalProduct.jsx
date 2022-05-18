@@ -150,9 +150,13 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 		setPrice(0);
 		setProductDesc([]);
 	};
-
+	const packageType=	{
+		label: "Звичайна (0₴)",
+		price: 0,
+	}
 	const handleSubmit = (e) => {
 		e.preventDefault();
+		
 		dispatch(
 			addProductStart({
 				productCategory,
@@ -161,6 +165,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 				productThumbnail,
 				discount,
 				discountPersentage,
+				packageType,
 				price,
 				productDesc,
 				series,
@@ -181,6 +186,7 @@ const Modal = ({ toggleModal, hideModal, setHideModal }) => {
 			discount,
 			discountPersentage,
 			series,
+			packageType,
 			price:
 				discount==="yes"
 					? price - (price * discountPersentage) / 100
