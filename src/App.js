@@ -85,11 +85,13 @@ setstate(true);
             </SecondLayout>
           }/>
            <Route  path="/cart" element={
+             <WithProductLoader>
              <WithAuth>
               <SecondLayout >
                   <CartPage/>
             </SecondLayout>
              </WithAuth>
+             </WithProductLoader>
           }/>
             <Route  path="/recovery" element={
             <SecondLayout>
@@ -97,12 +99,13 @@ setstate(true);
             </SecondLayout>
           }/>
            <Route  path="/dashboard" element={
+                <WithProductLoader>
              <WithAuth>
               <SecondLayout>
                   <Dashboard/>
             </SecondLayout>
              </WithAuth>
-           
+             </WithProductLoader>
 
           }/>
             <Route  exact path="/products" element={
@@ -131,11 +134,14 @@ setstate(true);
             </WithAuth>
           }/>
              <Route  path="/order/:orderID" element={
-              <WithAuth>
+               <WithProductLoader>
+    <WithAuth>
                   <SecondLayout>
                     <Order/>
                   </SecondLayout>
               </WithAuth>
+               </WithProductLoader>
+          
             }/> 
              <Route  path="/news" element={
                  <WithLoader>
