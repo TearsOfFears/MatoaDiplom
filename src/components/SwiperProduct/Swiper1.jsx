@@ -76,7 +76,7 @@ function Swiper1() {
 												<LazyLoadImage
 													effect="blur"
 													src={sliderThumbnail}
-													width="350px"
+													width="340px"
 												
 												/>
 											</div>

@@ -15,6 +15,9 @@
     position: absolute;
     background-color: $secondAccent;
     z-index: 0;
+    @media screen and (max-width: 576px) {
+      width: 70%;
+    }
   }
 
   .container-min {
@@ -52,6 +55,7 @@
         flex-direction: column;
         align-items: flex-end;
         justify-content: flex-end;
+        margin-bottom: 20px;
       }
       h1 {
         font-size: 60px;
@@ -182,7 +186,7 @@
       margin-top: 30px;
      display: flex;
      flex-direction: column;
-     justify-content: space-between;
+     justify-content: space-around;
     }
 
     .wrapper-addToCart-images-wrapper {
@@ -223,8 +227,8 @@
           height: 120px;
 
           @media screen and (max-width: 576px) {
-            width: 60%;
-            height: 90px;
+            width: 55%;
+            height: 110px;
           }
           img {
             transition: .5s;
@@ -252,8 +256,8 @@
           width: calc(200px + (100 - 25) * (100vw - 768px) / (768 - 576));
         }
         @media screen and (max-width: 576px) {
-          width: calc(130px + (100 - 70) * (100vw - 576px) / (576 - 0));
-          margin-right: 10px;
+          width: calc(200px + (100 - 70) * (100vw - 576px) / (576 - 0));
+          margin-right: 0px;
         }
         img {
           width: 100%;

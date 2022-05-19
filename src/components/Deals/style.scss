@@ -9,7 +9,9 @@
     grid-column-gap: 30px;
     grid-auto-rows: 260px;
     grid-auto-flow: dense;
-
+    @media screen and (max-width: 576px) {
+      grid-auto-rows: 290px;
+    }
     h1 {
       font-family: Taviraj;
       font-size: 28px;
@@ -34,7 +36,7 @@
       max-width: 340px;
 
       @media screen and (max-width: 480px) {
-        font-size: calc(16px + (18 - 16) * (100vw - 320px) / (480 - 320));
+        font-size: calc(13px + (18 - 14) * (100vw - 320px) / (480 - 00));
       }
     }
 
