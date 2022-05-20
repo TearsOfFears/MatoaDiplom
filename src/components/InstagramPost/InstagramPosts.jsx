@@ -19,7 +19,7 @@ function InstagramPosts() {
 		<section className="instagram-posts ">
 			<div className="container">
 				<div className="row">
-					<h1>Instagram </h1>
+					<h1>Інстаграм </h1>
 					<hr />
 					<div className="posts">
 						{Array.isArray(content) &&

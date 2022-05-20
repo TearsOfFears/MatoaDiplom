@@ -10,7 +10,8 @@ import {
 	faYoutube,
 } from "@fortawesome/free-brands-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import "./footer.scss"
+import "./footer.scss";
+import { Link } from "react-router-dom";
 function Footer() {
 	return (
 		<footer className="footer nopadding">
@@ -20,46 +21,45 @@ function Footer() {
 						<div className="wrapper-info">
 							<img src={logoWhite} alt="" />
 							<div className="wrapper-info__adress ">
-								<h2>Address</h2>
+								<h2>Адреси</h2>
 								<p>
-									Store & Office
+									Магазин та Офіс
 									<br />
-									Jl. Setrasari Kulon III, No. 10-12, Sukarasa, Sukasari,
-									Bandung, Jawa Barat, Indonesia 40152
+									вулиця Хрещатик, будинок 32, Київ, Україна
 								</p>
 							</div>
 							<div className="wrapper-info__hours">
-								<h2>Office Hour</h2>
+								<h2>Години роботи</h2>
 								<p>
 									{" "}
-									Monday - Sunday
+									Понеділок - Неділя
 									<br />
 									10.00 - 18.00
 								</p>
 							</div>
 						</div>
 						<div className="contacts">
-							<h1>Get in touch</h1>
+							<h1>Зв`язатись </h1>
 							<hr />
 							<div className="wrapper-contacts">
 								<div className="wrapper-contacts-block">
-									<h2>Phone</h2>
-									<p>022-20277564</p>
+									<h2>Телефон</h2>
+									<p>380-68-777-4313</p>
 								</div>
 								<div className="wrapper-contacts-block">
 									<h2>
-										Service <br />
-										Center
+										Сервісний <br />
+										центер
 									</h2>
-									<p>0811-233-8899</p>
+									<p>380-99-333-2244</p>
 								</div>
 								<div className="wrapper-contacts-block">
 									<h2>
-										Customer
+										Гаряча
 										<br />
-										Service
+										лінія
 									</h2>
-									<p>0811-235-9988</p>
+									<p>380-99-232-8080</p>
 								</div>
 							</div>
 							<ul>
@@ -86,89 +86,49 @@ function Footer() {
 							</ul>
 						</div>
 						<div className="links">
-							<h1>Useful Link</h1>
+							<h1>Корисні посилання</h1>
 							<hr />
 							<ul>
 								<li>
-									<a href="#" className="nav-link-footer">
-										{" "}
-										Warranty & Complaints
-									</a>
+									<Link to="/news" className="nav-link-footer">
+										Новини
+									</Link>
 								</li>
 								<li>
-									<a href="#" className="nav-link-footer">
-										Order & Shipping
-									</a>
+									<Link to="/forBusiness" className="nav-link-footer">
+										Для Бізнесу
+									</Link>
 								</li>
 								<li>
-									<a href="#" className="nav-link-footer">
-										Tracking Order
-									</a>
-								</li>
-								<li>
-									<a href="#" className="nav-link-footer">
-										About Us
-									</a>
-								</li>
-								<li>
-									<a href="#" className="nav-link-footer">
-										{" "}
-										Repair
-									</a>
-								</li>
-								<li>
-									<a href="#" className="nav-link-footer">
-										Terms
-									</a>
-								</li>
-								<li>
-									<a href="#" className="nav-link-footer">
-										{" "}
-										FAQ
-									</a>
+									<Link to="/aboutUs" className="nav-link-footer">
+										Про нас
+									</Link>
 								</li>
 							</ul>
 						</div>
 						<div className="compaign">
-							<h1>Campaign</h1>
+							<h1>Колекції</h1>
 							<hr />
 							<ul>
-								<li>
-									<a href="" className="nav-link-footer">
-										Mengenal Arti Cukup
-									</a>
+							<li>
+									<Link to="/products?sort=&order=&available=&discount=&series=" className="nav-link-footer">
+										Без колекції 
+									</Link>
 								</li>
 								<li>
-									<a href="" className="nav-link-footer">
-										Tell Your Difference
-									</a>
+									<Link to="/products?sort=&order=&available=&discount=&series=skeleton" className="nav-link-footer">
+										Скелетон колекція
+									</Link>
 								</li>
 								<li>
-									<a href="" className="nav-link-footer">
-										Waykambas
-									</a>
+									<Link to="/products?sort=&order=&available=&discount=&series=ebony" className="nav-link-footer">
+										Чорна колекція
+									</Link>
 								</li>
 								<li>
-									<a href="" className="nav-link-footer">
-										Rebrand
-									</a>
-								</li>
-								<li>
-									<a href="" className="nav-link-footer">
-										{" "}
-										Gallery
-									</a>
-								</li>
-								<li>
-									<a href="" className="nav-link-footer">
-										Singo
-									</a>
-								</li>
-								<li>
-									<a href="" className="nav-link-footer">
-										{" "}
-										Rakai
-									</a>
+									<Link to="/products?sort=&order=&available=&discount=&series=maple" className="nav-link-footer">
+										Кленова колекція
+									</Link>
 								</li>
 							</ul>
 						</div>

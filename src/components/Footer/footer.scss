@@ -1,8 +1,10 @@
 @import "./../../scss/componentstyles/utils/variables.scss";
 .footer {
   background-color: $accent;
+  
   .wrapper-info__adress {
     margin-top: 35px;
+
   }
 
   h1 {
@@ -29,6 +31,7 @@
   }
 
   .wrapper-footer {
+    padding-bottom: 30px;
     display: grid;
     grid-template-columns: repeat(4, 1fr);
 
