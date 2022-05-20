@@ -6,6 +6,7 @@ const INITIAL_STATE = {
   contentInstagram:[],
   contentSeries:[],
   contentEdit: [],
+  images:[],
   showLoading: true
 }
 
@@ -36,6 +37,11 @@ const homeReducer = (state = INITIAL_STATE, action) => {
         ...state,
         contentEdit: action.payload
       }
+      case homeTypes.SET_IMAGES:
+        return {
+          ...state,
+          images: action.payload
+        }
     case homeTypes.LOADING_TOGGLE_ACTION:
       return {
         ...state,

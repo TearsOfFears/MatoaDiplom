@@ -30,6 +30,14 @@ const homeTypes = {
 
     FETCH_CONTENT_SERIES: "FETCH_CONTENT_SERIES",
     SET_CONTENT_SERIES: "SET_CONTENT_SERIES",
+
+
+
+    ADD_NEW_IMAGE: "ADD_NEW_IMAGES",
+    FETCH_IMAGES: "FETCH_IMAGES",
+    SET_IMAGES: "SET_IMAGES",
+    DELETE_IMAGE: "DELETE_IMAGE",
+
   }
   
   export default homeTypes;

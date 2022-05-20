@@ -1,6 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { CKEditor } from "ckeditor4-react";
-import ReadMoreReact from "read-more-react";
+
 import {
 	addHomeContentInstagramStart,
 	addHomeContentStart,
@@ -9,9 +8,9 @@ import {
 	setEditContent,
 	updateContentInstagram,
 	updateContentProduct,
-} from "../../redux/Home/home.actions";
-import { FormInput, Buttons } from "./../../components";
-import { storage } from "./../../firebase/utils";
+} from "./../../../redux/Home/home.actions";
+import { FormInput, Buttons } from "./../../../components";
+import { storage } from "./../../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
 import Compress from "react-image-file-resizer";
 import {
@@ -24,7 +23,7 @@ import {
 
 const mapState = ({ contentHome }) => ({ content: contentHome.contentEdit });
 
-const MenageHomeInstagram = (props) => {
+const MenageHomeInstagram = () => {
 	const { content } = useSelector(mapState);
 	const dispatch = useDispatch();
 	const [sliderThumbnail, setSliderThumbnail] = useState("");
@@ -86,7 +85,7 @@ const MenageHomeInstagram = (props) => {
 		<div>
 			<form onSubmit={handleSubmit}>
 				<FormInput
-					Label="Зображення слайдера"
+					Label="Зображення"
 					type="file"
 					handleChange={(e) => onHandleFile(e.target.files)}
 				/>

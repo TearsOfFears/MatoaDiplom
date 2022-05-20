@@ -260,16 +260,16 @@ export const handleAddContentHomeInstagram= homeInstagram => {
 
 export const handleFetchContentHomeInstagram = ({
   startAfterDoc,
-  persistProducts = []
+  persistInstagram = []
 }) => {
   return new Promise((resolve, reject) => {
 
-    const pageSize = 5;
+    const Size = 6;
 
     let ref = firestore
       .collection('homeInstagram')
       .orderBy('createdDate')
-      .limit(pageSize);
+      .limit(Size);
 
     if (startAfterDoc) 
       ref = ref.startAfter(startAfterDoc)
@@ -278,7 +278,7 @@ export const handleFetchContentHomeInstagram = ({
       .then((snapShot) => {
         const totalCount = snapShot.size;
         const dataInstagram = [
-          ...persistProducts,
+          ...persistInstagram,
           ...snapShot
             .docs
             .map(doc => {
@@ -291,7 +291,7 @@ export const handleFetchContentHomeInstagram = ({
         resolve({
           dataInstagram,
           queryDocInstagram: snapShot.docs[totalCount - 1],
-          isLastPageInstagram: totalCount < pageSize
+          isLastPageInstagram: totalCount < Size
         })
       })
       .catch(err => {
@@ -318,31 +318,86 @@ export const handleDeleteHomeContentInstagram = instagramID => {
 }
 
 
-export const handleEditHomeContentInstagram= instagramID => {
+
+
+export const handleAddImage =  image => {
   return new Promise((resolve, reject) => {
     firestore
-      .collection('homeInstagram')
-      .doc(instagramID)
-      .get()
-      .then(snap=>{
-        if(snap.exists){
-          resolve({
-            ...snap.data(),
-            documentID:instagramID
-          })
-        }
+      .collection('images')
+      .doc()
+      .set(image)
+      .then(() => {
+        resolve();
       })
-      .catch(err=>{
+      .catch(err => {
+        reject(err);
+      })
+  })
+}
+
+export const handleFetchImages= ({
+  startAfterDoc,
+  persistImage = []
+}) => {
+  return new Promise((resolve, reject) => {
+
+    const pageSize = 5;
+
+    let ref = firestore
+      .collection('images')
+      .orderBy('createdDate')
+      .limit(pageSize);
+
+    if (startAfterDoc) 
+      ref = ref.startAfter(startAfterDoc)
+    ref
+      .get()
+      .then((snapShot) => {
+        const totalCount = snapShot.size;
+        const dataImage = [
+          ...persistImage,
+          ...snapShot
+            .docs
+            .map(doc => {
+              return {
+                ...doc.data(),
+                documentId: doc.id
+              }
+            })
+        ];
+        resolve({
+          dataImage,
+          queryDocImages: snapShot.docs[totalCount - 1],
+          isLastPageImages: totalCount < pageSize
+        })
+      })
+      .catch(err => {
+        reject(err);
+      
+      })
+  })
+}
+
+
+export const handleDeleteImages = imagesID => {
+  return new Promise((resolve, reject) => {
+    firestore
+      .collection('images')
+      .doc(imagesID)
+      .delete()
+      .then(() => {
+        resolve();
+      })
+      .catch(err => {
         reject(err);
       })
   });
 }
 
+
 export const handleFetchSeries = ({
 
-  //startAfterDoc,
   series,
-  //persistProducts = []
 }) => {
   return new Promise((resolve, reject) => {
 
@@ -354,15 +409,10 @@ export const handleFetchSeries = ({
     if(series)
       ref = ref.where('series', "in", series)
 
-    // if (startAfterDoc) 
-    //   ref = ref.startAfter(startAfterDoc)
-
     ref
       .get()
       .then((snapShot) => {
-        //const totalCount = snapShot.size;
         const data = [
-          //...persistProducts,
           ...snapShot
             .docs
             .map(doc => {
@@ -374,8 +424,6 @@ export const handleFetchSeries = ({
         ];
         resolve({
           data,
-          // queryDoc: snapShot.docs[totalCount - 1],
-          // isLastPage: totalCount < pageSizeDef
         })
       })
       .catch(err => {

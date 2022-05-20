@@ -92,23 +92,32 @@ export const setHomeInstagramContent = contentProduct =>({
 })
 
 
+export const addImage = img =>({
+    type:homeTypes.ADD_NEW_IMAGE,
+    payload:img
+})
 
+export const fetchImages = (data) =>({
+    type:homeTypes.FETCH_IMAGES,
+    payload:data
+})
 
-export const deleteHomeContentInstagramStart = sliderID =>({
+export const setImages = images =>({
+    type:homeTypes.SET_IMAGES,
+    payload:images
+})
+
+export const deleteImageFull = image =>({
+    type:homeTypes.DELETE_IMAGE,
+    payload:image
+})
+
+export const deleteHomeContentInstagramStart = imgID =>({
     type:homeTypes.DELETE_CONTENT_INSTAGRAM_START,
-    payload:sliderID
+    payload:imgID
 })
 
 
-export const editContentInstagram = contentID =>({
-    type:homeTypes.FETCH_CONTENT_EDIT_INSTAGRAM,
-    payload:contentID
-})
-
-export const updateContentInstagram  = contentId =>({
-    type:homeTypes.UPDATE_CONTENT_INSTAGRAM,
-    payload:contentId
-})
 
 export const fetchHomeSeries= (filters={}) =>({
     type:homeTypes.FETCH_CONTENT_SERIES,

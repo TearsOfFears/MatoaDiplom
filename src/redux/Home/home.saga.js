@@ -1,7 +1,7 @@
 import {takeLatest, put, call, all, take} from "redux-saga/effects";
 import homeTypes from "./home.types";
-import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals,handleDeleteHomeContentTestimonals, handleEditHomeContentTestimonals,handleUpdateContentHomeTestimonals, handleEditHomeContentProduct, handleUpdateContentHomeProduct, handleAddContentHomeInstagram, handleFetchContentHomeInstagram, handleDeleteHomeContentInstagram, handleEditHomeContentInstagram, handleUpdateContentHomeInstagram, handleFetchSeries} from "./home.helpers";
-import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent, getCurrentDocumentId, loadingToggleAction, setHomeInstagramContent, fetchHomeContentInstagramStart, setHomeSeries,} from "./home.actions";
+import {handleAddContentHome, handleFetchContentHome, handleDeleteHomeContent, handleAddContentHomeTestimonals,handleFetchContentHomeTestimonals,handleDeleteHomeContentTestimonals, handleEditHomeContentTestimonals,handleUpdateContentHomeTestimonals, handleEditHomeContentProduct, handleUpdateContentHomeProduct, handleAddContentHomeInstagram, handleFetchContentHomeInstagram, handleDeleteHomeContentInstagram, handleEditHomeContentInstagram, handleUpdateContentHomeInstagram, handleFetchSeries, handleAddImage, handleFetchImages, handleDeleteImages} from "./home.helpers";
+import {setHomeContent,fetchHomeContentStart,fetchHomeContentTestimonalsStart, setHomeContentTestimonals, setEditContent, getCurrentDocumentId, loadingToggleAction, setHomeInstagramContent, fetchHomeContentInstagramStart, setHomeSeries, setImages, fetchImages,} from "./home.actions";
 import {auth} from "../../firebase/utils";
 
 export function * addNewContentHome({payload}) {
@@ -162,7 +162,7 @@ export function * addNewContentInstagramHome({payload}) {
   }
 }
 
-export function * fetchHomeContentInstagram(payload) {
+export function * fetchHomeContentInstagram({payload}) {
   try {
     const content = yield handleFetchContentHomeInstagram(payload);
     yield put(setHomeInstagramContent(content))
@@ -181,14 +181,41 @@ export function * deleteHomeContentInstagram({payload}) {
   }
 }
 
-export function * editContentInstagram({payload}) {
+
+export function * addNewImageStart({payload}) {
   try {
-    const content =  yield handleEditHomeContentInstagram(payload);
-    yield put(setHomeInstagramContent(content))
+    const timestamp = new Date();
+    yield handleAddImage({
+      ...payload,
+      productAdminUID: auth.currentUser.uid,
+      createdDate: timestamp
+    });
+    yield put(fetchImages());
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function * fetchImagesStart(payload) {
+  try {
+    const content = yield handleFetchImages(payload);
+    yield put(setImages(content))
   } catch (err) {
     //console.log(err);
   }
 }
+
+
+export function * deleteImageStart({payload}) {
+  try {
+    yield handleDeleteImages(payload);
+    yield put(fetchImages());
+  } catch (err) {
+    //console.log(err);
+  }
+}
+
+
 
 
 export function * fetchContentSeries({payload}) {
@@ -206,11 +233,20 @@ export function * fetchContentSeries({payload}) {
 
 
 
-
-
-export function * onEditContentInstagram() {
-  yield takeLatest(homeTypes.FETCH_CONTENT_START_INSTAGRAM, editContentInstagram)
+export function * onDeleteImageStart() {
+  yield takeLatest(homeTypes.DELETE_IMAGE, deleteImageStart)
 }
+
+export function * onFetchImagesStart() {
+  yield takeLatest(homeTypes.FETCH_IMAGES, fetchImagesStart)
+}
+export function * onAddImageStart() {
+  yield takeLatest(homeTypes.ADD_NEW_IMAGE, addNewImageStart)
+}
+
+
+
+
 
 export function * onDeleteContentInstagramStart() {
   yield takeLatest(homeTypes.DELETE_CONTENT_INSTAGRAM_START, deleteHomeContentInstagram)
@@ -267,7 +303,9 @@ export default function * homeSagas() {
     call(onUpdateContent),
     call(onEditContentProduct),
     call(onUpdateContentProduct),
-    call(onEditContentInstagram),
-    call(onFetchContenSeriesStart)
+    call(onFetchContenSeriesStart),
+    call(onAddImageStart),
+    call(onFetchImagesStart),
+    call(onDeleteImageStart)
   ])
 }

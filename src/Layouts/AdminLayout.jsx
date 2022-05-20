@@ -7,7 +7,7 @@ import { Admin } from "../pages";
 import UserProfile from "../components/Admin/UserProfile";
 import VerticalNav from "../components/Admin/VerticalNav";
 import { signOutUserStart } from "../redux/User/user.actions";
-import MenageHomePage from "../components/Admin/MenageHomePage";
+import MenageHomePage from "../components/Admin/HomePageMenage/MenageHomePage";
 
 import "./Layouts.scss";
 import MenageNews from "../components/Admin/MenageNews";

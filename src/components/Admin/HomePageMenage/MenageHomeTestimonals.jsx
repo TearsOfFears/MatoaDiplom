@@ -9,9 +9,9 @@ import {
 	editContent,
 	getCurrentDocumentId,
 	setEditContent,
-} from "../../redux/Home/home.actions";
-import { FormInput, Buttons } from "./../../components";
-import { storage } from "./../../firebase/utils";
+} from "./../../../redux/Home/home.actions";
+import { FormInput, Buttons } from "./../../../components";
+import { storage } from "./../../../firebase/utils";
 import { useSelector, useDispatch } from "react-redux";
 import Compress from "react-image-file-resizer";
 import {
