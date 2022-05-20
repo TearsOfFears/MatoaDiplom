@@ -148,10 +148,7 @@ const Orders = () => {
 	const handleDelete = (documentID) => {
 		dispatch(deleteOrder(documentID));
 		dispatch(
-			fetchOrdersHistory({
-				startAfterDoc: queryDocOrders,
-				persistOrderHistory: dataOrders,
-			})
+			fetchOrdersHistory({})
 		);
 	};
 	const handleLoadMore = () => {
