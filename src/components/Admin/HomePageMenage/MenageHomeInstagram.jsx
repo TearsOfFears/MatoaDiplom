@@ -4,6 +4,7 @@ import {
 	addHomeContentInstagramStart,
 	addHomeContentStart,
 	editContent,
+	fetchHomeContentInstagramStart,
 	fetchHomeContentStart,
 	setEditContent,
 	updateContentInstagram,
@@ -79,6 +80,7 @@ const MenageHomeInstagram = () => {
 		);
 		resetForm();
 		dispatch(setEditContent({ some: 1 }, { some: 1 }, { some: 1 }));
+		dispatch(fetchHomeContentInstagramStart({}))
 		//setHideModal(true);
 	};
 	return (

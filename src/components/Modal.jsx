@@ -12,14 +12,19 @@ const Modal = ({
 	hideModal,
 	setHideModal,
 }) => {
-	if (!hideModalEdit) return null;
-	if (!hideModalAdd) return null;
+
 
 	if (Object.keys(contentEdit).length === 3) {
 		setHideModalAdd(hideModalAdd);
 		setHideModalEdit(hideModalEdit);
 		if (!hideModalAdd || !hideModalEdit) return null;
 		console.log(3);
+	}
+
+	if (Object.keys(contentEdit).length === 4) {
+		setHideModalAdd(hideModalAdd);
+		setHideModalEdit(hideModalEdit);
+		if (!hideModalAdd || !hideModalEdit) return null;
 	}
 
 	if (Object.keys(contentEdit).length === 1) {
@@ -36,6 +41,8 @@ const Modal = ({
 
 
 
+	if (!hideModalEdit) return null;
+	if (!hideModalAdd) return null;
 	return [
 		<div className="modalOverlay" onClick={() => toggleModal()} key={1} />,
 		<div className="modalWrap" key={2}>

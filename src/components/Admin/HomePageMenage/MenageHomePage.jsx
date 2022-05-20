@@ -53,6 +53,11 @@ const MenageHomePage = () => {
 		const ref = storage.refFromURL(link);
 		await ref.delete();
 	};
+	const deleteAllSliderProduct = (link, documentId) => {
+		deleteImage(link);
+		dispatch(deleteHomeContentStart(documentId));
+	
+	};
 	const deleteAllTestimonals = (link, documentId) => {
 		deleteImage(link);
 		dispatch(deleteHomeContentTestimonalsStart(documentId));
@@ -60,15 +65,13 @@ const MenageHomePage = () => {
 	const deleteAllInstagram = (link, documentId) => {
 		deleteImage(link);
 		dispatch(deleteHomeContentInstagramStart(documentId));
-	};
-	const deleteAllSliderProduct = (link, documentId) => {
-		deleteImage(link);
-		dispatch(deleteHomeContentStart(documentId));
+		dispatch(fetchHomeContentInstagramStart({}));
 	};
 
 	const deleteAllImages = (link, documentId) => {
 		deleteImage(link);
 		dispatch(deleteImageFull(documentId));
+		dispatch(fetchImages({}));
 	};
 
 	const { content } = useSelector(mapState);
@@ -86,6 +89,8 @@ const MenageHomePage = () => {
 		dispatch(setEditContent({}));
 		dispatch(fetchHomeContentTestimonalsStart());
 		dispatch(fetchHomeContentStart());
+		dispatch(fetchHomeContentInstagramStart({}));
+		dispatch(fetchImages({}));
 	};
 
 	const colums = [
@@ -186,7 +191,7 @@ const MenageHomePage = () => {
 			lable: "Видалити",
 		},
 	];
-	const columsImages= [
+	const columsImages = [
 		{
 			lable: "#",
 		},
@@ -223,23 +228,12 @@ const MenageHomePage = () => {
 		contentTestimonals;
 
 	const { dataImage, queryDocImages, isLastPageImages } = images;
-console.log(images);
 	useEffect(() => {
 		dispatch(setEditContent({}));
 		dispatch(fetchHomeContentStart());
 		dispatch(fetchHomeContentTestimonalsStart());
-		dispatch(
-			fetchHomeContentInstagramStart({
-				startAfterDoc: queryDocInstagram,
-				persistInstagram: dataInstagram,
-			})
-		);
-		dispatch(
-			fetchImages({
-				startAfterDoc: queryDocImages,
-				persistImage: dataImage,
-			})
-		);
+		dispatch(fetchHomeContentInstagramStart({}));
+		dispatch(fetchImages({}));
 		setHideModalEdit(!hideModalEdit);
 		setHideModalAdd(!hideModalAdd);
 	}, []);
@@ -265,7 +259,7 @@ console.log(images);
 		dispatch(
 			fetchHomeContentInstagramStart({
 				startAfterDoc: queryDocInstagram,
-				persistProducts: dataInstagram,
+				persistInstagram: dataInstagram,
 			})
 		);
 	};
@@ -289,6 +283,7 @@ console.log(images);
 	const configLoadMoreImages = {
 		onLoadMoreEvt: handleLoadMoreImages,
 	};
+
 	const handleGetContent = (documentId) => {
 		dispatch(editContent(documentId));
 		toggleModal();
@@ -309,7 +304,7 @@ console.log(images);
 		setHideModalEdit,
 		setHideModalAdd,
 	};
-console.log(dataImage);
+	console.log(dataImage);
 	return (
 		<div className="menageProducts">
 			<th className="d-flex flex-row align-items-start justify-content-between">
@@ -343,7 +338,7 @@ console.log(dataImage);
 				<div className="addNewProductForm">
 					{active === 1 && <MenageHomeProducts contentEdit={contentEdit} />}
 					{active === 2 && <MenageHomeTestimonals contentEdit={contentEdit} />}
-					{active === 3 && <MenageHomeInstagram />}
+					{active === 3 && <MenageHomeInstagram/>}
 					{active === 4 && <MenageHomeImages />}
 				</div>
 			</Modal>
@@ -691,15 +686,23 @@ console.log(dataImage);
 												wrapperClassName="text-center"
 											/>
 										</TableCell>
-										<TableCell align="left">{image}</TableCell>
-										<TableCell align="left">{documentId}</TableCell>
 
+										<TableCell align="left">{documentId}</TableCell>
+										<TableCell align="left">
+											{typeof image === "string" && image.length > 0 ? (
+												<ReadMoreReact
+													text={image}
+													min={5}
+													ideal={7}
+													max={image.length}
+													readMoreText="click "
+												/>
+											) : null}
+										</TableCell>
 										<TableCell align="left">
 											<button
 												className="delete"
-												onClick={() =>
-													deleteAllImages(image, documentId)
-												}
+												onClick={() => deleteAllImages(image, documentId)}
 											>
 												<svg
 													width="17"

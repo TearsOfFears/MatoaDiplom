@@ -72,7 +72,6 @@ const MenageHomeTestimonals = (props) => {
 
 			const linkPut = String(await getDownloadURL(thumbSnapshot.ref));
 			if (linkPut !== props.contentEdit.testimonalsThumbnail) {
-				console.log(true);
 				deleteImage(props.contentEdit.testimonalsThumbnail);
 				setTestimonalsThumbnail(linkPut);
 			}
@@ -177,7 +176,7 @@ const MenageHomeTestimonals = (props) => {
 						type="file"
 						handleChange={(e) => onHandleFileTestimonals(e.target.files)}
 					/>
-						{editContent && (
+						{edit && (
 									<CKEditor
 									data={descTextTestimonals}
 									initData={descTextTestimonals}

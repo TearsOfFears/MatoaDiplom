@@ -33,10 +33,7 @@ const Orders = () => {
 	const { dataOrders, queryDocOrders, isLastPageOrders } = orders;
 
 	useEffect(() => {
-		dispatch(fetchOrdersHistory({
-			startAfterDoc: queryDocOrders,
-			persistOrderHistory: dataOrders,
-		}));
+		dispatch(fetchOrdersHistory({}));
 	}, []);
 
 	const colums = [
@@ -75,8 +72,6 @@ const Orders = () => {
 		fontSize: "15px",
 		cursor: "cursor",
 	};
-
-
 
 	const colourStyles = {
 		control: (styles, { data, isDisabled, isFocused, isSelected }) => ({
@@ -138,24 +133,26 @@ const Orders = () => {
 			value: "succesfull",
 		},
 	];
-console.log(queryDocOrders);
+	console.log(queryDocOrders);
 	const handleSetPackaging = (e, documentId) => {
 		const { value } = e.target;
-		const name  = e.target.options[e.target.selectedIndex].text
+		const name = e.target.options[e.target.selectedIndex].text;
 		const activity = { label: name, value: value };
 		const activityData = {
 			activity,
 		};
-		 dispatch(setActivity({ activityData, documentId }));
-		 dispatch(fetchOrdersHistory());
+		dispatch(setActivity({ activityData, documentId }));
+		dispatch(fetchOrdersHistory({}));
 	};
 
 	const handleDelete = (documentID) => {
 		dispatch(deleteOrder(documentID));
-		dispatch(fetchOrdersHistory({
-			startAfterDoc: queryDocOrders,
-			persistOrderHistory: dataOrders,
-		}));
+		dispatch(
+			fetchOrdersHistory({
+				startAfterDoc: queryDocOrders,
+				persistOrderHistory: dataOrders,
+			})
+		);
 	};
 	const handleLoadMore = () => {
 		dispatch(
@@ -210,7 +207,7 @@ console.log(queryDocOrders);
 									name,
 									phone,
 								} = data;
-								
+
 								return (
 									<TableRow key={documentID} style={{ cursor: "pointer" }}>
 										<TableCell align="left">{pos + 1}</TableCell>
@@ -231,8 +228,8 @@ console.log(queryDocOrders);
 										<TableCell align="left">{phone}</TableCell>
 										<TableCell align="left">{packagingPrice}₴</TableCell>
 										<TableCell align="left">{grandTotal}₴</TableCell>
-		
-										<TableCell style={{width:"300px"}}>
+
+										<TableCell style={{ width: "300px" }}>
 											<FormSelect
 												options={options}
 												value={activity.value}

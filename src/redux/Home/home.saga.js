@@ -196,7 +196,7 @@ export function * addNewImageStart({payload}) {
   }
 }
 
-export function * fetchImagesStart(payload) {
+export function * fetchImagesStart({payload}) {
   try {
     const content = yield handleFetchImages(payload);
     yield put(setImages(content))

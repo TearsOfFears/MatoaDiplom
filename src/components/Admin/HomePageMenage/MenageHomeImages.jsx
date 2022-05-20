@@ -7,6 +7,7 @@ import {
 	addImage,
 	editContent,
 	fetchHomeContentStart,
+	fetchImages,
 	setEditContent,
 	updateContentInstagram,
 	updateContentProduct,
@@ -23,16 +24,10 @@ import {
 	getDownloadURL,
 } from "firebase/storage";
 
-
 function MenageHomeImages() {
-  const dispatch = useDispatch();
-  const [image,setImage] = useState("");
-  const deleteImage = async (link) => {
-		if (typeof link === "string") {
-			const ref = storage.refFromURL(link);
-			await ref.delete();
-		}
-	};
+	const dispatch = useDispatch();
+	const [image, setImage] = useState("");
+
 	const resizeFile = (file) =>
 		new Promise((resolve) => {
 			Compress.imageFileResizer(
@@ -58,7 +53,7 @@ function MenageHomeImages() {
 			const thumbRef = ref(storage, `home/images/${fileName}`);
 			const thumbSnapshot = await uploadString(thumbRef, uri, "data_url");
 			const linkPut = String(await getDownloadURL(thumbSnapshot.ref));
-      setImage(linkPut);
+			setImage(linkPut);
 		} catch (err) {
 			console.log(err);
 		}
@@ -66,7 +61,6 @@ function MenageHomeImages() {
 	const resetForm = () => {
 		setImage("");
 	};
-
 
 	const handleSubmit = (e) => {
 		e.preventDefault();
@@ -76,24 +70,26 @@ function MenageHomeImages() {
 			})
 		);
 		resetForm();
-		dispatch(setEditContent({ some: 1 }, { some: 1 }, { some: 1 }));
-		//setHideModal(true);
+		dispatch(fetchImages({}));
+		dispatch(
+			setEditContent({ some: 1 }, { some: 1 }, { some: 1 }, { some: 1 })
+		);
 	};
 
-  return (
-  	<div>
+	return (
+		<div>
 			<form onSubmit={handleSubmit}>
 				<FormInput
-					Label="Зображення слайдера"
+					Label="Зображення"
 					type="file"
 					handleChange={(e) => onHandleFile(e.target.files)}
 				/>
 				<Buttons type="submit" style="btn-read">
-					Добавити новий слайдер
+					Добавити нове зображення
 				</Buttons>
 			</form>
 		</div>
-  )
+	);
 }
 
-export default MenageHomeImages
+export default MenageHomeImages;
