@@ -12,7 +12,7 @@ function InstagramPosts() {
 	const dispatch = useDispatch();
 	const { content } = useSelector(mapState);
 	useEffect(() => {
-		dispatch(fetchHomeContentInstagramStart());
+		dispatch(fetchHomeContentInstagramStart({}));
 	}, []);
 
 	return (

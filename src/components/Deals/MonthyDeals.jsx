@@ -29,7 +29,7 @@ function MonthyDeals() {
 	return (
 		<section className="monthlyDeals">
 			<div className="container">
-				<h1>Monthly Deals</h1>
+				<h1>Пропозиції місяця</h1>
 				<hr />
 				<div className="row">
 					<div className="wrapper-ourProducts-Deals">
