@@ -3,9 +3,9 @@ import userTypes from "./user.types";
 
 import {auth, handleUserProfile, getCurrentUser, GoogleProvider} from "../../firebase/utils";
 
-import {signInSuccess, signOutUserSuccess, userError, resetPasswordSuccess, toggleLoading} from './user.actions';
+import {signInSuccess, signOutUserSuccess, userError, resetPasswordSuccess, toggleLoading, setUsers, getAllUsers} from './user.actions';
 
-import {handleResetPasswordAPI} from "./user.helpers";
+import {handleDeleteUser, handleFetchUsers, handleResetPasswordAPI, handleSetRoles} from "./user.helpers";
 
 export function * isUserAuthent() {
   try {
@@ -123,6 +123,49 @@ export function * googleSignInStart() {
   }
 }
 
+
+export function * fetchAllUsers({payload}) {
+  try {
+    const product = yield handleFetchUsers(payload);
+    yield put(setUsers(product));
+
+  } catch (err) {
+    console.log(err);
+  }
+}
+export function* setUserRoles({
+  payload: {
+    userRoles, documentId
+  }
+}) {
+  try {
+      yield handleSetRoles(userRoles, documentId);
+      yield put(getAllUsers());
+  } catch (err) {
+      console.log(err);
+  }
+}
+
+export function * deleteUser({payload}) {
+  try {
+    yield handleDeleteUser(payload);
+    yield put(getAllUsers());
+  } catch (err) {
+    console.log(err);
+  }
+}
+
+export function * onSetRoles() {
+  yield takeLatest(userTypes.GIVE_USER_ROLES, setUserRoles);
+}
+
+export function * onFetchAllUsers() {
+  yield takeLatest(userTypes.GET_ALL_USERS, fetchAllUsers);
+}
+export function * onDeletehUser() {
+  yield takeLatest(userTypes.DELETE_USER, deleteUser);
+}
+
 export function * onResetPasswordStart() {
   yield takeLatest(userTypes.RESET_PASSWORD_START, resetPassword);
 }
@@ -153,6 +196,9 @@ export default function * userSagas() {
     call(onSignOutUserStart),
     call(onRegistrUserStart),
     call(onResetPasswordStart),
-    call(onGoogleSignInStart)
+    call(onGoogleSignInStart),
+    call(onFetchAllUsers),
+    call(onDeletehUser),
+    call(onSetRoles)
   ])
 }

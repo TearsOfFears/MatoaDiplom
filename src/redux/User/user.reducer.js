@@ -5,6 +5,7 @@ const INITIAL_STATE = {
   resetPasswordSuccess: false,
   userErrors: [],
   loading:true,
+  allUsers:[]
 };
 
 const userReducer = (state = INITIAL_STATE, action) => {
@@ -14,6 +15,7 @@ const userReducer = (state = INITIAL_STATE, action) => {
         ...state,
         currentUser: action.payload,
         userErrors: [],
+        loading:false,
       }
     case userTypes.RESET_USER_STATE:
     case userTypes.SIGN_OUT_USER_SUCCESS:
@@ -29,7 +31,13 @@ const userReducer = (state = INITIAL_STATE, action) => {
     case userTypes.RESET_PASSWORD_SUCCESS:
       return {
         ...state,
-        resetPasswordSuccess: action.payload
+        resetPasswordSuccess: action.payload,
+        loading:false,
+      }
+      case userTypes.SET_ALL_USERS:
+        return {
+        ...state,
+        allUsers: action.payload
       }
       case userTypes.LOADING:
         return {

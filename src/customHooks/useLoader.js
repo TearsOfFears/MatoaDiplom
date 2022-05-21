@@ -24,7 +24,6 @@ const useLoader = props => {
     const [hide, setIsHide] = useState(false);
 
     if (!contentHomeLoading && !userLoading){
-        window.scrollTo(0, 0);
         setTimeout(() => setIsHide(true), 1000);
     }
       

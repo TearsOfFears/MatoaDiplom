@@ -32,7 +32,6 @@ import {
 } from "../../redux/Products/products.actions";
 import { storage } from "./../../firebase/utils";
 
-
 const mapState = ({ productsData }) => ({ products: productsData.products });
 const MenageProducts = () => {
 	const [hideModal, setHideModal] = useState(false);
@@ -95,7 +94,6 @@ const MenageProducts = () => {
 		width: "15%",
 	};
 
-
 	const { data, queryDoc, isLastPage } = products;
 	useEffect(() => {
 		dispatch(fetchProductsStart());
@@ -109,7 +107,7 @@ const MenageProducts = () => {
 			})
 		);
 	};
-	
+
 	const configLoadMore = {
 		onLoadMoreEvt: handleLoadMore,
 	};
@@ -246,11 +244,9 @@ const MenageProducts = () => {
 									</TableRow>
 								);
 							})}
-						<TableRow>
-							{!isLastPage && <LoadMore {...configLoadMore} />}
-						</TableRow>
 					</TableBody>
 				</Table>
+				<TableRow>{!isLastPage && <LoadMore {...configLoadMore} />}</TableRow>
 			</TableContainer>
 		</div>
 	);

@@ -65,3 +65,24 @@ export const toggleLoading = (status) =>({
     type:userTypes.LOADING,
     payload:status
 })
+
+
+export const getAllUsers = (filters={}) =>({
+    type:userTypes.GET_ALL_USERS,
+    payload:filters
+})
+
+export const setUsers = users =>({
+    type:userTypes.SET_ALL_USERS,
+    payload:users
+})
+
+export const giveUserRole = role =>({
+    type:userTypes.GIVE_USER_ROLES,
+    payload:role
+})
+
+export const deleteUser = uid =>({
+    type:userTypes.DELETE_USER,
+    payload:uid
+})
