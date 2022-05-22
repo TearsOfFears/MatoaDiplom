@@ -103,13 +103,13 @@ function Swiper1() {
 													data-swiper-parallax-duration={800}
 												>
 													<Link to={linkDiscover} className="btn-discover">
-														Discover
+														Подробиці
 													</Link>
 
 													<Link to={`/product/${linkDetail}`} className="btn-read mt-2">
 													
 															<FontAwesomeIcon icon={faInfoCircle}/>
-															Read details
+															Перегялнути
 													
 													</Link>
 												</div>
