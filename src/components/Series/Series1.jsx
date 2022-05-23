@@ -12,16 +12,6 @@ import { useSelector } from "react-redux";
 import { faFacebook } from "@fortawesome/free-brands-svg-icons";
 import { Link,useNavigate } from "react-router-dom";
 
-const seriesArray = [
-	{
-		titleFirst: "Maple Series",
-		Array1: [
-			{ title: "Way Kambas Maple", price: "Rp 1.280.000", img: ebony1 },
-			{ title: "Kaili", price: "Rp 950.000", img: ebony2 },
-			{ title: "Sunda", price: "Rp 1.170.000", img: ebony3 },
-		],
-	},
-];
 
 const mapState = ({ contentHome }) => ({
 	productsSeries: contentHome.contentSeries.data,
@@ -44,7 +34,7 @@ function Series1() {
 				<div className="row ">
 					<div className="wrapper-series">
 						<div className="block">
-							<h1 className="wrapper-series-title">Кедрова колекція</h1>
+							<h1 className="wrapper-series-title">Кленова колекція</h1>
 							<hr />
 							{Array.isArray(productsSeries) && productsSeries.map((data, index) => {
 								const { productName, price, productThumbnail,series } = data;
@@ -65,7 +55,7 @@ function Series1() {
 							})}
 						</div>
 						<div className="block">
-							<h1 className="wrapper-series-title">Кленова колекція</h1>
+							<h1 className="wrapper-series-title">Чорна колекція</h1>
 							<hr />
 							{Array.isArray(productsSeries) && productsSeries.map((data, index) => {
 								const { productName, price, productThumbnail,series } = data;
@@ -85,7 +75,7 @@ function Series1() {
 							})}
 						</div>
 						<div className="block">
-							<h1 className="wrapper-series-title">Чорна колекція</h1>
+							<h1 className="wrapper-series-title">Скелетон колекція</h1>
 							<hr />
 							{Array.isArray(productsSeries) && productsSeries.map((data, index) => {
 								const { productName, price, productThumbnail,series } = data;
