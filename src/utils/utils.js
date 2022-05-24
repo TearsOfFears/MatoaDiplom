@@ -28,6 +28,10 @@ export const apiInstance = axios.create({
 });
 
 
+export const apiInstanceDelete = axios.create({
+    baseURL:'http://localhost:5001/matoa-diplom/us-central1/deleteUserById'
+});
+
 export const formatDate = (data) => {
 	let myDate = new Date(
 		data.seconds * 1000 + data.nanoseconds / 1000000

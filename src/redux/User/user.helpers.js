@@ -1,12 +1,16 @@
 import { auth, firestore } from './../../firebase/utils';
+import { getAuth,deleteUser } from "firebase/auth";
+const authUser = getAuth();
+const user = auth;
 
 export const handleResetPasswordAPI = (email) => {
   const config = {
-    url: 'http://localhost:3000/login'
+    url: 'https://matoa-diplom.web.app/login'
   };
 
   return new Promise((resolve, reject) => {
     auth.sendPasswordResetEmail(email, config)
+    
       .then(() => {
         resolve();
       })
@@ -57,8 +61,6 @@ export const handleFetchUsers= ({
 }
 
 export const handleSetRoles = (userRoles, documentId) => {
-  console.log(userRoles);
-  console.log(documentId);
   return new Promise((resolve, reject) => {
     //Object.assign({}, userRoles)
     firestore

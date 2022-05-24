@@ -12,6 +12,7 @@ import { useSelector } from "react-redux";
 import { useEffect } from "react";
 import { deleteUser, getAllUsers, giveUserRole } from "../../redux/User/user.actions";
 import SelectCustom from "react-select";
+import { apiInstanceDelete } from "../../utils/utils";
 const mapState = ({ user }) => ({ allUsers: user.allUsers });
 function Users() {
 	const dispatch = useDispatch();
@@ -114,8 +115,12 @@ function Users() {
         const userRoles = {userRoles:arr}
 		dispatch(giveUserRole({userRoles:arr,documentId}))
 	};
-    const handleDelete = (documentID)=>{
+    const handleDelete = async (documentID)=>{
+		
         dispatch(deleteUser(documentID));
+		await apiInstanceDelete.post("",{
+			uid:documentID,
+		});
     }
 	return (
 		<div>
