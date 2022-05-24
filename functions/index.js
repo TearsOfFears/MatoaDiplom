@@ -49,7 +49,6 @@ app.get('/payments/create', (req, res) => {
 
 deleteUser.post("", async (req, res) => {
 
-  // var serviceAccount = require("./firebaseConfig.json");
   admin.initializeApp(functions.config().firebase);
 
   const userID = req.body.uid;

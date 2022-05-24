@@ -29,7 +29,8 @@ export const apiInstance = axios.create({
 
 
 export const apiInstanceDelete = axios.create({
-    baseURL:'http://localhost:5001/matoa-diplom/us-central1/deleteUserById'
+    //baseURL:'https://us-central1-matoa-diplom.cloudfunctions.net/api'
+    baseURL:'https://us-central1-matoa-diplom.cloudfunctions.net/deleteUserById'
 });
 
 export const formatDate = (data) => {

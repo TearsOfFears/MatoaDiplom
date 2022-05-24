@@ -15,7 +15,10 @@ import {
 import { createStructuredSelector } from "reselect";
 import { apiInstance } from "./../../../utils/utils";
 import { useSelector, useDispatch } from "react-redux";
-import { getUserOrderHistory, saveOrderHistory } from "../../../redux/Orders/orders.actions";
+import {
+	getUserOrderHistory,
+	saveOrderHistory,
+} from "../../../redux/Orders/orders.actions";
 import { ButtonForm } from "../..";
 import ModalError from "../../ModalError/ModalError";
 import { Button } from "@material-ui/core";
@@ -124,10 +127,16 @@ function Payment({ handleChangeState, stage }) {
 				name: stage.pasteInfo.nameOnCard,
 				email: currentUser.email,
 				phone: stage.pasteInfo.phone,
-				activity:{value:"Processing",label:"В обробці"},
+				activity: { value: "Processing", label: "В обробці" },
 				orderItems: cartItems.map((item) => {
-					const { documentId, productName, productThumbnail, price, quantity,packageType } =
-						item;
+					const {
+						documentId,
+						productName,
+						productThumbnail,
+						price,
+						quantity,
+						packageType,
+					} = item;
 					return {
 						documentId,
 						productThumbnail,
@@ -181,7 +190,7 @@ function Payment({ handleChangeState, stage }) {
 						</div>
 						<div className="wrapper-detail__headers_2">
 							<h3>{total} ₴</h3>
-							<h3> 500 ₴</h3>
+							<h3> ~100 ₴</h3>
 
 							<h3>{pricePackage} ₴</h3>
 						</div>
