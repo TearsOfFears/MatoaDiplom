@@ -22,6 +22,7 @@ import { fetchProductsStart } from './redux/Products/products.actions';
 import NewsLayout from './Layouts/NewsLayout';
 import AboutUS from './pages/AboutUS';
 import Business from './pages/Business';
+import NotFound from './pages/NotFound';
 
 const App = (props)=> {
 
@@ -53,6 +54,13 @@ setstate(true);
       <div className='app'>
         <AdminToolBar/>
         <Routes>
+        <Route path="*" element={
+              <WithLoader>
+              <SecondLayout>
+                  <NotFound/>
+            </SecondLayout>
+              </WithLoader>
+          } />
           <Route exact path="/" element={
               <WithLoader>
               <MainLayout>

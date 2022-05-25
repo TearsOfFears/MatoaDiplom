@@ -22,6 +22,7 @@ import {
 import { ButtonForm } from "../..";
 import ModalError from "../../ModalError/ModalError";
 import { Button } from "@material-ui/core";
+import axios from "axios";
 
 const mapState = ({ user, cartData }) => ({
 	currentUser: user.currentUser,
@@ -42,6 +43,7 @@ function Payment({ handleChangeState, stage }) {
 	const { total, itemCount, cartItems, calcPrice } = useSelector(mapStateItems);
 	const [isProcessing, setProcessingTo] = useState(false);
 	const [checkoutError, setCheckoutError] = useState();
+	const [grandTotal, setGrandTotal] = useState(0);
 	const stripe = useStripe();
 	const [hideModal, setHideModal] = useState(true);
 
@@ -71,8 +73,19 @@ function Payment({ handleChangeState, stage }) {
 	const handleCardDetailsChange = (ev) => {
 		ev.error ? setCheckoutError(ev.error.message) : setCheckoutError();
 	};
-	let grandTotal = total + 100 + pricePackage;
 
+	const [curr, setCurr] = useState([]);
+	useEffect(() => {
+		axios
+			.get(
+				`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/uah.json`
+			)
+			.then((res) => {
+				setCurr(res.data["uah"].usd);
+			});
+		setGrandTotal(Math.round((total + 100 + pricePackage) * curr) * 100);
+	}, [curr,total]);
+	let grandTotalOrder = total + 100 + pricePackage;
 	const { email } = currentUser || {};
 
 	const sutmitPayment = async (evt) => {
@@ -121,7 +134,7 @@ function Payment({ handleChangeState, stage }) {
 			const configOrder = {
 				subtotal: total,
 				packagingPrice: pricePackage,
-				grandTotal: grandTotal,
+				grandTotal: grandTotalOrder,
 				shippingAddress: stage.shippingAddress,
 				billingAddress: stage.billingAddress,
 				name: stage.pasteInfo.nameOnCard,
@@ -163,7 +176,6 @@ function Payment({ handleChangeState, stage }) {
 
 	useEffect(() => {
 		if (checkoutError) {
-			console.log(checkoutError);
 			setHideModal(!hideModal);
 		}
 	}, [checkoutError]);
@@ -200,7 +212,7 @@ function Payment({ handleChangeState, stage }) {
 							<h3>Загальна сума</h3>
 						</div>
 						<div className="wrapper-detail__headers_2">
-							<h2>{grandTotal} ₴</h2>
+							<h2>{grandTotalOrder} ₴</h2>
 						</div>
 					</div>
 				</div>

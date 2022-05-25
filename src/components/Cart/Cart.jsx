@@ -6,7 +6,7 @@ import { selectCartItems } from "../../redux/Carts/cart.selectors";
 import { createStructuredSelector } from "reselect";
 import { Buttons, ItemRender } from "..";
 
-import { selectCartTotal } from "../../redux/Carts/cart.selectors";
+import { selectCartTotal,selectCartItemsCountPrice } from "../../redux/Carts/cart.selectors";
 import { Link, useNavigate } from "react-router-dom";
 import { useEffect } from "react";
 
@@ -15,12 +15,16 @@ import Emptycart from "../EmptyCart/Emptycart";
 
 const mapState = createStructuredSelector({
 	cartItems: selectCartItems,
+	packagePrice:selectCartItemsCountPrice,
 	total: selectCartTotal,
 });
 
 function Cart() {
-	const { cartItems, total } = useSelector(mapState);
-
+	const { cartItems, total,packagePrice } = useSelector(mapState);
+	const [packegePriceCalc,setPackagePrice] = useState(0);
+useEffect(()=>{
+	setPackagePrice(packagePrice.reduce((prev,curr)=> prev+curr))
+},[packagePrice])
 	return (
 		<section className="cart ">
 			{cartItems.length > 0 ? (
@@ -31,7 +35,7 @@ function Cart() {
 					<div className="wrapper-checkout mt-4" key={0}>
 						<div className="total">
 							<h1>Підсумок:</h1>
-							<p>{total} ₴</p>
+							<p>{total +packegePriceCalc} ₴</p>
 						</div>
 						<div
 							style={{

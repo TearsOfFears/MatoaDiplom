@@ -11,17 +11,12 @@ export const selectCartItems = createSelector(
 export const selectCartItemsCountPrice= createSelector(
   [selectCartItems],
   cartItems => cartItems.map((data,key)=>{
-    if(typeof data.packageType === "undefined"){
-      return 0
-    }
-   else{
+
     return data.quantity * data.packageType.price;
-   }
+   
    
   })
 );
-
-
 
 
 export const selectCartItemsCount = createSelector(

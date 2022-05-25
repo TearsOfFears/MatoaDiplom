@@ -73,7 +73,7 @@ export function* saveOrderHistoryStart({
         const timestamp = new Date();
         yield handleSaveOrder({
             ...payload,
-            orderUserID: `${auth.currentUser.displayName}-${auth.currentUser.uid}`,
+            orderUserID: `${auth.currentUser.uid}`,
             orderCreated: timestamp
         });
         yield put(clearCart())

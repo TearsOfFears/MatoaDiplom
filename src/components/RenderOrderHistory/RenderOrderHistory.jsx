@@ -70,51 +70,56 @@ const RenderOrderHistory = (currentUser) => {
 	return (
 		<div className="dashboard mb-5">
 			<VerticalNav />
-
 			<TableContainer>
 				<h1 className="mt-0">Замовлення</h1>
 				{loading ? (
-					<Box sx={{ width: "100%",marginTop:"20px" }}>
-						<LinearProgress/>
+					<Box sx={{ width: "100%", marginTop: "20px" }}>
+						<LinearProgress />
 					</Box>
 				) : (
 					<Table>
-						<TableHead>
-							<TableRow>
-								{colums.map((column, pos) => {
-									const { lable } = column;
-									return (
-										<TableCell key={pos} style={styles}>
-											{lable}
-										</TableCell>
-									);
-								})}
-							</TableRow>
-						</TableHead>
+						{Array.isArray(orderData) && orderData.length === 0 ? (
+							<h1>Немає замовлень ((</h1>
+						) : (
+							<div>
+								<TableHead>
+									<TableRow>
+										{colums.map((column, pos) => {
+											const { lable } = column;
+											return (
+												<TableCell key={pos} style={styles}>
+													{lable}
+												</TableCell>
+											);
+										})}
+									</TableRow>
+								</TableHead>
 
-						<TableBody style={styles}>
-							{Array.isArray(orderData) &&
-								orderData.length > 0 &&
-								currentUser.id.length > 0 &&
-								orderData.map((row, pos) => {
-									const { documentID, grandTotal, orderCreated, activity } =
-										row;
+								<TableBody style={styles}>
+									{Array.isArray(orderData) &&
+										orderData.length > 0 &&
+										currentUser.id.length > 0 &&
+										orderData.map((row, pos) => {
+											const { documentID, grandTotal, orderCreated, activity } =
+												row;
 
-									return (
-										<TableRow
-											key={pos}
-											onClick={() => navigate(`/order/${documentID}`)}
-										>
-											<TableCell align="left">
-												{formatDate(orderCreated)}
-											</TableCell>
-											<TableCell align="left">{documentID}</TableCell>
-											<TableCell align="left">{activity.label}</TableCell>
-											<TableCell align="left">{grandTotal} ₴</TableCell>
-										</TableRow>
-									);
-								})}
-						</TableBody>
+											return (
+												<TableRow
+													key={pos}
+													onClick={() => navigate(`/order/${documentID}`)}
+												>
+													<TableCell align="left">
+														{formatDate(orderCreated)}
+													</TableCell>
+													<TableCell align="left">{documentID}</TableCell>
+													<TableCell align="left">{activity.label}</TableCell>
+													<TableCell align="left">{grandTotal} ₴</TableCell>
+												</TableRow>
+											);
+										})}
+								</TableBody>
+							</div>
+						)}
 					</Table>
 				)}
 			</TableContainer>
