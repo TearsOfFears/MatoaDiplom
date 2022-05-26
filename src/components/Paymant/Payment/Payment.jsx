@@ -43,7 +43,7 @@ function Payment({ handleChangeState, stage }) {
 	const { total, itemCount, cartItems, calcPrice } = useSelector(mapStateItems);
 	const [isProcessing, setProcessingTo] = useState(false);
 	const [checkoutError, setCheckoutError] = useState();
-	const [grandTotal, setGrandTotal] = useState(0);
+	
 	const stripe = useStripe();
 	const [hideModal, setHideModal] = useState(true);
 
@@ -74,18 +74,8 @@ function Payment({ handleChangeState, stage }) {
 		ev.error ? setCheckoutError(ev.error.message) : setCheckoutError();
 	};
 
-	const [curr, setCurr] = useState([]);
-	useEffect(() => {
-		axios
-			.get(
-				`https://cdn.jsdelivr.net/gh/fawazahmed0/currency-api@1/latest/currencies/uah.json`
-			)
-			.then((res) => {
-				setCurr(res.data["uah"].usd);
-			});
-		setGrandTotal(Math.round((total + 100 + pricePackage) * curr) * 100);
-	}, [curr,total]);
-	let grandTotalOrder = total + 100 + pricePackage;
+
+	let grandTotal = total + 100 + pricePackage;
 	const { email } = currentUser || {};
 
 	const sutmitPayment = async (evt) => {
@@ -134,7 +124,7 @@ function Payment({ handleChangeState, stage }) {
 			const configOrder = {
 				subtotal: total,
 				packagingPrice: pricePackage,
-				grandTotal: grandTotalOrder,
+				grandTotal: grandTotal,
 				shippingAddress: stage.shippingAddress,
 				billingAddress: stage.billingAddress,
 				name: stage.pasteInfo.nameOnCard,
@@ -212,7 +202,7 @@ function Payment({ handleChangeState, stage }) {
 							<h3>Загальна сума</h3>
 						</div>
 						<div className="wrapper-detail__headers_2">
-							<h2>{grandTotalOrder} ₴</h2>
+							<h2>{grandTotal} ₴</h2>
 						</div>
 					</div>
 				</div>

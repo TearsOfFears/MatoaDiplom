@@ -116,6 +116,7 @@ const Orders = () => {
 	};
 
 	const options = [
+		{ value: "Processing", name: "В обробці" },
 		{
 			name: "Очікуйте дзвінка",
 			value: "Waiting for Call",
@@ -147,9 +148,7 @@ const Orders = () => {
 
 	const handleDelete = (documentID) => {
 		dispatch(deleteOrder(documentID));
-		dispatch(
-			fetchOrdersHistory({})
-		);
+		dispatch(fetchOrdersHistory({}));
 	};
 	const handleLoadMore = () => {
 		dispatch(
