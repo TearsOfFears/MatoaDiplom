@@ -16,7 +16,7 @@ import Skeleton from "../Skeleton";
 import { useNavigate, useParams } from "react-router";
 import { useSearchParams, createSearchParams } from "react-router-dom";
 import { makeStyles } from "@material-ui/core";
-import Buttons from "../../Buttons";
+import Buttons from "../../Buttons/Buttons";
 import { Checkbox, FormControlLabel } from "@material-ui/core";
 import { getUserOrderHistory } from "../../../redux/Orders/orders.actions";
 const initialCat = {

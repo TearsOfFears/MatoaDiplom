@@ -1,10 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { ButtonForm, AuthWrapper } from "./index";
-import FormInput from "./Forms/FormInput";
+import { ButtonForm, AuthWrapper } from "../index";
+import FormInput from "../Forms/FormInput";
 import { Navigate } from "react-router";
 import { useDispatch, useSelector } from "react-redux";
 
-import { registUserStart } from "../redux/User/user.actions";
+import { registUserStart } from "../../redux/User/user.actions";
 
 const mapState = ({ user }) => ({
 	currentUser: user.currentUser,

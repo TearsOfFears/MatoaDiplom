@@ -1,6 +1,6 @@
 import React from "react";
 
-import Vector2 from "../assets/img/home/Vector2.png";
+import Vector2 from "./../../assets/img/home/Vector2.png";
 
 function TestimonalsLines() {
 	return (

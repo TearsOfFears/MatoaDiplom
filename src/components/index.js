@@ -14,18 +14,18 @@ export {default as Footer} from "./Footer/Footer";
 export {default as Cart} from "./Cart/Cart";
 export {default as ItemRender} from "./Cart/ItemRender";
 
-export {default as Buttons} from "./Buttons";
+export {default as Buttons} from "./Buttons/Buttons";
 export {default as IconLogin} from "./Icons/IconLogin";
 export {default as IconCart} from "./Icons/IconCart";
 
-export {default as LinesBg} from "./LinesBg";
-export {default as LinesBottom} from "./LinesBottom";
-export {default as TestimonalsLines} from "./TestimonalsLines";
+export {default as LinesBg} from "./Utils/LinesBg";
+export {default as LinesBottom} from "./Utils/LinesBottom";
+export {default as TestimonalsLines} from "./Utils/TestimonalsLines";
 
-export {default as SignIn} from "./SignIn";
-export {default as SignUp} from "./SignUp";
+export {default as SignIn} from "./SignIn/SignIn";
+export {default as SignUp} from "./Registr/SignUp";
 
-export {default as Modal} from "./Modal"; 
+export {default as Modal} from "./Utils/Modal"; 
 export {default as ModalError} from "./ModalError/ModalError"; 
 
 export {default as ButtonForm} from "./Forms/ButtonForm";
@@ -39,7 +39,7 @@ export {default as EmailPassword} from "./Forms/EmailPassword";
 
 
 
-export {default as LoadMore} from "./LoadMore"; 
+export {default as LoadMore} from "./Buttons/LoadMore"; 
 
 export {default as ProductCard} from "./Product/ProductCard"; 
 export {default as ProductsShow} from "./Product/ProductShow/ProductsShow"; 

@@ -1,5 +1,5 @@
 import React from "react";
-import Vector1 from "../assets/img/home/Vector1.png";
+import Vector1 from "./../../assets/img/home/Vector1.png";
 
 function LinesBottom() {
 	return (

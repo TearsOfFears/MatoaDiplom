@@ -1,15 +1,15 @@
 import { useDispatch, useSelector } from "react-redux";
 import React, { useState, useEffect } from "react";
-import { ButtonForm, Buttons, AuthWrapper } from "./index";
+import { ButtonForm, Buttons, AuthWrapper } from "../index";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faGoogle } from "@fortawesome/free-brands-svg-icons";
-import FormInput from "./Forms/FormInput";
+import FormInput from "../Forms/FormInput";
 import { Link } from "react-router-dom";
 
 import {
 	emailSigInStart,
 	googleSignIn
-} from "./../redux/User/user.actions";
+} from "../../redux/User/user.actions";
 
 const mapState = ({ user }) => ({
 	currentUser: user.currentUser,

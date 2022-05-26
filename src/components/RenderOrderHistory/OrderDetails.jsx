@@ -15,7 +15,7 @@ import { useDispatch } from "react-redux";
 import { useEffect } from "react";
 import { getOrderDetailsStart, setOrderDetailsStart } from "../../redux/Orders/orders.actions";
 import { useNavigate, Link } from "react-router-dom";
-import Buttons from "../Buttons";
+import Buttons from "../Buttons/Buttons";
 import { useParams } from "react-router";
 const columns = [
 	{
