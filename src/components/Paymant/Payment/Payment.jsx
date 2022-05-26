@@ -43,7 +43,7 @@ function Payment({ handleChangeState, stage }) {
 	const { total, itemCount, cartItems, calcPrice } = useSelector(mapStateItems);
 	const [isProcessing, setProcessingTo] = useState(false);
 	const [checkoutError, setCheckoutError] = useState();
-	
+
 	const stripe = useStripe();
 	const [hideModal, setHideModal] = useState(true);
 
@@ -74,8 +74,7 @@ function Payment({ handleChangeState, stage }) {
 		ev.error ? setCheckoutError(ev.error.message) : setCheckoutError();
 	};
 
-
-	let grandTotal = (total + 100 + pricePackage)*100;
+	let grandTotal = total + 100 + pricePackage;
 	const { email } = currentUser || {};
 
 	const sutmitPayment = async (evt) => {
@@ -84,7 +83,7 @@ function Payment({ handleChangeState, stage }) {
 		const cardElement = elements.getElement("card");
 
 		const { data: clientSecret } = await apiInstance.post("/payments/create", {
-			amount: grandTotal,
+			amount: grandTotal * 100,
 			shipping: {
 				name: stage.pasteInfo.recipientName,
 				phone: stage.pasteInfo.phone,
