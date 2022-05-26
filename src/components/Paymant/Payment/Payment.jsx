@@ -75,7 +75,7 @@ function Payment({ handleChangeState, stage }) {
 	};
 
 
-	let grandTotal = total + 100 + pricePackage;
+	let grandTotal = (total + 100 + pricePackage)*100;
 	const { email } = currentUser || {};
 
 	const sutmitPayment = async (evt) => {
