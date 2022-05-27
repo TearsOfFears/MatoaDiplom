@@ -131,7 +131,7 @@ const MenageProducts = () => {
 		toggleModal,
 		setHideModal,
 	};
-	console.log(news);
+
 	return (
 		<div className="menageProducts">
 			<div className="d-flex flex-row align-items-flex-start justify-content-between">

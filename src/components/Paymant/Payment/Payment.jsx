@@ -280,4 +280,5 @@ function Payment({ handleChangeState, stage }) {
 	);
 }
 
+
 export default Payment;
