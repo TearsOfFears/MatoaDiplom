@@ -23,7 +23,7 @@ function Cart() {
 	const { cartItems, total,packagePrice } = useSelector(mapState);
 	const [packegePriceCalc,setPackagePrice] = useState(0);
 useEffect(()=>{
-	setPackagePrice(packagePrice.reduce((prev,curr)=> prev+curr))
+	setPackagePrice(cartItems.length > 0 ? packagePrice.reduce((prev,curr)=> prev+curr):0)
 },[packagePrice])
 	return (
 		<section className="cart ">
