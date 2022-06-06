@@ -78,11 +78,11 @@ function Payment({ handleChangeState, stage }) {
 	const { email } = currentUser || {};
 
 	const sutmitPayment = async (evt) => {
-		evt.preventDefault();
-		setProcessingTo(true);
-		const cardElement = elements.getElement("card");
-
+		evt.preventDefault(); //Блокує перезавантаження сторінки, при нажаті кнопки
+		setProcessingTo(true); //Змінюєм стан кнопки для користувача
+		const cardElement = elements.getElement("card"); //отримуємо дані з поля заповнення картки
 		const { data: clientSecret } = await apiInstance.post("/payments/create", {
+			//робимо запрос до сервера, та надисажє
 			amount: grandTotal * 100,
 			shipping: {
 				name: stage.pasteInfo.recipientName,
@@ -92,8 +92,8 @@ function Payment({ handleChangeState, stage }) {
 				},
 			},
 		});
-
 		const paymentMethodReq = await stripe.createPaymentMethod({
+			//створюємо запит до сервісу Stripe,та надаємо нижчне наведенну інформацію
 			type: "card",
 			card: cardElement,
 			billing_details: {
@@ -105,22 +105,22 @@ function Payment({ handleChangeState, stage }) {
 				},
 			},
 		});
-
-		if (paymentMethodReq.error) {
-			setCheckoutError(paymentMethodReq.error.message);
-			setProcessingTo(false);
+		if (paymentMethodReq.error) {//ловимо помилки
+			setCheckoutError(paymentMethodReq.error.message); //вставляємо повідомлення помилки
+			setProcessingTo(false); //забороняємо нажиття кнопки для користувача
 			return;
 		}
 		const { error } = await stripe.confirmCardPayment(clientSecret, {
+			//ловимо помилки
 			payment_method: paymentMethodReq.paymentMethod.id,
 		});
-
-		if (error) {
-			setCheckoutError(error.message);
-			setProcessingTo(false);
+		if (error) {//ловимо помилки
+			setCheckoutError(error.message); //вставляємо повідомлення помилки
+			setProcessingTo(false); //забороняємо нажиття кнопки для користувача
 			return;
 		} else {
-			const configOrder = {
+			const configOrder = {//створюєм об`єкт для збереження даних
+				
 				subtotal: total,
 				packagingPrice: pricePackage,
 				grandTotal: grandTotal,
@@ -131,6 +131,7 @@ function Payment({ handleChangeState, stage }) {
 				phone: stage.pasteInfo.phone,
 				activity: { value: "Processing", label: "В обробці" },
 				orderItems: cartItems.map((item) => {
+					//створюємо об`єкт всередині документа для конфігурування товарів
 					const {
 						documentId,
 						productName,
@@ -149,8 +150,8 @@ function Payment({ handleChangeState, stage }) {
 					};
 				}),
 			};
-			dispatch(saveOrderHistory(configOrder));
-			dispatch(getUserOrderHistory(currentUser.id));
+			dispatch(saveOrderHistory(configOrder));//передаємо вище створений об`єкт в локальне сховище та надсиоаємо до Firebase
+			dispatch(getUserOrderHistory(currentUser.id));//отримуємо замовлення користувача для віображення у
 		}
 
 		if (!isProcessing) {
@@ -279,6 +280,5 @@ function Payment({ handleChangeState, stage }) {
 		</div>
 	);
 }
-
 
 export default Payment;

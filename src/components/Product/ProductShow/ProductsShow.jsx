@@ -110,7 +110,7 @@ const ProductsShow = () => {
 		},
 	];
 	useEffect(() => {
-		dispatch(setLoadedProducts(true))
+		dispatch(setLoadedProducts(true));
 		const id = "";
 		dispatch(getUserOrderHistory(id));
 		dispatch(setCurrentProduct({}));
@@ -190,7 +190,6 @@ const ProductsShow = () => {
 				series,
 			})
 		);
-	
 	}, [searchParams]);
 
 	if (!Array.isArray(data)) {
@@ -468,7 +467,6 @@ const ProductsShow = () => {
 									};
 									return <ProductRender {...configProduct} key={ind} />;
 								})}
-				
 						</div>
 						{Array.isArray(data) && data.length > 0 ? null : (
 							<div className="d-flex flex-row align-center w-100 h-100 text-center">
