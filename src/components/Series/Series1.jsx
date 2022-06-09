@@ -20,7 +20,6 @@ function Series1() {
 	const dispatch = useDispatch();
 	const navigate = useNavigate()
 	const { productsSeries } = useSelector(mapState);
-	console.log(productsSeries);
 	useEffect(() => {
 		const series = ["maple", "ebony", "skeleton"];
 		dispatch(fetchHomeSeries({ series }));

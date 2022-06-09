@@ -110,23 +110,35 @@ function Footer() {
 							<h1>Колекції</h1>
 							<hr />
 							<ul>
-							<li>
-									<Link to="/products?sort=&order=&available=&discount=&series=" className="nav-link-footer">
-										Без колекції 
+								<li>
+									<Link
+										to="/products?sort=&order=&available=&discount=&series="
+										className="nav-link-footer"
+									>
+										Без колекції
 									</Link>
 								</li>
 								<li>
-									<Link to="/products?sort=&order=&available=&discount=&series=skeleton" className="nav-link-footer">
+									<Link
+										to="/products?sort=&order=&available=&discount=&series=skeleton"
+										className="nav-link-footer"
+									>
 										Скелетон колекція
 									</Link>
 								</li>
 								<li>
-									<Link to="/products?sort=&order=&available=&discount=&series=ebony" className="nav-link-footer">
+									<Link
+										to="/products?sort=&order=&available=&discount=&series=ebony"
+										className="nav-link-footer"
+									>
 										Чорна колекція
 									</Link>
 								</li>
 								<li>
-									<Link to="/products?sort=&order=&available=&discount=&series=maple" className="nav-link-footer">
+									<Link
+										to="/products?sort=&order=&available=&discount=&series=maple"
+										className="nav-link-footer"
+									>
 										Кленова колекція
 									</Link>
 								</li>

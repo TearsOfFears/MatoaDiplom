@@ -1,7 +1,6 @@
 import React from "react";
 import { ButtonForm, Buttons } from "../index";
 import "./news.scss";
-import newsImage from "./../../assets/img/home/newsImage.png";
 import { Link, useNavigate } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -17,7 +16,6 @@ function NewsSection() {
 	const [array, setArray] = useState([]);
 
 
-
 	useEffect(() => {
 		const limit = 1;
 		dispatch(fetchNewsHistory({limit}));
@@ -26,8 +24,6 @@ function NewsSection() {
 	const handleGetDetails = (newsLink) => {
 		navigate(`/news/${newsLink}`);
 	};
-console.log(news);
-console.log(array);
 	return (
 		<div className="container">
 			<h1>Останні новини</h1>

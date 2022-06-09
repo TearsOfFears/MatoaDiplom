@@ -179,18 +179,24 @@ const ModalNews = ({ toggleModal, hideModal, setHideModal }) => {
 								handleChange={(e) => setNewsLink(e.target.value)}
 							/>
 							{edit && (
-								<CKEditor
-									data={descShort}
-									initData={descShort}
-									onChange={(evt) => setDescShort(evt.editor.getData())}
-								/>
+								<div>
+									<h2>Короткий опис</h2>
+									<CKEditor
+										data={descShort}
+										initData={descShort}
+										onChange={(evt) => setDescShort(evt.editor.getData())}
+									/>
+								</div>
 							)}
 							{edit && (
-								<CKEditor
-									data={descLong}
-									initData={descLong}
-									onChange={(evt) => setDescLong(evt.editor.getData())}
-								/>
+								<div>
+									<h2>Довгий опис</h2>
+									<CKEditor
+										data={descLong}
+										initData={descLong}
+										onChange={(evt) => setDescLong(evt.editor.getData())}
+									/>
+								</div>
 							)}
 							<FormInput
 								Label="Зображення"
@@ -203,7 +209,7 @@ const ModalNews = ({ toggleModal, hideModal, setHideModal }) => {
 						</form>
 					) : (
 						<form onSubmit={handleSubmit}>
-							<h2>Добавити нову новину </h2>
+							<h2>Добавити новину </h2>
 							<FormInput
 								Label="Заголовок"
 								type="text"
@@ -216,17 +222,26 @@ const ModalNews = ({ toggleModal, hideModal, setHideModal }) => {
 								value={newsLink}
 								handleChange={(e) => setNewsLink(e.target.value)}
 							/>
-							<CKEditor
-								onChange={(evt) => setDescShort(evt.editor.getData())}
-							/>
-							<CKEditor onChange={(evt) => setDescLong(evt.editor.getData())} />
+							<div>
+								<h2>Короткий опис</h2>
+								<CKEditor
+									onChange={(evt) => setDescShort(evt.editor.getData())}
+								/>
+							</div>
+							<div>
+								<h2>Довгий опис</h2>
+								<CKEditor
+									onChange={(evt) => setDescLong(evt.editor.getData())}
+								/>
+							</div>
+
 							<FormInput
 								Label="Зображення"
 								type="file"
 								handleChange={(e) => onHandleFileNews(e.target.files)}
 							/>
 							<Buttons type="submit" style="btn-read">
-								Добавити новий продукт
+								Добавити новину
 							</Buttons>
 						</form>
 					)}
