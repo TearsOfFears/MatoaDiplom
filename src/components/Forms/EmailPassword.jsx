@@ -46,6 +46,7 @@ const EmailPassword = (props) => {
 
 	const configAuthWrapper = {
 		headline: "Відновити пароль",
+		recovery:"recovery"
 	};
 	if (redirect) {
 		return <Navigate to="/login" />;
@@ -53,7 +54,7 @@ const EmailPassword = (props) => {
 	
 	return (
 		<AuthWrapper {...configAuthWrapper}>
-			<div className="formWrap mb-5">
+			<div className="formWrap mb-5 ">
 				{errors.length > 0 && (
 					<ul style={{listStyleType:"none", margin:0, padding:0,}}>
 						{errors.map((e, index) => {

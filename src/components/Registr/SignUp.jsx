@@ -64,6 +64,7 @@ const SignUp = (props) => {
 
 	const configAuthWrapper = {
 		headline: "Зареєструватись",
+		recovery:"recovery"
 	};
 	return (
 		<AuthWrapper {...configAuthWrapper}>
