@@ -93,7 +93,7 @@ export function * registrUser({
       displayName
     };
     yield getSnapshotFromUserAuth(user, additionalData);
-    yield put(signInSuccess({user}))
+    // yield put(signInSuccess(user))
 
   } catch (err) {
     console.log(err);
@@ -116,7 +116,7 @@ export function * googleSignInStart() {
   try {
     const {user} = yield auth.signInWithPopup(GoogleProvider)
     yield getSnapshotFromUserAuth(user);
-    yield put(signInSuccess(user));
+    // yield put(signInSuccess(user));
 
   } catch (err) {
     //console.log(err);

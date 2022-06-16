@@ -24,10 +24,9 @@ import AboutUS from './pages/AboutUS';
 import Business from './pages/Business';
 import NotFound from './pages/NotFound';
 
-const App = (props)=> {
+const App = ()=> {
 
 const [state, setstate] = useState(false);
-const [hide, setIsHide] = useState(true);
 const dispatch = useDispatch();
 
 const mapState = ({user,contentHome,productsData})=>({
@@ -44,10 +43,10 @@ useEffect(()=>{
 dispatch(checkUserSession());
 dispatch(fetchHomeContentStart())
 dispatch(fetchProductsStart())
-if(!currentUser){
-  setstate(true)
-}
-setstate(true);
+// if(!currentUser){
+//   setstate(true)
+// }
+// setstate(true);
 },[])
 
     return (
@@ -69,13 +68,13 @@ setstate(true);
               </WithLoader>
           }/>
            <Route exact path="/login" element={ 
-           currentUser && state ? <Navigate to="/" /> :
+           currentUser ? <Navigate to="/" /> :
            ( <SecondLayout >
                   <Login/>
             </SecondLayout>)
           }/>
              <Route  path="/registration" element={
-              currentUser && state ? <Navigate to="/" /> :
+              currentUser ? <Navigate to="/" /> :
             (<SecondLayout >
                   <Registration/>
             </SecondLayout>)
